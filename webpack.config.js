@@ -3,7 +3,7 @@ import webpack from 'webpack';
 
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-eval-source-map',
   entry: [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client?reload=true',

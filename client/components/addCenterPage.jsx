@@ -28,7 +28,11 @@ export default class AddCenterPage extends React.Component {
       return (<Redirect to="/dashboard" />);
     }
     let content;
-    const { center, status, message } = this.props.center;
+    const {
+      center,
+      status,
+      message
+    } = this.props.center;
     const { pathname } = this.props.location
 
     if (status === 201) {

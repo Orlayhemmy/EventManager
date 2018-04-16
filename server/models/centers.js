@@ -21,7 +21,7 @@ export default (sequelize, DataTypes) => {
     facilities: {
       type: DataTypes.ARRAY(DataTypes.STRING),
     },
-    image_url: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },

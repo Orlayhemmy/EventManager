@@ -26,7 +26,15 @@ export default class AdminctivityController {
     }));
   }
   static setActivity(req, res) {
-    const { eventTitle, text, reason, suggestion, centerName, id, username } = req.body;
+    const {
+      eventTitle,
+      text,
+      reason,
+      suggestion,
+      centerName,
+      id,
+      username
+    } = req.body;
     let info;
     if (username) {
       info = `${username} added an event ${eventTitle}`; 

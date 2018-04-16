@@ -38,7 +38,10 @@ export default class SearchForm extends React.Component {
     }
   }
   isValid() {
-    const { errors, isValid} = searchValidation(this.state);
+    const {
+      errors,
+      isValid
+    } = searchValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -57,7 +60,13 @@ export default class SearchForm extends React.Component {
     const lesser = " <";
     const equal = " =";
     const between = "<>";
-    const { location, facilities, capacity, capacityType, errors } = this.state;
+    const {
+      location,
+      facilities,
+      capacity,
+      capacityType,
+      errors
+    } = this.state;
     return (
       <div className="row bw p-3" id="center-search">
         <p className="subtitle"><i className="fa fa-filter green"></i> filter centers by</p>

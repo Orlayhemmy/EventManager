@@ -17,13 +17,16 @@ export default class Validation {
      */
   static postEvent(req, res, next) {
     const {
-      eventTitle, bookedDate, description, centerId,
+      eventTitle,
+      bookedDate,
+      description,
+      centerId,
     } = req.body;
     const errors = {};
     if (eventTitle === undefined || bookedDate === undefined || description === undefined
         || centerId === undefined) {
       return res.status(400).send({
-        message: 'All or Some Field are Undefined',
+        message: 'All or Some Fields are Undefined',
       });
     }
     // validations for eventTitle
@@ -36,13 +39,13 @@ export default class Validation {
         errors.eventTitle = 'Event Name can only contain numbers and letters';
       }
     } else {
-      errors.eventTitle = 'event Name cannot be blank';
+      errors.eventTitle = 'Event Name cannot be blank';
     }
 
     // validations for bookedDate
     if (!validator.isEmpty(bookedDate)) {
       if (!validator.toDate(bookedDate)) {
-        errors.bookedDate = bookedDate;
+        errors.bookedDate = 'Invalid Date';
       }
     } else {
       errors.bookedDate = 'Date cannot be empty';
@@ -78,7 +81,9 @@ export default class Validation {
 
   static updateEvent(req, res, next) {
     const {
-      eventTitle, bookedDate, description,
+      eventTitle,
+      bookedDate,
+      description,
     } = req.body;
     const errors = {};
 
@@ -104,7 +109,7 @@ export default class Validation {
       if (entry[0] === 'bookedDate') {
         if (entry[1] !== null) {
           if (!validator.toDate(bookedDate)) {
-            errors.bookedDate = bookedDate;
+            errors.bookedDate = 'Invalid Date';
           }
         }
       }

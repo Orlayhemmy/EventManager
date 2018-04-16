@@ -18,7 +18,11 @@ export default class Validation {
      */
   static postCenter(req, res, next) {
     const {
-      centerName, facilities, description, location, capacity,
+      centerName,
+      facilities,
+      description,
+      location,
+      capacity,
     } = req.body;
 
     const errors = {};
@@ -98,7 +102,11 @@ export default class Validation {
 
   static updateCenter(req, res, next) {
     const {
-      centerName, facilities, description, location, capacity,
+      centerName,
+      facilities,
+      description,
+      location,
+      capacity,
     } = req.body;
     const errors = {};
     Object.entries(req.body).forEach((entry) => {

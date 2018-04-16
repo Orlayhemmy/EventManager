@@ -73,7 +73,10 @@ export function getEventSelected(id, tag) {
 }
 
 export function modifyCenterEvent(data) {
-  const { id, centerId } = data;
+  const { 
+    id,
+    centerId
+  } = data;
   return (dispatch) => {
     dispatch({ type: 'MODIFY_CENTER_EVENT' });
     axios.put(`api/v1/approveEvent/${id}`).then((res) => {
@@ -99,7 +102,10 @@ export function modifyEvent(id, data) {
 }
 
 export function deleteCenterEvent(data) {
-  const { id, centerId } = data;
+  const {
+    id,
+    centerId
+  } = data;
   return (dispatch) => {
     dispatch({ type: 'DELETE_CENTER_EVENT' });
     axios.delete(`api/v1/events/${id}`).then((res) => {

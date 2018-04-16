@@ -106,12 +106,29 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'GENERATE_CODE': {
+    case 'GET_CODE': {
       return {
         ...state,
         status: '',
+      };
+    }
+    case 'GET_CODE_SUCCESS': {
+      const { shortCode } = action.payload.data;
+      const { status } = action.payload;
+      return {
+        ...state,
+        status,
         codeMessage: '',
-        code: action.payload,
+        code: shortCode,
+      };
+    }
+    case 'GET_CODE_FAILS': {
+      const { message } = action.payload.data;
+      const { status } = action.payload;
+      return {
+        ...state,
+        status,
+        message,
       };
     }
     case 'WRONG_CODE': {

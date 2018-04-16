@@ -26,7 +26,7 @@ export default class CenterForm extends React.Component {
       facilities: '',
       capacity: '',
       errors: {},
-      image_url: '',
+      imageUrl: '',
     };
     
     this.onChange = this.onChange.bind(this);
@@ -44,14 +44,17 @@ export default class CenterForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.state.image_url = this.props.center.url;
+      this.state.imageUrl = this.props.center.url;
       this.props.dispatch(addCenter(this.state));
     } 
   }
 
   isValid() {
     if (this.props.path === '/add-center') {
-      const { errors, isValid } = addCenterValidation(this.state);
+      const {
+        errors,
+        isValid
+      } = addCenterValidation(this.state);
       if (!isValid) {
         this.setState({ errors });
       }

@@ -22,7 +22,7 @@ module.exports = {
     facilities: {
       type: Sequelize.ARRAY(Sequelize.STRING),
     },
-    image_url: {
+    imageUrl: {
       type: Sequelize.STRING,
       allowNull: true,
     },

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
-import shortid from 'shortid';
 import setAuthToken from '../utils/setAuthorizationToken';
 import { setCurrentCenter } from './centerActions';
 
@@ -85,9 +84,13 @@ export function confirmEmail(data) {
 
 export function generateCode() {
   return (dispatch) => {
-    const shortCode = shortid.generate();
-    dispatch({ type: 'GENERATE_CODE', payload: shortCode });
-  }
+    dispatch({ type: 'GET_CODE' });
+    axios.get('api/v1/shortcode').then((response) => {
+      dispatch({ type: 'GET_CODE_SUCCESS', payload: response });
+    }).catch((err) => {
+      dispatch({ type: 'GET_CODE_FAILS', payload: err.response.data })
+    });
+  };
 }
 
 export function getUser() {

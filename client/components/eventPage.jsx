@@ -50,7 +50,7 @@ export default class Event extends React.Component {
     } else {
       centerInfo = (
         <div className="form-inner">
-          <img className="img-fluid" src={center.image_url}/>
+          <img className="img-fluid" src={center.imageUrl}/>
           <div className="media-body">
             <h2 className="media-heading">
               <span>{center.centerName}</span>

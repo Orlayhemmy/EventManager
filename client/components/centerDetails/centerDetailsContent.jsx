@@ -21,7 +21,15 @@ import UploadImage from '../imageUpload';
 export default class CenterDetailsContent extends React.Component {
   constructor(props) {
     super(props);
-    const { centerName, location, description, capacity, image_url, facilities, id } = props.center.center;
+    const {
+      centerName,
+      location,
+      description,
+      capacity,
+      imageUrl,
+      facilities, 
+      id } = props.center.center;
+
     this.state = {
       centerName: centerName || '',
       location: location || '',
@@ -30,7 +38,7 @@ export default class CenterDetailsContent extends React.Component {
       capacity: capacity || '',
       errors: '',
       event: '',
-      image_url: image_url || '',
+      imageUrl: imageUrl || '',
       id: id || '',
     }
     this.initialState = this.state;
@@ -57,13 +65,21 @@ export default class CenterDetailsContent extends React.Component {
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.center.center !== this.props.center.center) {
-      const { centerName, location, facilities, description, capacity, image_url, id } = nextProps.center.center;
+      const {
+        centerName,
+        location,
+        facilities,
+        description,
+        capacity,
+        imageUrl,
+        id
+      } = nextProps.center.center;
       this.setState({
         centerName: centerName || '',
         location: location || '',
         facilities: facilities.join() || '',
         description: description || '',
-        image_url: image_url || '',
+        imageUrl: imageUrl || '',
         capacity: capacity || '',
         id: id || '',
       })
@@ -83,7 +99,11 @@ export default class CenterDetailsContent extends React.Component {
   }
 
   onAttend(e) {
-    const { id, eventTitle, userId } = this.props.event.event;
+    const {
+      id,
+      eventTitle,
+      userId
+    } = this.props.event.event;
     const centerId = this.props.center.center.id;
     if (e.target.id === "approve") {
       const data = {
@@ -125,7 +145,15 @@ export default class CenterDetailsContent extends React.Component {
 
   render() {
     const { center } = this.props.center;
-    const { centerName, location, facilities, description, image_url, capacity, errors } = this.state;
+    const {
+      centerName,
+      location,
+      facilities,
+      description,
+      imageUrl,
+      capacity,
+      errors
+    } = this.state;
     const { path } = this.props;
     const { event } = this.props.event;
     const events = _.map(this.props.events, (event) => {
@@ -159,7 +187,7 @@ export default class CenterDetailsContent extends React.Component {
             <div className="col-lg-6 card bb text-center pt-4 pb-4">
               <div id="centerDetails">          
                 <div className="imageUpload">
-                  <img className="img-fluid dropzone" src={image_url}/>
+                  <img className="img-fluid dropzone" src={imageUrl}/>
                 </div>
                 <div className="media-body text-center mb-4 mt-4">
                   <strong className="logo text-primary mb-2">{centerName}</strong>
@@ -175,7 +203,7 @@ export default class CenterDetailsContent extends React.Component {
                 ... <i data-toggle-id="editCenterDetails" className="fa fa-pencil main-color" onClick={this.showHiddenDiv}> edit</i>	
               </div>
               <div id="editCenterDetails" hidden>
-                <UploadImage path={this.props.path} uploadedImage={image_url}/>
+                <UploadImage path={this.props.path} uploadedImage={imageUrl}/>
                 <div className="media-body text-center mb-4">
                   <form id="edit-center-form">
                     <div>

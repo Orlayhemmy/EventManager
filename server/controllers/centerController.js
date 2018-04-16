@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
+import searchCriteria, { searchFacilities, searchLocation, searchCapacity } from '../helper/centerSearchCriteria';
 
 const { Centers, Events } = models;
 
@@ -14,62 +15,21 @@ class CenterController {
    * @memberof CenterController
    */
   static getAllCenters(req, res) {
+
     const {
-      location, facilities, capacity, capacityType, btwValue, 
+      location,
+      facilities,
+      capacity,
+      capacityType,
+      btwValue,
     } = req.query;
-    let locationSearch;
-    let facilitySearch;
-    let capacitySearch;
-    const place = location;
-    if (location) {
-      locationSearch = {
-        $ilike: `%${place}%`,
-      };
-    } else {
-      locationSearch = {
-        $ne: null,
-      };
-    }
-    if (facilities) {
-      const facility = facilities.toLowerCase();
-      facilitySearch = {
-        $contains: [facility],
-      };
-    } else {
-      facilitySearch = {
-        $ne: null,
-      };
-    }
-    if (capacity) {
-      if (capacityType === 'greater') {
-        capacitySearch = {
-          $gt: capacity,
-        };
-      } else if (capacityType === 'lesser') {
-        capacitySearch = {
-          $lt: capacity,
-        };
-      } else if (capacityType === 'equal') {
-        capacitySearch = {
-          $eq: capacity,
-        };
-      } else if (capacityType === 'between') {
-        capacitySearch = {
-          $between: [capacity, btwValue],
-        };
-      }
-    } else {
-      capacitySearch = {
-        $ne: null,
-      };
-    }
 
     // get centers
     Centers.findAll({
       where: {
-        location: locationSearch,
-        facilities: facilitySearch,
-        capacity: capacitySearch,
+        location: searchLocation(location),
+        capacity: searchCapacity(capacityType, btwValue, capacity),
+        facilities: searchFacilities(facilities),
       },
     }).then((centers) => {
       // if centers are available
@@ -77,6 +37,7 @@ class CenterController {
         // show centers
         return res.status(200).send({
           centers,
+          message: 'Centers found',
         });
       }
       // No center found
@@ -119,6 +80,7 @@ class CenterController {
           return res.status(200).send({
             token,
             center,
+            message: 'Center found',
           });
         }
         return res.status(400).send({
@@ -140,14 +102,19 @@ class CenterController {
    */
   static postCenter(req, res) {
     const {
-      centerName, location, description, facilities, capacity, image_url,
+      centerName,
+      location,
+      description,
+      facilities,
+      capacity,
+      imageUrl,
     } = req.body;
     const { id } = req.decoded;
 
     Centers.findOne({ where: { centerName } })
       .then((foundCenter) => {
         if (foundCenter) {
-          return res.status(400).send({
+          return res.status(409).send({
             message: `${centerName} already exist`,
           });
         }
@@ -160,7 +127,7 @@ class CenterController {
           description,
           facilities: facilityArray,
           capacity,
-          image_url,
+          imageUrl,
           userId: id,
         }).then(center => res.status(201).send({
           center,
@@ -183,8 +150,14 @@ class CenterController {
      */
   static updateCenter(req, res) {
     const {
-      centerName, location, description, facilities, capacity, image_url,
+      centerName,
+      location,
+      description,
+      facilities,
+      capacity,
+      imageUrl,
     } = req.body;
+
     const { id } = req.params;
     return Centers.findById(id).then((center) => {
       if (center) {
@@ -199,7 +172,7 @@ class CenterController {
           description: description.toLowerCase() || center.description,
           facilities: facilityArray || center.facilities,
           capacity: capacity || center.capacity,
-          image_url: image_url || center.image_url,
+          imageUrl: imageUrl || center.imageUrl,
         }).then(() => res.status(200).send({
           message: 'Successfully updated center',
         })).catch(error => res.status(500).send({

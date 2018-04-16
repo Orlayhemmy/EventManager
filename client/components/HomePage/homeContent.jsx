@@ -29,7 +29,10 @@ export default class HomeContent extends React.Component {
  
 
   render() {
-    const { isAuth, status } = this.props.auth;
+    const {
+      isAuth,
+      status
+    } = this.props.auth;
 
     // if (status === 200) {
     //   return (<Redirect to="/dashboard" />);

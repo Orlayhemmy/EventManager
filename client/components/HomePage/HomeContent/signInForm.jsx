@@ -15,8 +15,8 @@ export default class SignInForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      login_email: '',
-      login_password: '',
+      loginEmail: '',
+      loginPassword: '',
       errors: {},
       isLoading: false,
     }
@@ -27,7 +27,10 @@ export default class SignInForm extends React.Component {
   }
 
   isValid() {
-    const { errors, isValid } = validateSigninInput(this.state);
+    const {
+      errors,
+      isValid
+    } = validateSigninInput(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -49,7 +52,11 @@ export default class SignInForm extends React.Component {
 
   render() {
 
-    const { login_email, login_password, errors } = this.state;
+    const {
+      loginEmail,
+      loginPassword,
+      errors
+    } = this.state;
     return (
       <div>  
         <div className="logo text-uppercase"><strong className="text-primary">Sign In</strong></div>
@@ -57,19 +64,19 @@ export default class SignInForm extends React.Component {
         <span className="help-block">{this.props.auth.message}</span>
         <form id="login-form" onSubmit={this.onSubmit}>
           <TextField
-              id='login_email'
-              value={login_email}
+              id='loginEmail'
+              value={loginEmail}
               placeholder='Email Address'
               type='email'
-              error={errors.login_email}
+              error={errors.loginEmail}
               onChange={this.onChange} />
               
             <TextField
-              id='login_password'
-              value={login_password}
+              id='loginPassword'
+              value={loginPassword}
               placeholder='Password'
               type='password'
-              error={errors.login_password} 
+              error={errors.loginPassword} 
               onChange={this.onChange} />
 
           <input id="login" type="submit" value="login" className="btn btn-primary" disabled={this.state.isLoading}/>
