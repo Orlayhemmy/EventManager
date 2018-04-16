@@ -5,6 +5,8 @@ import app from '../app';
 
 const request = supertest(app);
 
+let token;
+let invalidToken;
 const { Users } = model;
 
 const doBeforeAll = () => {
@@ -19,7 +21,7 @@ const doBeforeAll = () => {
 };
 
 describe('tests for user', () => {
-  doBeforeAll();
+  // doBeforeAll();
   describe('tests for Signup processes', () => {
     describe('test for valid signup', () => {
       it('should create a new user', (done) => {
@@ -85,7 +87,7 @@ describe('tests for user', () => {
             email: 'admin@test.com',
             password: '1234567890',
           })
-          .expect(400)
+          .expect(409)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
@@ -166,7 +168,7 @@ describe('tests for user', () => {
     });
 
     describe('test for valid signin', () => {
-      it.only('should return a success message', (done) => {
+      it('should return a success message', (done) => {
         request.post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
@@ -178,6 +180,43 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
             expect(res.body.message).equal('You are now logged In');
+            token = res.body.token;
+            if (err) throw err;
+            done();
+          });
+      });
+    });
+
+    describe('test for undefined or invalid token', () => {
+      it('should return error when token is undefined', (done) => {
+        request.post('/api/v1/centers')
+          .send({
+            centerName: 'Five Points',
+            description: 'A world class event center',
+          })
+          .expect(403)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body).deep.equal({ message: 'Access denied. You are not logged in' });
+            if (err) throw err;
+            done();
+          });
+      });
+    
+      it('should return error when token is invalid', (done) => {
+        invalidToken = token.slice(10);
+        request.post('/api/v1/centers')
+          .set('x-access-token', invalidToken)
+          .send({
+            centerName: 'Five Points',
+            description: 'A world class event center',
+          })
+          .expect(498)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body).deep.equal({ message: 'Token is Invalid or Expired' });
             if (err) throw err;
             done();
           });

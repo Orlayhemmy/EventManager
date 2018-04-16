@@ -32,7 +32,7 @@ export default class UserController {
       let error;
       if (foundUser) {
         error = foundUser.email;
-        return res.status(400).send({
+        return res.status(409).send({
           message: `${error} already exist`,
         });
       }

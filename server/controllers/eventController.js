@@ -135,14 +135,16 @@ class EventController {
       eventTitle, centerId, description, bookedDate,
     } = req.body;
     const { id } = req.decoded;
+
     // query db
-    return Events.findOne({
+    Events.findOne({
       where: {
-        centerId, bookedDate,
+        centerId,
+        bookedDate,
       },
     }).then((event) => {
       if (event) {
-        return res.status(400).send({
+        return res.status(409).send({
           message: 'The date chosen is booked, Please select another day or center',
         });
       }
@@ -175,13 +177,15 @@ class EventController {
       centerId,
       isApproved,
     } = req.body;
+    console.log(req.body);
     const { id } = req.params;
     // find the requested event
     Events.findById(id).then((event) => {
       if (event) {
         Events.findOne({
           where: {
-            bookedDate, centerId,
+            bookedDate,
+            centerId,
           },
         }).then((events) => {
           if (events) {
@@ -203,15 +207,11 @@ class EventController {
             });
           }
 
-          Events.update({
+          event.update({
             eventTitle: eventTitle || Events.eventTitle,
             bookedDate: bookedDate || Events.bookedDate,
             description: description || Events.description,
             centerId: centerId || Events.centerId,
-          }, {
-            where: {
-              id,
-            },
           }).then(() => res.status(200).send({
             message: 'Changes Applied',
             event,

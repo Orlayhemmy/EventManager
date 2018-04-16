@@ -8,7 +8,8 @@ export function generateToken(data) {
     fullname: data.fullname,
     email: data.email,
     isAdmin: data.isAdmin,
-    image: data.imageUrl,
+    imageUrl: data.imageUrl,
+    id: data.id,
   };
   const token = jwt.sign(payload, process.env.SECRET, {
     expiresIn: 60 * 60 * 12,

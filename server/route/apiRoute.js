@@ -11,6 +11,7 @@ import userValidate from '../middleware/userValidate';
 import centerValidate from '../middleware/centerValidate';
 import eventValidate from '../middleware/eventValidate';
 import sendMail from '../helper/sendMail';
+import shortCode from '../helper/generateCode';
 
 const router = express.Router();
 // Routes

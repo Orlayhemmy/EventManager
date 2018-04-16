@@ -114,7 +114,7 @@ class CenterController {
     Centers.findOne({ where: { centerName } })
       .then((foundCenter) => {
         if (foundCenter) {
-          return res.status(400).send({
+          return res.status(409).send({
             message: `${centerName} already exist`,
           });
         }
