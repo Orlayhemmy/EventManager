@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- server/app.js",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
+    "test": "NODE_ENV=test npm-run-all --parallel seed test:run",
+    "test:run": "nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
     "coverage": "nyc report --reporter=text-icov | coveralls",
     "unmigrate": "sequelize db:migrate:undo:all",
     "migrate": "sequelize db:migrate",
-    "seed": "NODE_ENV=test sequelize db:seed:all",
+    "seed": "sequelize db:seed:all",
     "unseed": "sequlize db:seed:undo:all",
     "build": "webpack -d && webpack-dev-server --content-base client/ --inline --hot --port 3000 --history-api-fallback --silent"
   },
@@ -30,6 +31,7 @@
     "loader-utils": "^1.1.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.12.1",
+    "npm-run-all": "^4.1.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1"
   },

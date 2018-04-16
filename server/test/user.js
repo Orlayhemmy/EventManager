@@ -1,27 +1,14 @@
 import supertest from 'supertest';
 import { expect } from 'chai';
-import model from '../models';
 import app from '../app';
 
 const request = supertest(app);
 
-let token;
+let userToken;
 let invalidToken;
-const { Users } = model;
 
-const doBeforeAll = () => {
-  before((done) => {
-    Users.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    done();
-  });
-};
 
 describe('tests for user', () => {
-  // doBeforeAll();
   describe('tests for Signup processes', () => {
     describe('test for valid signup', () => {
       it('should create a new user', (done) => {
@@ -180,7 +167,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
             expect(res.body.message).equal('You are now logged In');
-            token = res.body.token;
+            userToken = res.body.token;
             if (err) throw err;
             done();
           });
@@ -203,9 +190,9 @@ describe('tests for user', () => {
             done();
           });
       });
-    
+
       it('should return error when token is invalid', (done) => {
-        invalidToken = token.slice(10);
+        invalidToken = userToken.slice(10);
         request.post('/api/v1/centers')
           .set('x-access-token', invalidToken)
           .send({

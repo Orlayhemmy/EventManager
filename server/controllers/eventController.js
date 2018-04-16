@@ -283,6 +283,7 @@ class EventController {
     }).then((event) => {
       const eventBookedCount = event.count;
       res.status(200).send({
+        message: 'Events found',
         eventBookedCount,
       });
     }).catch(err => res.status(500).send({

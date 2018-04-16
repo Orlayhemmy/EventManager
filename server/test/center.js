@@ -1,27 +1,12 @@
 import supertest from 'supertest';
 import { expect } from 'chai';
-import model from '../models';
 import app from '../app';
 
-let token;
+let userToken;
 const request = supertest(app);
 
-const { Centers } = model;
-
-const doBeforeAll = () => {
-  before((done) => {
-    Centers.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    done();
-  });
-};
 
 describe('tests for post, update, delete and get center processes ', () => {
-  doBeforeAll();
-
   describe('test for valid signin', () => {
     it('should return a success message', (done) => {
       request.post('/api/v1/users/login')
@@ -35,7 +20,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('You are now logged In');
-          token = res.body.token;
+          userToken = res.body.token;
           if (err) throw err;
           done();
         });
@@ -62,10 +47,10 @@ describe('tests for post, update, delete and get center processes ', () => {
 
 
     it('should return error message when all or some fields are undefined', (done) => {
+      console.log(userToken)
       request.post('/api/v1/centers')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
-          // No facility and location field
           centerName: 'Five Points',
           description: 'A world class event center',
         })
@@ -81,7 +66,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return success message when center is created', (done) => {
       request.post('/api/v1/centers')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           centerName: 'Five Points',
           description: 'A world class event center',
@@ -103,7 +88,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return error message when center already exist', (done) => {
       request.post('/api/v1/centers')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           centerName: 'Five Points',
           description: 'A world class event center',
@@ -124,7 +109,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return error message when all or some fields are empty', (done) => {
       request.post('/api/v1/centers')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
         // Empty facility and location field
           centerName: 'Five Points',
@@ -147,7 +132,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return error message invalid input characters are entered', (done) => {
       request.post('/api/v1/centers')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           // Invalid characters
           centerName: 'Five Points #1',
@@ -170,7 +155,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return error when center is not found', (done) => {
       request.put('/api/v1/centers/0')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           centerName: 'Five Points',
           description: 'A world class event center',
@@ -190,7 +175,7 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return error when center is not found', (done) => {
       request.delete('/api/v1/centers/0')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .expect(400)
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
@@ -202,14 +187,14 @@ describe('tests for post, update, delete and get center processes ', () => {
 
     it('should return success when center updates', (done) => {
       request.put('/api/v1/centers/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           centerName: 'Five Points',
           description: 'A world class event center',
           facilities: 'Stage light',
           location: 'Ikeja',
           capacity: '500',
-          imageUrl: 'https://wwww.image.com/centerImage',
+          imageUrl: 'https://wwww.image.com/centerImage'
         })
         .expect(200)
         .end((err, res) => {
@@ -220,16 +205,16 @@ describe('tests for post, update, delete and get center processes ', () => {
         });
     });
 
-    // it('should return status 200', (done) => {
-    //   request.delete('/api/v1/centers/1')
-    //     .set('x-access-token', token)
-    //     .expect(200)
-    //     .end((err, res) => {
-    //       expect(res.body).to.not.equal(null);
-    //       expect(res.body).deep.equal({ message: 'Center Deleted' });
-    //       if (err) throw err;
-    //       done();
-    //     });
-    // });
+    it('should return status 200', (done) => {
+      request.delete('/api/v1/centers/2')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body).deep.equal({ message: 'Center Deleted' });
+          if (err) throw err;
+          done();
+        });
+    });
   });
 });

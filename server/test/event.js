@@ -3,26 +3,33 @@ import { expect } from 'chai';
 import models from '../models';
 import app from '../app';
 
-let token;
+let userToken;
 const request = supertest(app);
 
-const { Events } = models;
+const { Events, Users, Centers } = models;
 
-const doBeforeAll = () => {
-  before((done) => {
+const doAfterTest = () => {
+  after((done) => {
+    Users.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true,
+    });
+    Centers.destroy({
+      cascade: true,
+      truncate: true,
+      restartIdentity: true,
+    });
     Events.destroy({
       cascade: true,
       truncate: true,
-      restartIdentity: true
+      restartIdentity: true,
     });
     done();
   });
 };
 
 describe('test for post, update, get and delete event processes', () => {
-
-  doBeforeAll();
-
   describe('test for valid signin', () => {
     it('should return a success message', (done) => {
       request.post('/api/v1/users/login')
@@ -36,7 +43,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('You are now logged In');
-          token = res.body.token;
+          userToken = res.body.token;
           if (err) throw err;
           done();
         });
@@ -46,7 +53,7 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for undefined, empty and invalid inputs on event creation', () => {
     it('should return an error when some fields are undefined', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'birthday party',
           centerId: '1',
@@ -61,7 +68,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when eventTitle is empty', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: '',
           centerId: '1',
@@ -78,7 +85,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when eventTitle has less than 5 characters', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun',
           centerId: '1',
@@ -95,7 +102,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when eventTitle contains unacceptable characters', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun$%dfg',
           centerId: '1',
@@ -112,7 +119,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when description is empty', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: '1',
@@ -129,7 +136,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when description has less than 5 characters', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Funny Day',
           centerId: '1',
@@ -146,7 +153,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when description contains unacceptable characters', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun Day',
           centerId: '1',
@@ -163,7 +170,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when bookedDate is empty', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: '1',
@@ -180,7 +187,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when bookedDate is invalid', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: '1',
@@ -197,7 +204,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when center is empty', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: '',
@@ -214,7 +221,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when centerId is invalid', () => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: 'a',
@@ -233,7 +240,7 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for successful event creation', () => {
     it('should return success when event is created', (done) => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Funny Day',
           centerId: '1',
@@ -254,7 +261,7 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for unsuccessful event creation', () => {
     it('should return error when event date is already booked', (done) => {
       request.post('/api/v1/events')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Seminar',
           centerId: '1',
@@ -276,7 +283,7 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for invalid inputs on event modification', () => {
     it('should return an error when eventTitle has less than 5 characters', () => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun',
           centerId: '1',
@@ -293,7 +300,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when eventTitle contains unacceptable characters', () => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun$%dfg',
           centerId: '1',
@@ -310,7 +317,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when description has less than 5 characters', () => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Funny Day',
           centerId: '1',
@@ -327,7 +334,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when description contains unacceptable characters', () => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Fun Day',
           centerId: '1',
@@ -344,7 +351,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return an error when bookedDate is invalid', () => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday Party',
           centerId: '1',
@@ -363,7 +370,7 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for result on event modification', () => {
     it('should return error when event is not found', (done) => {
       request.put('/api/v1/events/2')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Birthday',
           centerId: '1',
@@ -382,7 +389,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return success when changes is applied successfully', (done) => {
       request.put('/api/v1/events/1')
-        .set('x-access-token', token)
+        .set('x-access-token', userToken)
         .send({
           eventTitle: 'Funny Day',
           centerId: '1',
@@ -399,4 +406,34 @@ describe('test for post, update, get and delete event processes', () => {
         });
     });
   });
+
+  describe('test for delete actions', () => {
+    it('should return status 403 when event to be deleted is not booked by the user or the user is not an admin', (done) => {
+      request.delete('/api/v1/events/1')
+        .set('x-access-token', userToken)
+        .expect(403)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('You cannot delete an event not booked by you');
+          if (err) throw err;
+          done();
+        });
+    });
+
+
+    it('should return status 200 when event has been deleted', (done) => {
+      request.delete('/api/v1/events/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Event Deleted');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+  doAfterTest();
 });
