@@ -48,7 +48,7 @@ export function centerSelected(center) {
 export function getCenterSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: 'GET_CENTER' });
-    axios.get(`api/v1/centers/${id}`).then((response) => {
+    return axios.get(`api/v1/centers/${id}`).then((response) => {
       dispatch({ type: 'GET_CENTER_SUCCESS', payload: response });
       if (!tag) {
         const { token } = response.data;
@@ -64,7 +64,7 @@ export function getCenterSelected(id, tag) {
 export function addCenter(data) {
   return (dispatch) => {
     dispatch({ type: 'ADD_CENTER' });
-    axios.post('api/v1/centers', data).then((response) => {
+    return axios.post('api/v1/centers', data).then((response) => {
       dispatch({ type: 'ADD_CENTER_SUCCESS', payload: response });
       const { center } = response.data;
       dispatch(setAdminActivity(center));
@@ -77,7 +77,7 @@ export function addCenter(data) {
 export function modifyCenter(data, centerId) {
   return (dispatch) => {
     dispatch({ type: 'MODIFY_CENTER' });
-    axios.put(`api/v1/centers/${centerId}`, data).then((res) => {
+    return axios.put(`api/v1/centers/${centerId}`, data).then((res) => {
       dispatch({ type: 'MODIFY_CENTER_SUCCESS', payload: res });
       dispatch(getCenterSelected(centerId));
     }).catch((err) => {
@@ -90,7 +90,7 @@ export function uploadImage(data) {
   return (dispatch) => {
     dispatch({ type: 'ADD_IMAGE' });
     delete axios.defaults.headers.common['x-access-token'];
-    axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
+    return axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
       .then((response) => {
         dispatch({ type: 'ADD_IMAGE_SUCCESS', payload: response.data.secure_url });
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
@@ -104,7 +104,7 @@ export function uploadImage(data) {
 export function deleteCenter(id) {
   return (dispatch) => {
     dispatch({ type: 'DELETE_CENTER' });
-    axios.delete(`api/v1/centers/${id}`).then((response) => {
+    return axios.delete(`api/v1/centers/${id}`).then((response) => {
       dispatch({ type: 'DELETE_CENTER_SUCCESS', payload: response });
       dispatch(getCenters());
     }).catch((err) => {
@@ -116,7 +116,7 @@ export function deleteCenter(id) {
 export function centerStatus(id) {
   return (dispatch) => {
     dispatch({ type: 'CENTER_STATUS_UPDATE' });
-    axios.put(`api/v1/centerStatus/${id}`).then((response) => {
+    return axios.put(`api/v1/centerStatus/${id}`).then((response) => {
       dispatch({ type: 'CENTER_STATUS_UPDATE_SUCCESS', payload: response });
     }).catch((err) => {
       dispatch({ type: 'CENTER_STATUS_UPDATE_FAILS', payload: err.response.data });

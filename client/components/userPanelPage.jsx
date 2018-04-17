@@ -8,7 +8,6 @@ import { getEvents, eventSelected, getEventSelected } from '../actions/eventActi
 import EventForm from '../components/eventPage/editEventForm';
 import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
-import FlashMessageList from './flash/flashMessagesList';
 import DeleteModal from './deleteModal';
 import { centerSelected, getCenterSelected } from '../actions/centerActions';
 import Modal from './flash/modal';
