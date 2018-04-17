@@ -13,7 +13,11 @@ onClick() {
 }
 
   render() {
-    const { id, type, text } = this.props.message;
+    const {
+      id,
+      type,
+      text
+    } = this.props.message;
     return (
       <div className={classnames('alert', {
         'alert-success': type === 'Success',

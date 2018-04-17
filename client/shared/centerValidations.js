@@ -4,7 +4,11 @@ import isEmpty from 'lodash/isEmpty';
 export function modifyCenterValidation(data) {
 
   const {
-    centerName, facilities, description, location, capacity,
+    centerName,
+    facilities,
+    description,
+    location,
+    capacity,
   } = data;
   const errors = {};
 
@@ -61,7 +65,11 @@ export function modifyCenterValidation(data) {
 export function addCenterValidation(data) {
 
   const {
-    centerName, facilities, description, location, capacity,
+    centerName,
+    facilities,
+    description,
+    location,
+    capacity,
   } = data;
 
   const errors = {};
@@ -131,7 +139,10 @@ export function addCenterValidation(data) {
 
 export function searchValidation(data) {
   const {
-    facilities, location, capacity, btwValue,
+    facilities,
+    location,
+    capacity,
+    btwValue,
   } = data;
   const errors = {};
   Object.entries(data).forEach((entry) => {

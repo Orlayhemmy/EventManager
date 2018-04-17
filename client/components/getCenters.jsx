@@ -70,7 +70,7 @@ export default class DisplayCenters extends React.Component {
         return (
           <div className="row bw" key={index}>
             <div className="col-lg-4 col-md-12 col-sm-12 text-center">
-              <img className="img-fluid" src={center.image_url}/>
+              <img className="img-fluid" src={center.imageUrl}/>
             </div>
             <div className="col-8 col-md-8 col-sm-12 pl-4">
   
@@ -111,7 +111,7 @@ export default class DisplayCenters extends React.Component {
         <div className="row" id={center.id} key={center.id}>
           <div className="col-lg-4 col-md-12 col-sm-12 text-center">
 
-              <img className="img" src={center.image_url}/>
+              <img className="img" src={center.imageUrl}/>
 
           </div>
           <div className="col-8 col-md-8 pl-4">

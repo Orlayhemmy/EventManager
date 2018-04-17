@@ -5,7 +5,10 @@ export function validateSignupInput(data) {
   const errors = {};
 
   const {
-    fullname, email, password, retypePass,
+    fullname,
+    email,
+    password,
+    retypePass,
   } = data;
 
   if (!validator.isEmpty(fullname)) {
@@ -41,20 +44,23 @@ export function validateSignupInput(data) {
 }
 
 export function validateSigninInput(data) {
-  const { login_email, login_password } = data;
+  const {
+    loginEmail,
+    loginPassword
+  } = data;
 
   const errors = {};
 
-  if (validator.isEmpty(login_email)) {
-    errors.login_email = 'email is required';
+  if (validator.isEmpty(loginEmail)) {
+    errors.loginEmail = 'email is required';
   }
 
-  if (!validator.isEmail(login_email)) {
-    errors.login_email = 'Type a valid email';
+  if (!validator.isEmail(loginEmail)) {
+    errors.loginEmail = 'Type a valid email';
   }
 
-  if (validator.isEmpty(login_password)) {
-    errors.login_password = 'password is required';
+  if (validator.isEmpty(loginPassword)) {
+    errors.loginPassword = 'password is required';
   }
 
   return { errors, isValid: isEmpty(errors) };

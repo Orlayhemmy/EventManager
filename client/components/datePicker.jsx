@@ -30,7 +30,6 @@ export default class DatePicker extends React.Component {
 
   render() {
     let date = new Date();
-    console.log(date);
     return (
       <div class="form-group">
       <label for="name">Date</label>    

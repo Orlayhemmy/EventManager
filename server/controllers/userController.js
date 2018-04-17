@@ -1,14 +1,10 @@
-const nodemailer = require('nodemailer');
-
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import env from 'dotenv';
 import models from '../models';
-import { error } from 'util';
+import passwordHash from '../helper/passwordHash';
+import { generateToken } from '../helper/generateToken';
 
 const { Users } = models;
 
-env.config();
 /**
  * @class UserController
  */
@@ -23,7 +19,9 @@ export default class UserController {
      */
   static signup(req, res) {
     const {
-      fullname, email, password,
+      fullname,
+      email,
+      password,
     } = req.body;
 
     Users.findOne({
@@ -33,44 +31,28 @@ export default class UserController {
     }).then((foundUser) => {
       let error;
       if (foundUser) {
-        if (foundUser.email === email) {
-          error = email;
-        }
-        return res.status(400).send({
+        error = foundUser.email;
+        return res.status(409).send({
           message: `${error} already exist`,
         });
       }
-      const saltRounds = 10;
-      bcrypt.genSalt(saltRounds, (err, salt) => {
-        bcrypt.hash(password, salt, (err, hash) => {
-          const fname = fullname.toLowerCase();
-          const mail = email.toLowerCase();
-          Users.create({
-            fullname: fname,
-            email: mail,
-            password: hash,
-          }).then((users) => {
-            const payload = { email: users.email, isAdmin: users.isAdmin, id: users.id , fullname, createdAt: users.createdAt,
-              imageUrl: users.imageUrl };
-            const token = jwt.sign(payload, process.env.SECRET, {
-              expiresIn: 60 * 60 * 12,
-            });
-            req.body.token = token;
-            return res.status(201).send({
-              message: 'You are now Signed Up',
-              data: {
-                email: users.email,
-                isAdmin: users.isAdmin,
-                id: users.id,
-                password,
-              },
-              token,
-            });
-          }).catch(error => res.status(500).send({
-            message: error.message,
-          }));
+      const userPassword = passwordHash(password);
+      const fname = fullname.toLowerCase();
+      const mail = email.toLowerCase();
+      Users.create({
+        fullname: fname,
+        email: mail,
+        password: userPassword,
+      }).then((user) => {
+        const token = generateToken(user);
+        req.body.token = token;
+        return res.status(201).send({
+          message: 'You are now Signed Up',
+          token,
         });
-      });
+      }).catch(error => res.status(500).send({
+        message: error.message,
+      }));
     }).catch(error => res.status(500).send({
       message: error.message,
     }));
@@ -84,29 +66,23 @@ export default class UserController {
      * @memberof UserController
      */
   static signin(req, res) {
-    const { login_email, login_password } = req.body;
-    const userEmail = login_email.toLowerCase();
+    const {
+      loginEmail,
+      loginPassword,
+    } = req.body;
+    const userEmail = loginEmail.toLowerCase();
     Users.findOne({
       where: {
         email: userEmail,
       },
     }).then((user) => {
       if (user) {
-        const check = bcrypt.compareSync(login_password, user.password);
+        const check = bcrypt.compareSync(loginPassword, user.password);
         if (check) {
-          const payload = {
-            fullname: user.fullname, email: user.email, isAdmin: user.isAdmin, id: user.id, createdAt: user.createdAt,
-            imageUrl: user.imageUrl,
-          };
-          const token = jwt.sign(payload, process.env.SECRET, {
-            expiresIn: 60 * 60 * 12,
-          });
+          const token = generateToken(user);
           req.body.token = token;
           return res.status(200).send({
             message: 'You are now logged In',
-            data: {
-              user,
-            },
             token,
           });
         }
@@ -149,10 +125,12 @@ export default class UserController {
     }).catch(error => res.status(500).send({
       message: error.message,
     }));
-
   }
   static PasswordCheck(req, res) {
-    const { id, oldPassword } = req.body;
+    const {
+      id,
+      oldPassword,
+    } = req.body;
     Users.findOne({
       where: {
         id,
@@ -176,7 +154,10 @@ export default class UserController {
 
   static updateUser(req, res) {
     const {
-      email, newPassword, fullname, imageUrl
+      email,
+      newPassword,
+      fullname,
+      imageUrl,
     } = req.body;
 
     Users.findOne({
@@ -185,30 +166,22 @@ export default class UserController {
       },
     }).then((user) => {
       if (user) {
-        const saltRounds = 10;
-        bcrypt.genSalt(saltRounds, (err, salt) => {
-          bcrypt.hash(newPassword, salt, (err, hash) => user.update({
-            fullname: fullname || user.fullname,
-            password: hash || user.password,
-            email: email || user.email,
-            imageUrl: imageUrl || user.imageUrl,
-          }).then((updatedUser) => {
-            const payload = {
-              fullname: updatedUser.fullname, email: updatedUser.email, isAdmin: updatedUser.isAdmin, id: updatedUser.id, imageUrl: updatedUser.imageUrl,
-              createdAt: updatedUser.createdAt,
-            };
-            const token = jwt.sign(payload, process.env.SECRET, {
-              expiresIn: 60 * 60 * 12,
-            });
-            req.body.token = token;
-            return res.status(200).send({
-              token,
-              message: 'Changes Applied Successfully',
-            });
-          }).catch(err => res.status(500).send({
-            message: err.message,
-          })));
-        });
+        const hash = passwordHash(newPassword);
+        user.update({
+          fullname: fullname || user.fullname,
+          password: hash || user.password,
+          email: email || user.email,
+          imageUrl: imageUrl || user.imageUrl,
+        }).then((updatedUser) => {
+          const token = generateToken(updatedUser);
+          req.body.token = token;
+          return res.status(200).send({
+            token,
+            message: 'Changes Applied Successfully',
+          });
+        }).catch(err => res.status(500).send({
+          message: err.message,
+        }));
       } else {
         return res.status(400).send({
           message: 'User not found',
@@ -217,35 +190,6 @@ export default class UserController {
     }).catch(err => res.status(500).send({
       message: err.message,
     }));
-  }
-
-
-  static sendMail(req, res) {
-    const { email, message, title } = req.body;
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'daminomics@gmail.com',
-        pass: 'profyem001',
-      },
-    });
-
-    const mailOptions = {
-      from: 'daminomics@gmail.com',
-      to: email,
-      subject: title,
-
-      html: message,
-    };
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error, info);
-      }
-      console.log(`Message sent: ${info}`);
-      return res.status(201).send({
-        message: 'Mail sent',
-      });
-    });
   }
 
   static getUserEmail(req, res) {
@@ -274,13 +218,7 @@ export default class UserController {
       },
     }).then((user) => {
       if (user) {
-        const payload = {
-          fullname: user.fullname, email: user.email, isAdmin: user.isAdmin, id: user.id, createdAt: user.createdAt,
-          imageUrl: user.imageUrl,
-        };
-        const token = jwt.sign(payload, process.env.SECRET, {
-          expiresIn: 60 * 60 * 12,
-        });
+        const token = generateToken(user);
         req.body.token = token;
         return res.status(200).send({
           token,
@@ -296,8 +234,7 @@ export default class UserController {
 
   static getDateJoined(req, res) {
     Users.findById(req.params.id).then((user) => {
-      joinedDate = user.createdAt.slice(0, 10);
-      console.log(joinedDate);
+      const joinedDate = user.createdAt.slice(0, 10);
       return res.status(200).send({
         joinedDate,
       });

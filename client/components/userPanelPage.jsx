@@ -102,7 +102,7 @@ export default class Dashboard extends React.Component {
             <div key={eventId} className="text-center">
               <div className="card p-1 bb mb-3">
                 <div id={event.centerId}>
-                  <img className="img" src={event.Center.image_url}/>
+                  <img className="img" src={event.Center.imageUrl}/>
                   <h2>
                     <span className="media-heading" id={event.centerId}>
                       <Link to="/modify-event" id={event.id} onClick={this.onClick.bind(this)}>{event.eventTitle}</Link> 

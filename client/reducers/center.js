@@ -22,8 +22,8 @@ export default (state = initialState, action) => {
       };
     }
     case 'SET_CURRENT_CENTER': {
-      const { centerName, location, capacity, description, facilities, image_url, id } = action.payload.center;
-      const center = { centerName, location, capacity, description, facilities, image_url, id }
+      const { centerName, location, capacity, description, facilities, imageUrl, id } = action.payload.center;
+      const center = { centerName, location, capacity, description, facilities, imageUrl, id }
       return {
         ...state,
         isCenter: !isEmpty(center),

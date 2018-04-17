@@ -33,13 +33,19 @@ export default class RecoveryForm extends React.Component {
   }
   isValid(id) {
     if (id === 'insertEmail') {
-      const { error, isValid } = recoverPassword(this.state);
+      const {
+        error,
+        isValid
+      } = recoverPassword(this.state);
       if (!isValid) {
         this.setState({ error });
       }
       return isValid;
     } else if (id === 'newPassword') {
-      const { error, isValid } = updateUser(this.state);
+      const {
+        error,
+        isValid
+      } = updateUser(this.state);
       if (!isValid) {
         this.setState({ error });
       }
@@ -108,7 +114,16 @@ export default class RecoveryForm extends React.Component {
   }
   render() {
     let form;
-    const { email, error, code, password, retypePass, wrongCode } = this.state;
+    
+    const {
+      email,
+      error,
+      code,
+      password,
+      retypePass,
+      wrongCode
+    } = this.state;
+
     const heading = (
       <span><strong class="text-primary">lets help you get back into your account</strong></span>
     )

@@ -3,7 +3,10 @@ import isEmpty from 'lodash/isEmpty';
 
 export function modifyEventValidation(data) {
   const {
-    eventTitle, bookedDate, description, centerId,
+    eventTitle,
+    bookedDate,
+    description,
+    centerId,
   } = data;
 
   const errors = {};
@@ -39,7 +42,10 @@ export function modifyEventValidation(data) {
 
 export function addEventValidation(data) {
   const {
-    eventTitle, bookedDate, description, centerId,
+    eventTitle,
+    bookedDate,
+    description,
+    centerId,
   } = data;
   const errors = {};
   if (eventTitle === undefined || bookedDate === undefined || description === undefined

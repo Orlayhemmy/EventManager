@@ -3,7 +3,6 @@ import React from 'react';
 export default class modalContent extends React.Component {
   content() {
     const id = this.props.id;
-    console.log(this.props.id)
     if (id === 'disapprove') {
       return (
         <div>

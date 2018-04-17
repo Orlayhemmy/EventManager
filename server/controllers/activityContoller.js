@@ -27,7 +27,10 @@ export default class ActivityController {
   }
   static setActivity(req, res) {
     const {
-      eventTitle, eventId, text, userId,
+      eventTitle,
+      eventId,
+      text,
+      userId,
     } = req.body;
     let info;
     if (text) {

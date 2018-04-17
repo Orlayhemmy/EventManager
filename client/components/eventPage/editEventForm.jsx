@@ -20,7 +20,13 @@ import { getCenterSelected } from '../../actions/centerActions';
 export default class EditEventForm extends React.Component {
   constructor(props) {
     super(props);
-    const { description, eventTitle, bookedDate, centerId, centerName } = props.event.event;
+    const {
+      description,
+      eventTitle,
+      bookedDate,
+      centerId,
+      centerName
+    } = props.event.event;
     this.state = {
       eventTitle: eventTitle || '',
       bookedDate: bookedDate || '',
@@ -65,7 +71,15 @@ export default class EditEventForm extends React.Component {
   }
    componentWillReceiveProps(nextProps) {
     if (nextProps.event.event) {
-      const { description, eventTitle, bookedDate, centerId, centerName } = nextProps.event.event;
+
+      const {
+        description,
+        eventTitle,
+        bookedDate,
+        centerId,
+        centerName
+      } = nextProps.event.event;
+
       this.setState({
         eventTitle: eventTitle || '',
         bookedDate: bookedDate || '',
@@ -86,7 +100,12 @@ export default class EditEventForm extends React.Component {
   }
 
   isValid() {
-    const { errors, isValid } = modifyEventValidation(this.state);
+
+    const {
+      errors,
+      isValid
+    } = modifyEventValidation(this.state);
+
     if (!isValid) {
       this.setState({ errors });
     }
@@ -98,7 +117,16 @@ export default class EditEventForm extends React.Component {
       alert(this.props.event.message);
       return <Redirect to="/dashboard" />;
     }
-    const { eventTitle, bookedDate, description, errors, isLoading, centerId, centerName } = this.state;
+    const {
+      eventTitle,
+      bookedDate,
+      description,
+      errors,
+      isLoading,
+      centerId,
+      centerName
+    } = this.state;
+    
     const showCenters = _.map(this.props.center.centers, (center) => {
       return (
         <option key={center.id} value={center.id}>{center.centerName}</option>

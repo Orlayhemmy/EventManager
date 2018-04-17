@@ -72,13 +72,19 @@ export default class AddEventForm extends React.Component {
 
   isValid() {
     if (this.props.path === '/modify-event') {
-      const { errors, isValid } = modifyEventValidation(this.state);
+      const {
+        errors,
+        isValid
+      } = modifyEventValidation(this.state);
       if (!isValid) {
         this.setState({ errors });
       }
       return isValid;
     } else {
-      const { errors, isValid } = addEventValidation(this.state);
+      const {
+        errors,
+        isValid
+      } = addEventValidation(this.state);
       if (!isValid) {
         this.setState({ errors });
       }
@@ -142,7 +148,16 @@ export default class AddEventForm extends React.Component {
       titleHolder = "Give your event a title";
       dateHolder = "Choose a date for your event";
       descriptionHolder = "Write few things about the event";
-    const { eventTitle, bookedDate, description, errors, isLoading, centerId } = this.state;
+
+    const {
+      eventTitle,
+      bookedDate,
+      description,
+      errors,
+      isLoading,
+      centerId
+    } = this.state;
+    
     const showCenters = _.map(this.props.centers, (center) => {
       return (
         <option key={center.id} value={center.id}>{center.centerName}</option>
@@ -193,85 +208,3 @@ export default class AddEventForm extends React.Component {
     )
   }
 }
-
-  // onFocus(e) {
-  //   let disableDates = _.map(this.props.center.Events, (event) => {
-  //     return (
-  //       event.bookedDate
-  //     );
-  //   });
-  //   this.setState({
-  //     date: disableDates,
-  //   })
-  // }
-{/* <div class="form-group">
-            <button onClick={this.onClick.bind(this)}>Click Me</button>    
-          </div>
-
-          <div class="form-group">
-      <label for="name">Date</label>    
-      <input type="text" id={calendar} onFocus={this.onFocus.bind(this)} onClick={this.onClick.bind(this)} data-date={this.state.centerId} name="date" class="form-control"/>
-    </div> */}
-
-    {/* <div class="form-group">
-      <label for="name">Date2</label>    
-      <input type="text" id="date2" onFocus={this.onFocus.bind(this)} onClick={this.onClick.bind(this)} data-date={this.state.centerId} name="date" class="form-control"/>
-    </div> */}
-          {/* <TextField
-          id='date'
-          value={this.state.date}
-          placeholder='choose date'
-          type='text'
-          error={errors.date}
-          onMouseout={this.onClick.bind(this)} /> */}
-
-          // let calendar = `date${this.state.centerId}`;
-    // console.log(calendar);
-
-    //   onClick(e) {
-//     e.preventDefault();
-//     let id = e.target.dataset.date;
-//     let calendar = e.target.id;
-//     let id2 = this.props.dates;
-//     console.log(`center = ${id}`);
-//     console.log(id2, calendar);
-
-
-//   <script>
-//     if ( id === '1') {
-// function loadDate(id2){
-  
-//   $('#date1').datepicker({
-//     format:'yyyy-mm-dd',
-//     autoclose:true,
-//     datesDisabled: id2,
-//   })
-// }
-//     }
-// if ( id === '2') {
-//   function loadDate(id2){
-    
-//     $('#date2').datepicker({
-//       format:'yyyy-mm-dd',
-//       autoclose:true,
-//       datesDisabled: id2,
-//     })
-//   }
-// }
-    
-// </script>
-    
-//     // if ( id === '2') {
-//     //  <script>
-//     //   function loadDate(id2){
-        
-//     //     $('#date2').datepicker({
-//     //       format:'yyyy-mm-dd',
-//     //       autoclose:true,
-//     //       datesDisabled: id2,
-//     //     })
-//     //   }
-       
-//     //  </script>
-//     // }
-//   }

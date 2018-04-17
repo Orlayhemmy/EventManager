@@ -12,7 +12,7 @@ module.exports = {
   test: {
     username: 'postgres',
     password: 'profyem001',
-    database: 'travis_db',
+    database: 'centermanager_test',
     host: '127.0.0.1',
     dialect: 'postgres',
     port: 5432,

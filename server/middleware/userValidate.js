@@ -22,12 +22,12 @@ export default class Validation {
       fullname,
       email,
       password,
-      retypePass,
     } = req.body;
+
 
     const errors = {};
 
-    if (fullname === undefined || email === undefined || password === undefined || retypePass === undefined) {
+    if (!fullname || !email || !password) {
       return res.status(400).send({
         message: 'All or some fields are not defined',
       });
@@ -56,12 +56,6 @@ export default class Validation {
       }
     } else { errors.password = 'Password is required'; }
 
-    if (!validator.isEmpty(retypePass)) {
-      if (retypePass !== password) {
-        errors.retypePass = 'Password must match';
-      }
-    } else { errors.retypePass = 'Type Password Again'; }
-
     const isValid = Object.keys(errors).length === 0;
 
     if (!isValid) {
@@ -81,25 +75,28 @@ export default class Validation {
      * @memberof UserValidations
      */
   static signin(req, res, next) {
-    const { login_email, login_password } = req.body;
+    const {
+      loginEmail,
+      loginPassword
+    } = req.body;
 
     const errors = {};
-    if (login_email === undefined || login_password === undefined) {
+    if (!loginEmail || !loginPassword) {
       return res.status(400).send({
         message: 'Email or Password is undefined',
       });
     }
 
-    if (validator.isEmpty(login_email)) {
-      errors.login_email = 'email is required';
+    if (validator.isEmpty(loginEmail)) {
+      errors.loginEmail = 'email is required';
     }
 
-    if (!validator.isEmail(login_email)) {
-      errors.login_email = 'Type a valid email';
+    if (!validator.isEmail(loginEmail)) {
+      errors.loginEmail = 'Type a valid email';
     }
 
-    if (validator.isEmpty(login_password)) {
-      errors.login_password = 'Password is required';
+    if (validator.isEmpty(loginPassword)) {
+      errors.loginPassword = 'Password is required';
     }
 
     const isValid = Object.keys(errors).length === 0;

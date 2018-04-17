@@ -49,16 +49,7 @@ export default class Profile extends React.Component {
       imageUrl: user.imageUrl,
     })
   }
-  // componentWillReceiveProps(nextProps) {
-  //   const { fullname, email, imageUrl } = nextProps.auth.user;
-  //   if (nextProps.auth !== this.props.auth) {
-  //     this.state = {
-  //       fullname: fullname || '',
-  //       email: email || '',
-  //       imageUrl: imageUrl || '',
-  //     }
-  //   }
-  // }
+
   showDiv(e) {
       e.preventDefault();
       if (e.target.id === 'details') {
@@ -85,7 +76,10 @@ export default class Profile extends React.Component {
     this.props.dispatch(checkPassword(this.state));
   }
   isValid() {
-    const { errors, isValid } = updateUserValidation(this.state);
+    const {
+      errors,
+      isValid
+    } = updateUserValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
@@ -118,7 +112,16 @@ export default class Profile extends React.Component {
     if (this.props.event.status === 403) {
       this.logout();
     }
-    const { fullname, email, retypePass, newPassword, oldPassword, errors, wrongPasswordError, imageUrl } = this.state;
+    const {
+      fullname,
+      email,
+      retypePass,
+      newPassword,
+      oldPassword,
+      errors,
+      wrongPasswordError,
+      imageUrl
+    } = this.state;
     const createdAt = this.props.auth.user.createdAt.slice(0, 10);
     return (
       <div id="profile-page">
