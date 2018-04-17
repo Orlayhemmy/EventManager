@@ -47,7 +47,6 @@ describe('tests for post, update, delete and get center processes ', () => {
 
 
     it('should return error message when all or some fields are undefined', (done) => {
-      console.log(userToken)
       request.post('/api/v1/centers')
         .set('x-access-token', userToken)
         .send({
@@ -205,7 +204,30 @@ describe('tests for post, update, delete and get center processes ', () => {
         });
     });
 
-    it('should return status 200', (done) => {
+    it('should return success when all centers are found', (done) => {
+      request.get('/api/v1/centers')
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return success when a center cannot be found', (done) => {
+      request.get('/api/v1/centers/8')
+        .set('x-access-token', userToken)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body).deep.equal({ message: 'No Center Found' });
+          if (err) throw err;
+          done();
+        });
+    });
+    
+    it('should return status 200 when center is deleted', (done) => {
       request.delete('/api/v1/centers/2')
         .set('x-access-token', userToken)
         .expect(200)
