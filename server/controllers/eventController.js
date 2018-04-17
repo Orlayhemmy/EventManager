@@ -177,7 +177,6 @@ class EventController {
       centerId,
       isApproved,
     } = req.body;
-    console.log(req.body);
     const { id } = req.params;
     // find the requested event
     Events.findById(id).then((event) => {

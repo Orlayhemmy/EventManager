@@ -406,20 +406,100 @@ describe('test for post, update, get and delete event processes', () => {
         });
     });
   });
-
-  describe('test for delete actions', () => {
-    it('should return status 403 when event to be deleted is not booked by the user or the user is not an admin', (done) => {
-      request.delete('/api/v1/events/1')
+  
+  describe('test for getting events', () => {
+    it('should return all events booked by all users', (done) => {
+      request.get('/api/v1/events')
         .set('x-access-token', userToken)
-        .expect(403)
+        .expect(200)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).equal('You cannot delete an event not booked by you');
+          expect(res.body.message).equal('Event found');
           if (err) throw err;
           done();
         });
     });
+
+    it('should return all events booked in a center', (done) => {
+      request.get('/api/v1/centerEvents/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Center events found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return all events booked by the user', (done) => {
+      request.get('/api/v1/userEvents')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('User events found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return a single event booked by the user', (done) => {
+      request.get('/api/v1/events/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Event Found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return a success when event is approved', (done) => {
+      request.put('/api/v1/approveEvent/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Event Approved');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return a success when event count is gotten', (done) => {
+      request.get('/api/v1/eventsbookedcount/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Events found');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+
+  describe('test for delete actions', () => {
+    // it('should return status 403 when event to be deleted is not booked by the user or the user is not an admin', (done) => {
+    //   request.delete('/api/v1/events/1')
+    //     .set('x-access-token', userToken)
+    //     .expect(403)
+    //     .end((err, res) => {
+    //       expect(res.body).to.have.property('message');
+    //       expect(res.body.message).to.not.equal(null);
+    //       expect(res.body.message).equal('You cannot delete an event not booked by you');
+    //       if (err) throw err;
+    //       done();
+    //     });
+    // });
 
 
     it('should return status 200 when event has been deleted', (done) => {
@@ -435,5 +515,7 @@ describe('test for post, update, get and delete event processes', () => {
         });
     });
   });
+  
+  
   doAfterTest();
 });
