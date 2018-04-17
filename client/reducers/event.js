@@ -80,7 +80,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'EVENT_SELECTED': {
-      const { eventId, eventTitle } = action.payload;
+      const {
+        eventId,
+        eventTitle
+      } = action.payload;
       return {
         ...state,
         eventId,
@@ -127,8 +130,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'MODIFY_EVENT_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -153,8 +158,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'MODIFY_CENTER_EVENT_SUCCESS': {
-      const { status } = action.payload;
-      const { message } = action.payload.data;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -177,8 +184,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'DELETE_CENTER_EVENT_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -203,8 +212,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'ADD_EVENT_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -229,8 +240,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'DELETE_EVENT_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -255,8 +268,13 @@ export default (state = initialState, action) => {
       }
     }
     case 'EVENTS_BOOKED_COUNT_SUCCESS': {
-      const { eventBookedCount, message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: {
+          message,
+          eventBookedCount
+        }
+      } = action.payload;
       return {
         ...state,
         message,
@@ -265,8 +283,10 @@ export default (state = initialState, action) => {
       }
     }
     case 'EVENTS_BOOKED_COUNT_FAIL': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         error: message,
@@ -282,8 +302,13 @@ export default (state = initialState, action) => {
       }
     }
     case 'EVENTS_DELETED_COUNT_SUCCESS': {
-      const { eventDeletedCount, message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: {
+          message,
+          eventDeletedCount
+        }
+      } = action.payload;
       return {
         ...state,
         message,
