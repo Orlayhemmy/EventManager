@@ -22,7 +22,7 @@ export function sendMail(title, message, email) {
       email,
     }
     dispatch({ type: 'SEND_MAIL' });
-    axios.post('api/v1/sendmail', data).then((response) => {
+    return axios.post('api/v1/sendmail', data).then((response) => {
       dispatch({ type: 'SEND_MAIL_SUCCESS', payload: response });
     }).catch((err) => {
       dispatch({ type: 'SEND_MAIL_FAIL', payload: err.response });
@@ -33,7 +33,7 @@ export function sendMail(title, message, email) {
 export function userSignupRequest(user, title, message, email) {
   return (dispatch) => {
     dispatch({ type: 'USER_SIGNUP' });
-    axios.post('/api/v1/users', user).then((response) => {
+    return axios.post('/api/v1/users', user).then((response) => {
       dispatch({ type: 'USER_SIGNUP_SUCCESS', payload: response });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
@@ -59,7 +59,7 @@ export function logout() {
 export function userSignInRequest(user) {
   return (dispatch) => {
     dispatch({ type: 'USER_LOGIN' });
-    axios.post('api/v1/users/login', user).then((response) => {
+    return axios.post('api/v1/users/login', user).then((response) => {
       dispatch({ type: 'USER_LOGIN_SUCCESS', payload: response });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
@@ -74,7 +74,7 @@ export function userSignInRequest(user) {
 export function confirmEmail(data) {
   return (dispatch) => {
     dispatch({ type: 'VERIFY_EMAIL' });
-    axios.post('api/v1/passrecovery', data).then((response) => {
+    return axios.post('api/v1/passrecovery', data).then((response) => {
       dispatch({ type: 'VERIFY_EMAIL_SUCCESS', payload: response });
     }).catch((err) => {
       dispatch({ type: 'VERIFY_EMAIL_FAIL', payload: err.response.data });
@@ -85,7 +85,7 @@ export function confirmEmail(data) {
 export function generateCode() {
   return (dispatch) => {
     dispatch({ type: 'GET_CODE' });
-    axios.get('api/v1/shortcode').then((response) => {
+    return axios.get('api/v1/shortcode').then((response) => {
       dispatch({ type: 'GET_CODE_SUCCESS', payload: response });
     }).catch((err) => {
       dispatch({ type: 'GET_CODE_FAILS', payload: err.response.data })
@@ -96,7 +96,7 @@ export function generateCode() {
 export function getUser() {
   return (dispatch) => {
     dispatch({ type: 'GET_USER' });
-    axios.get('api/v1/users').then((response) => {
+    return axios.get('api/v1/users').then((response) => {
       dispatch({ type: 'GET_USER_SUCCESS', payload: response });
     }).catch((err) => {
       dispatch({ type: 'GET_USER_FAILS', payload: err.response.data })
@@ -107,7 +107,7 @@ export function getUser() {
 export function updateUserDetails(data) {
   return (dispatch) => {
     dispatch({ type: 'UPDATE_USER' });
-    axios.put('api/v1/users', data).then((response) => {
+    return axios.put('api/v1/users', data).then((response) => {
       dispatch({ type: 'UPDATE_USER_SUCCESS', payload: response });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
@@ -121,7 +121,7 @@ export function updateUserDetails(data) {
  
 export function getUserEmail(id) {
   return (dispatch) => {
-    axios.get(`api/v1/userEmail/${id}`).then((response) => {
+    return axios.get(`api/v1/userEmail/${id}`).then((response) => {
       dispatch({ type: 'GET_USER_EMAIL', payload: response });
     });
   }
@@ -130,7 +130,7 @@ export function getUserEmail(id) {
 export function checkPassword(data) {
   return (dispatch) => {
     dispatch({ type: 'CHECK_PASSWORD' });
-    axios.post('api/v1/passwordcheck', data).then((response) => {
+    return axios.post('api/v1/passwordcheck', data).then((response) => {
       dispatch({ type: 'CHECK_PASSWORD_SUCCESS', payload: response });
       dispatch(clearStatus());
     }).catch((err) => {
@@ -143,7 +143,7 @@ export function uploadUserImage(id, data) {
   return (dispatch) => {
     dispatch({ type: 'UPLOAD_IMAGE' });
     delete axios.defaults.headers.common['x-access-token'];
-    axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
+    return axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
       .then((response) => {
         dispatch({ type: 'UPLOAD_IMAGE_SUCCESS', payload: response.data.secure_url });
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
