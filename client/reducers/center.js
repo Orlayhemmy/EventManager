@@ -22,8 +22,24 @@ export default (state = initialState, action) => {
       };
     }
     case 'SET_CURRENT_CENTER': {
-      const { centerName, location, capacity, description, facilities, imageUrl, id } = action.payload.center;
-      const center = { centerName, location, capacity, description, facilities, imageUrl, id }
+      const {
+        centerName,
+        location,
+        capacity,
+        description,
+        facilities,
+        imageUrl,
+        id
+      } = action.payload.center;
+      const center = {
+        centerName,
+        location,
+        capacity,
+        description,
+        facilities,
+        imageUrl,
+        id
+      }
       return {
         ...state,
         isCenter: !isEmpty(center),
@@ -40,8 +56,7 @@ export default (state = initialState, action) => {
       };
     }
     case 'GET_CENTERS_FAILS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const { status, data: { message } } = action.payload;
       return {
         ...state,
         error: message,
@@ -58,7 +73,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'CENTER_SELECTED': {
-      const { centerId, centerName } = action.payload;
+      const {
+        centerId,
+        centerName
+      } = action.payload;
       return {
         ...state,
         centerId,
@@ -72,8 +90,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'GET_CENTER_FAILS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         error: message,
@@ -106,8 +126,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'MODIFY_CENTER_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -148,8 +170,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'ADD_CENTER_FAILS': {
-      const { status } = action.payload;
-      const { message } = action.payload.data;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         status,
@@ -157,8 +181,10 @@ export default (state = initialState, action) => {
       };
     }
     case 'ADD_CENTER_SUCCESS': {
-      const { status } = action.payload;
-      const { center } = action.payload.data;
+      const {
+        status,
+        data: { center }
+      } = action.payload;
       return {
         ...state,
         loading: false,

@@ -15,10 +15,26 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
 
     case 'SET_CURRENT_USER': {
-      const { newUser, token } = action.payload;
-      const { fullname, email, isAdmin, id, createdAt, imageUrl } = newUser;
+      const {
+        newUser,
+        token
+      } = action.payload;
+      const {
+        fullname,
+        email,
+        isAdmin,
+        id,
+        createdAt,
+        imageUrl
+      } = newUser;
       const user = {
-        fullname, email, isAdmin, id, token, createdAt, imageUrl,
+        fullname,
+        email,
+        isAdmin,
+        id,
+        token,
+        createdAt,
+        imageUrl,
       }
       return {
         isAuth: !isEmpty(newUser),
@@ -41,8 +57,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'USER_LOGIN_FAIL': {
-      const { status } = action.payload;
-      const { message } = action.payload.data;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -70,8 +88,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'USER_SIGNUP_FAIL': {
-      const { status } = action.payload;
-      const { message } = action.payload.data;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -113,8 +133,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'GET_CODE_SUCCESS': {
-      const { shortCode } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { shortCode }
+      } = action.payload;
       return {
         ...state,
         status,
@@ -123,8 +145,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'GET_CODE_FAILS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         status,
@@ -150,8 +174,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'UPDATE_USER_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,
@@ -229,8 +255,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'CHECK_PASSWORD_SUCCESS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loaded: true,
@@ -240,8 +268,10 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'CHECK_PASSWORD_FAILS': {
-      const { message } = action.payload.data;
-      const { status } = action.payload;
+      const {
+        status,
+        data: { message }
+      } = action.payload;
       return {
         ...state,
         loading: false,

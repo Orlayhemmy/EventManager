@@ -1,7 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getCenterSelected, modifyCenter, clearState } from '../../actions/centerActions';
-import { getEventSelected, modifyCenterEvent, deleteCenterEvent, getCenterEvents } from '../../actions/eventActions';
+import {
+  getCenterSelected,
+  modifyCenter,
+  clearState
+} from '../../actions/centerActions';
+import {
+  getEventSelected,
+  modifyCenterEvent,
+  deleteCenterEvent,
+  getCenterEvents
+} from '../../actions/eventActions';
 import ModalContent from '../modalContent';
 import CenterForm from '../addCenterForm';
 import DeleteModal from '../deleteModal';
