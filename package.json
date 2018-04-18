@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-watch server/app.js",
+    "client:test": "jest",
     "test": "NODE_ENV=test npm-run-all --parallel seed test:run",
     "test:run": "nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
     "coverage": "nyc report --reporter=text-icov | coveralls",
@@ -18,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.0",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
@@ -28,6 +30,7 @@
     "eslint-plugin-import": "^2.8.0",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^22.4.3",
     "loader-utils": "^1.1.0",
     "node-sass": "^4.7.2",
     "nodemon": "^1.12.1",

@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import * as actionTypes from '../actions/types';
 
 
 const initialState = {
@@ -14,7 +15,7 @@ const initialState = {
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case 'SET_CURRENT_USER': {
+    case actionTypes.SET_CURRENT_USER: {
       const {
         newUser,
         token
@@ -42,7 +43,7 @@ export default (state = initialState, action = {}) => {
         user,
       };
     }
-    case 'USER_LOGIN': {
+    case actionTypes.USER_LOGIN: {
       return {
         ...state,
         loading: true,
@@ -50,14 +51,14 @@ export default (state = initialState, action = {}) => {
         status: '',
       };
     }
-    case 'USER_LOGIN_SUCCESS': {
+    case actionTypes.USER_LOGIN_SUCCESS: {
       return {
         ...state,
         loading: false,
         loaded: true,
       };
     }
-    case 'USER_LOGIN_FAIL': {
+    case actionTypes.USER_LOGIN_FAIL: {
       const {
         status,
         data: { message }
@@ -70,7 +71,7 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'USER_SIGNUP': {
+    case actionTypes.USER_SIGNUP: {
       return {
         ...state,
         loading: true,
@@ -79,7 +80,7 @@ export default (state = initialState, action = {}) => {
         message: '',
       };
     }
-    case 'USER_SIGNUP_SUCCESS': {
+    case actionTypes.USER_SIGNUP_SUCCESS: {
       const { status } = action.payload;
       return {
         ...state,
@@ -88,7 +89,7 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'USER_SIGNUP_FAIL': {
+    case actionTypes.USER_SIGNUP_FAILS: {
       const {
         status,
         data: { message }
@@ -101,7 +102,7 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'VERIFY_EMAIL': {
+    case actionTypes.VERIFY_EMAIL: {
       return {
         ...state,
         loading: true,
@@ -109,7 +110,7 @@ export default (state = initialState, action = {}) => {
         message: '',
       };
     }
-    case 'VERIFY_EMAIL_SUCCESS': {
+    case actionTypes.VERIFY_EMAIL_SUCCESS: {
       const { status } = action.payload;
       return {
         ...state,
@@ -118,7 +119,7 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'VERIFY_EMAIL_FAIL': {
+    case actionTypes.VERIFY_EMAIL_FAIL: {
       const { message } = action.payload;
       return {
         ...state,
@@ -127,13 +128,13 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'GET_CODE': {
+    case actionTypes.GET_CODE: {
       return {
         ...state,
         status: '',
       };
     }
-    case 'GET_CODE_SUCCESS': {
+    case actionTypes.GET_CODE_SUCCESS: {
       const {
         status,
         data: { shortCode }
@@ -145,7 +146,7 @@ export default (state = initialState, action = {}) => {
         code: shortCode,
       };
     }
-    case 'GET_CODE_FAILS': {
+    case actionTypes.GET_CODE_FAILS: {
       const {
         status,
         data: { message }
@@ -156,7 +157,7 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'WRONG_CODE': {
+    case actionTypes.WRONG_CODE: {
       return {
         ...state,
         status: '',
@@ -164,7 +165,7 @@ export default (state = initialState, action = {}) => {
         codeStatus: '',
       };
     }
-    case 'UPDATE_USER': {
+    case actionTypes.UPDATE_USER: {
       return {
         ...state,
         status: '',
@@ -174,7 +175,7 @@ export default (state = initialState, action = {}) => {
         loaded: false,
       };
     }
-    case 'UPDATE_USER_SUCCESS': {
+    case actionTypes.UPDATE_USER_SUCCESS: {
       const {
         status,
         data: { message }
@@ -187,7 +188,7 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'UPDATE_USER_FAILS': {
+    case actionTypes.UPDATE_USER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
@@ -196,7 +197,7 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'SEND_MAIL': {
+    case actionTypes.SEND_MAIL: {
       return {
         ...state,
         loading: true,
@@ -205,7 +206,7 @@ export default (state = initialState, action = {}) => {
         message: '',
       };
     }
-    case 'SEND_MAIL_SUCCESS': {
+    case actionTypes.SEND_MAIL_SUCCESS: {
       const { status } = action.payload;
       return {
         ...state,
@@ -214,7 +215,7 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'SEND_MAIL_FAIL': {
+    case actionTypes.SEND_MAIL_FAIL: {
       const { status } = action.payload;
       return {
         ...state,
@@ -223,14 +224,14 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'GET_USER': {
+    case actionTypes.GET_USER: {
       return {
         ...state,
         loaded: true,
         loading: false,
       };
     }
-    case 'GET_USER_SUCCESS': {
+    case actionTypes.GET_USER_SUCCESS: {
       const {
         status,
         data: { userDetails }
@@ -243,7 +244,7 @@ export default (state = initialState, action = {}) => {
         userDetails
       };
     }
-    case 'GET_USER_FAILS': {
+    case actionTypes.GET_USER_FAILS: {
       const { status } = action.payload;
       return {
         ...state,
@@ -252,14 +253,14 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'CHECK_PASSWORD': {
+    case actionTypes.CHECK_PASSWORD: {
       return {
         ...state,
         loading: true,
         loaded: false,
       };
     }
-    case 'CHECK_PASSWORD_SUCCESS': {
+    case actionTypes.CHECK_PASSWORD_SUCCESS: {
       const {
         status,
         data: { message }
@@ -272,7 +273,7 @@ export default (state = initialState, action = {}) => {
         status,
       };
     }
-    case 'CHECK_PASSWORD_FAILS': {
+    case actionTypes.CHECK_PASSWORD_FAILS: {
       const {
         status,
         data: { message }
@@ -285,14 +286,14 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case 'UPLOAD_IMAGE': {
+    case actionTypes.UPLOAD_IMAGE: {
       return {
         ...state,
         loading: true,
         loaded: false,
       };
     }
-    case 'UPLOAD_IMAGE_SUCCESS': {
+    case actionTypes.UPLOAD_IMAGE_SUCCESS: {
       return {
         ...state,
         loading: false,
@@ -300,14 +301,14 @@ export default (state = initialState, action = {}) => {
         url: action.payload,
       };
     }
-    case 'UPLOAD_IMAGE_FAILS': {
+    case actionTypes.UPLOAD_IMAGE_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
         error: message,
       };
     }
-    case 'CLEAR_STATUS': {
+    case actionTypes.CLEAR_STATUS: {
       return {
         ...state,
         status: '',
