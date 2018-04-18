@@ -21,5 +21,4 @@ exclude_paths:
 - node_modules/
 - .nyc_output
 - coverage
-- server/test/
 - template/
