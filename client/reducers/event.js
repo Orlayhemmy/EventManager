@@ -1,5 +1,4 @@
 import isEmpty from 'lodash/isEmpty';
-//import { GET_EVENTS, GET_EVENTS_BEGIN, GET_EVENTS_ERROR } from '../actions/types';
 
 const initialState = {
   loading: false,
@@ -13,7 +12,6 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-
     case 'SET_CURRENT_EVENT': {
       const event = action.payload;
       return {
@@ -65,11 +63,9 @@ export default (state = initialState, action) => {
     }
     case 'GET_CENTER_EVENTS_SUCCESS': {
       const { events } = action.payload;
-      let disableDates = _.map(events, (event) => {
-        return (
-          event.bookedDate
-        );
-      });
+      const disableDates = _.map(events, event => (
+        event.bookedDate
+      ));
       return {
         ...state,
         loading: false,
@@ -202,7 +198,7 @@ export default (state = initialState, action) => {
         loading: true,
         message: '',
         status: '',
-      }
+      };
     }
     case 'ADD_EVENT_FAILS': {
       const { message } = action.payload;
@@ -221,8 +217,8 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         message,
-        status, 
-      }
+        status,
+      };
     }
     case 'DELETE_EVENT': {
       return {
@@ -253,11 +249,11 @@ export default (state = initialState, action) => {
       };
     }
     case 'CLEAR_EVENT_STATE': {
-      return  {
+      return {
         ...state,
         status: '',
         message: '',
-      }
+      };
     }
     case 'GET_EVENTS_BOOKED_COUNT': {
       return {
@@ -265,7 +261,7 @@ export default (state = initialState, action) => {
         loading: true,
         message: '',
         status: '',
-      }
+      };
     }
     case 'EVENTS_BOOKED_COUNT_SUCCESS': {
       const {
@@ -280,7 +276,7 @@ export default (state = initialState, action) => {
         message,
         status,
         eventBookedCount,
-      }
+      };
     }
     case 'EVENTS_BOOKED_COUNT_FAIL': {
       const {
@@ -299,7 +295,7 @@ export default (state = initialState, action) => {
         loading: true,
         message: '',
         status: '',
-      }
+      };
     }
     case 'EVENTS_DELETED_COUNT_SUCCESS': {
       const {
@@ -314,7 +310,7 @@ export default (state = initialState, action) => {
         message,
         status,
         eventDeletedCount,
-      }
+      };
     }
     case 'EVENTS_DELETED_COUNT_FAIL': {
       const { message } = action.payload;

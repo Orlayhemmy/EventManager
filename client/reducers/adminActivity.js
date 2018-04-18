@@ -9,14 +9,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
     case 'SET_ADMINACTIVITY_SUCCESS': {
       return {
         ...state,
         loading: false,
         loaded: true,
-      }
+      };
     }
     case 'SET_ADMINACTIVITY_FAILS': {
       const { message } = action.payload;
