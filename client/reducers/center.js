@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         facilities,
         imageUrl,
         id
-      }
+      };
       return {
         ...state,
         isCenter: !isEmpty(center),
@@ -220,14 +220,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
     case 'CENTER_STATUS_UPDATE_SUCCESS': {
       return {
         ...state,
         loading: false,
         loaded: true,
-      }
+      };
     }
     case 'CENTER_STATUS_UPDATE_FAILS': {
       const { message } = action.payload;
@@ -236,9 +236,8 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         error: message,
-      }
+      };
     }
-  
     default:
       return state;
   }

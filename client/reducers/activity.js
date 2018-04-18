@@ -9,14 +9,14 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-      }
+      };
     }
     case 'SET_ACTIVITY_SUCCESS': {
       return {
         ...state,
         loading: false,
         loaded: true,
-      }
+      };
     }
     case 'SET_ACTIVITY_FAILS': {
       const { message } = action.payload;
@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         error: message,
-      }
+      };
     }
     case 'GET_ACTIVITIES': {
       return {
@@ -57,8 +57,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        message:'',
-      }
+        message: '',
+      };
     }
     case 'DELETE_ACTIVITY_SUCCESS': {
       const { message } = action.payload.data;
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         message,
-      }
+      };
     }
     case 'DELETE_ACTIVITY_FAILS': {
       const { message } = action.payload;
@@ -76,7 +76,7 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         error: message,
-      }
+      };
     }
     default:
       return state;

@@ -14,7 +14,6 @@ const initialState = {
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-
     case 'SET_CURRENT_USER': {
       const {
         newUser,
@@ -36,7 +35,7 @@ export default (state = initialState, action = {}) => {
         token,
         createdAt,
         imageUrl,
-      }
+      };
       return {
         ...state,
         isAuth: !isEmpty(newUser),
