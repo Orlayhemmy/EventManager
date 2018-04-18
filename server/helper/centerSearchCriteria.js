@@ -1,3 +1,7 @@
+/**
+ * @param  {object} location
+ * @returns {object} location search criteria
+ */
 export function searchLocation(location) {
   let locationSearch;
   if (location) {
@@ -12,6 +16,10 @@ export function searchLocation(location) {
   return locationSearch;
 }
 
+/**
+ * @param  {object} facilities
+ * @returns {object} facilities search criteria
+ */
 export function searchFacilities(facilities) {
   let facilitySearch;
   if (facilities) {
@@ -27,7 +35,16 @@ export function searchFacilities(facilities) {
   return facilitySearch;
 }
 
-export function searchCapacity(capacityType, btwValue, capacity) {
+/**
+ * @param  {object} req
+ * @returns {object} capacity search criteria
+ */
+export function searchCapacity(req) {
+  const {
+    capacityType,
+    btwValue,
+    capacity
+  } = req.body;
   let capacitySearch;
   switch (capacityType) {
     case 'greater': {

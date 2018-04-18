@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import swal from 'sweetalert';
 import CenterSearch from '../centerSearch';
 import DatePicker from '../datePicker';
 import { modifyEvent } from '../../actions/eventActions';
@@ -114,7 +115,7 @@ export default class EditEventForm extends React.Component {
 
   render() {
     if(this.props.event.status === 200) {
-      alert(this.props.event.message);
+      swal(this.props.event.message);
       return <Redirect to="/dashboard" />;
     }
     const {

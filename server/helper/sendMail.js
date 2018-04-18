@@ -1,5 +1,10 @@
 import nodemailer from 'nodemailer';
 
+/**
+ * @param  {object} req
+ * @param {object} res
+ * @returns {object} success or failure message
+ */
 export default function sendMail(req, res) {
   const {
     email,
