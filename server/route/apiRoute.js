@@ -79,9 +79,6 @@ router.route('/passwordcheck')
 router.route('/eventsbookedcount/:id')
   .get(authToken, eventController.getEventBookedCount);
 
-router.route('/datejoined/:id')
-  .get(authToken, userController.getDateJoined);
-
 router.route('/shortcode')
   .get(shortCode);
   

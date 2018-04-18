@@ -200,6 +200,7 @@ export default class UserController {
     }).then((user) => {
       if (user) {
         return res.status(200).send({
+          message: 'Email Found',
           email: user.email,
         });
       }
@@ -216,12 +217,11 @@ export default class UserController {
       where: {
         id: req.decoded.id,
       },
-    }).then((user) => {
-      if (user) {
-        const token = generateToken(user);
-        req.body.token = token;
+    }).then((userDetails) => {
+      if (userDetails) {
         return res.status(200).send({
-          token,
+          message: 'User Details Found',
+          userDetails
         });
       }
       return res.status(400).send({
@@ -230,14 +230,5 @@ export default class UserController {
     }).catch(error => res.status(500).send({
       message: error.message,
     }));
-  }
-
-  static getDateJoined(req, res) {
-    Users.findById(req.params.id).then((user) => {
-      const joinedDate = user.createdAt.slice(0, 10);
-      return res.status(200).send({
-        joinedDate,
-      });
-    });
   }
 }

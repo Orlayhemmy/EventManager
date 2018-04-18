@@ -210,5 +210,33 @@ describe('tests for user', () => {
       });
     });
   });
+
+  describe('test for GET', () => {
+    it('should return success when user details found', (done) => {
+      request.get('/api/v1/users')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('User Details Found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return success when user email found', (done) => {
+      request.get('/api/v1/userEmail/2')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Email Found');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
 });
 

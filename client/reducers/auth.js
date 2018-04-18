@@ -2,6 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 
 
 const initialState = {
+  userDetails: {},
   isAuth: false,
   user: {},
   loading: '',
@@ -9,7 +10,7 @@ const initialState = {
   status: '',
   message: '',
   error: '',
-  userToken:'',
+  userToken: '',
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -37,6 +38,7 @@ export default (state = initialState, action = {}) => {
         imageUrl,
       }
       return {
+        ...state,
         isAuth: !isEmpty(newUser),
         user,
       };
@@ -230,12 +232,16 @@ export default (state = initialState, action = {}) => {
       };
     }
     case 'GET_USER_SUCCESS': {
-      const { status } = action.payload;
+      const {
+        status,
+        data: { userDetails }
+      } = action.payload;
       return {
         ...state,
         loaded: true,
         loading: false,
         status,
+        userDetails
       };
     }
     case 'GET_USER_FAILS': {

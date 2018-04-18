@@ -5,7 +5,7 @@ import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import UploadImage from './imageUpload';
 import { updateUserValidation } from '../shared/userValidation';
-import { updateUserDetails, checkPassword } from '../actions/signInActions';
+import { updateUserDetails, checkPassword, getUser } from '../actions/signInActions';
 import { eventBooked } from '../actions/eventActions';
 import { logout } from '../actions/signInActions';
 
@@ -28,6 +28,7 @@ export default class Profile extends React.Component {
       errors: {},
       wrongPasswordError: '',
       imageUrl: '',
+      createdAt: '',
     }
     this.initialState = this.state;
     this.onChange = this.onChange.bind(this);
@@ -39,15 +40,25 @@ export default class Profile extends React.Component {
   componentWillMount() {
     const { id } = this.props.auth.user;
     this.props.dispatch(eventBooked(id));
+    this.props.dispatch(getUser());
   }
-  componentDidMount() {
-    const { user } = this.props.auth;
-    this.setState({
-      fullname: user.fullname || '',
-      email: user.email || '',
-      id: user.id,
-      imageUrl: user.imageUrl,
-    })
+  componentWillReceiveProps(nextProps) {
+    if (this.props.auth != nextProps.auth) {
+      const {
+        fullname,
+        email,
+        id,
+        imageUrl,
+        createdAt
+      } = nextProps.auth.userDetails;
+      this.setState({
+        fullname: fullname || '',
+        email: email || '',
+        id: id,
+        imageUrl: imageUrl,
+        createdAt: createdAt || '',
+      })
+    }
   }
 
   showDiv(e) {
@@ -120,9 +131,10 @@ export default class Profile extends React.Component {
       oldPassword,
       errors,
       wrongPasswordError,
-      imageUrl
+      imageUrl,
+      createdAt
     } = this.state;
-    const createdAt = this.props.auth.user.createdAt.slice(0, 10);
+    const dateRegistered = createdAt.slice(0, 10);
     return (
       <div id="profile-page">
         <Navbar />
@@ -219,7 +231,7 @@ export default class Profile extends React.Component {
               <hr/>
               <div className="mb-4">
               <h4 className="mt-4">Date Joined</h4>
-              <h3 className="mt-4">{createdAt}</h3>
+              <h3 className="mt-4">{dateRegistered}</h3>
               </div>
               <div className="mb-4">
               <h4 className="mt-4">Events Booked</h4>
