@@ -2,17 +2,22 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
 
-const { Events, Centers, Activities } = models;
+const {
+  Events,
+  Centers
+} = models;
 
-class EventController {
+/**
+ * @class EventController
+ */
+export default class EventController {
   /**
-   *
-   *
-   * Get All Events
-   * @param {obj} req
-   * @param {obj} res
-   * @returns All the event in db
-   * @memberof CenterController
+   * All booked event details are fetched
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
    */
   static getAllEvents(req, res) {
     // get events
@@ -38,6 +43,14 @@ class EventController {
     }));
   }
 
+  /**
+   * Get center events details
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static getCenterEvents(req, res) {
     // get events
     Events.all({
@@ -65,6 +78,14 @@ class EventController {
     }));
   }
 
+  /**
+   * user events details are fetched
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static getUserEvents(req, res) {
     const { id } = req.decoded;
     // get events
@@ -93,6 +114,14 @@ class EventController {
     }));
   }
 
+  /**
+   * get single event details
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static getSingleEvent(req, res) {
     Events.findOne({
       where: {
@@ -130,6 +159,14 @@ class EventController {
       }));
   }
 
+  /**
+   * Insert new event details into database
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static postEvent(req, res) {
     const {
       eventTitle, centerId, description, bookedDate,
@@ -169,13 +206,20 @@ class EventController {
     });
   }
 
+  /**
+   * update exisiting user event details
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static updateEvent(req, res) {
     const {
       eventTitle,
       description,
       bookedDate,
       centerId,
-      isApproved,
     } = req.body;
     const { id } = req.params;
     // find the requested event
@@ -228,6 +272,14 @@ class EventController {
     });
   }
 
+  /**
+   * Admin approve user event
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static approveEvent(req, res) {
     const { id } = req.params;
     Events.findById(id).then((event) => {
@@ -248,6 +300,14 @@ class EventController {
     }));
   }
 
+  /**
+   * user or admin delete event
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static deleteEvent(req, res) {
     const eventId = req.params.id;
     const {
@@ -274,6 +334,14 @@ class EventController {
     }));
   }
 
+  /**
+   * fetch the number of user events
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof EventController
+   */
   static getEventBookedCount(req, res) {
     Events.findAndCountAll({
       where: {
@@ -290,6 +358,3 @@ class EventController {
     }));
   }
 }
-
-
-export default EventController;

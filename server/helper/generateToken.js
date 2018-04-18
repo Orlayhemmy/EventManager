@@ -3,7 +3,11 @@ import env from 'dotenv';
 
 
 env.config();
-export function generateToken(data) {
+/**
+ * @param  {object} data
+ * @returns {object} user token
+ */
+export default function generateToken(data) {
   const payload = {
     fullname: data.fullname,
     email: data.email,

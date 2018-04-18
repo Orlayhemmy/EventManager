@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
-
+import swal from 'sweetalert';
 import { getEvents, eventSelected, getEventSelected } from '../actions/eventActions';
 import EventForm from '../components/eventPage/editEventForm';
 import Navbar from './navbar.jsx';
@@ -49,7 +49,7 @@ export default class Dashboard extends React.Component {
       $(document).ready( function(){
         $('#deleteModal').modal('hide');
       });
-      alert(this.props.event.message);
+      swal(this.props.event.message);
     }
   }
 

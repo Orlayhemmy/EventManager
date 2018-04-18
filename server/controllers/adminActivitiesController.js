@@ -2,7 +2,18 @@ import models from '../models';
 
 const { Adminactivities } = models;
 
+/**
+ * @class AdminActiviyController
+ */
 export default class AdminctivityController {
+  /**
+   * Get all admin activities
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof AdminActivityController
+   */
   static getActivity(req, res) {
     Adminactivities.findAll({
       where: {
@@ -14,6 +25,7 @@ export default class AdminctivityController {
       if (activities) {
         // show activities
         return res.status(200).send({
+          message: 'Activites  found',
           activities,
         });
       }
@@ -25,6 +37,15 @@ export default class AdminctivityController {
       message: error.message,
     }));
   }
+
+  /**
+   * Set activity when admin performs an action
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message
+   * @memberof AdminActivityController
+   */
   static setActivity(req, res) {
     const {
       eventTitle,
@@ -37,7 +58,7 @@ export default class AdminctivityController {
     } = req.body;
     let info;
     if (username) {
-      info = `${username} added an event ${eventTitle}`; 
+      info = `${username} added an event ${eventTitle}`;
     } else if (centerName) {
       info = `You added a new center ${centerName}`;
     } else if (text) {
@@ -56,6 +77,14 @@ export default class AdminctivityController {
     }));
   }
 
+  /**
+   * Delete activities
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message
+   * @memberof AdminActivityController
+   */
   static deleteActivity(req, res) {
     const { id } = req.params;
     return Adminactivities.findAll({

@@ -2,7 +2,18 @@ import models from '../models';
 
 const { Activities } = models;
 
+/**
+ * @class ActivityController
+ */
 export default class ActivityController {
+  /**
+   * Get all user activities
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message with the database data
+   * @memberof ActivityController
+   */
   static getActivity(req, res) {
     Activities.findAll({
       where: {
@@ -25,6 +36,15 @@ export default class ActivityController {
       message: error.message,
     }));
   }
+
+  /**
+   * Set activity when user performs an action
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message
+   * @memberof ActivityController
+   */
   static setActivity(req, res) {
     const {
       eventTitle,
@@ -49,6 +69,14 @@ export default class ActivityController {
     }));
   }
 
+  /**
+   * delete user activity
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message
+   * @memberof ActivityController
+   */
   static deleteActivity(req, res) {
     return Activities.destroy({
       where: {

@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -12,19 +11,18 @@ const app = express();
 
 const compiler = webpack(webpackConfig);
 
-app.use(
-  webpackMiddleware(compiler, {
-    hot: true,
-    publicpath: webpackConfig.output.publicPath,
-    stats: { colors: true },
-    noInfo: true
-  })
-);
+app.use(webpackMiddleware(compiler, {
+  hot: true,
+  publicpath: webpackConfig.output.publicPath,
+  stats: { colors: true },
+  noInfo: true
+}));
+
 app.use(express.static(path.join(__dirname, '../template/Public')));
 app.use(webpackHotMiddleware(compiler));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(
   '/api/v1/',
