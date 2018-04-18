@@ -81,6 +81,5 @@ router.route('/eventsbookedcount/:id')
 
 router.route('/shortcode')
   .get(shortCode);
-  
 // Return router
 export default router;

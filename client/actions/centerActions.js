@@ -3,12 +3,19 @@ import jwt from 'jsonwebtoken';
 import { setAdminActivity } from './adminActivityActions';
 import { getCenterEvents } from './eventActions';
 
+/**
+ * @returns {object} clear state
+ */
 export function clearState() {
   return (dispatch) => {
     dispatch({ type: 'CLEAR_CENTER_STATE' });
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} Get centers
+ */
 export function getCenters(data) {
   return (dispatch) => {
     dispatch({ type: 'GET_CENTERS' });
@@ -34,17 +41,32 @@ export function getCenters(data) {
     });
   };
 }
+
+/**
+ * @param {object} centerData
+ * @returns {object} current center
+ */
 export function setCurrentCenter(centerData) {
   return (dispatch) => {
     dispatch({ type: 'SET_CURRENT_CENTER', payload: centerData });
     dispatch(getCenterEvents(centerData.center.id));
   };
 }
+
+/**
+ * @param {object} center
+ * @returns {object} center information
+ */
 export function centerSelected(center) {
   return (dispatch) => {
     dispatch({ type: 'CENTER_SELECTED', payload: center });
   };
 }
+/**
+ * @param {object} id
+ * @param {object} tag
+ * @returns {object} current center
+ */
 export function getCenterSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: 'GET_CENTER' });
@@ -61,6 +83,10 @@ export function getCenterSelected(id, tag) {
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} new center information
+ */
 export function addCenter(data) {
   return (dispatch) => {
     dispatch({ type: 'ADD_CENTER' });
@@ -74,6 +100,11 @@ export function addCenter(data) {
   };
 }
 
+/**
+ * @param {object} data
+ * @param {object} centerId
+ * @returns {object} success or failure
+ */
 export function modifyCenter(data, centerId) {
   return (dispatch) => {
     dispatch({ type: 'MODIFY_CENTER' });
@@ -86,6 +117,10 @@ export function modifyCenter(data, centerId) {
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} url of image uploaded
+ */
 export function uploadImage(data) {
   return (dispatch) => {
     dispatch({ type: 'ADD_IMAGE' });
@@ -101,6 +136,10 @@ export function uploadImage(data) {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} delete center
+ */
 export function deleteCenter(id) {
   return (dispatch) => {
     dispatch({ type: 'DELETE_CENTER' });
@@ -113,6 +152,10 @@ export function deleteCenter(id) {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} center status
+ */
 export function centerStatus(id) {
   return (dispatch) => {
     dispatch({ type: 'CENTER_STATUS_UPDATE' });
@@ -123,6 +166,3 @@ export function centerStatus(id) {
     });
   };
 }
-
-
-

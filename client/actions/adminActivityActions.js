@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+/**
+ * @param {object} data
+ * @returns {object} Get Admin Activities
+ */
 export function getAdminActivity() {
   return (dispatch) => {
     dispatch({ type: 'GET_ACTIVITIES' });
@@ -11,6 +15,10 @@ export function getAdminActivity() {
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} Set Admin Activities
+ */
 export function setAdminActivity(data) {
   return (dispatch) => {
     dispatch({ type: 'SET_ADMINACTIVITY' });
