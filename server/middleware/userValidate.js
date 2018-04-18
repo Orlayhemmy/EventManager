@@ -7,7 +7,6 @@ import isEmpty from 'lodash/isEmpty';
  * @class Validation
  */
 export default class Validation {
-
   /**
      * Validates all User signup details before allowing access to controller class
      * @static
@@ -107,6 +106,15 @@ export default class Validation {
     next();
   }
 
+  /**
+     * Validates all User update details before allowing access to controller class
+     * @static
+     * @param {object} req
+     * @param {object} res
+     * @param {object} next
+     * @returns {object} Validation error messages or contents of req.body
+     * @memberof UserValidations
+     */
   static recoverPassword(req, res, next) {
     const { email } = req.body;
     const error = {};
@@ -127,6 +135,15 @@ export default class Validation {
     next();
   }
 
+  /**
+     * Validates all User update details before allowing access to controller class
+     * @static
+     * @param {object} req
+     * @param {object} res
+     * @param {object} next
+     * @returns {object} Validation error messages or contents of req.body
+     * @memberof UserValidations
+     */
   static updateUser(req, res, next) {
     const {
       fullname,
@@ -138,7 +155,6 @@ export default class Validation {
     const error = {};
 
     Object.entries(req.body).forEach((entry) => {
-
       if (isEmpty(entry[1])) {
         entry[1] = null;
       }
