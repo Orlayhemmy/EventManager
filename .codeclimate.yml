@@ -22,4 +22,4 @@ exclude_paths:
 - .nyc_output
 - coverage
 - server/test/
-- templates/
+- template/
