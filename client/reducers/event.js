@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
     }
     case 'GET_CENTER_EVENTS_SUCCESS': {
       const { events } = action.payload;
-      const disableDates = _.map(events, event => (
+      const disableDates = events.map(event => (
         event.bookedDate
       ));
       return {
