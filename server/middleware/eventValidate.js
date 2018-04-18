@@ -12,6 +12,7 @@ export default class Validation {
      * @param {object} req
      * @param {object} res
      * @param {object} next
+     * @class postEvent
      * @returns {object} Validation error messages or content of req.body passed to controller
      * @memberof eventsValidation
      */
@@ -79,6 +80,15 @@ export default class Validation {
     next();
   }
 
+  /**
+     * Validates all events details before allowing access to controller class
+     * @param {object} req
+     * @param {object} res
+     * @param {object} next
+     * @class updateEvent
+     * @returns {object} Validation error messages or content of req.body passed to controller
+     * @memberof eventsValidation
+     */
   static updateEvent(req, res, next) {
     const {
       eventTitle,
@@ -88,7 +98,6 @@ export default class Validation {
     const errors = {};
 
     Object.entries(req.body).forEach((entry) => {
-
       if (isEmpty(entry[1])) {
         entry[1] = null;
       }
@@ -113,7 +122,6 @@ export default class Validation {
           }
         }
       }
-  
       // validations for description
       if (entry[0] === 'description') {
         if (entry[1] !== null) {

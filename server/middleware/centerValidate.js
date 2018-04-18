@@ -7,7 +7,6 @@ import isEmpty from 'lodash/isEmpty';
  * @class centersValidation
  */
 export default class Validation {
-
   /**
      * Validates all centers details before allowing access to controller class
      * @param {object} req
@@ -26,9 +25,8 @@ export default class Validation {
     } = req.body;
 
     const errors = {};
-
-
-    if (centerName === undefined || facilities === undefined || description === undefined || location === undefined) {
+    if (centerName === undefined || facilities === undefined
+      || description === undefined || location === undefined) {
       return res.status(400).send({
         message: 'All or Some Fields are Undefined',
       });
@@ -100,6 +98,14 @@ export default class Validation {
     next();
   }
 
+  /**
+     * Validates all centers details before allowing access to controller class
+     * @param {object} req
+     * @param {object} res
+     * @param {object} next
+     * @returns {object} Validation error messages or content of req.body passed to controller
+     * @memberof centersValidation
+     */
   static updateCenter(req, res, next) {
     const {
       centerName,
@@ -110,7 +116,6 @@ export default class Validation {
     } = req.body;
     const errors = {};
     Object.entries(req.body).forEach((entry) => {
-      
       if (isEmpty(entry[1])) {
         entry[1] = null;
       }
@@ -180,5 +185,4 @@ export default class Validation {
     }
     next();
   }
-
 }

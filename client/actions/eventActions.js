@@ -1,9 +1,12 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { centerStatus } from './centerActions';
-import { setActivity, deleteActivity } from './activityActions';
-import { setAdminActivity } from './adminActivityActions';
+import { setActivity } from './activityActions';
 
+/**
+ * @param {object} data
+ * @returns {object} new event details
+ */
 export function createEvent(data) {
   const { eventInfo } = data;
   return (dispatch) => {
@@ -24,6 +27,9 @@ export function createEvent(data) {
   };
 }
 
+/**
+ * @returns {object} list of events
+ */
 export function getEvents() {
   return (dispatch) => {
     dispatch({ type: 'GET_EVENTS' });
@@ -35,6 +41,10 @@ export function getEvents() {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} center events
+ */
 export function getCenterEvents(id) {
   return (dispatch) => {
     dispatch({ type: 'GET_CENTER_EVENTS' });
@@ -46,16 +56,21 @@ export function getCenterEvents(id) {
   };
 }
 
+/**
+ * @param {object} event
+ * @returns {object} current event
+ */
 export function setCurrentEvent(event) {
   return (dispatch) => {
     dispatch({ type: 'SET_CURRENT_EVENT', payload: event });
   };
 }
-// export function eventSelected(eventData) {
-//   return (dispatch) => {
-//     dispatch({ type: 'EVENT_SELECTED', payload: eventData });
-//   };
-// }
+
+/**
+ * @param {object} id
+ * @param {object} tag
+ * @returns {object} an event
+ */
 export function getEventSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: 'GET_EVENT' });
@@ -72,8 +87,12 @@ export function getEventSelected(id, tag) {
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} success or failure
+ */
 export function modifyCenterEvent(data) {
-  const { 
+  const {
     id,
     centerId
   } = data;
@@ -89,18 +108,26 @@ export function modifyCenterEvent(data) {
   };
 }
 
+/**
+ * @param {object} id
+ * @param {object} data
+ * @returns {object} success or failure
+ */
 export function modifyEvent(id, data) {
   return (dispatch) => {
     dispatch({ type: 'MODIFY_EVENT' });
     axios.put(`api/v1/events/${id}`, data).then((response) => {
       dispatch({ type: 'MODIFY_EVENT_SUCCESS', payload: response });
-      // dispatch(centerStatus(centerId));
     }).catch((err) => {
       dispatch({ type: 'MODIFY_EVENT_FAILS', payload: err.response.data });
     });
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} success or failure
+ */
 export function deleteCenterEvent(data) {
   const {
     id,
@@ -118,6 +145,10 @@ export function deleteCenterEvent(data) {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} success or failure
+ */
 export function deleteEvent(id) {
   return (dispatch) => {
     dispatch({ type: 'DELETE_EVENT' });
@@ -130,12 +161,21 @@ export function deleteEvent(id) {
   };
 }
 
+/**
+ * @param {object} data
+ * @param {object} centerId
+ * @returns {object} event state
+ */
 export function clearEventState() {
   return (dispatch) => {
     dispatch({ type: 'CLEAR_EVENT_STATE' });
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} number of event booked
+ */
 export function eventBooked(id) {
   return (dispatch) => {
     dispatch({ type: 'GET_EVENTS_BOOKED_COUNT' });
@@ -147,6 +187,10 @@ export function eventBooked(id) {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} date user joined
+ */
 export function dateJoined(id) {
   return (dispatch) => {
     dispatch({ type: 'GET_DATE_JOINED' });

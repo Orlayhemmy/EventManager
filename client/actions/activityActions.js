@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { setAdminActivity } from './adminActivityActions';
 
+/**
+ * @returns {object} User Activities
+ */
 export function getActivity() {
   return (dispatch) => {
     dispatch({ type: 'GET_ACTIVITIES' });
@@ -12,6 +15,10 @@ export function getActivity() {
   };
 }
 
+/**
+ * @param {object} data
+ * @returns {object} Set activities
+ */
 export function setActivity(data) {
   return (dispatch) => {
     dispatch({ type: 'SET_ACTIVITY' });
@@ -24,6 +31,10 @@ export function setActivity(data) {
   };
 }
 
+/**
+ * @param {object} id
+ * @returns {object} delete Activities
+ */
 export function deleteActivity(id) {
   return (dispatch) => {
     dispatch({ type: 'DELETE_ACTIVITY' });
