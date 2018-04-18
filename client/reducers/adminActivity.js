@@ -1,3 +1,5 @@
+import * as actionTypes from '../actions/types';
+
 const initialState = {
   loading: false,
   loaded: false,
@@ -5,20 +7,20 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_ADMINCTIVITY': {
+    case actionTypes.SET_ADMINCTIVITY: {
       return {
         ...state,
         loading: true,
       };
     }
-    case 'SET_ADMINACTIVITY_SUCCESS': {
+    case actionTypes.SET_ADMINACTIVITY_SUCCESS: {
       return {
         ...state,
         loading: false,
         loaded: true,
       };
     }
-    case 'SET_ADMINACTIVITY_FAILS': {
+    case actionTypes.SET_ADMINACTIVITY_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
@@ -27,7 +29,7 @@ export default (state = initialState, action) => {
         error: message,
       };
     }
-    case 'GET_ACTIVITIES': {
+    case actionTypes.GET_ACTIVITIES: {
       return {
         ...state,
         loading: true,
@@ -35,7 +37,7 @@ export default (state = initialState, action) => {
         activities: '',
       };
     }
-    case 'GET_ACTIVITIES_SUCCESS': {
+    case actionTypes.GET_ACTIVITIES_SUCCESS: {
       const { activities } = action.payload;
       return {
         ...state,
@@ -44,7 +46,7 @@ export default (state = initialState, action) => {
         activities,
       };
     }
-    case 'GET_ACTIVITIES_FAILS': {
+    case actionTypes.GET_ACTIVITIES_FAILS: {
       const { message } = action.payload.data;
       return {
         ...state,

@@ -1,4 +1,5 @@
 import isEmpty from 'lodash/isEmpty';
+import * as actionTypes from '../actions/types';
 
 const initialState = {
   loading: false,
@@ -12,7 +13,7 @@ const initialState = {
 };
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'CLEAR_CENTER_STATE': {
+    case actionTypes.CLEAR_CENTER_STATE: {
       return {
         ...state,
         loading: '',
@@ -21,7 +22,7 @@ export default (state = initialState, action) => {
         status: '',
       };
     }
-    case 'SET_CURRENT_CENTER': {
+    case actionTypes.SET_CURRENT_CENTER: {
       const {
         centerName,
         location,
@@ -47,7 +48,7 @@ export default (state = initialState, action) => {
       };
     }
 
-    case 'GET_CENTERS': {
+    case actionTypes.GET_CENTERS: {
       return {
         ...state,
         loading: true,
@@ -55,7 +56,7 @@ export default (state = initialState, action) => {
         error: '',
       };
     }
-    case 'GET_CENTERS_FAILS': {
+    case actionTypes.GET_CENTERS_FAILS: {
       const { status, data: { message } } = action.payload;
       return {
         ...state,
@@ -63,7 +64,7 @@ export default (state = initialState, action) => {
         status,
       };
     }
-    case 'GET_CENTERS_SUCCESS': {
+    case actionTypes.GET_CENTERS_SUCCESS: {
       const { centers } = action.payload;
       return {
         ...state,
@@ -72,7 +73,7 @@ export default (state = initialState, action) => {
         centers,
       };
     }
-    case 'CENTER_SELECTED': {
+    case actionTypes.CENTER_SELECTED: {
       const {
         centerId,
         centerName
@@ -83,13 +84,13 @@ export default (state = initialState, action) => {
         centerName,
       };
     }
-    case 'GET_CENTER': {
+    case actionTypes.GET_CENTER: {
       return {
         ...state,
         error: '',
       };
     }
-    case 'GET_CENTER_FAILS': {
+    case actionTypes.GET_CENTER_FAILS: {
       const {
         status,
         data: { message }
@@ -100,7 +101,7 @@ export default (state = initialState, action) => {
         status,
       };
     }
-    case 'GET_CENTER_SUCCESS': {
+    case actionTypes.GET_CENTER_SUCCESS: {
       const { center } = action.payload.data;
       return {
         ...state,
@@ -109,14 +110,14 @@ export default (state = initialState, action) => {
         center,
       };
     }
-    case 'MODIFY_CENTER': {
+    case actionTypes.MODIFY_CENTER: {
       return {
         ...state,
         loading: true,
         message: '',
       };
     }
-    case 'MODIFY_CENTER_FAILS': {
+    case actionTypes.MODIFY_CENTER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
@@ -125,7 +126,7 @@ export default (state = initialState, action) => {
         error: message,
       };
     }
-    case 'MODIFY_CENTER_SUCCESS': {
+    case actionTypes.MODIFY_CENTER_SUCCESS: {
       const {
         status,
         data: { message }
@@ -138,21 +139,21 @@ export default (state = initialState, action) => {
         status,
       };
     }
-    case 'DELETE_CENTER': {
+    case actionTypes.DELETE_CENTER: {
       return {
         ...state,
         loading: true,
         status: '',
       };
     }
-    case 'DELETE_CENTER_FAILS': {
+    case actionTypes.DELETE_CENTER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
         error: message,
       };
     }
-    case 'DELETE_CENTER_SUCCESS': {
+    case actionTypes.DELETE_CENTER_SUCCESS: {
       const { status } = action.payload;
       return {
         ...state,
@@ -161,7 +162,7 @@ export default (state = initialState, action) => {
         status,
       };
     }
-    case 'ADD_CENTER': {
+    case actionTypes.ADD_CENTER: {
       return {
         ...state,
         loading: true,
@@ -169,7 +170,7 @@ export default (state = initialState, action) => {
         url: '',
       };
     }
-    case 'ADD_CENTER_FAILS': {
+    case actionTypes.ADD_CENTER_FAILS: {
       const {
         status,
         data: { message }
@@ -180,7 +181,7 @@ export default (state = initialState, action) => {
         error: message,
       };
     }
-    case 'ADD_CENTER_SUCCESS': {
+    case actionTypes.ADD_CENTER_SUCCESS: {
       const {
         status,
         data: { center }
@@ -193,21 +194,21 @@ export default (state = initialState, action) => {
         center,
       };
     }
-    case 'ADD_IMAGE': {
+    case actionTypes.ADD_IMAGE: {
       return {
         ...state,
         loading: true,
         status: '',
       };
     }
-    case 'ADD_IMAGE_FAILS': {
+    case actionTypes.ADD_IMAGE_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
         error: message,
       };
     }
-    case 'ADD_IMAGE_SUCCESS': {
+    case actionTypes.ADD_IMAGE_SUCCESS: {
       const url = action.payload;
       return {
         ...state,
@@ -216,20 +217,20 @@ export default (state = initialState, action) => {
         url,
       };
     }
-    case 'CENTER_STATUS_UPDATE': {
+    case actionTypes.CENTER_STATUS_UPDATE: {
       return {
         ...state,
         loading: true,
       };
     }
-    case 'CENTER_STATUS_UPDATE_SUCCESS': {
+    case actionTypes.CENTER_STATUS_UPDATE_SUCCESS: {
       return {
         ...state,
         loading: false,
         loaded: true,
       };
     }
-    case 'CENTER_STATUS_UPDATE_FAILS': {
+    case actionTypes.CENTER_STATUS_UPDATE_FAILS: {
       const { message } = action.payload;
       return {
         ...state,

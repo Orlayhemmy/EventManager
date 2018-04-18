@@ -2,13 +2,14 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import { setAdminActivity } from './adminActivityActions';
 import { getCenterEvents } from './eventActions';
+import * as actionTypes from './types';
 
 /**
  * @returns {object} clear state
  */
 export function clearState() {
   return (dispatch) => {
-    dispatch({ type: 'CLEAR_CENTER_STATE' });
+    dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
   };
 }
 
@@ -18,7 +19,7 @@ export function clearState() {
  */
 export function getCenters(data) {
   return (dispatch) => {
-    dispatch({ type: 'GET_CENTERS' });
+    dispatch({ type: actionTypes.GET_CENTERS });
     let query;
 
     if (data) {
@@ -35,9 +36,9 @@ export function getCenters(data) {
       query = axios.get('api/v1/centers');
     }
     query.then((response) => {
-      dispatch({ type: 'GET_CENTERS_SUCCESS', payload: response.data });
+      dispatch({ type: actionTypes.GET_CENTERS_SUCCESS, payload: response.data });
     }).catch((err) => {
-      dispatch({ type: 'GET_CENTERS_FAILS', payload: err.response });
+      dispatch({ type: actionTypes.GET_CENTERS_FAIL, payload: err.response });
     });
   };
 }
@@ -48,7 +49,7 @@ export function getCenters(data) {
  */
 export function setCurrentCenter(centerData) {
   return (dispatch) => {
-    dispatch({ type: 'SET_CURRENT_CENTER', payload: centerData });
+    dispatch({ type: actionTypes.SET_CURRENT_CENTER, payload: centerData });
     dispatch(getCenterEvents(centerData.center.id));
   };
 }
@@ -59,7 +60,7 @@ export function setCurrentCenter(centerData) {
  */
 export function centerSelected(center) {
   return (dispatch) => {
-    dispatch({ type: 'CENTER_SELECTED', payload: center });
+    dispatch({ type: actionTypes.CENTER_SELECTED, payload: center });
   };
 }
 /**
@@ -69,16 +70,16 @@ export function centerSelected(center) {
  */
 export function getCenterSelected(id, tag) {
   return (dispatch) => {
-    dispatch({ type: 'GET_CENTER' });
+    dispatch({ type: actionTypes.GET_CENTER });
     return axios.get(`api/v1/centers/${id}`).then((response) => {
-      dispatch({ type: 'GET_CENTER_SUCCESS', payload: response });
+      dispatch({ type: actionTypes.GET_CENTER_SUCCESS, payload: response });
       if (!tag) {
         const { token } = response.data;
         localStorage.setItem('center', token);
         dispatch(setCurrentCenter(jwt.decode(token)));
       }
     }).catch((err) => {
-      dispatch({ type: 'GET_CENTER_FAILS', payload: err.response });
+      dispatch({ type: actionTypes.GET_CENTER_FAILS, payload: err.response });
     });
   };
 }
@@ -89,13 +90,13 @@ export function getCenterSelected(id, tag) {
  */
 export function addCenter(data) {
   return (dispatch) => {
-    dispatch({ type: 'ADD_CENTER' });
+    dispatch({ type: actionTypes.ADD_CENTER });
     return axios.post('api/v1/centers', data).then((response) => {
-      dispatch({ type: 'ADD_CENTER_SUCCESS', payload: response });
+      dispatch({ type: actionTypes.ADD_CENTER_SUCCESS, payload: response });
       const { center } = response.data;
       dispatch(setAdminActivity(center));
     }).catch((err) => {
-      dispatch({ type: 'ADD_CENTER_FAILS', payload: err.response });
+      dispatch({ type: actionTypes.ADD_CENTER_FAILS, payload: err.response });
     });
   };
 }
@@ -107,12 +108,12 @@ export function addCenter(data) {
  */
 export function modifyCenter(data, centerId) {
   return (dispatch) => {
-    dispatch({ type: 'MODIFY_CENTER' });
+    dispatch({ type: actionTypes.MODIFY_CENTER });
     return axios.put(`api/v1/centers/${centerId}`, data).then((res) => {
-      dispatch({ type: 'MODIFY_CENTER_SUCCESS', payload: res });
+      dispatch({ type: actionTypes.MODIFY_CENTER_SUCCESS, payload: res });
       dispatch(getCenterSelected(centerId));
     }).catch((err) => {
-      dispatch({ type: 'MODIFY_CENTER_FAILS', payload: err.response.data });
+      dispatch({ type: actionTypes.MODIFY_CENTER_FAILS, payload: err.response.data });
     });
   };
 }
@@ -123,15 +124,15 @@ export function modifyCenter(data, centerId) {
  */
 export function uploadImage(data) {
   return (dispatch) => {
-    dispatch({ type: 'ADD_IMAGE' });
+    dispatch({ type: actionTypes.ADD_IMAGE });
     delete axios.defaults.headers.common['x-access-token'];
     return axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
       .then((response) => {
-        dispatch({ type: 'ADD_IMAGE_SUCCESS', payload: response.data.secure_url });
+        dispatch({ type: actionTypes.ADD_IMAGE_SUCCESS, payload: response.data.secure_url });
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
       }).catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({ type: 'ADD_IMAGE_FAILS', payload: err.response });
+        dispatch({ type: actionTypes.ADD_IMAGE_FAILS, payload: err.response });
       });
   };
 }
@@ -142,12 +143,12 @@ export function uploadImage(data) {
  */
 export function deleteCenter(id) {
   return (dispatch) => {
-    dispatch({ type: 'DELETE_CENTER' });
+    dispatch({ type: actionTypes.DELETE_CENTER });
     return axios.delete(`api/v1/centers/${id}`).then((response) => {
-      dispatch({ type: 'DELETE_CENTER_SUCCESS', payload: response });
+      dispatch({ type: actionTypes.DELETE_CENTER_SUCCESS, payload: response });
       dispatch(getCenters());
     }).catch((err) => {
-      dispatch({ type: 'DELETE_CENTER_FAILS', payload: err.response.data });
+      dispatch({ type: actionTypes.DELETE_CENTER_FAILS, payload: err.response.data });
     });
   };
 }
@@ -158,11 +159,11 @@ export function deleteCenter(id) {
  */
 export function centerStatus(id) {
   return (dispatch) => {
-    dispatch({ type: 'CENTER_STATUS_UPDATE' });
+    dispatch({ type: actionTypes.CENTER_STATUS_UPDATE });
     return axios.put(`api/v1/centerStatus/${id}`).then((response) => {
-      dispatch({ type: 'CENTER_STATUS_UPDATE_SUCCESS', payload: response });
+      dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS, payload: response });
     }).catch((err) => {
-      dispatch({ type: 'CENTER_STATUS_UPDATE_FAILS', payload: err.response.data });
+      dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_FAILS, payload: err.response.data });
     });
   };
 }

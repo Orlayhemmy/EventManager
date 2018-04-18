@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import models from '../models';
 import passwordHash from '../helper/passwordHash';
-import { generateToken } from '../helper/generateToken';
+import generateToken from '../helper/generateToken';
 
 const { Users } = models;
 
