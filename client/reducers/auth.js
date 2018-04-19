@@ -81,7 +81,8 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_SIGNUP_SUCCESS: {
-      const { status } = action.payload;
+      const { status } = action.payload.response;
+      console.log(action.payload)
       return {
         ...state,
         loading: false,
