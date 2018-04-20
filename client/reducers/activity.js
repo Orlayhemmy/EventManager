@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_ACTIVITIES_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         loaded: true,
@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_ACTIVITY_SUCCESS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,

@@ -59,15 +59,12 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_LOGIN_FAIL: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 401,
         message,
       };
     }
@@ -81,25 +78,20 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_SIGNUP_SUCCESS: {
-      const { status } = action.payload.response;
-      console.log(action.payload)
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 200
       };
     }
     case actionTypes.USER_SIGNUP_FAILS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 401,
         message,
       };
     }
@@ -112,12 +104,11 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.VERIFY_EMAIL_SUCCESS: {
-      const { status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 200,
       };
     }
     case actionTypes.VERIFY_EMAIL_FAIL: {
@@ -136,25 +127,18 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.GET_CODE_SUCCESS: {
-      const {
-        status,
-        data: { shortCode }
-      } = action.payload;
+      const { shortCode } = action.payload;
       return {
         ...state,
-        status,
+        status: 201,
         codeMessage: '',
         code: shortCode,
       };
     }
     case actionTypes.GET_CODE_FAILS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
-        status,
         message,
       };
     }
@@ -177,16 +161,13 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.UPDATE_USER_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.UPDATE_USER_FAILS: {
@@ -217,12 +198,11 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.SEND_MAIL_FAIL: {
-      const { status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        message: action.payload,
       };
     }
     case actionTypes.GET_USER: {
@@ -233,25 +213,22 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.GET_USER_SUCCESS: {
-      const {
-        status,
-        data: { userDetails }
-      } = action.payload;
+      const { userDetails } = action.payload;
       return {
         ...state,
         loaded: true,
         loading: false,
-        status,
+        status: 200,
         userDetails
       };
     }
     case actionTypes.GET_USER_FAILS: {
-      const { status } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        message,
       };
     }
     case actionTypes.CHECK_PASSWORD: {
@@ -262,28 +239,21 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.CHECK_PASSWORD_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loaded: true,
         loading: false,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.CHECK_PASSWORD_FAILS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
         message,
       };
     }
