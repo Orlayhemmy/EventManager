@@ -32,10 +32,10 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_FAILS: {
-      const { status } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
-        status,
+        message,
       };
     }
     case actionTypes.GET_EVENTS_SUCCESS: {
@@ -127,16 +127,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_EVENT_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT: {
@@ -155,15 +152,12 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 200,
         message,
       };
     }
@@ -181,16 +175,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_EVENT_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.ADD_EVENT: {
@@ -209,16 +200,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_EVENT_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.DELETE_EVENT: {
@@ -237,16 +225,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_EVENT_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200
       };
     }
     case actionTypes.CLEAR_EVENT_STATE: {
@@ -266,16 +251,13 @@ export default (state = initialState, action) => {
     }
     case actionTypes.EVENTS_BOOKED_COUNT_SUCCESS: {
       const {
-        status,
-        data: {
-          message,
-          eventBookedCount
-        }
+        message,
+        eventBookedCount
       } = action.payload;
       return {
         ...state,
         message,
-        status,
+        status: 200,
         eventBookedCount,
       };
     }
@@ -300,16 +282,13 @@ export default (state = initialState, action) => {
     }
     case actionTypes.EVENTS_DELETED_COUNT_SUCCESS: {
       const {
-        status,
-        data: {
-          message,
-          eventDeletedCount
-        }
+        message,
+        eventDeletedCount
       } = action.payload;
       return {
         ...state,
         message,
-        status,
+        status: 200,
         eventDeletedCount,
       };
     }

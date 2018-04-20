@@ -57,11 +57,10 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_FAILS: {
-      const { status, data: { message } } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         error: message,
-        status,
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
@@ -91,18 +90,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTER_FAILS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         error: message,
-        status,
       };
     }
     case actionTypes.GET_CENTER_SUCCESS: {
-      const { center } = action.payload.data;
+      const { center } = action.payload;
       return {
         ...state,
         loading: false,
@@ -127,16 +122,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_SUCCESS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status,
+        status: 200,
       };
     }
     case actionTypes.DELETE_CENTER: {
@@ -154,12 +146,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
-      const { status } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 200,
+        message,
       };
     }
     case actionTypes.ADD_CENTER: {
@@ -171,26 +164,19 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_CENTER_FAILS: {
-      const {
-        status,
-        data: { message }
-      } = action.payload;
+      const { message } = action.payload;
       return {
         ...state,
-        status,
         error: message,
       };
     }
     case actionTypes.ADD_CENTER_SUCCESS: {
-      const {
-        status,
-        data: { center }
-      } = action.payload;
+      const { center } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status,
+        status: 200,
         center,
       };
     }
