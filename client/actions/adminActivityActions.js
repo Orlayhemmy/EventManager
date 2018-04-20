@@ -11,7 +11,7 @@ export function getAdminActivity() {
     return axios.get('api/v1/adminactivity').then((response) => {
       dispatch({ type: actionTypes.GET_ACTIVITIES_SUCCESS, payload: response.data });
     }).catch((err) => {
-      dispatch({ type: actionTypes.GET_ACTIVITIES_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.GET_ACTIVITIES_FAILS, payload: err.response.data });
     });
   };
 }
@@ -24,7 +24,7 @@ export function setAdminActivity(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.SET_ADMINACTIVITY });
     return axios.post('api/v1/adminactivity', data).then((response) => {
-      dispatch({ type: actionTypes.SET_ADMINACTIVITY_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.SET_ADMINACTIVITY_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.SET_ADMINACTIVITY_FAILS, payload: err.response.data });
     });

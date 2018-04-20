@@ -41,7 +41,7 @@ export function sendMail(title, message, email) {
     return axios.post('api/v1/sendmail', data).then((response) => {
       dispatch({ type: actionTypes.SEND_MAIL_SUCCESS, payload: response.data });
     }).catch((err) => {
-      dispatch({ type: actionTypes.SEND_MAIL_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.SEND_MAIL_FAILS, payload: err.response.data });
     });
   };
 }
@@ -64,7 +64,7 @@ export function userSignupRequest(user, title, message, email) {
       dispatch(setCurrentUser(jwt.decode(token), token));
       dispatch(sendMail(title, message, email));
     }).catch((err) => {
-      dispatch({ type: actionTypes.USER_SIGNUP_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.USER_SIGNUP_FAILS, payload: err.response.data });
     });
   };
 }
@@ -90,13 +90,13 @@ export function userSignInRequest(user) {
   return (dispatch) => {
     dispatch({ type: 'USER_LOGIN' });
     return axios.post('api/v1/users/login', user).then((response) => {
-      dispatch({ type: 'USER_LOGIN_SUCCESS', payload: response });
+      dispatch({ type: 'USER_LOGIN_SUCCESS', payload: response.data });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token), token));
     }).catch((err) => {
-      dispatch({ type: 'USER_LOGIN_FAIL', payload: err.response });
+      dispatch({ type: 'USER_LOGIN_FAIL', payload: err.response.data });
     });
   };
 }
@@ -152,7 +152,7 @@ export function updateUserDetails(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_USER });
     return axios.put('api/v1/users', data).then((response) => {
-      dispatch({ type: actionTypes.UPDATE_USER_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.UPDATE_USER_SUCCESS, payload: response.data });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
@@ -184,7 +184,7 @@ export function checkPassword(data) {
       dispatch({ type: actionTypes.CHECK_PASSWORD_SUCCESS, payload: response.data });
       dispatch(clearStatus());
     }).catch((err) => {
-      dispatch({ type: actionTypes.CHECK_PASSWORD_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.CHECK_PASSWORD_FAILS, payload: err.response.data });
     });
   };
 }
@@ -210,7 +210,7 @@ export function uploadUserImage(id, data) {
         dispatch(updateUserDetails(imgData));
       }).catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({ type: actionTypes.UPLOAD_IMAGE_FAILS, payload: err.response });
+        dispatch({ type: actionTypes.UPLOAD_IMAGE_FAILS, payload: err.response.data });
       });
   };
 }
