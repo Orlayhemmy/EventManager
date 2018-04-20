@@ -38,7 +38,7 @@ export function getCenters(data) {
     query.then((response) => {
       dispatch({ type: actionTypes.GET_CENTERS_SUCCESS, payload: response.data });
     }).catch((err) => {
-      dispatch({ type: actionTypes.GET_CENTERS_FAIL, payload: err.response });
+      dispatch({ type: actionTypes.GET_CENTERS_FAIL, payload: err.response.data });
     });
   };
 }
@@ -72,14 +72,14 @@ export function getCenterSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER });
     return axios.get(`api/v1/centers/${id}`).then((response) => {
-      dispatch({ type: actionTypes.GET_CENTER_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.GET_CENTER_SUCCESS, payload: response.data });
       if (!tag) {
         const { token } = response.data;
         localStorage.setItem('center', token);
         dispatch(setCurrentCenter(jwt.decode(token)));
       }
     }).catch((err) => {
-      dispatch({ type: actionTypes.GET_CENTER_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.GET_CENTER_FAILS, payload: err.response.data });
     });
   };
 }
@@ -92,11 +92,11 @@ export function addCenter(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_CENTER });
     return axios.post('api/v1/centers', data).then((response) => {
-      dispatch({ type: actionTypes.ADD_CENTER_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.ADD_CENTER_SUCCESS, payload: response.data });
       const { center } = response.data;
       dispatch(setAdminActivity(center));
     }).catch((err) => {
-      dispatch({ type: actionTypes.ADD_CENTER_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.ADD_CENTER_FAILS, payload: err.response.data });
     });
   };
 }
@@ -132,7 +132,7 @@ export function uploadImage(data) {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
       }).catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({ type: actionTypes.ADD_IMAGE_FAILS, payload: err.response });
+        dispatch({ type: actionTypes.ADD_IMAGE_FAILS, payload: err.response.data });
       });
   };
 }
@@ -145,7 +145,7 @@ export function deleteCenter(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_CENTER });
     return axios.delete(`api/v1/centers/${id}`).then((response) => {
-      dispatch({ type: actionTypes.DELETE_CENTER_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.DELETE_CENTER_SUCCESS, payload: response.data });
       dispatch(getCenters());
     }).catch((err) => {
       dispatch({ type: actionTypes.DELETE_CENTER_FAILS, payload: err.response.data });
@@ -161,7 +161,7 @@ export function centerStatus(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CENTER_STATUS_UPDATE });
     return axios.put(`api/v1/centerStatus/${id}`).then((response) => {
-      dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_FAILS, payload: err.response.data });
     });

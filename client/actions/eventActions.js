@@ -13,7 +13,7 @@ export function createEvent(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_EVENT });
     axios.post('api/v1/events', eventInfo).then((response) => {
-      dispatch({ type: actionTypes.ADD_EVENT_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.ADD_EVENT_SUCCESS, payload: response.data });
       const info = {
         id: eventInfo.centerId,
         eventTitle: eventInfo.eventTitle,
@@ -37,7 +37,7 @@ export function getEvents() {
     axios.get('api/v1/userEvents').then((response) => {
       dispatch({ type: actionTypes.GET_EVENTS_SUCCESS, payload: response.data });
     }).catch((err) => {
-      dispatch({ type: actionTypes.GET_EVENTS_FAIL, payload: err.response });
+      dispatch({ type: actionTypes.GET_EVENTS_FAIL, payload: err.response.data });
     });
   };
 }
@@ -118,7 +118,7 @@ export function modifyEvent(id, data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_EVENT });
     axios.put(`api/v1/events/${id}`, data).then((response) => {
-      dispatch({ type: actionTypes.MODIFY_EVENT_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.MODIFY_EVENT_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.MODIFY_EVENT_FAILS, payload: err.response.data });
     });
@@ -183,7 +183,7 @@ export function eventBooked(id) {
     axios.get(`api/v1/eventsbookedcount/${id}`).then((res) => {
       dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS, payload: res });
     }).catch((err) => {
-      dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAILS, payload: err.response });
+      dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAILS, payload: err.response.data });
     });
   };
 }
