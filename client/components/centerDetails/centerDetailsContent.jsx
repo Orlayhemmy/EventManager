@@ -20,7 +20,7 @@ import UploadImage from '../imageUpload';
 
 @connect((store) => {
   return {
-    center: store.center,
+    centerData: store.center,
     event: store.event,
     events: store.event.centerEvents,
     message: store.event.message,
@@ -37,7 +37,7 @@ export default class CenterDetailsContent extends React.Component {
       capacity,
       imageUrl,
       facilities, 
-      id } = props.center.center;
+      id } = props.centerData.center;
 
     this.state = {
       centerName: centerName || '',
@@ -59,7 +59,7 @@ export default class CenterDetailsContent extends React.Component {
   }
   
   onChange(e) {
-    if (this.props.center.message) {
+    if (this.props.centerData.message) {
       this.props.dispatch(clearState());
     }
     this.setState({
@@ -67,13 +67,13 @@ export default class CenterDetailsContent extends React.Component {
     });
   }
   onSubmit(e) {
-    if (this.state != this.initialState) {
+    if (this.state !== this.initialState) {
       this.props.dispatch(modifyCenter(this.state, this.state.id));
     }
     this.showHiddenDiv(e);
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.center.center !== this.props.center.center) {
+    if (nextProps.centerData !== this.props.center) {
       const {
         centerName,
         location,
@@ -82,20 +82,20 @@ export default class CenterDetailsContent extends React.Component {
         capacity,
         imageUrl,
         id
-      } = nextProps.center.center;
+      } = nextProps.centerData.center;
       this.setState({
         centerName: centerName || '',
         location: location || '',
         facilities: facilities.join() || '',
         description: description || '',
-        imageUrl: imageUrl || '',
+        imageUrl: imageUrl || nextProps.centerData.url,
         capacity: capacity || '',
         id: id || '',
       })
     }
   }
   componentDidUpdate() {
-    if (this.props.event.status === 201 || this.props.event.status === 200 || this.props.center.status === 200) {
+    if (this.props.event.status === 201 || this.props.event.status === 200 || this.props.centerData.status === 200) {
       $(document).ready( function(){
         $('#eventStatus').modal('hide');
         $('#deleteModal').modal('hide');
@@ -113,7 +113,7 @@ export default class CenterDetailsContent extends React.Component {
       eventTitle,
       userId
     } = this.props.event.event;
-    const centerId = this.props.center.center.id;
+    const centerId = this.props.centerData.center.id;
     if (e.target.id === "approve") {
       const data = {
         eventTitle: eventTitle,
@@ -153,7 +153,7 @@ export default class CenterDetailsContent extends React.Component {
   
 
   render() {
-    const { center } = this.props.center;
+    const { center } = this.props.centerData;
     const {
       centerName,
       location,
@@ -186,8 +186,8 @@ export default class CenterDetailsContent extends React.Component {
       message = "Approved";
     } else if (this.props.event.status === 200) {
       message = this.props.event.message;
-    } else if (this.props.center.status === 200) {
-      message = this.props.center.message;
+    } else if (this.props.centerData.status === 200) {
+      message = this.props.centerData.message;
     }
     return (
       <div id="center-event">
@@ -212,7 +212,7 @@ export default class CenterDetailsContent extends React.Component {
                 ... <i data-toggle-id="editCenterDetails" className="fa fa-pencil main-color" onClick={this.showHiddenDiv}> edit</i>	
               </div>
               <div id="editCenterDetails" hidden>
-                <UploadImage path={this.props.path} uploadedImage={imageUrl}/>
+                <UploadImage path={this.props.path} uploadedImage={imageUrl || this.props.centerData.url}/>
                 <div className="media-body text-center mb-4">
                   <form id="edit-center-form">
                     <div>

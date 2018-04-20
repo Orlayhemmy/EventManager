@@ -35,7 +35,7 @@ export default class ImageUpload extends React.Component {
       return (
         <div>
           <div>
-            {this.props.uploadedImage === undefined ? 
+            {this.props.uploadedImage == undefined ? 
             <div className="imageUpload">
               <label for="imageInput">
                 <p className="img-fluid dropzone p-5">Click here to upload your image </p>

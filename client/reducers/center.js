@@ -176,7 +176,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        status: 200,
+        status: 201,
         center,
       };
     }
