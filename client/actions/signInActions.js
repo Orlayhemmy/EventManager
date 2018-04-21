@@ -1,7 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthToken from '../utils/setAuthorizationToken';
-import { setCurrentCenter } from './centerActions';
 import * as actionTypes from './types';
 
 /**
@@ -74,11 +73,9 @@ export function userSignupRequest(user, title, message, email) {
  */
 export function logout() {
   return (dispatch) => {
-    localStorage.removeItem('jwtToken');
+    localStorage.clear();
     setAuthToken(false);
     dispatch(setCurrentUser({}));
-    localStorage.removeItem('center');
-    dispatch(setCurrentCenter({}));
   };
 }
 
@@ -88,15 +85,15 @@ export function logout() {
  */
 export function userSignInRequest(user) {
   return (dispatch) => {
-    dispatch({ type: 'USER_LOGIN' });
+    dispatch({ type: actionTypes.USER_LOGIN });
     return axios.post('api/v1/users/login', user).then((response) => {
-      dispatch({ type: 'USER_LOGIN_SUCCESS', payload: response.data });
+      dispatch({ type: actionTypes.USER_LOGIN_SUCCESS, payload: response.data });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token), token));
     }).catch((err) => {
-      dispatch({ type: 'USER_LOGIN_FAIL', payload: err.response.data });
+      dispatch({ type: actionTypes.USER_LOGIN_FAILS, payload: err.response.data });
     });
   };
 }
