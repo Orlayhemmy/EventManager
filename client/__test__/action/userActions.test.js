@@ -55,35 +55,38 @@ const token = 'dshfbsjfs.safhbsjhbfsdjfbjhfbj#$#hjvr3#Rdchvbjsfbjs';
 //   });
 // });
 
-// describe('user signup action', () => {
-//   beforeEach(() => {
-//     moxios.install();
-//   });
+describe('user signup action', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
 
-//   afterEach(() => {
-//     moxios.uninstall();
-//   });
+  afterEach(() => {
+    moxios.uninstall();
+  });
 
-//   it('returns success when user is successfully signed up', () => {
-//     moxios.wait(() => {
-//       const request = moxios.requests.mostRecent();
-//       request.respondWith({
-//         status: 201,
-//         response: mockResponse
-//       });
-//     });
+  it('returns success when user is successfully signed up', (done) => {
+    moxios.stubRequest('/api/v1/users', {
+      status: 201,
+      response: {
+        message: 'signup sucessful',
+        token: 'sdefeffefrg'
+      }
+    });
 
-//     const expectedActions = [
-//       { type: actionTypes.USER_SIGNUP },
-//       { type: actionTypes.USER_SIGNUP_SUCCESS, payload: mockResponse }
-//     ];
-//     const store = mockStore({ payload: {} });
+    const expectedActions = [
+      { type: actionTypes.USER_SIGNUP },
+      { type: actionTypes.USER_SIGNUP_SUCCESS, payload: mockResponse }
+    ];
+    const store = mockStore({});
 
-//     return store.dispatch(actions.userSignupRequest(mockSignup)).then(() => {
-//       expect(store.getActions()).toEqual(expectedActions);
-//     });
-//   });
-// });
+    return store.dispatch(actions.userSignupRequest(mockSignup)).then(() => {
+      console.log(store.getActions());
+      console.log('-------------');
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+});
 
 // describe('user signin action', () => {
 //   beforeEach(() => {
@@ -116,7 +119,7 @@ const token = 'dshfbsjfs.safhbsjhbfsdjfbjhfbj#$#hjvr3#Rdchvbjsfbjs';
 //   });
 // });
 
-describe('confirm email action', () => {
+xdescribe('confirm email action', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -146,7 +149,7 @@ describe('confirm email action', () => {
   });
 });
 
-describe('generate code action', () => {
+xdescribe('generate code action', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -175,7 +178,7 @@ describe('generate code action', () => {
   });
 });
 
-describe('get user action', () => {
+xdescribe('get user action', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -204,7 +207,7 @@ describe('get user action', () => {
   });
 });
 
-describe('get user email action', () => {
+xdescribe('get user email action', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -232,7 +235,7 @@ describe('get user email action', () => {
   });
 });
 
-describe('check password action', () => {
+xdescribe('check password action', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -328,7 +331,7 @@ describe('check password action', () => {
 //   });
 // });
 
-describe('send mail action', () => {
+xdescribe('send mail action', () => {
   beforeEach(() => {
     moxios.install();
   });
