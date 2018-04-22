@@ -80,7 +80,7 @@ export class SignUpForm extends React.Component {
    * @memberof SignUpForm
    * @method render
    * @description it renders the component
-   * @returns the HTML of signup from
+   * @returns the HTML of signup form
    */
   render() {
     const {

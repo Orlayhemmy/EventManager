@@ -2,17 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { userSignInRequest } from '../../actions/signInActions.js';
-import Welcome from './HomeContent/welcome.jsx';
-import SignInForm from './HomeContent/signInForm.jsx';
-import SignUpForm from  './HomeContent/signUpForm.jsx';
+import Welcome from './HomeContent/Welcome';
+import SignUpForm from './HomeContent/SignUpForm';
+import SignInForm from './HomeContent/SignInForm';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-  }
-})
-
+/**
+ * @description Signin form component
+ */
 export default class HomeContent extends React.Component { 
+    /**
+   * @memberof HomeContent
+   * @description it creates an instance of HomeContent
+   */
   constructor() {
     super();
     this.state = {
@@ -20,6 +21,13 @@ export default class HomeContent extends React.Component {
       signinHidden: true,
     }
   }
+
+  /**
+   * @memberof HomeContent
+   * @method toggleDiv
+   * @description it toggles between the signup form
+   * @param {void}
+   */
   toggleDiv() {
     this.setState({
       signinHidden: !this.state.signinHidden,
@@ -27,7 +35,12 @@ export default class HomeContent extends React.Component {
     })
   }
  
-
+  /**
+   * @memberof HomeContent
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of homecontent component
+   */
   render() {
     const {
       isAuth,

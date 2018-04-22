@@ -76,7 +76,7 @@ export class SignInForm extends React.Component {
    * @memberof SignInForm
    * @method render
    * @description it renders the component
-   * @returns the HTML of signin from
+   * @returns the HTML of signin form
    */
   render() {
     const {
