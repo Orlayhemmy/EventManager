@@ -150,7 +150,6 @@ export default class CenterDetailsContent extends React.Component {
       return div2.style.display="";
     } 
   }  
-  
 
   render() {
     const { center } = this.props.centerData;

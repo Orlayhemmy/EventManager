@@ -1,72 +1,94 @@
 import React from 'react';
-import { Link, Redirect, browserHistory } from 'react-router-dom';
-import _ from 'lodash';
-import isEmpty from 'lodash/isEmpty';
 import { connect } from 'react-redux';
-import { getCenters, getCenterSelected, centerSelected } from '../actions/centerActions';
-import { getCenterEvents } from '../actions/eventActions';
+import { Link, Redirect, browserHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
+import { getCenters, centerSelected, getCenterSelected } from '../actions/centerActions';
 import DeleteModal from './deleteModal';
 import { getAdminActivity } from '../actions/adminActivityActions';
 
-
-@connect((store) => {
-  return {
-    center: store.center,
-    auth: store.auth,
-    activity: store.activity,
-  };
-})
-
-export default class DisplayCenters extends React.Component {
-
+/**
+ * @description DisplayCenters form component
+ */
+export class DisplayCenters extends React.Component {
+  
+  /**
+   * @memberof DisplayCenters
+   * @method componentWillMount
+   * @description it gets the necessary object before component is mounted
+   */
   componentWillMount() {
-    this.props.dispatch(getCenters());
-    this.props.dispatch(getAdminActivity());
+    this.props.getCenters();
+    this.props.getAdminActivity();
   }
 
-  onClick(e) {
-    const id = e.target.id;
-    this.props.dispatch(getCenterSelected(id));
-  }
-
+  /**
+   * @memberof DisplayCenters
+   * @method componentDidUpdate
+   * @description it gets the necessary object before component is mounted
+   */
   componentDidUpdate() {
-    if (this.props.center.status === 200) {
+    if (this.props.eventCenter.status === 200) {
       $(document).ready( function(){
         $('#deleteModal').modal('hide');
       });
     }
   }
 
+  /**
+   * @memberof DisplayCenters
+   * @method onClick
+   * @description it fetches the details of the center to be viewed
+   * @param {object} event
+   * @returns {void}
+   */
+  onClick(e) {
+    this.props.getCenterSelected(e.target.id);
+  }
+
+   /**
+   * @memberof DisplayCenters
+   * @method onDelete
+   * @description it fetches the details of the center to be deleted
+   * @param {object} event
+   * @returns {void}
+   */
   onDelete(e) {
     const center = {
       centerId: e.target.id,
       centerName: e.target.parentNode.id,
     }
-    this.props.dispatch(centerSelected(center));
+    this.props.centerSelected(center);
   }
 
+    /**
+   * @memberof DisplayCenters
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of displaycenters component
+   */
   render() {
     const path = this.props.path;
-    const { centers } = this.props.center;
-    const { activities } = this.props.activity;
+    const { centers } = this.props.eventCenter;
+    const { activities } = this.props.adminActivity;
     let adminCenter;
-    const recentActivity = _.map(activities,  (activity, index) => {
+    const recentActivity = activities.map((activity, index) => {
       const creationDate = activity.createdAt.replace(/-/g,'/').replace('Z','').replace('T',' ').slice(0, 16);
       return (
         <div className="row ml p-1" key={index}>
-          <Link to="/view-center-event"><span><p className="activity-font mb-0 p-1" onClick={this.onClick.bind(this)} id={activity.centerId}>{activity.description}<br/>
+          <Link to="/view-center-event"><span><p className="activity-font mb-0 p-1">{activity.description}<br/>
           {creationDate}</p></span></Link>
         </div>
       )
     })
-    if (isEmpty(this.props.center.centers)) {
+    if (isEmpty(this.props.eventCenter.centers)) {
       adminCenter = (
         <div className="emptyCenter img-fluid text-center ml-2 mt-2">
           <span><p className="display-3">No Center Found</p></span>
         </div>
       );
     } else {
-      adminCenter = _.map(centers, (center, index) => {
+      adminCenter = centers.map((center, index) => {
         return (
           <div className="row bw" key={index}>
             <div className="col-lg-4 col-md-12 col-sm-12 text-center">
@@ -106,9 +128,9 @@ export default class DisplayCenters extends React.Component {
         </div>
       </div>
     )
-    const guestCenterPage = _.map(centers, (center) => {
+    const guestCenterPage = centers.map((center, index) => {
       return (
-        <div className="row" id={center.id} key={center.id}>
+        <div className="row" id={center.id} key={index}>
           <div className="col-lg-4 col-md-12 col-sm-12 text-center">
 
               <img className="img" src={center.imageUrl}/>
@@ -140,5 +162,23 @@ export default class DisplayCenters extends React.Component {
     );
   }
 }
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+  eventCenter: PropTypes.object.isRequired,
+  adminActivity: PropTypes.object.isRequired,
+  getAdminActivity: PropTypes.func.isRequired,
+  centerSelected: PropTypes.func.isRequired,
+  getCenters: PropTypes.func.isRequired,
+  getCenterSelected: PropTypes.func.isRequired,
+};
 
+const mapStateToProps = state => ({
+  eventCenter: state.center,
+  auth: state.auth,
+  adminActivity: state.adminActivity,
+});
 
+DisplayCenters.propTypes = propTypes;
+
+export default connect(mapStateToProps, 
+  {centerSelected, getAdminActivity, getCenters, getCenterSelected})(DisplayCenters);
