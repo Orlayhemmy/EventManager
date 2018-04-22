@@ -36,15 +36,12 @@ export function searchFacilities(facilities) {
 }
 
 /**
- * @param  {object} req
+ * @param  {object} capacityType
+ * @param  {object} btwValue
+ * @param  {object} capacity
  * @returns {object} capacity search criteria
  */
-export function searchCapacity(req) {
-  const {
-    capacityType,
-    btwValue,
-    capacity
-  } = req.body;
+export function searchCapacity(capacityType, btwValue, capacity) {
   let capacitySearch;
   switch (capacityType) {
     case 'greater': {

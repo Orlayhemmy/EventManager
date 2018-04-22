@@ -52,10 +52,12 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_LOGIN_SUCCESS: {
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
+        message,
       };
     }
     case actionTypes.USER_LOGIN_FAIL: {
