@@ -24,28 +24,6 @@ export function setCurrentUser(newUser, token) {
 }
 
 /**
- * @param {object} title
- * @param {object} message
- * @param {object} email
- * @returns {object} success or failure
- */
-export function sendMail(title, message, email) {
-  return (dispatch) => {
-    const data = {
-      title,
-      message,
-      email,
-    };
-    dispatch({ type: actionTypes.SEND_MAIL });
-    return axios.post('api/v1/sendmail', data).then((response) => {
-      dispatch({ type: actionTypes.SEND_MAIL_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.SEND_MAIL_FAILS, payload: err.response.data });
-    });
-  };
-}
-
-/**
  * @param {object} user
  * @param {object} title
  * @param {object} message

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { sendMail, userSignupRequest } from '../../../actions/signInActions.js';
+import { userSignupRequest } from '../../../actions/signInActions.js';
 import { validateSignupInput } from '../../../shared/userValidation';
 import TextField from '../../../common/textField3';
 
