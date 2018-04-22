@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import models from '../models';
 import passwordHash from '../helper/passwordHash';
 import generateToken from '../helper/generateToken';
+import sendMail from '../helper/sendMail';
 
 const { Users } = models;
 
@@ -44,6 +45,7 @@ export default class UserController {
           .then((user) => {
             const token = generateToken(user);
             req.body.token = token;
+            sendMail(req);
             return res.status(201).send({
               message: 'You are now Signed Up',
               token
