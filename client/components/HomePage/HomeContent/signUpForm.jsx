@@ -10,7 +10,7 @@ import TextField from '../../../common/textField3';
  */
 export class SignUpForm extends React.Component {
   /**
-   * @memberof SignupForm
+   * @memberof SignUpForm
    * @description it creates an instance of signupform
    */
   constructor() {
@@ -30,7 +30,7 @@ export class SignUpForm extends React.Component {
   }
   
   /**
-   * @memberof SignupForm
+   * @memberof SignUpForm
    * @method onChange
    * @description it sets user input to state
    * @param {object} event
@@ -42,7 +42,7 @@ export class SignUpForm extends React.Component {
   }
 
   /**
-   * @memberof SignupForm
+   * @memberof SignUpForm
    * @method isValid
    * @description it calls validation action on user data
    * @param {void}
@@ -60,7 +60,7 @@ export class SignUpForm extends React.Component {
   }
 
   /**
-   * @memberof SignupForm
+   * @memberof SignUpForm
    * @method onSubmit
    * @description it calls the user signup action
    * @param {object} event
@@ -77,7 +77,7 @@ export class SignUpForm extends React.Component {
   } 
 
   /**
-   * @memberof SignupForm
+   * @memberof SignUpForm
    * @method render
    * @description it renders the component
    * @returns the HTML of signup from

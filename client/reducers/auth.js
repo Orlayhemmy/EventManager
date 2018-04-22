@@ -41,6 +41,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         isAuth: !isEmpty(newUser),
         user,
+        message: '',
       };
     }
     case actionTypes.USER_LOGIN: {
@@ -60,7 +61,7 @@ export default (state = initialState, action = {}) => {
         message,
       };
     }
-    case actionTypes.USER_LOGIN_FAIL: {
+    case actionTypes.USER_LOGIN_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
