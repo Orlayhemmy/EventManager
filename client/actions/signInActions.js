@@ -52,7 +52,7 @@ export function sendMail(title, message, email) {
  * @param {object} email
  * @returns {object} success or failure
  */
-export function userSignupRequest(user, title, message, email) {
+export function userSignupRequest(user) {
   return (dispatch) => {
     dispatch({ type: actionTypes.USER_SIGNUP });
     return axios.post('/api/v1/users', user).then((response) => {
@@ -61,7 +61,6 @@ export function userSignupRequest(user, title, message, email) {
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
       dispatch(setCurrentUser(jwt.decode(token), token));
-      dispatch(sendMail(title, message, email));
     }).catch((err) => {
       dispatch({ type: actionTypes.USER_SIGNUP_FAILS, payload: err.response.data });
     });
