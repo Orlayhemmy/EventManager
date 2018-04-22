@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/types';
 const initialState = {
   loading: false,
   loaded: false,
+  activities: [],
 };
 
 export default (state = initialState, action) => {
@@ -34,7 +35,6 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         message: '',
-        activities: '',
       };
     }
     case actionTypes.GET_ACTIVITIES_SUCCESS: {

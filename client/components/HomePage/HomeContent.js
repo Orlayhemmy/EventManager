@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { userSignInRequest } from '../../actions/signInActions.js';
+import PropTypes from 'prop-types';
 import Welcome from './HomeContent/Welcome';
 import SignUpForm from './HomeContent/SignUpForm';
 import SignInForm from './HomeContent/SignInForm';
@@ -9,8 +9,8 @@ import SignInForm from './HomeContent/SignInForm';
 /**
  * @description Signin form component
  */
-export default class HomeContent extends React.Component { 
-    /**
+export class HomeContent extends React.Component { 
+  /**
    * @memberof HomeContent
    * @description it creates an instance of HomeContent
    */
@@ -80,4 +80,16 @@ export default class HomeContent extends React.Component {
     );
   }
 }
+
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+HomeContent.propTypes = propTypes;
+
+export default connect(mapStateToProps, {})(HomeContent);
 

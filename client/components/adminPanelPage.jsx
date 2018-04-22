@@ -5,13 +5,7 @@ import Search from './centerSearch';
 import Navbar from './navbar';
 import Footer from './footer';
 
-@connect((store) => {
-  return {
-    user: store.auth,
-  };
-})
-
-export default class AdminPanelPage extends React.Component {
+export class AdminPanelPage extends React.Component {
   
   render() {
      //Check if user is logged in and is also an Admin
@@ -34,4 +28,7 @@ export default class AdminPanelPage extends React.Component {
     );
   }
 }
-
+const mapStateToProps = state => ({
+  user: state.auth,
+});
+export default connect(mapStateToProps, {})(AdminPanelPage);
