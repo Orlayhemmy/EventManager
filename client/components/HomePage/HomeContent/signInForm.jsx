@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { userSignInRequest } from '../../../actions/signInActions.js';
 import TextField from '../../../common/textField3';
 import { validateSigninInput } from '../../../shared/userValidation';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-  }
-})
-
-export default class SignInForm extends React.Component {
+/**
+ * @description Signin form component
+ */
+export class SignInForm extends React.Component {
+  /**
+   * @memberof SignInForm
+   * @description it creates an instance of signinform
+   */
   constructor() {
     super();
     this.state = {
@@ -26,6 +28,13 @@ export default class SignInForm extends React.Component {
     this.isValid = this.isValid.bind(this);
   }
 
+   /**
+   * @memberof SignInForm
+   * @method isValid
+   * @description it calls validation action on user data
+   * @param {void}
+   * @returns true or false
+   */
   isValid() {
     const {
       errors,
@@ -37,21 +46,39 @@ export default class SignInForm extends React.Component {
     return isValid;
   }
 
+  /**
+   * @memberof SignInForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
       [e.target.id]: e.target.value
     });
   }
 
+  /**
+   * @memberof SignInForm
+   * @method onSubmit
+   * @description it calls the user signin action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.props.dispatch(userSignInRequest(this.state));
+      this.props.userSignInRequest(this.state);
     }
   }
 
+  /**
+   * @memberof SignInForm
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of signin from
+   */
   render() {
-
     const {
       loginEmail,
       loginPassword,
@@ -87,3 +114,15 @@ export default class SignInForm extends React.Component {
     );
   }
 }
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+  userSignInRequest: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+SignInForm.propTypes = propTypes;
+
+export default connect(mapStateToProps, {userSignInRequest})(SignInForm);
