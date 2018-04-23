@@ -6,7 +6,7 @@ import { getCenters, getCenterSelected, clearState } from '../actions/centerActi
 import { getEventSelected } from '../actions/eventActions';
 import AddEventForm from './eventPage/addEventForm';
 import EditEventForm from './eventPage/editEventForm';
-import Modal from './flash/modal';
+import Modal from './Flash/Modal';
 
 @connect((store) => {
   return {

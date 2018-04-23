@@ -10,7 +10,7 @@ import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import DeleteModal from './deleteModal';
 import { centerSelected, getCenterSelected } from '../actions/centerActions';
-import Modal from './flash/modal';
+import Modal from './Flash/Modal';
 import { logout } from '../actions/signInActions';
 import { getActivity } from '../actions/activityActions';
 
