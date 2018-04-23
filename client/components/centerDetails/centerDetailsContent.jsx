@@ -15,7 +15,7 @@ import {
 import ModalContent from '../modalContent';
 import CenterForm from '../addCenterForm';
 import DeleteModal from '../deleteModal';
-import Modal from '../flash/modal';
+import Modal from '../Flash/Modal';
 import UploadImage from '../imageUpload';
 
 /**
@@ -213,7 +213,7 @@ export class CenterDetailsContent extends React.Component {
     const { event } = this.props.event;
     const events = _.map(this.props.events, (event) => {
       let eStatus;
-      if (event.isApproved == true) {
+      if (event.isApproved === true) {
         eStatus = <i id={event.id} className="fa fa-thumbs-up green"></i>
         } else {
           eStatus = <span onClick={this.onClick} data-toggle="modal" data-target="#eventStatus" id={event.eventTitle}><i id={event.id} className="fa fa-spinner main-color"></i></span>;
@@ -362,11 +362,10 @@ export class CenterDetailsContent extends React.Component {
   }
 }
 const propTypes = {
-  auth: PropTypes.object.isRequired,
   centerData: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired,
-  events: PropTypes.object.isRequired,
-  message: PropTypes.object.isRequired,
+  events: PropTypes.array.isRequired,
+  message: PropTypes.string.isRequired,
   getEventSelected: PropTypes.func.isRequired,
   modifyCenterEvent: PropTypes.func.isRequired,
   deleteCenterEvent: PropTypes.func.isRequired,
@@ -377,10 +376,10 @@ const propTypes = {
 };
 
 const mapStateToProps = state => ({
-  centerData: store.center,
-  event: store.event,
-  events: store.event.centerEvents,
-  message: store.event.message,
+  centerData: state.center,
+  event: state.event,
+  events: state.event.events,
+  message: state.event.message,
 });
 
 CenterDetailsContent.propTypes = propTypes;

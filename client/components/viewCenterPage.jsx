@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Navbar from './navbar.jsx';
-import Content from './centerDetails/centerDetailsContent';
+import Content from './CenterDetails/CenterDetailsContent';
 import Footer from './footer';
 import { logout } from '../actions/signInActions';
 
