@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
   getCenterSelected,
   modifyCenter,
@@ -17,17 +18,14 @@ import DeleteModal from '../deleteModal';
 import Modal from '../flash/modal';
 import UploadImage from '../imageUpload';
 
-
-@connect((store) => {
-  return {
-    centerData: store.center,
-    event: store.event,
-    events: store.event.centerEvents,
-    message: store.event.message,
-  };
-})
-
-export default class CenterDetailsContent extends React.Component {
+/**
+ * @description CenterDetailsContent form component
+ */
+export class CenterDetailsContent extends React.Component {
+   /**
+   * @memberof CenterDetailsContent
+   * @description it creates an instance of centerdetailscontent
+   */
   constructor(props) {
     super(props);
     const {
@@ -57,7 +55,12 @@ export default class CenterDetailsContent extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  
+   /**
+   * @memberof CenterDetailsContent
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     if (this.props.centerData.message) {
       this.props.dispatch(clearState());
@@ -66,12 +69,26 @@ export default class CenterDetailsContent extends React.Component {
       [e.target.id]: e.target.value,
     });
   }
+  /**
+   * @memberof CenterDetailsContent
+   * @method onSubmit
+   * @description it calls the user signin action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     if (this.state !== this.initialState) {
       this.props.dispatch(modifyCenter(this.state, this.state.id));
     }
     this.showHiddenDiv(e);
   }
+  /**
+   * @memberof CenterDetailsContent
+   * @method componentWillReceiveProps
+   * @description it updates the state when new props are recieved
+   * @param {object} nextProps
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.centerData !== this.props.center) {
       const {
@@ -94,6 +111,12 @@ export default class CenterDetailsContent extends React.Component {
       })
     }
   }
+  /**
+   * @memberof CenterDetailsContent
+   * @method componentDidUpdate
+   * @description it checks some conditions when component updates
+   * @returns {void}
+   */
   componentDidUpdate() {
     if (this.props.event.status === 201 || this.props.event.status === 200 || this.props.centerData.status === 200) {
       $(document).ready( function(){
@@ -102,11 +125,24 @@ export default class CenterDetailsContent extends React.Component {
       });
     }
   }
-
+  /**
+   * @memberof CenterDetailsContent
+   * @method onClick
+   * @description it calls the get event action
+   * @param {object} event
+   * @returns {void}
+   */
   onClick(e) {
     this.props.dispatch(getEventSelected(e.target.id, 'tag'));
   }
 
+  /**
+   * @memberof CenterDetailsContent
+   * @method onAttend
+   * @description it calls an action when changes is made to events
+   * @param {object} event
+   * @returns {void}
+   */
   onAttend(e) {
     const {
       id,
@@ -136,7 +172,13 @@ export default class CenterDetailsContent extends React.Component {
       this.props.dispatch(deleteCenterEvent(data));
     } 
   }
-
+  /**
+   * @memberof CenterDetailsContent
+   * @method showHiddenDiv
+   * @description it toggle's divs display
+   * @param {object} event
+   * @returns {void}
+   */
   showHiddenDiv(e) {
     let id = e.target.dataset.toggleId;
     if(!id) return;
@@ -150,7 +192,12 @@ export default class CenterDetailsContent extends React.Component {
       return div2.style.display="";
     } 
   }  
-
+/**
+   * @memberof CenterDetailsContent
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of centerdetails
+   */
   render() {
     const { center } = this.props.centerData;
     const {
@@ -314,3 +361,37 @@ export default class CenterDetailsContent extends React.Component {
     )
   }
 }
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+  centerData: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
+  message: PropTypes.object.isRequired,
+  getEventSelected: PropTypes.func.isRequired,
+  modifyCenterEvent: PropTypes.func.isRequired,
+  deleteCenterEvent: PropTypes.func.isRequired,
+  getCenterEvents: PropTypes.func.isRequired,
+  getCenterSelected: PropTypes.func.isRequired,
+  modifyCenter: PropTypes.func.isRequired,
+  clearState: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  centerData: store.center,
+  event: store.event,
+  events: store.event.centerEvents,
+  message: store.event.message,
+});
+
+CenterDetailsContent.propTypes = propTypes;
+
+export default connect(mapStateToProps, 
+  {
+    getEventSelected,
+    modifyCenterEvent,
+    deleteCenterEvent,
+    getCenterEvents,
+    getCenterSelected,
+    modifyCenter,
+    clearState
+  })(CenterDetailsContent);

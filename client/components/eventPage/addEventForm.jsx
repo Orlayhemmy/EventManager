@@ -5,7 +5,6 @@ import CenterSearch from '../centerSearch';
 import { getCenters, getCenterSelected } from '../../actions/centerActions';
 import { createEvent, getCenterEvents , modifyEvent } from '../../actions/eventActions';
 import TextField from '../../common/textField';
-import DatePicker from '../datePicker';
 import { addEventValidation, modifyEventValidation } from '../../shared/eventValidations';
 
 
