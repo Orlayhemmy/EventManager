@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import swal from 'sweetalert';
 import CenterSearch from '../centerSearch';
-import DatePicker from '../datePicker';
 import { modifyEvent } from '../../actions/eventActions';
 import { modifyEventValidation } from '../../shared/eventValidations';
 import TextField from '../../common/textField';
