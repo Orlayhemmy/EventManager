@@ -1,6 +1,15 @@
 import React from 'react';
 
+/**
+ * @description AboutPageContent form component
+ */
 export default class AboutPageContent extends React.Component {
+  /**
+   * @memberof HomeContent
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of AboutPageContent component
+   */
   render() {
     return (
       <div className="container">
