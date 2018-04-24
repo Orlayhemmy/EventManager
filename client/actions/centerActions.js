@@ -8,9 +8,7 @@ import * as actionTypes from './types';
  * @returns {object} clear state
  */
 export function clearState() {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
-  };
+  return dispatch => dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
 }
 
 /**
@@ -21,9 +19,8 @@ export function getCenters(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTERS });
     let query;
-
     if (data) {
-      query = axios.get('api/v1/centers', {
+      query = axios.get('/api/v1/centers', {
         params: {
           location: data.location,
           facilities: data.facilities,
@@ -33,9 +30,10 @@ export function getCenters(data) {
         },
       });
     } else {
-      query = axios.get('api/v1/centers');
+      query = axios.get('/api/v1/centers');
     }
     query.then((response) => {
+      console.log('@@@@$$%%%%%%%%%%%______@@@@@@@@@@')
       dispatch({ type: actionTypes.GET_CENTERS_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.GET_CENTERS_FAIL, payload: err.response.data });
@@ -71,7 +69,7 @@ export function centerSelected(center) {
 export function getCenterSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER });
-    return axios.get(`api/v1/centers/${id}`).then((response) => {
+    return axios.get(`/api/v1/centers/${id}`).then((response) => {
       dispatch({ type: actionTypes.GET_CENTER_SUCCESS, payload: response.data });
       if (!tag) {
         const { token } = response.data;
@@ -91,10 +89,10 @@ export function getCenterSelected(id, tag) {
 export function addCenter(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_CENTER });
-    return axios.post('api/v1/centers', data).then((response) => {
+    return axios.post('/api/v1/centers', data).then((response) => {
       dispatch({ type: actionTypes.ADD_CENTER_SUCCESS, payload: response.data });
-      const { center } = response.data;
-      dispatch(setAdminActivity(center));
+      // const { center } = response.data;
+      // dispatch(setAdminActivity(center));
     }).catch((err) => {
       dispatch({ type: actionTypes.ADD_CENTER_FAILS, payload: err.response.data });
     });
@@ -109,8 +107,8 @@ export function addCenter(data) {
 export function modifyCenter(data, centerId) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER });
-    return axios.put(`api/v1/centers/${centerId}`, data).then((res) => {
-      dispatch({ type: actionTypes.MODIFY_CENTER_SUCCESS, payload: res });
+    return axios.put(`/api/v1/centers/${centerId}`, data).then((response) => {
+      dispatch({ type: actionTypes.MODIFY_CENTER_SUCCESS, payload: response.data });
       dispatch(getCenterSelected(centerId));
     }).catch((err) => {
       dispatch({ type: actionTypes.MODIFY_CENTER_FAILS, payload: err.response.data });
@@ -144,7 +142,7 @@ export function uploadImage(data) {
 export function deleteCenter(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_CENTER });
-    return axios.delete(`api/v1/centers/${id}`).then((response) => {
+    return axios.delete(`/api/v1/centers/${id}`).then((response) => {
       dispatch({ type: actionTypes.DELETE_CENTER_SUCCESS, payload: response.data });
       dispatch(getCenters());
     }).catch((err) => {
@@ -160,7 +158,7 @@ export function deleteCenter(id) {
 export function centerStatus(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CENTER_STATUS_UPDATE });
-    return axios.put(`api/v1/centerStatus/${id}`).then((response) => {
+    return axios.put(`/api/v1/centerStatus/${id}`).then((response) => {
       dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.CENTER_STATUS_UPDATE_FAILS, payload: err.response.data });

@@ -63,7 +63,7 @@ export function logout() {
 export function userSignInRequest(user) {
   return (dispatch) => {
     dispatch({ type: actionTypes.USER_LOGIN });
-    return axios.post('api/v1/users/login', user).then((response) => {
+    return axios.post('/api/v1/users/login', user).then((response) => {
       dispatch({ type: actionTypes.USER_LOGIN_SUCCESS, payload: response.data });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
@@ -82,7 +82,7 @@ export function userSignInRequest(user) {
 export function confirmEmail(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.VERIFY_EMAIL });
-    return axios.post('api/v1/passrecovery', data).then((response) => {
+    return axios.post('/api/v1/passrecovery', data).then((response) => {
       dispatch({ type: actionTypes.VERIFY_EMAIL_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.VERIFY_EMAIL_FAILS, payload: err.response.data });
@@ -96,7 +96,7 @@ export function confirmEmail(data) {
 export function generateCode() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CODE });
-    return axios.get('api/v1/shortcode').then((response) => {
+    return axios.get('/api/v1/shortcode').then((response) => {
       dispatch({ type: actionTypes.GET_CODE_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.GET_CODE_FAILS, payload: err.response.data });
@@ -110,7 +110,7 @@ export function generateCode() {
 export function getUser() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_USER });
-    return axios.get('api/v1/users').then((response) => {
+    return axios.get('/api/v1/users').then((response) => {
       dispatch({ type: actionTypes.GET_USER_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.GET_USER_FAILS, payload: err.response.data });
@@ -125,7 +125,7 @@ export function getUser() {
 export function updateUserDetails(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_USER });
-    return axios.put('api/v1/users', data).then((response) => {
+    return axios.put('/api/v1/users', data).then((response) => {
       dispatch({ type: actionTypes.UPDATE_USER_SUCCESS, payload: response.data });
       const { token } = response.data;
       localStorage.setItem('jwtToken', token);
@@ -142,7 +142,7 @@ export function updateUserDetails(data) {
  * @returns {object} user email
  */
 export function getUserEmail(id) {
-  return dispatch => axios.get(`api/v1/userEmail/${id}`).then((response) => {
+  return dispatch => axios.get(`/api/v1/userEmail/${id}`).then((response) => {
     dispatch({ type: actionTypes.GET_USER_EMAIL, payload: response.data });
   });
 }
@@ -154,7 +154,7 @@ export function getUserEmail(id) {
 export function checkPassword(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CHECK_PASSWORD });
-    return axios.post('api/v1/passwordcheck', data).then((response) => {
+    return axios.post('/api/v1/passwordcheck', data).then((response) => {
       dispatch({ type: actionTypes.CHECK_PASSWORD_SUCCESS, payload: response.data });
       dispatch(clearStatus());
     }).catch((err) => {
