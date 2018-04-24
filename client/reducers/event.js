@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
         message: '',
       };
     }
-    case actionTypes.GET_CENTER_EVENTS_FAILS: {
+    case actionTypes.GET_CENTER_EVENTS_FAIL: {
       const { message } = action.payload;
       return {
         ...state,
