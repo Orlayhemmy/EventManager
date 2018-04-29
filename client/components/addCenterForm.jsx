@@ -7,7 +7,7 @@ import { addCenter } from '../actions/centerActions';
 import { addCenterValidation } from '../shared/centerValidations';
 import TextField from '../common/textField2';
 import { logout } from '../actions/signInActions';
-import UploadImage from './imageUpload';
+import UploadImage from './ImageUpload';
 
 /**
  * @description CenterForm component

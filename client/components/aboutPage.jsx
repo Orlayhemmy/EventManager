@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Navbar from './Navbar.jsx';
-import Content from './AboutPage/aboutPageContent.jsx';
+import Content from './AboutPage/AboutPageContent.jsx';
 import Footer from './Footer.jsx';
 
 

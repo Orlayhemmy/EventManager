@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
-import Form from './passwordRecovery/recoveryForm';
+import Form from './passwordRecovery/RecoveryForm';
 
 /**
  * @description PasswordRecovery component
