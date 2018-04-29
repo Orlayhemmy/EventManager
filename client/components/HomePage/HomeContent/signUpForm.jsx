@@ -130,7 +130,7 @@ export class SignUpForm extends React.Component {
             error={errors.retypePass} 
             onChange={this.onChange} />
 
-          <input id="signup" type="submit" value="Create Account" className="btn btn-primary"/>
+          <input id="signup" type="submit" value="Create Account" className="btn btn-primary mb-2"/>
         </form>     
       </div>
     )

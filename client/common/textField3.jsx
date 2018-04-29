@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 const TextField = ({ field, id, type, placeholder, value, onChange, error}) => {
   return  (
-    <div id="input text-center">
+    <div id="input text-center" className="pb-2">
       {error && <span className="help-block">{error}</span>}
       <input 
       id={id}

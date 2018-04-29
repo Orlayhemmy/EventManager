@@ -9,12 +9,10 @@ export default class AboutPage extends React.Component {
   render() {
     const { pathname } = this.props.location;
     return (
-      <div className="page-wrapper">
-        <div id="about-page">
-          <Navbar path={pathname}/>
-          <Content />
-          <Footer />
-        </div>
+      <div id="about-page">
+        <Navbar path={pathname}/>
+        <Content />
+        <Footer />
       </div>
     );
   }
