@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import { confirmEmail, generateCode, updateUserDetails, wrongCode, sendMail } from '../../actions/signInActions';
 import { recoverPassword, updateUser } from '../../shared/userValidation';
 import TextField from '../../common/textField3';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-  }
-})
-export default class RecoveryForm extends React.Component {
+/**
+ * @description PasswordRecoveryForm component
+ */
+export class PasswordRecoveryForm extends React.Component {
+   /**
+   * @memberof PasswordRecoveryForm
+   * @description it creates an instance of AddEventForm
+   */
   constructor() {
     super();
     this.state = {
@@ -26,11 +28,24 @@ export default class RecoveryForm extends React.Component {
     this.isValid = this.isValid.bind(this);
     this.swap = this.swap.bind(this);
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
       [e.target.id]: e.target.value,
     });
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method isValid
+   * @description it calls validation action on user data
+   * @param {void}
+   * @returns true or false
+   */
   isValid(id) {
     if (id === 'insertEmail') {
       const {
@@ -52,38 +67,59 @@ export default class RecoveryForm extends React.Component {
       return isValid;
     }
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method onSubmit
+   * @description it calls an action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     e.preventDefault();
     if (e.target.id === 'insertEmail') {
       if (this.isValid(e.target.id)) {
-        this.props.dispatch(confirmEmail(this.state));
+        this.props.confirmEmail(this.state);
       }
     }
     if (e.target.id === 'verifyEmail') {
       let title = 'Password Reset Code'
       let message = `Note: code expires in 5 minutes <br/> code: <b> ${this.props.auth.code} </b>`;
-      this.props.dispatch(sendMail(title, message, this.state.email));
+      this.props.sendMail(title, message, this.state.email);
     } else if (e.target.id === 'verifyCode') {
       if (this.state.code !== this.props.auth.code) {
-        return this.props.dispatch(wrongCode());
+        return this.props.wrongCode();
       } 
       this.showDiv('verifyCode', 'newPassword');
     } else if (e.target.id === 'resendCode') {
-      this.props.dispatch(generateCode());
+      this.props.generateCode();
     } else if (e.target.id === 'newPassword') {
       if (this.isValid(e.target.id)) {
-        this.props.dispatch(updateUserDetails(this.state));
+        this.props.updateUserDetails(this.state);
       }
     }
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method showDiv
+   * @description it toggle divs display
+   * @param {*} id1
+   * @param {*} id2
+   * @returns {void}
+   */
   showDiv(id1, id2) {
     document.getElementById(id1).hidden = true;
     document.getElementById(id2).hidden =  false;
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method componentDidUpdate
+   * @description it calls a script
+   * @returns {void}
+   */
   componentDidUpdate() {
     if (this.props.auth.status === 200) {
       this.showDiv('insertEmail', 'verifyEmail');
-      this.props.dispatch(generateCode());
+      this.props.generateCode();
       document.getElementById('emailVerify').disabled = true;
     }
     if (this.props.auth.status === 201) {
@@ -100,6 +136,12 @@ export default class RecoveryForm extends React.Component {
       this.showDiv('newPassword', 'passChanged');
     }
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method countDown
+   * @description it counts down available time to short code
+   * @returns {void}
+   */
   countDown() {
     setTimeout(() => {
       let div = document.getElementById('verifyCode');
@@ -109,9 +151,21 @@ export default class RecoveryForm extends React.Component {
       } 
     }, 20000);
   }
+  /**
+   * @memberof PasswordRecoveryForm
+   * @method countDown
+   * @description it swaps div
+   * @returns {void}
+   */
   swap() {
     this.showDiv('verifyEmail', 'insertEmail');
   }
+    /**
+   * @memberof PasswordRecoveryForm
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of PasswordRecoveryForm
+   */
   render() {
     let form;
     
@@ -226,3 +280,24 @@ export default class RecoveryForm extends React.Component {
     )
   }
 }
+const propTypes = {
+  confirmEmail: PropTypes.func.isRequired,
+  generateCode: PropTypes.func.isRequired,
+  updateUserDetails: PropTypes.func.isRequired,
+  wrongCode: PropTypes.func.isRequired,
+  sendMail: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+})
+PasswordRecoveryForm.propTypes = propTypes;
+
+export default connect(mapStateToProps,
+  {
+    generateCode,
+    confirmEmail,
+    updateUserDetails,
+    sendMail,
+    wrongCode
+  })(PasswordRecoveryForm);

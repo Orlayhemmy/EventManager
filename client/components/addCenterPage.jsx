@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 // import addCenterValidation from '../shared/centerValidations';
 import CenterForm from './addCenterForm';
 import TextField from '../common/textField';
-import Navbar from './navbar.jsx';
-import Footer from './footer.jsx';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
 import UploadImage from './imageUpload';
 
 @connect((store) => {

@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   loaded: false,
   events: [],
+  disableDates: [],
   error: null,
   event: {},
   message: '',
@@ -206,7 +207,7 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         message,
-        status: 200,
+        status: 201,
       };
     }
     case actionTypes.DELETE_EVENT: {

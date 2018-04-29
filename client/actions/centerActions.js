@@ -33,7 +33,6 @@ export function getCenters(data) {
       query = axios.get('/api/v1/centers');
     }
     query.then((response) => {
-      console.log('@@@@$$%%%%%%%%%%%______@@@@@@@@@@')
       dispatch({ type: actionTypes.GET_CENTERS_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.GET_CENTERS_FAIL, payload: err.response.data });

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Navbar from './navbar.jsx';
+import Navbar from './Navbar.jsx';
 import Content from './AboutPage/aboutPageContent.jsx';
-import Footer from './footer.jsx';
+import Footer from './Footer.jsx';
 
 
 export default class AboutPage extends React.Component {

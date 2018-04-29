@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Content from './eventPage';
-import Navbar from './navbar.jsx';
-import Footer from './footer.jsx';
+import Content from './EventPage';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
 import { logout } from '../actions/signInActions';
 
 @connect((store) => {

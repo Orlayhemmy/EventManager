@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import isEmpty from 'lodash/isEmpty';
 import { getCenters, getCenterSelected, clearState } from '../actions/centerActions';
 import { getEventSelected } from '../actions/eventActions';
-import AddEventForm from './eventPage/addEventForm';
-import EditEventForm from './eventPage/editEventForm';
+import AddEventForm from './EventPage/AddEventForm';
+import EditEventForm from './EventPage/EditEventForm';
 import Modal from './Flash/Modal';
 
 @connect((store) => {
