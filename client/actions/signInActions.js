@@ -19,7 +19,10 @@ export function clearStatus() {
  */
 export function setCurrentUser(newUser, token) {
   return (dispatch) => {
-    dispatch({ type: actionTypes.SET_CURRENT_USER, payload: { newUser, token } });
+    dispatch({
+      type: actionTypes.SET_CURRENT_USER,
+      payload: { newUser, token }
+    });
   };
 }
 
@@ -33,15 +36,24 @@ export function setCurrentUser(newUser, token) {
 export function userSignupRequest(user) {
   return (dispatch) => {
     dispatch({ type: actionTypes.USER_SIGNUP });
-    return axios.post('/api/v1/users', user).then((response) => {
-      dispatch({ type: actionTypes.USER_SIGNUP_SUCCESS, payload: response.data });
-      const { token } = response.data;
-      localStorage.setItem('jwtToken', token);
-      setAuthToken(token);
-      dispatch(setCurrentUser(jwt.decode(token), token));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.USER_SIGNUP_FAILS, payload: err.response.data });
-    });
+    return axios
+      .post('/api/v1/users', user)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.USER_SIGNUP_SUCCESS,
+          payload: response.data
+        });
+        const { token } = response.data;
+        localStorage.setItem('jwtToken', token);
+        setAuthToken(token);
+        dispatch(setCurrentUser(jwt.decode(token), token));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.USER_SIGNUP_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -63,15 +75,24 @@ export function logout() {
 export function userSignInRequest(user) {
   return (dispatch) => {
     dispatch({ type: actionTypes.USER_LOGIN });
-    return axios.post('/api/v1/users/login', user).then((response) => {
-      dispatch({ type: actionTypes.USER_LOGIN_SUCCESS, payload: response.data });
-      const { token } = response.data;
-      localStorage.setItem('jwtToken', token);
-      setAuthToken(token);
-      dispatch(setCurrentUser(jwt.decode(token), token));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.USER_LOGIN_FAILS, payload: err.response.data });
-    });
+    return axios
+      .post('/api/v1/users/login', user)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.USER_LOGIN_SUCCESS,
+          payload: response.data
+        });
+        const { token } = response.data;
+        localStorage.setItem('jwtToken', token);
+        setAuthToken(token);
+        dispatch(setCurrentUser(jwt.decode(token), token));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.USER_LOGIN_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -82,11 +103,20 @@ export function userSignInRequest(user) {
 export function confirmEmail(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.VERIFY_EMAIL });
-    return axios.post('/api/v1/passrecovery', data).then((response) => {
-      dispatch({ type: actionTypes.VERIFY_EMAIL_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.VERIFY_EMAIL_FAILS, payload: err.response.data });
-    });
+    return axios
+      .post('/api/v1/passrecovery', data)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.VERIFY_EMAIL_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.VERIFY_EMAIL_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -96,11 +126,20 @@ export function confirmEmail(data) {
 export function generateCode() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CODE });
-    return axios.get('/api/v1/shortcode').then((response) => {
-      dispatch({ type: actionTypes.GET_CODE_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_CODE_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get('/api/v1/shortcode')
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_CODE_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_CODE_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -110,11 +149,20 @@ export function generateCode() {
 export function getUser() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_USER });
-    return axios.get('/api/v1/users').then((response) => {
-      dispatch({ type: actionTypes.GET_USER_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_USER_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get('/api/v1/users')
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_USER_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_USER_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -125,15 +173,24 @@ export function getUser() {
 export function updateUserDetails(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_USER });
-    return axios.put('/api/v1/users', data).then((response) => {
-      dispatch({ type: actionTypes.UPDATE_USER_SUCCESS, payload: response.data });
-      const { token } = response.data;
-      localStorage.setItem('jwtToken', token);
-      setAuthToken(token);
-      dispatch(setCurrentUser(jwt.decode(token), token));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.UPDATE_USER_FAILS, payload: err.response.data });
-    });
+    return axios
+      .put('/api/v1/users', data)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.UPDATE_USER_SUCCESS,
+          payload: response.data
+        });
+        const { token } = response.data;
+        localStorage.setItem('jwtToken', token);
+        setAuthToken(token);
+        dispatch(setCurrentUser(jwt.decode(token), token));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.UPDATE_USER_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -142,9 +199,10 @@ export function updateUserDetails(data) {
  * @returns {object} user email
  */
 export function getUserEmail(id) {
-  return dispatch => axios.get(`/api/v1/userEmail/${id}`).then((response) => {
-    dispatch({ type: actionTypes.GET_USER_EMAIL, payload: response.data });
-  });
+  return dispatch =>
+    axios.get(`/api/v1/userEmail/${id}`).then((response) => {
+      dispatch({ type: actionTypes.GET_USER_EMAIL, payload: response.data });
+    });
 }
 
 /**
@@ -154,12 +212,21 @@ export function getUserEmail(id) {
 export function checkPassword(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CHECK_PASSWORD });
-    return axios.post('/api/v1/passwordcheck', data).then((response) => {
-      dispatch({ type: actionTypes.CHECK_PASSWORD_SUCCESS, payload: response.data });
-      dispatch(clearStatus());
-    }).catch((err) => {
-      dispatch({ type: actionTypes.CHECK_PASSWORD_FAILS, payload: err.response.data });
-    });
+    return axios
+      .post('/api/v1/passwordcheck', data)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.CHECK_PASSWORD_SUCCESS,
+          payload: response.data
+        });
+        dispatch(clearStatus());
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.CHECK_PASSWORD_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -174,17 +241,25 @@ export function uploadUserImage(id, data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.UPLOAD_IMAGE });
     delete axios.defaults.headers.common['x-access-token'];
-    return axios.post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
+    return axios
+      .post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
       .then((response) => {
-        dispatch({ type: actionTypes.UPLOAD_IMAGE_SUCCESS, payload: response.data.secure_url });
+        dispatch({
+          type: actionTypes.UPLOAD_IMAGE_SUCCESS,
+          payload: response.data.secure_url
+        });
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
         const imgData = {
-          imageUrl: response.data.secure_url,
+          imageUrl: response.data.secure_url
         };
         dispatch(updateUserDetails(imgData));
-      }).catch((err) => {
+      })
+      .catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({ type: actionTypes.UPLOAD_IMAGE_FAILS, payload: err.response.data });
+        dispatch({
+          type: actionTypes.UPLOAD_IMAGE_FAILS,
+          payload: err.response.data
+        });
       });
   };
 }

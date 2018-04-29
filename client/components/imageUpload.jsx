@@ -1,17 +1,18 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { uploadImage } from '../actions/centerActions';
 import { uploadUserImage } from '../actions/signInActions';
 
-@connect((store) => {
-  return {
-    center: store.center.center,
-    auth: store.auth,
-  }
-})
-
-export default class ImageUpload extends React.Component {
+/**
+ * @description imageUpload component
+ */
+export class ImageUpload extends React.Component {
+   /**
+   * @memberof imageUpload
+   * @description it creates an instance of imageUpload
+   */
   constructor(props) {
     super(props);
 
@@ -19,38 +20,78 @@ export default class ImageUpload extends React.Component {
       uploadedImage: ''
     };
   }
-
+/**
+   * @memberof imageUpload
+   * @method sendFile
+   * @description it calls an action
+   * @param {object} event
+   */
   sendFile(e) {
     const formData = new FormData();
-    formData.append("file", e.target.files[0]);
-    formData.append("upload_preset", "u8asaoka");
+    formData.append('file', e.target.files[0]);
+    formData.append('upload_preset', 'u8asaoka');
     if (this.props.path === '/profile') {
-      this.props.dispatch(uploadUserImage(this.props.auth.user.id, formData))
+      this.props.uploadUserImage(this.props.auth.user.id, formData);
     } else {
-      this.props.dispatch(uploadImage(formData));
+      this.props.uploadImage(formData);
     }
   }
-  
-    render() {
-      return (
+ /**
+   * @memberof imageUpload
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of imageUpload
+   */
+  render() {
+    return (
+      <div>
         <div>
-          <div>
-            {this.props.uploadedImage == undefined ? 
+          {this.props.uploadedImage == undefined ? (
             <div className="imageUpload">
               <label for="imageInput">
-                <p className="img-fluid dropzone p-5">Click here to upload your image </p>
+                <p className="img-fluid dropzone p-5">
+                  Click here to upload your image{' '}
+                </p>
               </label>
-            <input type="file" id="imageInput" onChange={this.sendFile.bind(this)}/>
-          </div> :
+              <input
+                type="file"
+                id="imageInput"
+                onChange={this.sendFile.bind(this)}
+              />
+            </div>
+          ) : (
             <div className="imageUpload">
               <label for="imageInput">
-                <img src={this.props.uploadedImage} className="img-fluid dropzone"/>  
+                <img
+                  src={this.props.uploadedImage}
+                  className="img-fluid dropzone"
+                />
               </label>
-              <input type="file" id="imageInput" onChange={this.sendFile.bind(this)}/>
-            </div>}
-          </div>
+              <input
+                type="file"
+                id="imageInput"
+                onChange={this.sendFile.bind(this)}
+              />
+            </div>
+          )}
         </div>
-      )
-      
-    }
+      </div>
+    );
   }
+}
+const propTypes = {
+  uploadedImage: PropTypes.func.isRequired,
+  uploadUserImage: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  center: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  center: store.center,
+  auth: store.auth
+});
+ImageUpload.propTypes = propTypes;
+
+export default connect(mapStateToProps, {
+  uploadUserImage,
+  uploadImage
+})(ImageUpload);

@@ -1,40 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Content from './EventPage';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 import { logout } from '../actions/signInActions';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-    center: store.center,
-  }
-})
-
-export default class AddEventPage extends React.Component {
-
+/**
+ * @description AddEventPage component
+ */
+export class AddEventPage extends React.Component {
+  /**
+   * @memberof AddEventPage
+   * @method logout
+   * @description it calls a logout action
+   * @param {object} event
+   * @returns {void}
+   */
   logout(e) {
-    this.props.dispatch(logout());
+    this.props.logout();
   }
+  /**
+   * @memberof AddEventPage
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of AddEventPage
+   */
   render() {
-     //Check if user is logged in
-     if (!this.props.auth.isAuth) {
-      return (<Redirect to="/" />);
+    //Check if user is logged in
+    if (!this.props.auth.isAuth) {
+      return <Redirect to="/" />;
     }
     if (this.props.center.status === 401) {
       this.logout();
     }
     const { pathname } = this.props.location;
-    
+
     return (
       <div>
         <Navbar />
         <Content path={pathname} />
         <Footer />
       </div>
-    )
+    );
   }
 }
+const propTypes = {
+  user: PropTypes.object.isRequired,
+  center: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  center: state.center
+});
+AddEventPage.propTypes = propTypes;
 
+export default connect(mapStateToProps, { logout })(AddEventPage);
