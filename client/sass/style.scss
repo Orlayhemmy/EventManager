@@ -1,8 +1,4 @@
 #about-page {
-  .container {
-    padding: 20px 0;
-    margin-top: 43px;
-  }
   .media-body {
     padding: 25px 20px;
     line-height: 2;
@@ -12,6 +8,24 @@
   .bg {
     padding: 10px;
     opacity: .9;
+  }
+}
+
+#about {
+  p {
+    font-size:  1.2rem;
+    line-height: 2rem;
+  }
+  h1 {
+    font-size: 3rem;
+    text-align: center;
+    padding: 10px;
+  }
+  h2 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 10px;
+    color: #f97e04;
   }
 }
 #center-page {
@@ -259,5 +273,15 @@
   }
   h3 {
     font-size: 2rem;
+  }
+}
+
+#footer {
+  .footer {
+    position: fixed;
+    bottom: 0;
+    background: #222;
+    color: white;
+    padding-top: 48px;
   }
 }

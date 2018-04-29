@@ -106,7 +106,7 @@ export class SignInForm extends React.Component {
               error={errors.loginPassword} 
               onChange={this.onChange} />
 
-          <input id="login" type="submit" value="login" className="btn btn-primary" disabled={this.state.isLoading}/>
+          <input id="login" type="submit" value="login" className="btn btn-primary mb-2" disabled={this.state.isLoading}/>
         </form>
         <Link to="/recover-password">Forgot Password? Click Here</Link>
       </div>

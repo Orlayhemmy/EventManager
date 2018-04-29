@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import Centers from './getCenters';
-import Search from './centerSearch';
+import Centers from './GetCenters';
+import Search from './CenterSearch';
 import Navbar from './Navbar';
 import Footer from './Footer';
 

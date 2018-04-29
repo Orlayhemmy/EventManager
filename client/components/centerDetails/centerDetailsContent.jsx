@@ -12,11 +12,11 @@ import {
   deleteCenterEvent,
   getCenterEvents
 } from '../../actions/eventActions';
-import ModalContent from '../modalContent';
-import CenterForm from '../addCenterForm';
-import DeleteModal from '../deleteModal';
+import ModalContent from '../ModalContent';
+import CenterForm from '../AddCenterForm';
+import DeleteModal from '../DeleteModal';
 import Modal from '../Flash/Modal';
-import UploadImage from '../imageUpload';
+import UploadImage from '../ImageUpload';
 
 /**
  * @description CenterDetailsContent form component

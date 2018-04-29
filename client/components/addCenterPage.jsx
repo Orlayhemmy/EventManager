@@ -2,11 +2,11 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CenterForm from './addCenterForm';
+import CenterForm from './AddCenterForm';
 import TextField from '../common/textField';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
-import UploadImage from './imageUpload';
+import UploadImage from './ImageUpload';
 
 /**
  * @description AddCenterPage component
