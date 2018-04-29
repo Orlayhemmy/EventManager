@@ -1,17 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
 import Content from './HomePage/HomeContent';
 import Footer from './Footer';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-  };
-})
-
-export default class Homepage extends React.Component {
+/**
+ * @description Homepage component
+ */
+export class Homepage extends React.Component {
+  /**
+   * @memberof Homepage
+   * @description it creates an instance of Homepage
+   */
   render() {
 
     if (this.props.auth.isAuth) {
@@ -27,3 +29,8 @@ export default class Homepage extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {})(Homepage);

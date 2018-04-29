@@ -1,22 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import TextField from '../common/textField3';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 import UploadImage from './imageUpload';
 import { updateUserValidation } from '../shared/userValidation';
-import { updateUserDetails, checkPassword, getUser } from '../actions/signInActions';
+import {
+  updateUserDetails,
+  checkPassword,
+  getUser
+} from '../actions/signInActions';
 import { eventBooked } from '../actions/eventActions';
 import { logout } from '../actions/signInActions';
 
-@connect((store) => {
-  return {
-    auth: store.auth,
-    event: store.event,
-  };
-})
-
-export default class Profile extends React.Component {
+/**
+ * @description Profile component
+ */
+export class Profile extends React.Component {
+  /**
+   * @memberof Profile
+   * @description it creates an instance of Profile
+   */
   constructor() {
     super();
     this.state = {
@@ -28,8 +33,8 @@ export default class Profile extends React.Component {
       errors: {},
       wrongPasswordError: '',
       imageUrl: '',
-      createdAt: '',
-    }
+      createdAt: ''
+    };
     this.initialState = this.state;
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -37,11 +42,25 @@ export default class Profile extends React.Component {
     this.showDiv = this.showDiv.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
   }
+  /**
+   * @memberof Profile
+   * @method componentWillMount
+   * @description it calls an action
+   * @param {void}
+   * @returns {void}
+   */
   componentWillMount() {
     const { id } = this.props.auth.user;
     this.props.dispatch(eventBooked(id));
     this.props.dispatch(getUser());
   }
+  /**
+   * @memberof Profile
+   * @method componentWillReceiveProps
+   * @description it updates the state when new props are recieved
+   * @param {object} nextProps
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props.auth != nextProps.auth) {
       const {
@@ -56,19 +75,24 @@ export default class Profile extends React.Component {
         email: email || '',
         id: id,
         imageUrl: imageUrl,
-        createdAt: createdAt || '',
-      })
+        createdAt: createdAt || ''
+      });
     }
   }
-
+  /**
+   * @memberof Profile
+   * @method showDiv
+   * @description it toggles div display
+   * @param {object} event
+   */
   showDiv(e) {
-      e.preventDefault();
-      if (e.target.id === 'details') {
-        const div = document.getElementById('editDetails');
-        const div2 = document.getElementById('showDetails');
-        div.hidden = false;
-        div2.hidden = true;
-      } else {
+    e.preventDefault();
+    if (e.target.id === 'details') {
+      const div = document.getElementById('editDetails');
+      const div2 = document.getElementById('showDetails');
+      div.hidden = false;
+      div2.hidden = true;
+    } else {
       const div = document.getElementById('passwordUpdate');
       const div2 = document.getElementById('submitButton');
       const span = document.getElementById('subtitle');
@@ -77,26 +101,48 @@ export default class Profile extends React.Component {
       span.hidden = !span.hidden;
     }
   }
+  /**
+   * @memberof Profile
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value
     });
   }
+  /**
+   * @memberof Profile
+   * @method checkPassword
+   * @description it calls an action
+   * @param {object} event
+   */
   checkPassword(e) {
     e.preventDefault();
     this.props.dispatch(checkPassword(this.state));
   }
+  /**
+   * @memberof Profile
+   * @method isValid
+   * @description it calls validation action on user data
+   * @param {void}
+   * @returns true or false
+   */
   isValid() {
-    const {
-      errors,
-      isValid
-    } = updateUserValidation(this.state);
+    const { errors, isValid } = updateUserValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
   }
-
+  /**
+   * @memberof Profile
+   * @method onSubmit
+   * @description it calls an action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     e.preventDefault();
     if (this.initialState !== this.state) {
@@ -105,6 +151,12 @@ export default class Profile extends React.Component {
       }
     }
   }
+  /**
+   * @memberof Profile
+   * @method componentDidUpdate
+   * @description it checks some conditions when component updates
+   * @returns {void}
+   */
   componentDidUpdate() {
     if (this.props.auth.message === 'Password Match') {
       const div = document.getElementById('newPasswordDiv');
@@ -113,12 +165,25 @@ export default class Profile extends React.Component {
       div.hidden = false;
       span.hidden = true;
     } else if (this.props.auth.message === 'Wrong Password') {
-        this.state.wrongPasswordError= 'Wrong Password';
+      this.state.wrongPasswordError = 'Wrong Password';
     }
   }
+  /**
+   * @memberof Profile
+   * @method logout
+   * @description it calls a logout action
+   * @param {object} event
+   * @returns {void}
+   */
   logout(e) {
     this.props.dispatch(logout());
   }
+  /**
+   * @memberof Profile
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of Profile
+   */
   render() {
     if (this.props.event.status === 403) {
       this.logout();
@@ -142,54 +207,82 @@ export default class Profile extends React.Component {
           <div className="row">
             <div className="card col-lg-6 text-center pt-4 bb mb-4 pb-4">
               <div className="text-primary">Personal Information</div>
-              <hr/>
+              <hr />
               <div id="showDetails">
                 <img src={imageUrl} className="img-fluid dropzone" />
                 <h3 className="pt-4">{fullname.toUpperCase()}</h3>
                 <span>{email}</span>
-                <span className="subtitle pointer" id="details" onClick={this.showDiv}>Edit</span>
+                <span
+                  className="subtitle pointer"
+                  id="details"
+                  onClick={this.showDiv}
+                >
+                  Edit
+                </span>
               </div>
               <form id="editDetails" hidden>
-                <UploadImage path={this.props.location.pathname} uploadedImage={imageUrl}/>
+                <UploadImage
+                  path={this.props.location.pathname}
+                  uploadedImage={imageUrl}
+                />
                 <h3 className="pt-1">
                   <TextField
-                    id='fullname'
+                    id="fullname"
                     value={fullname.toUpperCase()}
-                    placeholder='Fullname'
-                    type='text'
-                    error={errors.fullname} 
+                    placeholder="Fullname"
+                    type="text"
+                    error={errors.fullname}
                     onChange={this.onChange}
                     className="no-border"
                   />
                 </h3>
                 <TextField
-                id='email'
-                value={email}
-                placeholder='Email Address'
-                type='email'
-                error={errors.email}
-                onChange={this.onChange} />
-                
-                <span className="subtitle pointer" id="subtitle" onClick={this.showDiv}>Click here to change your password</span>
+                  id="email"
+                  value={email}
+                  placeholder="Email Address"
+                  type="email"
+                  error={errors.email}
+                  onChange={this.onChange}
+                />
+
+                <span
+                  className="subtitle pointer"
+                  id="subtitle"
+                  onClick={this.showDiv}
+                >
+                  Click here to change your password
+                </span>
                 <div id="passwordUpdate" hidden>
                   <span className="help-block">{this.props.auth.message}</span>
-                  <br/>
+                  <br />
                   <span className="subtitle">Password</span>
                   <div className="form-check-inline">
                     <div class="col-12 no-padding">
-                    <input id='oldPassword'
-                      value={oldPassword}
-                      placeholder='Type old password'
-                      type='password'
-                      error='' 
-                      onChange={this.onChange} />
-                    <border></border>
+                      <input
+                        id="oldPassword"
+                        value={oldPassword}
+                        placeholder="Type old password"
+                        type="password"
+                        error=""
+                        onChange={this.onChange}
+                      />
+                      <border />
                     </div>
                   </div>
-                  <br/>
-                  <br/>
-                  <input type="button" className="btn btn-sm btn-success mt-4" value="check" onClick={this.checkPassword} />
-                  <input type="button" className="btn btn-sm btn-danger mt-4" value="cancel" onClick={this.checkPassword} />
+                  <br />
+                  <br />
+                  <input
+                    type="button"
+                    className="btn btn-sm btn-success mt-4"
+                    value="check"
+                    onClick={this.checkPassword}
+                  />
+                  <input
+                    type="button"
+                    className="btn btn-sm btn-danger mt-4"
+                    value="cancel"
+                    onClick={this.checkPassword}
+                  />
                 </div>
 
                 <div id="newPasswordDiv" hidden>
@@ -197,45 +290,54 @@ export default class Profile extends React.Component {
                   <div className="form-check-inline">
                     <div class="col-12 no-padding">
                       <input
-                        id='newPassword'
+                        id="newPassword"
                         value={newPassword}
-                        placeholder='New Password'
-                        type='password'
-                        error={errors.newPassword} 
-                        onChange={this.onChange} />
-                      <border></border>
+                        placeholder="New Password"
+                        type="password"
+                        error={errors.newPassword}
+                        onChange={this.onChange}
+                      />
+                      <border />
                     </div>
                   </div>
                   <span className="subtitle">Retype password</span>
                   <div className="form-check-inline">
                     <div class="col-12 no-padding">
                       <input
-                        id='retypePass'
+                        id="retypePass"
                         value={retypePass}
-                        placeholder='Retype Password'
-                        type='password'
-                        error={errors.retypePass} 
-                        onChange={this.onChange} />
-                      <border></border>
+                        placeholder="Retype Password"
+                        type="password"
+                        error={errors.retypePass}
+                        onChange={this.onChange}
+                      />
+                      <border />
                     </div>
                   </div>
                 </div>
                 <div id="submitButton">
-                  <input id="updateDetails" onClick={this.onSubmit} type="button" value="submit" className="btn btn-sm btn-success mt-4"/>
+                  <input
+                    id="updateDetails"
+                    onClick={this.onSubmit}
+                    type="button"
+                    value="submit"
+                    className="btn btn-sm btn-success mt-4"
+                  />
                 </div>
               </form>
             </div>
             <div className="card col-lg-3 text-center pt-4 bb">
-              
               <div className="text-primary">Activities</div>
-              <hr/>
+              <hr />
               <div className="mb-4">
-              <h4 className="mt-4">Date Joined</h4>
-              <h3 className="mt-4">{dateRegistered}</h3>
+                <h4 className="mt-4">Date Joined</h4>
+                <h3 className="mt-4">{dateRegistered}</h3>
               </div>
               <div className="mb-4">
-              <h4 className="mt-4">Events Booked</h4>
-              <span className="display-3">{this.props.event.eventBookedCount}</span>
+                <h4 className="mt-4">Events Booked</h4>
+                <span className="display-3">
+                  {this.props.event.eventBookedCount}
+                </span>
               </div>
             </div>
           </div>
@@ -245,3 +347,25 @@ export default class Profile extends React.Component {
     );
   }
 }
+const propTypes = {
+  updateDetails: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  checkPassword: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
+  eventBooked: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  event: state.evnet
+});
+Profile.propTypes = propTypes;
+
+export default connect(mapStateToProps, {
+  updateUserDetails,
+  checkPassword,
+  getUser,
+  eventBooked,
+  logout
+})(Profile);

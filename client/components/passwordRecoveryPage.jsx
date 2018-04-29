@@ -3,7 +3,16 @@ import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 import Form from './passwordRecovery/recoveryForm';
 
+/**
+ * @description PasswordRecovery component
+ */
 export default class PasswordRecovery extends React.Component {
+  /**
+   * @memberof PasswordRecovery
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of PasswordRecovery
+   */
   render() {
     return (
       <div id="recover-password">
