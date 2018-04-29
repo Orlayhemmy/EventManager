@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import CenterSearch from '../centerSearch';
 import { modifyEvent } from '../../actions/eventActions';
@@ -9,15 +10,14 @@ import { modifyEventValidation } from '../../shared/eventValidations';
 import TextField from '../../common/textField';
 import { getCenterSelected } from '../../actions/centerActions';
 
-@connect((store) => {
-  return {
-    user: store.auth.user,
-    event: store.event,
-    center: store.center,
-  }
-})
-
-export default class EditEventForm extends React.Component {
+/**
+ * @description EditEventForm component
+ */
+export class EditEventForm extends React.Component {
+  /**
+   * @memberof EditEventForm
+   * @description it creates an instance of EditEventForm
+   */
   constructor(props) {
     super(props);
     const {
@@ -26,7 +26,7 @@ export default class EditEventForm extends React.Component {
       bookedDate,
       centerId,
       centerName
-    } = props.event.event;
+    } = props.userEvent.event;
     this.state = {
       eventTitle: eventTitle || '',
       bookedDate: bookedDate || '',
@@ -39,9 +39,14 @@ export default class EditEventForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
-    this.search = this.search.bind(this);
   }
   
+  /**
+   * @memberof EditEventForm
+   * @method componentDidUpdate
+   * @description it calls a script
+   * @returns {void}
+   */
   componentDidUpdate() {
 
     let date = new Date();
@@ -49,7 +54,6 @@ export default class EditEventForm extends React.Component {
     let month = date.getMonth() + 1;
     let day = date.getDate() + 1;
     let currentDate = `${year}-${month}-${day}`;
-    
     <script>
       $(document).ready( function() {
         $('#bookedDate').datepicker({
@@ -60,17 +64,31 @@ export default class EditEventForm extends React.Component {
       });
     </script>
   }
+  /**
+   * @memberof AddEventForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
       [e.target.id]: e.target.value
     });
     if (e.target.id === 'centerId') {
       this.state.centerId = e.target.value;
-      this.props.dispatch(getCenterSelected(e.target.value, 'tag'));
+      this.props.getCenterSelected(e.target.value, 'tag');
     }
   }
+
+  /**
+   * @memberof EditEventForm
+   * @method componentWillReceiveProps
+   * @description it updates the state when new props are recieved
+   * @param {object} nextProps
+   * @returns {void}
+   */
    componentWillReceiveProps(nextProps) {
-    if (nextProps.event.event) {
+    if (nextProps.userEvent.event) {
 
       const {
         description,
@@ -78,27 +96,38 @@ export default class EditEventForm extends React.Component {
         bookedDate,
         centerId,
         centerName
-      } = nextProps.event.event;
+      } = nextProps.userEvent.event;
 
       this.setState({
         eventTitle: eventTitle || '',
         bookedDate: bookedDate || '',
         description: description || '',
         centerName: centerName || '',
+        centerId: centerId || '',
       });
     }
+    console.log(nextProps.userEvent.event, 'hihiuhihihiuhi')
   }
-  search() {
-    this.props.dispatch(getCenters(this.state));
-  }
-
+  /**
+   * @memberof EditEventForm
+   * @method onSubmit
+   * @description it calls the user signin action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.props.dispatch(modifyEvent(this.props.event.event.id, this.state));
+      this.props.modifyEvent(this.props.userEvent.event.id, this.state);
     }
   }
-
+  /**
+  * @memberof EditEventForm
+  * @method isValid
+  * @description it calls validation action on user data
+  * @param {void}
+  * @returns true or false
+  */
   isValid() {
 
     const {
@@ -112,9 +141,15 @@ export default class EditEventForm extends React.Component {
     return isValid;
   }
 
+  /**
+   * @memberof EditEventForm
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of editeventform
+   */
   render() {
-    if(this.props.event.status === 200) {
-      swal(this.props.event.message);
+    if(this.props.userEvent.status === 200) {
+      swal(this.props.userEvent.message);
       return <Redirect to="/dashboard" />;
     }
     const {
@@ -126,15 +161,14 @@ export default class EditEventForm extends React.Component {
       centerId,
       centerName
     } = this.state;
-    
-    const showCenters = _.map(this.props.center.centers, (center) => {
+    const showCenters = this.props.eventCenter.centers.map((center) => {
       return (
         <option key={center.id} value={center.id}>{center.centerName}</option>
       )
     });
     return (       
       <form id="edit-event-form" onSubmit={this.onSubmit}>
-        <span className="help-block">{this.props.event.error}</span>
+        <span className="help-block">{this.props.userEvent.error}</span>
         <CenterSearch />
         <p className="subtitle">select your preferred event center</p>
         <div className="input-group">
@@ -174,4 +208,22 @@ export default class EditEventForm extends React.Component {
   }
 }
 
+const propTypes = {
+  user: PropTypes.object.isRequired,
+  eventCenter: PropTypes.object.isRequired,
+  userEvent: PropTypes.object.isRequired,
+  modifyEvent: PropTypes.func.isRequired,
+  getCenterSelected: PropTypes.func.isRequired
+};
+const mapStateToProps = state => ({
+  user: state.auth,
+  eventCenter: state.center,
+  userEvent: state.event,
+})
+EditEventForm.propTypes = propTypes;
 
+export default connect(mapStateToProps,
+  {
+    modifyEvent,
+    getCenterSelected
+  })(EditEventForm);

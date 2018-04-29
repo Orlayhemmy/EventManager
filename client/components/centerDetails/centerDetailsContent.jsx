@@ -63,7 +63,7 @@ export class CenterDetailsContent extends React.Component {
    */
   onChange(e) {
     if (this.props.centerData.message) {
-      this.props.dispatch(clearState());
+      this.props.clearState();
     }
     this.setState({
       [e.target.id]: e.target.value,
@@ -78,7 +78,7 @@ export class CenterDetailsContent extends React.Component {
    */
   onSubmit(e) {
     if (this.state !== this.initialState) {
-      this.props.dispatch(modifyCenter(this.state, this.state.id));
+      this.props.modifyCenter(this.state, this.state.id);
     }
     this.showHiddenDiv(e);
   }
@@ -133,7 +133,7 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   onClick(e) {
-    this.props.dispatch(getEventSelected(e.target.id, 'tag'));
+    this.props.getEventSelected(e.target.id, 'tag');
   }
 
   /**
@@ -161,7 +161,7 @@ export class CenterDetailsContent extends React.Component {
         reason:'',
         suggestion:'',
       }
-      this.props.dispatch(modifyCenterEvent(data));
+      this.props.modifyCenterEvent(data);
     } else {
       const data = {
         eventTitle: event.eventTitle,
@@ -169,7 +169,7 @@ export class CenterDetailsContent extends React.Component {
         id: event.id,
         text: 'disapproved',
       }
-      this.props.dispatch(deleteCenterEvent(data));
+      this.props.deleteCenterEvent(data);
     } 
   }
   /**
@@ -192,7 +192,7 @@ export class CenterDetailsContent extends React.Component {
       return div2.style.display="";
     } 
   }  
-/**
+  /**
    * @memberof CenterDetailsContent
    * @method render
    * @description it renders the component

@@ -2,9 +2,9 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Navbar from './navbar.jsx';
+import Navbar from './Navbar.jsx';
 import Content from './CenterDetails/CenterDetailsContent';
-import Footer from './footer';
+import Footer from './Footer';
 import { logout } from '../actions/signInActions';
 
 @connect((store) => {

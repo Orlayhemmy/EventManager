@@ -226,7 +226,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           done();
         });
     });
-    
+
     it('should return status 200 when center is deleted', (done) => {
       request.delete('/api/v1/centers/2')
         .set('x-access-token', userToken)

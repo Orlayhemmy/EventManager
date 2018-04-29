@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Centers from './getCenters';
 import Search from './centerSearch';
-import Navbar from './navbar.jsx';
-import Footer from './footer.jsx';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
 
 @connect((store) => {
   return {

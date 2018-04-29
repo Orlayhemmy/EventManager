@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './navbar.jsx';
-import Footer from './footer.jsx';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
 import Form from './passwordRecovery/recoveryForm';
 
 export default class PasswordRecovery extends React.Component {

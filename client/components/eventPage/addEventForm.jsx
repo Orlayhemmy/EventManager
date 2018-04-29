@@ -1,25 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
 import CenterSearch from '../centerSearch';
-import { getCenters, getCenterSelected } from '../../actions/centerActions';
-import { createEvent, getCenterEvents , modifyEvent } from '../../actions/eventActions';
+import { createEvent, getCenterEvents } from '../../actions/eventActions';
 import TextField from '../../common/textField';
 import { addEventValidation, modifyEventValidation } from '../../shared/eventValidations';
+import { getCenterSelected } from '../../actions/centerActions';
 
-
-
-@connect((store) => {
-  return {
-    auth: store.auth,
-    centers: store.center.centers,
-    center: store.center.center,
-    dates: store.event.disableDates,
-    event: store.event,
-  }
-})
-
-export default class AddEventForm extends React.Component {
+/**
+ * @description AddEventForm component
+ */
+export class AddEventForm extends React.Component {
+  /**
+   * @memberof AddEventForm
+   * @description it creates an instance of AddEventForm
+   */
   constructor() {
     super();
     this.state = {
@@ -33,10 +29,15 @@ export default class AddEventForm extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.search = this.search.bind(this);
     this.isValid = this.isValid.bind(this);
   }
   
+  /**
+   * @memberof AddEventForm
+   * @method componentDidUpdate
+   * @description it calls a script
+   * @returns {void}
+   */
   componentDidUpdate() {
 
     let date = new Date();
@@ -56,6 +57,12 @@ export default class AddEventForm extends React.Component {
     </script>
   }
 
+  /**
+   * @memberof AddEventForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
       [e.target.id]: e.target.value
@@ -65,10 +72,17 @@ export default class AddEventForm extends React.Component {
       this.setState({
         centerId: e.target.value
       });
-      this.props.dispatch(getCenterSelected(e.target.value, 'tag'));
+      this.props.getCenterSelected(e.target.value, 'tag');
     }
   }
 
+  /**
+   * @memberof AddEventForm
+   * @method isValid
+   * @description it calls validation action on user data
+   * @param {void}
+   * @returns true or false
+   */
   isValid() {
     if (this.props.path === '/modify-event') {
       const {
@@ -92,10 +106,13 @@ export default class AddEventForm extends React.Component {
     }
   }
 
-  search() {
-    this.props.dispatch(getCenters(this.state));
-  }
-
+  /**
+   * @memberof AddEventForm
+   * @method onSubmit
+   * @description it calls the user signin action
+   * @param {object} event
+   * @returns {void}
+   */
   onSubmit(e) {
     e.preventDefault();
     let data = {
@@ -109,45 +126,19 @@ export default class AddEventForm extends React.Component {
     
     let id = document.getElementById('bookedDate');
     this.state.bookedDate = id.value;
-    if (this.props.path === '/modify-event') {
-      const { event } = this.props.event;
-      if (isEmpty(this.state.bookedDate)) {
-        this.state.bookedDate = event.bookedDate;
-      }
-      if (isEmpty(this.state.centerId)) {
-        this.state.centerId = event.centerId;
-      }
-      if (isEmpty(this.state.eventTitle)) {
-        this.state.eventTitle = event.eventTitle;
-      }
-      this.state.isApproved = event.isApproved;
-        if (!isEmpty(this.state.description) || !isEmpty(this.state.eventTitle)
-      || !isEmpty(this.state.bookedDate) || !isEmpty(this.state.centerId)) {
-        if (this.isValid()) {
-          this.props.dispatch(modifyEvent(this.props.event.event.id, this.state. this.state.centerId));
-        }
-      }      
-    } else {
-      if (this.isValid()) {
-        this.props.dispatch(createEvent(data));
-      }
+    if (this.isValid()) {
+      this.props.createEvent(data);
     }
   }
 
+  /**
+   * @memberof AddEventForm
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of addeventform
+   */
   render() {
     const { event } = this.props.event;
-    let buttonValue;
-    if (this.props.path === '/modify-event') {
-      buttonValue = "save changes";
-    } else {
-      buttonValue = "add event";
-    }
-
-    let titleHolder, dateHolder, descriptionHolder;
-      titleHolder = "Give your event a title";
-      dateHolder = "Choose a date for your event";
-      descriptionHolder = "Write few things about the event";
-
     const {
       eventTitle,
       bookedDate,
@@ -184,7 +175,7 @@ export default class AddEventForm extends React.Component {
               <span class="input-group-addon">
                 <i className="fa fa-calendar"></i>
               </span>
-              <input type="text" id="bookedDate" onBlur={this.onChange} class="form-control" value={this.state.bookedDate} placeholder={dateHolder}/>
+              <input type="text" id="bookedDate" onBlur={this.onChange} class="form-control" value={this.state.bookedDate} placeholder="Select preferred date"/>
             </div>
 
           <span className="help-block">{errors.eventTitle}</span>  
@@ -192,18 +183,43 @@ export default class AddEventForm extends React.Component {
               <span class="input-group-addon">
                 <i className="fa fa-microphone"></i>
               </span> 
-              <input type="text" id="eventTitle" onChange={this.onChange} class="form-control" value={this.state.eventTitle} placeholder={titleHolder}/>
+              <input type="text" id="eventTitle" onChange={this.onChange} class="form-control" value={this.state.eventTitle} placeholder="give your event a title"/>
             </div>
 
           <span className="help-block">{errors.description}</span>
           <p className="subtitle">describe your event in few words</p>
           <div className="form-group">
             <textarea className="form-control" id="description"
-          onChange={this.onChange} placeholder={descriptionHolder}></textarea>
+          onChange={this.onChange} placeholder="Give a brief description of the event"></textarea>
           </div> 
-          <input id="add-event" type="submit" value={buttonValue} className="btn btn-primary"/>
+          <input id="add-event" type="submit" value="Add Event" className="btn btn-primary"/>
         </form> 
       </div>
     )
   }
 }
+const propTypes = {
+  auth: PropTypes.object.isRequired,
+  center: PropTypes.object.isRequired,
+  centers: PropTypes.array.isRequired,
+  dates: PropTypes.array.isRequired,
+  event: PropTypes.object.isRequired,
+  createEvent: PropTypes.func.isRequired,
+  getCenterEvents: PropTypes.func.isRequired,
+  getCenterSelected: PropTypes.func.isRequired,
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  centers: state.center.centers,
+  center: state.center.center,
+  dates: state.event.disableDates,
+  event: state.event,
+})
+AddEventForm.propTypes = propTypes;
+
+export default connect(mapStateToProps,
+  {
+    createEvent,
+    getCenterEvents,
+    getCenterSelected
+  })(AddEventForm);

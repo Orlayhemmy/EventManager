@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TextField from '../common/textField3';
-import Navbar from './navbar.jsx';
-import Footer from './footer.jsx';
+import Navbar from './Navbar.jsx';
+import Footer from './Footer.jsx';
 import UploadImage from './imageUpload';
 import { updateUserValidation } from '../shared/userValidation';
 import { updateUserDetails, checkPassword, getUser } from '../actions/signInActions';
