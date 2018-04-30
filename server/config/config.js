@@ -10,7 +10,7 @@ module.exports = {
     port: 5432,
   },
   test: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    DATABASE_URL: process.env.TESTDB_URL,
     dialect: 'postgres',
   },
   production: {
