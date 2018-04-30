@@ -1,15 +1,16 @@
 dist: trusty
 language: node_js
-# services:
-#   - postgresql
+services:
+  - postgresql
 node_js:
   - stable 
-# before_script: 
-#   - psql -c 'create database eventManager;' -U postgres
-#   - sequelize db:migrate
-#   - sequelize db:seed:all
+before_script: 
+  - createuser postgres -s -U postgres
+  - createdb centermanager_test --username=postgres
+  - sequelize db:migrate
+  - sequelize db:seed:all
 
 script: 
   - npm test 
   
-# "test": "set NODE_ENV=test&& babel-node ./server/setUpDb && nyc mocha --compilers js:babel-core/register ./test/**/*.js --timeout 5000 --exit"
+ "test": "set NODE_ENV=test&& babel-node ./server/setUpDb && nyc mocha --compilers js:babel-core/register ./test/**/*.js --timeout 5000 --exit"
