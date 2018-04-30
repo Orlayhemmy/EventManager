@@ -19,10 +19,10 @@ export class AddCenterPage extends React.Component {
    * @returns the HTML of AddCenterPage
    */
   render() {
-    //Check if user is logged in and is also an Admin
-    if (!this.props.user.isAuth) {
+    // Check if user is logged in and is also an Admin
+    if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
-    } else if (!this.props.user.user.isAdmin) {
+    } else if (!this.props.user.isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     let content;
@@ -57,11 +57,13 @@ export class AddCenterPage extends React.Component {
 }
 const propTypes = {
   user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   user: state.auth.user,
-  center: state.center
+  center: state.center,
+  auth: state.auth,
 });
 AddCenterPage.propTypes = propTypes;
 

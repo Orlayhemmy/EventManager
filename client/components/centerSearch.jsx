@@ -156,7 +156,7 @@ const propTypes = {
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  center: state.center.centers
+  center: state.center
 });
 SearchForm.propTypes = propTypes;
 

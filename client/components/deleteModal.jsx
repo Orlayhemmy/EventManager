@@ -7,7 +7,7 @@ import {
   clearEventState
 } from '../actions/eventActions';
 import { deleteCenter } from '../actions/centerActions';
-import { getUserEmail, sendMail } from '../actions/signInActions';
+import { getUserEmail } from '../actions/signInActions';
 
 /**
  * @description DeleteModal component
@@ -169,10 +169,9 @@ const propTypes = {
   clearEventState: PropTypes.func.isRequired,
   deleteCenter: PropTypes.func.isRequired,
   getUserEmail: PropTypes.func.isRequired,
-  sendMail: PropTypes.func.isRequired,
-  center: PropTypes.func.isRequired,
-  event: PropTypes.func.isRequired,
-  auth: PropTypes.func.isRequired,
+  center: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
   center: state.center,
@@ -186,6 +185,5 @@ export default connect(mapStateToProps, {
   deleteEvent,
   clearEventState,
   getUserEmail,
-  sendMail,
   deleteCenter
 })(DeleteModal);

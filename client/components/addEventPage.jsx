@@ -47,11 +47,11 @@ export class AddEventPage extends React.Component {
   }
 }
 const propTypes = {
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  auth: state.auth,
   center: state.center
 });
 AddEventPage.propTypes = propTypes;

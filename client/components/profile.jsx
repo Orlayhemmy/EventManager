@@ -51,8 +51,8 @@ export class Profile extends React.Component {
    */
   componentWillMount() {
     const { id } = this.props.auth.user;
-    this.props.dispatch(eventBooked(id));
-    this.props.dispatch(getUser());
+    this.props.eventBooked(id);
+    this.props.getUser();
   }
   /**
    * @memberof Profile
@@ -120,7 +120,7 @@ export class Profile extends React.Component {
    */
   checkPassword(e) {
     e.preventDefault();
-    this.props.dispatch(checkPassword(this.state));
+    this.props.checkPassword(this.state);
   }
   /**
    * @memberof Profile
@@ -147,7 +147,7 @@ export class Profile extends React.Component {
     e.preventDefault();
     if (this.initialState !== this.state) {
       if (this.isValid()) {
-        this.props.dispatch(updateUserDetails(this.state));
+        this.props.updateUserDetails(this.state);
       }
     }
   }
@@ -176,7 +176,7 @@ export class Profile extends React.Component {
    * @returns {void}
    */
   logout(e) {
-    this.props.dispatch(logout());
+    this.props.logout();
   }
   /**
    * @memberof Profile
@@ -358,7 +358,7 @@ const propTypes = {
 };
 const mapStateToProps = state => ({
   auth: state.auth,
-  event: state.evnet
+  event: state.event
 });
 Profile.propTypes = propTypes;
 

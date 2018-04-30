@@ -250,7 +250,7 @@ export default (state = initialState, action) => {
         status: '',
       };
     }
-    case actionTypes.EVENTS_BOOKED_COUNT_SUCCESS: {
+    case actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS: {
       const {
         message,
         eventBookedCount
@@ -262,7 +262,7 @@ export default (state = initialState, action) => {
         eventBookedCount,
       };
     }
-    case actionTypes.EVENTS_BOOKED_COUNT_FAIL: {
+    case actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL: {
       const {
         status,
         data: { message }

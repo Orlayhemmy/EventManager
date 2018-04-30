@@ -12,19 +12,28 @@ export function createEvent(data) {
   const { eventInfo } = data;
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_EVENT });
-    return axios.post('/api/v1/events', eventInfo).then((response) => {
-      dispatch({ type: actionTypes.ADD_EVENT_SUCCESS, payload: response.data });
-      const info = {
-        id: eventInfo.centerId,
-        eventTitle: eventInfo.eventTitle,
-        eventId: response.data.bookedEvent.id,
-        username: data.user,
-      };
-      dispatch(centerStatus(info.id));
-      dispatch(setActivity(info));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.ADD_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .post('/api/v1/events', eventInfo)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.ADD_EVENT_SUCCESS,
+          payload: response.data
+        });
+        const info = {
+          id: eventInfo.centerId,
+          eventTitle: eventInfo.eventTitle,
+          eventId: response.data.bookedEvent.id,
+          username: data.user
+        };
+        dispatch(centerStatus(info.id));
+        dispatch(setActivity(info));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.ADD_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -34,11 +43,20 @@ export function createEvent(data) {
 export function getEvents() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENTS });
-    return axios.get('/api/v1/userEvents').then((response) => {
-      dispatch({ type: actionTypes.GET_EVENTS_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_EVENTS_FAIL, payload: err.response.data });
-    });
+    return axios
+      .get('/api/v1/userEvents')
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_EVENTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_EVENTS_FAIL,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -49,11 +67,20 @@ export function getEvents() {
 export function getCenterEvents(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER_EVENTS });
-    return axios.get(`/api/v1/centerEvents/${id}`).then((response) => {
-      dispatch({ type: actionTypes.GET_CENTER_EVENTS_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_CENTER_EVENTS_FAIL, payload: err.response.data });
-    });
+    return axios
+      .get(`/api/v1/centerEvents/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_CENTER_EVENTS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_CENTER_EVENTS_FAIL,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -75,16 +102,25 @@ export function setCurrentEvent(event) {
 export function getEventSelected(id, tag) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENT });
-    return axios.get(`/api/v1/events/${id}`).then((response) => {
-      dispatch({ type: actionTypes.GET_EVENT_SUCCESS, payload: response.data });
-      if (!tag) {
-        const { token } = response.data;
-        localStorage.setItem('event', token);
-        dispatch(setCurrentEvent(jwt.decode(token)));
-      }
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get(`/api/v1/events/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_EVENT_SUCCESS,
+          payload: response.data
+        });
+        if (!tag) {
+          const { token } = response.data;
+          localStorage.setItem('event', token);
+          dispatch(setCurrentEvent(jwt.decode(token)));
+        }
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -93,19 +129,25 @@ export function getEventSelected(id, tag) {
  * @returns {object} success or failure
  */
 export function modifyCenterEvent(data) {
-  const {
-    id,
-    centerId
-  } = data;
+  const { id, centerId } = data;
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER_EVENT });
-    return axios.put(`/api/v1/approveEvent/${id}`).then((response) => {
-      dispatch({ type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS, payload: response.data });
-      dispatch(setActivity(data));
-      dispatch(getCenterEvents(centerId));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.MODIFY_CENTER_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .put(`/api/v1/approveEvent/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
+          payload: response.data
+        });
+        dispatch(setActivity(data));
+        dispatch(getCenterEvents(centerId));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.MODIFY_CENTER_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -117,11 +159,20 @@ export function modifyCenterEvent(data) {
 export function modifyEvent(id, data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_EVENT });
-    return axios.put(`/api/v1/events/${id}`, data).then((response) => {
-      dispatch({ type: actionTypes.MODIFY_EVENT_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.MODIFY_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .put(`/api/v1/events/${id}`, data)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.MODIFY_EVENT_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.MODIFY_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -130,19 +181,25 @@ export function modifyEvent(id, data) {
  * @returns {object} success or failure
  */
 export function deleteCenterEvent(data) {
-  const {
-    id,
-    centerId
-  } = data;
+  const { id, centerId } = data;
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_CENTER_EVENT });
-    return axios.delete(`/api/v1/events/${id}`).then((response) => {
-      dispatch({ type: actionTypes.DELETE_CENTER_EVENT_SUCCESS, payload: response.data });
-      dispatch(setActivity(data));
-      dispatch(getCenterEvents(centerId));
-    }).catch((err) => {
-      dispatch({ type: actionTypes.DELETE_CENTER_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .delete(`/api/v1/events/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
+          payload: response.data
+        });
+        dispatch(setActivity(data));
+        dispatch(getCenterEvents(centerId));
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.DELETE_CENTER_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -153,12 +210,21 @@ export function deleteCenterEvent(data) {
 export function deleteEvent(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_EVENT });
-    return axios.delete(`/api/v1/events/${id}`).then((response) => {
-      dispatch({ type: actionTypes.DELETE_EVENT_SUCCESS, payload: response.data });
-      dispatch(getEvents());
-    }).catch((err) => {
-      dispatch({ type: actionTypes.DELETE_EVENT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .delete(`/api/v1/events/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.DELETE_EVENT_SUCCESS,
+          payload: response.data
+        });
+        dispatch(getEvents());
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.DELETE_EVENT_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -180,11 +246,20 @@ export function clearEventState() {
 export function eventBooked(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT });
-    return axios.get(`/api/v1/eventsbookedcount/${id}`).then((response) => {
-      dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get(`/api/v1/eventsbookedcount/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -195,10 +270,19 @@ export function eventBooked(id) {
 export function dateJoined(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_DATE_JOINED });
-    return axios.get(`/api/v1/datejoined/${id}`).then((response) => {
-      dispatch({ type: actionTypes.DATE_JOINED_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.DATE_JOINED_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get(`/api/v1/datejoined/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.DATE_JOINED_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.DATE_JOINED_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }

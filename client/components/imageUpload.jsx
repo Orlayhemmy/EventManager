@@ -80,14 +80,14 @@ export class ImageUpload extends React.Component {
   }
 }
 const propTypes = {
-  uploadedImage: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
   uploadUserImage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  center: store.center,
-  auth: store.auth
+  center: state.center,
+  auth: state.auth
 });
 ImageUpload.propTypes = propTypes;
 

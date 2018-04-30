@@ -117,8 +117,8 @@ const propTypes = {
   getCenters: PropTypes.func.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
   clearState: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  center: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  eventCenter: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
