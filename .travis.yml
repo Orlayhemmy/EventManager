@@ -12,11 +12,13 @@ cache:
 services:
   - postgresql
 before_script:
-  - createuser emmabaye -s -U postgres
-  - createdb database_test --username=emmabaye 
+  - createuser Orlayhemmy -s -U postgres
+  - createdb database_test --username=Orlayhemmy 
   - sequelize db:migrate
   - sequelize db:seed:all
 after_success:
   - npm run coverage
   - npm install -g codeclimate-test-reporter
   - codeclimate-test-reporter < coverage/lcov.info
+
+  "test": "set NODE_ENV=test&& babel-node ./server/setUpDb && nyc mocha --compilers js:babel-core/register ./test/**/*.js --timeout 5000 --exit"
