@@ -1,7 +1,5 @@
 dist: trusty
 language: node_js
-services:
-  - postgresql
 node_js:
   - stable 
 script: 
