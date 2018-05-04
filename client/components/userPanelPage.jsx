@@ -117,11 +117,12 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
+    const { status } = this.props.userEvent;
     let content;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
-    if (this.props.userEvent.status === 401) {
+    if (status === 498 || status === 403) {
       this.logout();
     }
     const { activities } = this.props.activity;
@@ -140,7 +141,6 @@ export class Dashboard extends React.Component {
     } else {
       const eventsArray = this.props.userEvent.events;
       content = eventsArray.map((bookedEvent, index) => {
-        console.log(bookedEvent);
         const {
           centerName,
           capacity,

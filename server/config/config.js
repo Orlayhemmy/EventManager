@@ -11,9 +11,8 @@ module.exports = {
   },
   test: {
     username: 'postgres',
-    password: 'profyem001',
     database: 'centermanager_test',
-    host: '127.0.0.1',
+    host: 'localhost',
     dialect: 'postgres',
     port: 5432,
   },
