@@ -53,11 +53,13 @@ export default class UserController {
           })
           .catch(err =>
             res.status(500).send({
+              err: 'Error',
               message: err.message
             }));
       })
       .catch(err =>
         res.status(500).send({
+          err: 'Error',
           message: err.message
         }));
   }
@@ -89,10 +91,12 @@ export default class UserController {
             });
           }
           return res.status(400).send({
+            err: 'Error',
             message: 'Invalid email or password'
           });
         }
         return res.status(404).send({
+          err: 'Error',
           message: 'User not found, Please sign up if you are a new user'
         });
       })
@@ -125,11 +129,13 @@ export default class UserController {
           });
         }
         return res.status(404).send({
+          err: 'Error',
           message: 'Email is incorrect or not registered'
         });
       })
       .catch(error =>
         res.status(500).send({
+          err: 'Error',
           message: error.message
         }));
   }
@@ -158,6 +164,7 @@ export default class UserController {
             });
           }
           return res.status(400).send({
+            err: 'Error',
             message: 'Wrong Password'
           });
         }
@@ -207,16 +214,19 @@ export default class UserController {
             })
             .catch(err =>
               res.status(500).send({
+                err: 'Error',
                 message: err.message
               }));
         } else {
           return res.status(400).send({
+            err: 'Error',
             message: 'User not found'
           });
         }
       })
       .catch(err =>
         res.status(500).send({
+          err: 'Error',
           message: err.message
         }));
   }
@@ -243,11 +253,13 @@ export default class UserController {
           });
         }
         return res.status(400).send({
+          err: 'Error',
           message: 'No user Found'
         });
       })
       .catch(error =>
         res.status(500).send({
+          err: 'Error',
           message: error.message
         }));
   }
@@ -274,11 +286,13 @@ export default class UserController {
           });
         }
         return res.status(400).send({
+          err: 'Error',
           message: 'No user Found'
         });
       })
       .catch(error =>
         res.status(500).send({
+          err: 'Error',
           message: error.message
         }));
   }

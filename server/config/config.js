@@ -10,13 +10,10 @@ module.exports = {
     port: 5432,
   },
   test: {
-    // username: 'postgres',
-    // password: 'profyem001',
-    // database: 'centermanager_test',
-    // host: '127.0.0.1',
-    // port: 5432,
+    // url: 'postgres://liebwohs:vJE6zWFoCiSv7WsSojgoVhR-ieggIyR_@elmer.db.elephantsql.com:5432/liebwohs',
+    // dialect: 'postgres',
+    database: 'postgres://liebwohs:vJE6zWFoCiSv7WsSojgoVhR-ieggIyR_@elmer.db.elephantsql.com/liebwohs',
     dialect: 'postgres',
-    database: process.env.TESTDB_URL
   },
   production: {
     use_env_variable: 'DATABASE_URL',

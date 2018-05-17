@@ -22,20 +22,14 @@ export default (state = initialState, action = {}) => {
       } = action.payload;
       const {
         fullname,
-        email,
         isAdmin,
         id,
-        createdAt,
-        imageUrl
       } = newUser;
       const user = {
         fullname,
-        email,
         isAdmin,
         id,
         token,
-        createdAt,
-        imageUrl,
       };
       return {
         ...state,

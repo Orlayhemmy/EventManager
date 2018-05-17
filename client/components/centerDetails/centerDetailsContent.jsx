@@ -213,7 +213,7 @@ export class CenterDetailsContent extends React.Component {
     const { event } = this.props.event;
     const events = _.map(this.props.events, (event) => {
       let eStatus;
-      if (event.isApproved === true) {
+      if (event.isApproved) {
         eStatus = <i id={event.id} className="fa fa-thumbs-up green"></i>
         } else {
           eStatus = <span onClick={this.onClick} data-toggle="modal" data-target="#eventStatus" id={event.eventTitle}><i id={event.id} className="fa fa-spinner main-color"></i></span>;

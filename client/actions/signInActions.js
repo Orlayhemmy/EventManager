@@ -39,11 +39,15 @@ export function userSignupRequest(user) {
     return axios
       .post('/api/v1/users', user)
       .then((response) => {
+        const { status } = response;
+        const { token } = response.data;
         dispatch({
           type: actionTypes.USER_SIGNUP_SUCCESS,
-          payload: response.data
+          payload: {
+            status,
+            token
+          }
         });
-        const { token } = response.data;
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
         dispatch(setCurrentUser(jwt.decode(token), token));

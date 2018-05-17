@@ -46,15 +46,25 @@ export function getEvents() {
     return axios
       .get('/api/v1/userEvents')
       .then((response) => {
+        const { status } = response;
+        const { events } = response.data;
         dispatch({
           type: actionTypes.GET_EVENTS_SUCCESS,
-          payload: response.data
+          payload: {
+            status,
+            events
+          }
         });
       })
       .catch((err) => {
+        const { status } = err.response;
+        const { message } = err.response.data;
         dispatch({
           type: actionTypes.GET_EVENTS_FAIL,
-          payload: err.response.data
+          payload: {
+            status,
+            message
+          }
         });
       });
   };

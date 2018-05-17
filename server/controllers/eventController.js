@@ -1,11 +1,7 @@
-
 import jwt from 'jsonwebtoken';
 import models from '../models';
 
-const {
-  Events,
-  Centers
-} = models;
+const { Events, Centers } = models;
 
 /**
  * @class EventController
@@ -22,25 +18,32 @@ export default class EventController {
   static getAllEvents(req, res) {
     // get events
     Events.all({
-      include: [{
-        model: Centers,
-      }],
-    }).then((events) => {
-      // if events are available
-      if (events) {
-        // show events
-        return res.status(200).send({
-          events,
-          message: 'Event found',
+      include: [
+        {
+          model: Centers
+        }
+      ]
+    })
+      .then((events) => {
+        // if events are available
+        if (events) {
+          // show events
+          return res.status(200).send({
+            events,
+            message: 'Event found'
+          });
+        }
+        // No Event found
+        return res.status(404).send({
+          err: 'Error',
+          message: 'There are no booked Events'
         });
-      }
-      // No Event found
-      return res.status(404).send({
-        message: 'There are no booked Events',
-      });
-    }).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+      })
+      .catch(error =>
+        res.status(500).send({
+          err: 'Error',
+          message: error.message
+        }));
   }
 
   /**
@@ -55,27 +58,30 @@ export default class EventController {
     // get events
     Events.all({
       where: {
-        centerId: req.params.id,
+        centerId: req.params.id
       },
-      order: [
-        ['bookedDate', 'DESC'],
-      ],
-    }).then((events) => {
-      // if events are available
-      if (events) {
-        // show events
-        return res.status(200).send({
-          events,
-          message: 'Center events found',
+      order: [['bookedDate', 'DESC']]
+    })
+      .then((events) => {
+        // if events are available
+        if (events) {
+          // show events
+          return res.status(200).send({
+            events,
+            message: 'Center events found'
+          });
+        }
+        // No Event found
+        return res.status(404).send({
+          err: 'Error',
+          message: 'There are no booked Events'
         });
-      }
-      // No Event found
-      return res.status(404).send({
-        message: 'There are no booked Events',
-      });
-    }).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+      })
+      .catch(error =>
+        res.status(500).send({
+          err: 'Error',
+          message: error.message
+        }));
   }
 
   /**
@@ -91,27 +97,34 @@ export default class EventController {
     // get events
     Events.all({
       where: {
-        userId: id,
+        userId: id
       },
-      include: [{
-        model: Centers,
-      }],
-    }).then((events) => {
-      // if events are available
-      if (events) {
-        // show events
-        return res.status(200).send({
-          events,
-          message: 'User events found',
+      include: [
+        {
+          model: Centers
+        }
+      ]
+    })
+      .then((events) => {
+        // if events are available
+        if (events) {
+          // show events
+          return res.status(200).send({
+            events,
+            message: 'User events found'
+          });
+        }
+        // No Event found
+        return res.status(404).send({
+          err: 'Error',
+          message: 'There are no booked Events'
         });
-      }
-      // No Event found
-      return res.status(404).send({
-        message: 'There are no booked Events',
-      });
-    }).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+      })
+      .catch(error =>
+        res.status(500).send({
+          err: 'Error',
+          message: error.message
+        }));
   }
 
   /**
@@ -125,11 +138,13 @@ export default class EventController {
   static getSingleEvent(req, res) {
     Events.findOne({
       where: {
-        id: req.params.id,
+        id: req.params.id
       },
-      include: [{
-        model: Centers,
-      }],
+      include: [
+        {
+          model: Centers
+        }
+      ]
     })
       .then((event) => {
         if (event) {
@@ -142,21 +157,25 @@ export default class EventController {
             centerName: event.Center.centerName
           };
           const token = jwt.sign(payload, process.env.SECRET, {
-            expiresIn: 60 * 60 * 12,
+            expiresIn: 60 * 60 * 12
           });
           req.body.token = token;
           return res.status(200).send({
             message: 'Event Found',
             token,
-            event,
+            event
           });
         }
         return res.status(400).send({
-          message: 'No Event Found',
+          err: 'Error',
+          message: 'No Event Found'
         });
-      }).catch(error => res.status(500).send({
-        message: error.message,
-      }));
+      })
+      .catch(error =>
+        res.status(500).send({
+          err: 'Error',
+          message: error.message
+        }));
   }
 
   /**
@@ -169,7 +188,7 @@ export default class EventController {
    */
   static postEvent(req, res) {
     const {
-      eventTitle, centerId, description, bookedDate,
+      eventTitle, centerId, description, bookedDate
     } = req.body;
     const { id } = req.decoded;
 
@@ -177,33 +196,41 @@ export default class EventController {
     Events.findOne({
       where: {
         centerId,
-        bookedDate,
-      },
-    }).then((event) => {
-      if (event) {
-        return res.status(409).send({
-          message: 'The date chosen is booked, Please select another day or center',
-        });
+        bookedDate
       }
-      return Events.create({
-        eventTitle,
-        description,
-        bookedDate,
-        centerId,
-        userId: id,
-      }).then((bookedEvent) => {
-        res.status(201).send({
-          message: 'Event booked Successfully',
-          bookedEvent,
+    })
+      .then((event) => {
+        if (event) {
+          return res.status(409).send({
+            message:
+              'The date chosen is booked, Please select another day or center'
+          });
+        }
+        return Events.create({
+          eventTitle,
+          description,
+          bookedDate,
+          centerId,
+          userId: id
+        })
+          .then((bookedEvent) => {
+            res.status(201).send({
+              message: 'Event booked Successfully',
+              bookedEvent
+            });
+          })
+          .catch(error =>
+            res.status(500).send({
+              err: 'Error',
+              message: error.message
+            }));
+      })
+      .catch((error) => {
+        res.status(500).send({
+          err: 'Error',
+          message: error.message
         });
-      }).catch(error => res.status(500).send({
-        message: error.message,
-      }));
-    }).catch((error) => {
-      res.status(500).send({
-        message: error.message,
       });
-    });
   }
 
   /**
@@ -216,10 +243,7 @@ export default class EventController {
    */
   static updateEvent(req, res) {
     const {
-      eventTitle,
-      description,
-      bookedDate,
-      centerId,
+      eventTitle, description, bookedDate, centerId
     } = req.body;
     const { id } = req.params;
     // find the requested event
@@ -228,45 +252,62 @@ export default class EventController {
         Events.findOne({
           where: {
             bookedDate,
-            centerId,
-          },
-        }).then((events) => {
-          if (events) {
-            if (events.id === event.id) {
-              return events.update({
-                eventTitle: eventTitle || events.eventTitle,
-                bookedDate: bookedDate || events.bookedDate,
-                description: description || events.description,
-                centerId: centerId || events.centerId,
-              }).then(() => res.status(200).send({
-                message: 'Changes Applied',
-                event,
-              })).catch(error => res.status(500).send({
-                message: error.message,
-              }));
-            }
-            return res.status(409).send({
-              message: 'The date you chose is not available, choose another day or center',
-            });
+            centerId
           }
+        })
+          .then((events) => {
+            if (events) {
+              if (events.id === event.id) {
+                return events
+                  .update({
+                    eventTitle: eventTitle || events.eventTitle,
+                    bookedDate: bookedDate || events.bookedDate,
+                    description: description || events.description,
+                    centerId: centerId || events.centerId
+                  })
+                  .then(() =>
+                    res.status(200).send({
+                      message: 'Changes Applied',
+                      event
+                    }))
+                  .catch(error =>
+                    res.status(500).send({
+                      message: error.message
+                    }));
+              }
+              return res.status(409).send({
+                message:
+                  'The date is not available, choose another day or center'
+              });
+            }
 
-          event.update({
-            eventTitle: eventTitle || Events.eventTitle,
-            bookedDate: bookedDate || Events.bookedDate,
-            description: description || Events.description,
-            centerId: centerId || Events.centerId,
-          }).then(() => res.status(200).send({
-            message: 'Changes Applied',
-            event,
-          })).catch(error => res.status(500).send({
-            message: error.message,
-          }));
-        }).catch(error => res.status(500).send({
-          message: error.message,
-        }));
+            event
+              .update({
+                eventTitle: eventTitle || Events.eventTitle,
+                bookedDate: bookedDate || Events.bookedDate,
+                description: description || Events.description,
+                centerId: centerId || Events.centerId
+              })
+              .then(() =>
+                res.status(200).send({
+                  message: 'Changes Applied',
+                  event
+                }))
+              .catch(error =>
+                res.status(500).send({
+                  err: 'Error',
+                  message: error.message
+                }));
+          })
+          .catch(error =>
+            res.status(500).send({
+              err: 'Error',
+              message: error.message
+            }));
       } else {
         return res.status(404).send({
-          message: 'Event does not exist',
+          err: 'Error',
+          message: 'Event does not exist'
         });
       }
     });
@@ -282,22 +323,32 @@ export default class EventController {
    */
   static approveEvent(req, res) {
     const { id } = req.params;
-    Events.findById(id).then((event) => {
-      if (event) {
-        return event.update({
-          isApproved: true,
-        }).then(() => res.status(200).send({
-          message: 'Event Approved',
-        })).catch(err => res.status(500).send({
-          message: err.message,
+    Events.findById(id)
+      .then((event) => {
+        if (event) {
+          return event
+            .update({
+              isApproved: true
+            })
+            .then(() =>
+              res.status(200).send({
+                message: 'Event Approved'
+              }))
+            .catch(err =>
+              res.status(500).send({
+                message: err.message
+              }));
+        }
+        return res.status(404).send({
+          err: 'Error',
+          message: 'Event no found'
+        });
+      })
+      .catch(err =>
+        res.status(500).send({
+          err: 'Error',
+          message: err.message
         }));
-      }
-      return res.status(404).send({
-        message: 'Event no found',
-      });
-    }).catch(err => res.status(500).send({
-      message: err.message,
-    }));
   }
 
   /**
@@ -310,28 +361,31 @@ export default class EventController {
    */
   static deleteEvent(req, res) {
     const eventId = req.params.id;
-    const {
-      id,
-      isAdmin
-    } = req.decoded;
+    const { id, isAdmin } = req.decoded;
 
-    return Events.findById(eventId).then((event) => {
-      if (event) {
-        if (event.userId === id || isAdmin) {
-          return event.destroy().then(() => res.status(200).send({
-            message: 'Event Deleted',
-          }));
+    return Events.findById(eventId)
+      .then((event) => {
+        if (event) {
+          if (event.userId === id || isAdmin) {
+            return event.destroy().then(() =>
+              res.status(200).send({
+                message: 'Event Deleted'
+              }));
+          }
+          return res.status(403).send({
+            err: 'Error',
+            message: 'You cannot delete an event not booked by you'
+          });
         }
-        return res.status(403).send({
-          message: 'You cannot delete an event not booked by you',
+        return res.status(400).send({
+          err: 'Error',
+          message: 'Event does not exist'
         });
-      }
-      return res.status(400).send({
-        message: 'Event does not exist',
-      });
-    }).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+      })
+      .catch(error =>
+        res.status(500).send({
+          message: error.message
+        }));
   }
 
   /**
@@ -345,16 +399,20 @@ export default class EventController {
   static getEventBookedCount(req, res) {
     Events.findAndCountAll({
       where: {
-        userId: req.params.id,
-      },
-    }).then((event) => {
-      const eventBookedCount = event.count;
-      res.status(200).send({
-        message: 'Events found',
-        eventBookedCount,
-      });
-    }).catch(err => res.status(500).send({
-      message: err.message,
-    }));
+        userId: req.params.id
+      }
+    })
+      .then((event) => {
+        const eventBookedCount = event.count;
+        res.status(200).send({
+          message: 'Events found',
+          eventBookedCount
+        });
+      })
+      .catch(err =>
+        res.status(500).send({
+          err: 'Error',
+          message: err.message
+        }));
   }
 }

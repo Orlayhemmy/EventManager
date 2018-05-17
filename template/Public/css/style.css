@@ -15,7 +15,6 @@ body {
 
 a:focus, a:hover {
   text-decoration: none;
-  font-size: 80%;
 }
 
 ::placeholder {

@@ -1,40 +1,35 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-
 /**
  * Validates users signup and signin operations
  * @class Validation
  */
 export default class Validation {
   /**
-     * Validates all User signup details before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
-     * @memberof UserValidations
-     */
+   * Validates all User signup details before allowing access to controller class
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {object} Validation error messages or contents of req.body
+   * @memberof UserValidations
+   */
   static signup(req, res, next) {
-    const {
-      fullname,
-      email,
-      password,
-    } = req.body;
-
+    const { fullname, email, password } = req.body;
 
     const errors = {};
 
     if (!fullname || !email || !password) {
       return res.status(400).send({
-        message: 'All or some fields are not defined',
+        message: 'All or some fields are not defined'
       });
     }
 
     if (!validator.isEmpty(fullname)) {
       if (!validator.isLength(fullname, { min: 5, max: 20 })) {
-        errors.fullname = 'Fullname must be more than 5 characters but less than 20';
+        errors.fullname =
+          'Fullname must be more than 5 characters but less than 20';
       }
     } else {
       errors.fullname = 'Fullname cannot be blank';
@@ -47,13 +42,17 @@ export default class Validation {
       if (!validator.isEmail(email)) {
         errors.email = 'Email is invalid';
       }
-    } else { errors.email = 'Email is required'; }
+    } else {
+      errors.email = 'Email is required';
+    }
 
     if (!validator.isEmpty(password)) {
       if (!validator.isLength(password, { min: 5, max: 20 })) {
         errors.password = 'Password length must be between 5 and 20';
       }
-    } else { errors.password = 'Password is required'; }
+    } else {
+      errors.password = 'Password is required';
+    }
 
     const isValid = Object.keys(errors).length === 0;
 
@@ -65,24 +64,21 @@ export default class Validation {
   }
 
   /**
-     * Validates signin form input fields before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
-     * @memberof UserValidations
-     */
+   * Validates signin form input fields before allowing access to controller class
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {object} Validation error messages or contents of req.body
+   * @memberof UserValidations
+   */
   static signin(req, res, next) {
-    const {
-      loginEmail,
-      loginPassword
-    } = req.body;
+    const { loginEmail, loginPassword } = req.body;
 
     const errors = {};
     if (!loginEmail || !loginPassword) {
       return res.status(400).send({
-        message: 'Email or Password is undefined',
+        message: 'Email or Password is undefined'
       });
     }
 
@@ -107,14 +103,14 @@ export default class Validation {
   }
 
   /**
-     * Validates all User update details before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
-     * @memberof UserValidations
-     */
+   * Validates all User update details before allowing access to controller class
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {object} Validation error messages or contents of req.body
+   * @memberof UserValidations
+   */
   static recoverPassword(req, res, next) {
     const { email } = req.body;
     const error = {};
@@ -136,20 +132,17 @@ export default class Validation {
   }
 
   /**
-     * Validates all User update details before allowing access to controller class
-     * @static
-     * @param {object} req
-     * @param {object} res
-     * @param {object} next
-     * @returns {object} Validation error messages or contents of req.body
-     * @memberof UserValidations
-     */
+   * Validates all User update details before allowing access to controller class
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @param {object} next
+   * @returns {object} Validation error messages or contents of req.body
+   * @memberof UserValidations
+   */
   static updateUser(req, res, next) {
     const {
-      fullname,
-      email,
-      newPassword,
-      retypePass,
+      fullname, email, newPassword, retypePass
     } = req.body;
 
     const error = {};
@@ -165,7 +158,8 @@ export default class Validation {
             error.fullname = 'Fullname can only contain numbers and letters';
           }
           if (!validator.isLength(fullname, { min: 5, max: 20 })) {
-            error.fullname = 'Fullname must be more than 5 characters but less than 20';
+            error.fullname =
+              'Fullname must be more than 5 characters but less than 20';
           }
         }
       }

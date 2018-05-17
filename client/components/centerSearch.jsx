@@ -68,7 +68,7 @@ export class SearchForm extends React.Component {
   search(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.props.dispatch(getCenters(this.state));
+      this.props.getCenters(this.state);
     }
   }
   /**

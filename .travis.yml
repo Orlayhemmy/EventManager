@@ -1,15 +1,16 @@
-dist: trusty
 language: node_js
-services:
-  - postgresql
+addons:
+  postgresql: "10.3"
 node_js:
-  - stable 
+  - "8.11.1"
+env:
+  - NODE_ENV=test
 before_script: 
-  - createuser postgres -s -U postgres
-  - createdb centermanager_test --username=postgres
-  - sequelize db:migrate
-  - sequelize db:seed:all
+  - psql -c 'create database centermanager_test;' -U postgres
+  - npm run migrate 
 
+cache:
+  directories:
+    - "node_modules"  
 script: 
-  - npm test 
-  
+  - npm test
