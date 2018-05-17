@@ -1,19 +1,21 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
+/**
+ * @param  {object} data
+ * @return {object} errors
+ */
 export function validateSignupInput(data) {
   const errors = {};
 
   const {
-    fullname,
-    email,
-    password,
-    retypePass,
+    fullname, email, password, retypePass
   } = data;
 
   if (!validator.isEmpty(fullname)) {
     if (!validator.isLength(fullname, { min: 5, max: 20 })) {
-      errors.fullname = 'Fullname must be more than 5 characters but less than 20';
+      errors.fullname =
+        'Fullname must be more than 5 characters but less than 20';
     }
   } else {
     errors.fullname = 'Fullname cannot be blank';
@@ -26,28 +28,35 @@ export function validateSignupInput(data) {
     if (!validator.isEmail(email)) {
       errors.email = 'Email is invalid';
     }
-  } else { errors.email = 'Email is required'; }
+  } else {
+    errors.email = 'Email is required';
+  }
 
   if (!validator.isEmpty(password)) {
     if (!validator.isLength(password, { min: 5, max: 20 })) {
       errors.password = 'Password length must be between 5 and 20';
     }
-  } else { errors.password = 'Password is required'; }
+  } else {
+    errors.password = 'Password is required';
+  }
 
   if (!validator.isEmpty(retypePass)) {
     if (retypePass !== password) {
       errors.retypePass = 'Password must match';
     }
-  } else { errors.retypePass = 'Type Password Again'; }
+  } else {
+    errors.retypePass = 'Type Password Again';
+  }
 
   return { errors, isValid: isEmpty(errors) };
 }
 
+/**
+ * @param  {object} data
+ * @return {object} errors
+ */
 export function validateSigninInput(data) {
-  const {
-    loginEmail,
-    loginPassword
-  } = data;
+  const { loginEmail, loginPassword } = data;
 
   const errors = {};
 
@@ -66,33 +75,36 @@ export function validateSigninInput(data) {
   return { errors, isValid: isEmpty(errors) };
 }
 
+/**
+ * @param  {object} data
+ * @return {object} errors
+ */
 export function recoverPassword(data) {
   const { email } = data;
   const error = {};
 
-
   if (email === undefined || validator.isEmpty(email)) {
-    errors.email = 'email is required';
+    error.email = 'email is required';
   }
 
   if (!validator.isEmail(email)) {
-    errors.email = 'Type a valid email';
+    error.email = 'Type a valid email';
   }
   return { error, isValid: isEmpty(error) };
 }
 
+/**
+ * @param  {object} data
+ * @return {object} errors
+ */
 export function updateUserValidation(data) {
   const {
-    fullname,
-    email,
-    newPassword,
-    retypePass,
+    fullname, email, newPassword, retypePass
   } = data;
 
   const errors = {};
 
   Object.entries(data).forEach((entry) => {
-
     if (isEmpty(entry[1])) {
       entry[1] = null;
     }
@@ -103,7 +115,8 @@ export function updateUserValidation(data) {
           errors.fullname = 'Fullname can only contain numbers and letters';
         }
         if (!validator.isLength(fullname, { min: 5, max: 20 })) {
-          errors.fullname = 'Fullname must be more than 5 characters but less than 20';
+          errors.fullname =
+            'Fullname must be more than 5 characters but less than 20';
         }
       }
     }

@@ -19,7 +19,7 @@ export class ModifyEventPage extends React.Component {
    * @returns {void}
    */
   logout(e) {
-    this.props.dispatch(logout());
+    this.props.logout();
   }
   /**
    * @memberof ModifyEventPage
@@ -48,7 +48,7 @@ export class ModifyEventPage extends React.Component {
 }
 const propTypes = {
   logout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({

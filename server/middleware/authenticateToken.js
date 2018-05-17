@@ -3,7 +3,6 @@ import env from 'dotenv';
 
 env.config();
 
-
 /**
  * @param {obj} req
  * @param {obj} res
@@ -18,7 +17,7 @@ const authToken = (req, res, next) => {
       if (err) {
         res.status(498);
         res.send({
-          message: 'Token is Invalid or Expired',
+          message: 'Token is Invalid or Expired'
         });
       } else {
         req.decoded = decoded;
@@ -28,7 +27,7 @@ const authToken = (req, res, next) => {
   } else {
     res.status(403);
     res.send({
-      message: 'Access denied. You are not logged in',
+      message: 'Access denied. You are not logged in'
     });
   }
 };

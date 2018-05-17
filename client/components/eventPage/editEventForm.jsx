@@ -20,21 +20,15 @@ export class EditEventForm extends React.Component {
    */
   constructor(props) {
     super(props);
-    const {
-      description,
-      eventTitle,
-      bookedDate,
-      centerId,
-      centerName
-    } = props.userEvent.event;
+
     this.state = {
-      eventTitle: eventTitle || '',
-      bookedDate: bookedDate || '',
-      description: description || '',
+      eventTitle: '',
+      bookedDate: '',
+      description: '',
       errors: {},
       isLoading: false,
-      centerId: centerId || '',
-      centerName: centerName || '',
+      centerId: '',
+      centerName: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -106,7 +100,6 @@ export class EditEventForm extends React.Component {
         centerId: centerId || '',
       });
     }
-    console.log(nextProps.userEvent.event, 'hihiuhihihiuhi')
   }
   /**
    * @memberof EditEventForm

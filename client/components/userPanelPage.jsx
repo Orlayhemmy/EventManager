@@ -10,7 +10,7 @@ import EventForm from '../components/EventPage/EditEventForm';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 import DeleteModal from './deleteModal';
-import { centerSelected, getCenterSelected } from '../actions/centerActions';
+import { getCenterSelected, clearCenterStorage } from '../actions/centerActions';
 import Modal from './Flash/Modal';
 import { logout } from '../actions/signInActions';
 import { getActivity } from '../actions/activityActions';
@@ -27,6 +27,7 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   componentWillMount() {
+    //this.props.clearCenterStorage();
     this.props.getEvents();
     this.props.getActivity(this.props.auth.user.id);
   }
@@ -96,7 +97,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    */
   showHiddenDiv(e) {
-    const targetDiv = e.target.id;
+    const targetDiv =  e.target.id;
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
   }
@@ -146,9 +147,16 @@ export class Dashboard extends React.Component {
           capacity,
           location,
           facilities,
-          imageUrl
+          imageUrl,
         } = bookedEvent.Center;
+        let eStatus;
+        if (bookedEvent.isApproved) {
+          eStatus = <i className="fa fa-thumbs-up green float-left"></i>
+        } else {
+          eStatus = <i className="fa fa-spinner main-color float-left"></i>;
+        }
         eventId = `eventDetails${index}`;
+        console.log(eventId)
         editEventId = `eventDetails${index}`;
         form = `form${index}`;
         let dateBooked = `date${index}`;
@@ -162,7 +170,7 @@ export class Dashboard extends React.Component {
                     <span className="media-heading" id={index}>
                       <Link
                         to="/modify-event"
-                        id={event.id}
+                        id={bookedEvent.id}
                         onClick={this.onClick.bind(this)}
                       >
                         {bookedEvent.eventTitle}
@@ -193,9 +201,10 @@ export class Dashboard extends React.Component {
                   </div>
                 </div>
                 <span>
+                  {eStatus}
                   <i
                     id={eventId}
-                    className="fa fa-pencil main-color edit"
+                    className="fa fa-arrow-down"
                     onClick={this.showHiddenDiv}
                   />
                   <i
@@ -260,7 +269,7 @@ const propTypes = {
   activity: PropTypes.object.isRequired,
   getEvents: PropTypes.func.isRequired,
   getEventSelected: PropTypes.func.isRequired,
-  centerSelected: PropTypes.func.isRequired,
+  clearCenterStorage: PropTypes.func.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired
@@ -273,10 +282,10 @@ const mapStateToProps = state => ({
 Dashboard.propTypes = propTypes;
 
 export default connect(mapStateToProps, {
-  centerSelected,
   getCenterSelected,
   logout,
   getEvents,
   getEventSelected,
-  getActivity
+  getActivity,
+  clearCenterStorage
 })(Dashboard);

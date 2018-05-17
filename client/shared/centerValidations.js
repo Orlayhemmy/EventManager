@@ -1,14 +1,13 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
+/**
+ * @param  {object} data
+ * @returns {object} errors
+ */
 export function modifyCenterValidation(data) {
-
   const {
-    centerName,
-    facilities,
-    description,
-    location,
-    capacity,
+    centerName, facilities, description, location, capacity, imageUrl
   } = data;
   const errors = {};
 
@@ -19,40 +18,52 @@ export function modifyCenterValidation(data) {
     }
   }
 
+  // validations for url
+
+  if (!validator.isURL(imageUrl)) {
+    errors.imageUrl = 'The url is not valid';
+  }
+
   // validations for centername
   if (!validator.isEmpty(centerName)) {
     if (!/^[a-zA-Z0-9 ]+$/.test(centerName)) {
       errors.centerName = 'Center Name can only contain numbers and letters';
     }
     if (!validator.isLength(centerName, { min: 5, max: 20 })) {
-      errors.centerName = 'The Center Name must be more than 5 characters but less than 20';
+      errors.centerName =
+        'The Center Name must be more than 5 characters but less than 20';
     }
   }
 
   // validations for facilities
   if (!validator.isEmpty(facilities)) {
     if (!validator.isLength(facilities, { min: 5, max: 1000 })) {
-      errors.facilities = 'facilities must be greater than 5 but less than 1000 words';
+      errors.facilities =
+        'facilities must be greater than 5 but less than 1000 words';
     }
     if (!/^[a-zA-Z0-9,.& ]+$/.test(facilities)) {
-      errors.facilities = 'Facilities can not include symbols except comma which you should use to separate the faciities';
+      errors.facilities =
+        'Facilities can not include symbols except comma which you should use to separate the faciities'; // eslint-disable-line
     }
   }
 
   // validations for description
   if (!validator.isEmpty(description)) {
     if (!validator.isLength(description, { min: 5, max: 1000 })) {
-      errors.description = 'description must be greater than 5 but less than 1000 words';
+      errors.description =
+        'description must be greater than 5 but less than 1000 words';
     }
     if (!/^[a-zA-Z0-9,. ]+$/.test(description)) {
-      errors.description = 'description can not include symbols except comma and full stop';
+      errors.description =
+        'description can not include symbols except comma and full stop';
     }
   }
 
   // validations for location
   if (!validator.isEmpty(location)) {
     if (!validator.isLength(location, { min: 5, max: 1000 })) {
-      errors.location = 'location must be greater than 5 but less than 100 words';
+      errors.location =
+        'location must be greater than 5 but less than 100 words';
     }
     if (!/^[a-zA-Z0-9, ]+$/.test(location)) {
       errors.location = 'location can not include symbols except comma';
@@ -62,14 +73,13 @@ export function modifyCenterValidation(data) {
   return { errors, isValid: isEmpty(errors) };
 }
 
+/**
+ * @param  {object} data
+ * @returns {object} errors
+ */
 export function addCenterValidation(data) {
-
   const {
-    centerName,
-    facilities,
-    description,
-    location,
-    capacity,
+    centerName, facilities, description, location, capacity, imageUrl,
   } = data;
 
   const errors = {};
@@ -81,10 +91,17 @@ export function addCenterValidation(data) {
       errors.centerName = 'Center Name can only contain numbers and letters';
     }
     if (!validator.isLength(centerName, { min: 5, max: 20 })) {
-      errors.centerName = 'The Center Name must be more than 5 characters but less than 20';
+      errors.centerName =
+        'The Center Name must be more than 5 characters but less than 20';
     }
   } else {
     errors.centerName = 'Center Name cannot be blank';
+  }
+
+  // validations for url
+
+  if (!validator.isURL(imageUrl)) {
+    errors.imageUrl = 'The url is not valid';
   }
 
   // validations for capacity
@@ -101,10 +118,12 @@ export function addCenterValidation(data) {
 
   if (!validator.isEmpty(facilities)) {
     if (!/^[a-zA-Z0-9,.& ]+$/.test(facilities)) {
-      errors.facilities = 'Facilities can not include symbols except comma which you should use to separate the faciities';
+      errors.facilities =
+        'Facilities can not include symbols except comma which you should use to separate the faciities';  // eslint-disable-line
     }
     if (!validator.isLength(facilities, { min: 5, max: 1000 })) {
-      errors.facilities = 'facilities must be greater than 5 but less than 1000 words';
+      errors.facilities =
+        'facilities must be greater than 5 but less than 1000 words';
     }
   } else {
     errors.facilities = 'Center should have at least one facility';
@@ -113,10 +132,12 @@ export function addCenterValidation(data) {
   // validations for description
   if (!validator.isEmpty(description)) {
     if (!/^[a-zA-Z0-9,. ]+$/.test(description)) {
-      errors.description = 'description can not include symbols except comma and full stop';
+      errors.description =
+        'description can not include symbols except comma and full stop';
     }
     if (!validator.isLength(description, { min: 5, max: 1000 })) {
-      errors.description = 'description must be greater than 5 but less than 1000 words';
+      errors.description =
+        'description must be greater than 5 but less than 1000 words';
     }
   } else {
     errors.description = 'Center should have a description';
@@ -128,7 +149,8 @@ export function addCenterValidation(data) {
       errors.location = 'location can not include symbols except comma';
     }
     if (!validator.isLength(location, { min: 5, max: 1000 })) {
-      errors.location = 'location must be greater than 5 but less than 100 words';
+      errors.location =
+        'location must be greater than 5 but less than 100 words';
     }
   } else {
     errors.location = 'Center should have an Address';
@@ -137,16 +159,14 @@ export function addCenterValidation(data) {
   return { errors, isValid: isEmpty(errors) };
 }
 
+/**
+ * @param  {object} data
+ * @returns {object} errors
+ */
 export function searchValidation(data) {
-  const {
-    facilities,
-    location,
-    capacity,
-    btwValue,
-  } = data;
+  const { facilities, location, capacity } = data;
   const errors = {};
   Object.entries(data).forEach((entry) => {
-
     if (isEmpty(entry[1])) {
       entry[1] = null;
     }
@@ -167,7 +187,8 @@ export function searchValidation(data) {
     if (entry[0] === 'facilities') {
       if (entry[1] !== null) {
         if (!/^[a-zA-Z0-9,.& ]+$/.test(facilities)) {
-          errors.facilities = 'Facilities can not include symbols except comma which you should use to separate the faciities';
+          errors.facilities =
+            'Facilities can not include symbols except comma which you should use to separate the faciities'; // eslint-disable-line
         }
       }
     }

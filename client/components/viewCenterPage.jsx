@@ -29,9 +29,9 @@ export class ViewCenterDetails extends React.Component {
    */
   render() {
      //Check if user is logged in and is also an Admin
-     if (!this.props.user.isAuth) {
+     if (!this.props.auth.isAuth) {
       return (<Redirect to="/" />);
-    } else if (!this.props.user.user.isAdmin) {
+    } else if (!this.props.auth.user.isAdmin) {
       return (<Redirect to="/dashboard" />);
     }
     if (this.props.center.status === 401) {
@@ -51,7 +51,7 @@ export class ViewCenterDetails extends React.Component {
 }
 const propTypes = {
   logout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({

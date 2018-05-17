@@ -1,13 +1,17 @@
 import express from 'express';
 import path from 'path';
 import webpack from 'webpack';
+import swagger from 'swagger-ui-express';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config';
+import swaggerDocument from '../swagger.json';
+
 
 import userRoute from './route/apiRoute';
 
 const app = express();
+app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocument));
 
 const compiler = webpack(webpackConfig);
 
