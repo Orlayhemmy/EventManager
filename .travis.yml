@@ -1,24 +1,15 @@
+dist: trusty
 language: node_js
-node_js: "stable"
-install:
-  - npm install
-script:
-  - npm test
-env:
-  - NODE_ENV=test
-cache:
-  directories:
-    - "node_modules"
 services:
   - postgresql
-before_script:
-  - createuser Orlayhemmy -s -U postgres
-  - createdb database_test --username=Orlayhemmy 
+node_js:
+  - stable 
+before_script: 
+  - createuser postgres -s -U postgres
+  - createdb centermanager_test --username=postgres
   - sequelize db:migrate
   - sequelize db:seed:all
-after_success:
-  - npm run coverage
-  - npm install -g codeclimate-test-reporter
-  - codeclimate-test-reporter < coverage/lcov.info
 
-  "test": "set NODE_ENV=test&& babel-node ./server/setUpDb && nyc mocha --compilers js:babel-core/register ./test/**/*.js --timeout 5000 --exit"
+script: 
+  - npm test 
+  
