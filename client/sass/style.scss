@@ -217,12 +217,53 @@
   }
 }
 #homepage {
-  form input {
-    text-align: center;
+  .main-content {
+
   }
-  form-input:focus, input:focus {
-    border-bottom: none;
-    transition: 1s all;
+  .img-circle {
+    max-width: 200px;
+    max-height: 180px;
+    border: 2px dotted #808080;
+    margin: 0 auto;
+    border-radius: 100%;
+  }
+  .main-content .intro {
+    background: #000000;
+    padding: 25px;
+    opacity: 0.8;
+    color: white;
+    border-top: 5px solid white;
+  }
+  .main-content .intro h1, .main-content .form h1 {
+    color: #ffb401;
+    padding: 0 15px;
+    font-style: normal;
+  }
+  .main-content .form h1 {
+    text-align: center;
+    color: black;
+  }
+  .main-content .form {
+    background: #ffffff;
+    padding: 25px;
+    opacity: 0.8;
+    border-bottom: 5px solid black;
+  }
+  .subcontent {
+    background: #ffb401;
+  }
+  .subcontent .icon {
+    padding: 15px 30px;
+    background: black;
+    color: white;
+    font-size: 2rem;
+  }
+  .center {
+    display: flex;
+    justify-content: center;
+  }
+  .dropdown-menu {
+    width: 20rem;
   }
 }
 
@@ -276,6 +317,6 @@
     bottom: 0;
     background: #222;
     color: white;
-    padding-top: 48px;
+    padding-top: 20px;
   }
 }
