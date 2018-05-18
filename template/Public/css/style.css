@@ -24,7 +24,7 @@ a {
   display: inline-block;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #F97E04;
+  color: #ffb401;
   text-decoration: none;
 }
 
@@ -71,7 +71,7 @@ h2 {
 
 h3 {
   font-size: 1.2rem;
-color: #f97e04;
+color: #ffb401;
 text-align: center;
 }
 
@@ -82,14 +82,14 @@ hr {
 
 
 .text-primary {
-  color: #F97E04 !important;
+  color: #ffb401 !important;
   font-style: italic;
   text-transform: capitalize;
   font-size: 1.5em;
 }
 
 .bb {
-  border-bottom: 3px solid #F97E04;
+  border-bottom: 3px solid #ffb401;
   border-radius: 0;
 }
 .bw {
@@ -167,7 +167,7 @@ nav.navbar .brand-text strong {
 }
 
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link-text:hover {
-    color: #F97E04;
+    color: #ffb401;
     font-style: normal;
 }
 .nav-item {
@@ -240,7 +240,11 @@ text-transform: capitalize;
 	margin-bottom: 10px;
 }
 .main-color {
-  color: #f97e04;
+  color: #ffb401;
+}
+.main-color-bg {
+  background-color: #28a745;
+  border-color: #28a745;
 }
 .topspace {
 	margin-top: 15px;
@@ -290,7 +294,7 @@ min-height: 0;
 }
 .jumbotron h1 {
 	font-size: 4.5rem;
-	color: #f97e04;
+	color: #ffb401;
 }
 .jumbotron h2 {
 	color: #fff;
@@ -448,7 +452,7 @@ border {
   content: '';
   height: 40px;
   height: 2px;
-    background: #F97E04;
+    background: #ffb401;
     transition: all 0.5s linear;
     width: 0; 
 }
@@ -457,7 +461,6 @@ input:focus ~ border {
   margin-left: -150px;
 }
 .help-block {
-  display: inline-block;
   font-size: 0.8em;
   font-style: italic;
   color: red;
@@ -469,7 +472,7 @@ input:focus ~ border {
   display: inline-block;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #F97E04;
+  color: #ffb401;
   text-decoration: none;
   cursor: pointer;
 }
@@ -517,14 +520,14 @@ font-size: 4.0em;
 /* Button */
 .btn-primary {
   color: #fff;
-  background-color: #F97E04;
-  border-color: #F97E04;
+  background-color: #ffb401;
+  border-color: #ffb401;
 }
 
 .btn-primary:hover {
   background-color: #fcfcfc;
   border-color: #767676;
-  color: #F97E04;
+  color: #ffb401;
   font-weight:400;
 }
 .basic {

@@ -42,6 +42,41 @@ export class NavBar extends React.Component {
             <span className="nav-link-text">about us</span>
           </Link>
         </li>
+        <li className="nav-item">
+          <div className="dropdown">
+            <button
+              class="btn btn-success dropdown-toggle main-color-bg"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              type="button"
+              id="signIn"
+            >
+              Sign In
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="signIn">
+              <form class="px-4 py-3">
+                <div className="form-group">
+                <span className="help-block">{this.props.email}</span>
+                  <label for="email">Email Address</label>
+                  <input
+                    id="email"
+                    value={this.props.email}
+                    placeholder="Email Address"
+                    type="email"
+                    className="form-control"
+                    error={this.props.email}
+                    onChange={this.props.onChange}
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Sign in
+                </button>
+              </form>
+            </div>
+          </div>
+        </li>
       </ul>
     );
   }
