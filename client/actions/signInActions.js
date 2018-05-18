@@ -28,9 +28,6 @@ export function setCurrentUser(newUser, token) {
 
 /**
  * @param {object} user
- * @param {object} title
- * @param {object} message
- * @param {object} email
  * @returns {object} success or failure
  */
 export function userSignupRequest(user) {

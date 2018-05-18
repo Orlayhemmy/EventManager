@@ -2,99 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Welcome from './HomeContent/Welcome';
-import { validateSignupInput } from '../../shared/userValidation';
-import { userSignupRequest } from '../../actions/signInActions';
-import Navbar from '../Navbar.jsx';
 
 
 /**
  * @description Signin form component
  */
-export class HomeContent extends React.Component {
-  /**
-   * @memberof HomeContent
-   * @description it creates an instance of HomeContent
-   */
-  constructor() {
-    super();
-    this.state = {
-      fullname: '',
-      email: '',
-      password: '',
-      retypePass: '',
-      errors: {},
-      isLoading: '',
-      serverError: '',
-      image: '',
-      loginEmail: '',
-      loginPassword: '',
-    }
-    this.onChange =this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
-  }
-  
-  /**
-   * @memberof SignUpForm
-   * @method onChange
-   * @description it sets user input to state
-   * @param {object} event
-   */
-  onChange(e) {
-    this.setState({
-      [e.target.id]: e.target.value
-    })
-  }
-
-  /**
-   * @memberof SignUpForm
-   * @method isValid
-   * @description it calls validation action on user data
-   * @param {void}
-   * @returns true or false
-   */
-  isValid() {
-    const {
-      errors,
-      isValid
-    } = validateSignupInput(this.state);
-    if (!isValid) {
-      this.setState({ errors });
-    }
-    return isValid;
-  }
-
-  onImageSelected(event) {
-      if (event.target.files && event.target.files[0]) {
-          let reader = new FileReader();
-  
-          reader.onload = (e) => {
-            this.setState({
-              image: e.target.result
-            });
-          }
-  
-          reader.readAsDataURL(event.target.files[0]);
-      }
-  }
-  /**
-   * @memberof SignUpForm
-   * @method onSubmit
-   * @description it calls the user signup action
-   * @param {object} event
-   * @returns {void}
-   */
-  onSubmit(e) {
-    e.preventDefault();
-    if (this.isValid()) {
-        this.state.title = 'Welcome to Ecenter';
-        this.state.message = `Thank you for choosing Ecenter, We hope to make your events
-        memorable.<br/> Click on this <a href="#">link</a> to see our event centers and get started`;
-      this.props.userSignupRequest(this.state);
-    }
-  } 
-
+export default class HomeContent extends React.Component {
   /**
    * @memberof HomeContent
    * @method render
@@ -102,22 +15,21 @@ export class HomeContent extends React.Component {
    * @returns the HTML of homecontent component
    */
   render() {
-    const { isAuth, status } = this.props.auth;
     const {
       fullname,
+      errorName,
       email,
+      errorEmail,
       password,
+      errorRetypePass,
+      errorPassword,
       retypePass,
-      errors,
-      serverError,
-      image,
-      loginEmail,
-      loginPassword
-    } = this.state;
-    
+      signupSubmit,
+      onChange,
+      message
+    } = this.props;
     return (
       <div className="container" id="homepage">
-        <Navbar path='/' email={this.loginEmail} onChange={this.onChange}/>
         <div className="main-content">
           <div className="row">
             <div className="col-lg-6 intro">
@@ -145,74 +57,48 @@ export class HomeContent extends React.Component {
             </div>
             <div className="col-lg-6 form">
               <h1>Get started</h1>
-              <span className="help-block">{this.props.auth.message}</span>
-              <form id="signup-form" onSubmit={this.onSubmit}>
-              {image === '' ? (
-                <div className="imageUpload center">
-                  <label for="imageInput">
-                    <p className="img-fluid img-circle p-5">
-                      Click here to upload your image{' '}
-                    </p>
-                  </label>
-                  <input
-                    type="file"
-                    id="imageInput"
-                    onChange={this.onImageSelected.bind(this)}
-                  />
-                </div>
-                  ) : (
-                    <div className="imageUpload center">
-                      <label for="imageInput">
-                        <img className="img-fluid img-circle" src={image}/>
-                      </label>
-                      <input
-                        type="file"
-                        id="imageInput"
-                        onChange={this.onImageSelected.bind(this)}
-                      />
-                    </div>
-                  )
-                }
+              <span className="help-block">{message}</span>
+              <form id="signup-form" onSubmit={signupSubmit}>                
+                <span className="help-block">{errorName}</span>
                 <div className="form-group">
-                <span className="help-block">{errors.fullname}</span>
                   <label for="fullname">Fullname</label>
                   <input
                     id="fullname"
-                    value={this.state.fullname}
+                    value={fullname}
                     placeholder="Fullname"
                     type="text"
                     className="form-control"
-                    onChange={this.onChange}
+                    onChange={onChange}
                     required
                   />
                 </div>
 
+                <span className="help-block">{errorEmail}</span>
                 <div className="form-group">
-                <span className="help-block">{errors.email}</span>
                   <label for="email">Email Address</label>
                   <input
                     id="email"
-                    value={this.state.email}
+                    value={email}
                     placeholder="Email Address"
                     type="email"
                     className="form-control"
-                    error={errors.email}
-                    onChange={this.onChange}
+                    onChange={onChange}
                     required
                   />
                 </div>
-                <span className="help-block">{errors.password || errors.retypePass}</span>
+                <span className="help-block">
+                  {errorPassword || errorRetypePass}
+                </span>
                 <div className="form-row">
                   <div className="form-group col-md-6">
                     <label for="password">Password</label>
                     <input
                       id="password"
-                      value={this.state.password}
+                      value={password}
                       placeholder="Password"
                       type="password"
                       className="form-control"
-                      error={errors.password}
-                      onChange={this.onChange}
+                      onChange={onChange}
                       required
                     />
                   </div>
@@ -220,11 +106,11 @@ export class HomeContent extends React.Component {
                     <label for="retypePass">Retype-Password</label>
                     <input
                       id="retypePass"
-                      value={this.state.retypePass}
+                      value={retypePass}
                       placeholder="Re-type Password"
                       type="password"
                       className="form-control"
-                      onChange={this.onChange}
+                      onChange={onChange}
                       required
                     />
                   </div>
@@ -287,15 +173,5 @@ export class HomeContent extends React.Component {
   }
 }
 
-const propTypes = {
-  auth: PropTypes.object.isRequired,
-  userSignupRequest: PropTypes.func.isRequired
-};
 
-const mapStateToProps = state => ({
-  auth: state.auth
-});
 
-HomeContent.propTypes = propTypes;
-
-export default connect(mapStateToProps, {userSignupRequest})(HomeContent);

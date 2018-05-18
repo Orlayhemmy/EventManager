@@ -24,7 +24,7 @@ a {
   display: inline-block;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #ffb401;
+  color: #F97E04;
   text-decoration: none;
 }
 
@@ -71,7 +71,7 @@ h2 {
 
 h3 {
   font-size: 1.2rem;
-color: #ffb401;
+color: #F97E04;
 text-align: center;
 }
 
@@ -82,14 +82,14 @@ hr {
 
 
 .text-primary {
-  color: #ffb401 !important;
+  color: #F97E04 !important;
   font-style: italic;
   text-transform: capitalize;
   font-size: 1.5em;
 }
 
 .bb {
-  border-bottom: 3px solid #ffb401;
+  border-bottom: 3px solid #F97E04;
   border-radius: 0;
 }
 .bw {
@@ -167,7 +167,7 @@ nav.navbar .brand-text strong {
 }
 
 .navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link-text:hover {
-    color: #ffb401;
+    color: #F97E04;
     font-style: normal;
 }
 .nav-item {
@@ -240,7 +240,7 @@ text-transform: capitalize;
 	margin-bottom: 10px;
 }
 .main-color {
-  color: #ffb401;
+  color: #F97E04;
 }
 .main-color-bg {
   background-color: #28a745;
@@ -294,7 +294,7 @@ min-height: 0;
 }
 .jumbotron h1 {
 	font-size: 4.5rem;
-	color: #ffb401;
+	color: #F97E04;
 }
 .jumbotron h2 {
 	color: #fff;
@@ -452,7 +452,7 @@ border {
   content: '';
   height: 40px;
   height: 2px;
-    background: #ffb401;
+    background: #F97E04;
     transition: all 0.5s linear;
     width: 0; 
 }
@@ -472,7 +472,7 @@ input:focus ~ border {
   display: inline-block;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  color: #ffb401;
+  color: #F97E04;
   text-decoration: none;
   cursor: pointer;
 }
@@ -520,14 +520,14 @@ font-size: 4.0em;
 /* Button */
 .btn-primary {
   color: #fff;
-  background-color: #ffb401;
-  border-color: #ffb401;
+  background-color: #F97E04;
+  border-color: #F97E04;
 }
 
 .btn-primary:hover {
   background-color: #fcfcfc;
   border-color: #767676;
-  color: #ffb401;
+  color: #F97E04;
   font-weight:400;
 }
 .basic {
