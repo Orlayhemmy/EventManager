@@ -235,7 +235,7 @@
     border-top: 5px solid white;
   }
   .main-content .intro h1, .main-content .form h1 {
-    color: #ffb401;
+    color: #F97E04;
     padding: 0 15px;
     font-style: normal;
   }
@@ -250,7 +250,7 @@
     border-bottom: 5px solid black;
   }
   .subcontent {
-    background: #ffb401;
+    background: #F97E04;
   }
   .subcontent .icon {
     padding: 15px 30px;
@@ -261,6 +261,7 @@
   .center {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
   }
   .dropdown-menu {
     width: 20rem;

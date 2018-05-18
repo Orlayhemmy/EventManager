@@ -62,7 +62,7 @@ export default (state = initialState, action = {}) => {
         loading: false,
         loaded: true,
         status: 401,
-        message,
+        signinError: message,
       };
     }
     case actionTypes.USER_SIGNUP: {

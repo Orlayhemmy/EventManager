@@ -54,18 +54,37 @@ export class NavBar extends React.Component {
             >
               Sign In
             </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="signIn">
-              <form class="px-4 py-3">
+            <div
+              class="dropdown-menu dropdown-menu-right"
+              aria-labelledby="signIn"
+            >
+              <form class="px-4 py-3" onSubmit={this.props.signinSubmit}>
                 <div className="form-group">
-                <span className="help-block">{this.props.email}</span>
+                  <span className="help-block">
+                    {this.props.errorEmail || this.props.auth.signinError}
+                  </span>
                   <label for="email">Email Address</label>
                   <input
-                    id="email"
-                    value={this.props.email}
+                    id="loginEmail"
+                    value={this.props.loginEmail}
                     placeholder="Email Address"
                     type="email"
                     className="form-control"
-                    error={this.props.email}
+                    error={this.props.errorEmail}
+                    onChange={this.props.onChange}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <span className="help-block">{this.props.password}</span>
+                  <label for="email">Password</label>
+                  <input
+                    id="loginPassword"
+                    value={this.props.loginPassword}
+                    placeholder="123456789"
+                    type="password"
+                    className="form-control"
+                    error={this.props.errorPass}
                     onChange={this.props.onChange}
                     required
                   />
