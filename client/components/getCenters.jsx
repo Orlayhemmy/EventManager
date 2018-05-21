@@ -82,9 +82,9 @@ export class DisplayCenters extends React.Component {
         .replace('T', ' ')
         .slice(0, 16);
       return (
-        <div className="row ml p-1" key={index}>
+        <div key={index} className="main-color-bg p-2 mb-1">
           <Link to="/view-center-event">
-            <span>
+            <span className="fw">
               <p className="activity-font mb-0 p-1">
                 {activity.description}
                 <br />
@@ -106,7 +106,7 @@ export class DisplayCenters extends React.Component {
     } else {
       adminCenter = centers.map((center, index) => {
         return (
-          <div className="row bw" key={index}>
+          <div className="row bw p-4" key={index}>
             <div className="col-lg-4 col-md-12 col-sm-12 text-center">
               <img className="img-fluid" src={center.imageUrl} />
             </div>
@@ -150,9 +150,17 @@ export class DisplayCenters extends React.Component {
     }
 
     const adminCenterPage = (
-      <div className="row">
-        <div className="col-lg-9">{adminCenter}</div>
-        <div className="col-lg-3">{recentActivity}</div>
+      <div className="section">
+        <div className="row title">
+          <h1>List Of Centers</h1>
+        </div>
+        <div className="row">
+          <div className="col-lg-8 mr-3">{adminCenter}</div>
+          <div className="col-lg-3 bw p-2 ho">
+            <h2>Notifications</h2>
+            {recentActivity}
+          </div>
+        </div>
       </div>
     );
     const guestCenterPage = centers.map((center, index) => {

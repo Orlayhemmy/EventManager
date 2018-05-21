@@ -4,6 +4,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    reason: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    suggestion: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     eventId: {
       type: DataTypes.INTEGER,
       onDelete: 'CASCADE',

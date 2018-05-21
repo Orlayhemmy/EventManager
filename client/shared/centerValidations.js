@@ -18,12 +18,6 @@ export function modifyCenterValidation(data) {
     }
   }
 
-  // validations for url
-
-  if (!validator.isURL(imageUrl)) {
-    errors.imageUrl = 'The url is not valid';
-  }
-
   // validations for centername
   if (!validator.isEmpty(centerName)) {
     if (!/^[a-zA-Z0-9 ]+$/.test(centerName)) {
@@ -96,12 +90,6 @@ export function addCenterValidation(data) {
     }
   } else {
     errors.centerName = 'Center Name cannot be blank';
-  }
-
-  // validations for url
-
-  if (!validator.isURL(imageUrl)) {
-    errors.imageUrl = 'The url is not valid';
   }
 
   // validations for capacity

@@ -79,7 +79,11 @@ text-align: center;
 hr {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-
+nav.navbar.black-nav {
+  background: black;
+  transition: all 1s ease-in 0s;
+  border: black;
+}
 
 .text-primary {
   color: #F97E04 !important;
@@ -94,6 +98,9 @@ hr {
 }
 .bw {
   background-color: white;
+}
+.fw {
+  color: white;
 }
 .emptyCenter, .emptyEvent {
   width: 100%;
@@ -113,6 +120,7 @@ nav.navbar {
   background: #dbd9dc3d;
     padding: 0 20px;
   border-bottom: 1px outset #dbd9dc;
+  transition: all 1s ease-in 0s;
 }
 
 nav.navbar .container-fluid {
@@ -228,9 +236,7 @@ text-transform: capitalize;
   right: 0;
   width: 100%;
 }
-.row {
-	padding: 30px 20px;
-}
+
 .form-group {
     margin-bottom: 0.5rem;
 }
@@ -243,8 +249,8 @@ text-transform: capitalize;
   color: #F97E04;
 }
 .main-color-bg {
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #F97E04;
+  border-color: #F97E04;
 }
 .topspace {
 	margin-top: 15px;
@@ -426,7 +432,6 @@ form input[type='submit'], form input[type='button'] {
   padding: 10px 20px 30px 20px;
 }
 .trash, .edit {
-    float: right;
     font-size: 0.5em;
 	  color: red;
 }

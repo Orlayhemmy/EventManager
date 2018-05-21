@@ -7,7 +7,7 @@ import Footer from './Footer.jsx';
 import UploadImage from './imageUpload';
 import { updateUserValidation } from '../shared/userValidation';
 import {
-  updateUserDetails,
+  uploadUserImage,
   checkPassword,
   getUser
 } from '../actions/signInActions';
@@ -33,7 +33,8 @@ export class Profile extends React.Component {
       errors: {},
       wrongPasswordError: '',
       imageUrl: '',
-      createdAt: ''
+      createdAt: '',
+      image: '',
     };
     this.initialState = this.state;
     this.onChange = this.onChange.bind(this);
@@ -41,6 +42,7 @@ export class Profile extends React.Component {
     this.isValid = this.isValid.bind(this);
     this.showDiv = this.showDiv.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
+    this.showImage = this.showImage.bind(this);
   }
   /**
    * @memberof Profile
@@ -77,6 +79,22 @@ export class Profile extends React.Component {
         imageUrl: imageUrl,
         createdAt: createdAt || ''
       });
+    }
+  }
+   /**
+   * @memberof CenterForm
+   * @method showImage
+   * @description it sets user input to state
+   * @param {object} event
+   */
+  showImage(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      this.state.imageData = event.target.files[0];
+      reader.onload = (e) => {
+          this.setState({image: e.target.result});
+      };
+      reader.readAsDataURL(event.target.files[0]);
     }
   }
   /**
@@ -147,7 +165,14 @@ export class Profile extends React.Component {
     e.preventDefault();
     if (this.initialState !== this.state) {
       if (this.isValid()) {
-        this.props.updateUserDetails(this.state);
+        const formData = new FormData();
+        formData.append('file', this.state.imageData);
+        formData.append('upload_preset', 'u8asaoka');
+        const data = {
+          fullname: this.state.fullname,
+          email: this.state.email
+        };
+        this.props.uploadUserImage(data, formData);
       }
     }
   }
@@ -197,7 +222,8 @@ export class Profile extends React.Component {
       errors,
       wrongPasswordError,
       imageUrl,
-      createdAt
+      createdAt,
+      image
     } = this.state;
     const dateRegistered = createdAt.slice(0, 10);
     return (
@@ -209,7 +235,23 @@ export class Profile extends React.Component {
               <div className="text-primary">Personal Information</div>
               <hr />
               <div id="showDetails">
-                <img src={imageUrl} className="img-fluid dropzone" />
+              <div>
+                {!imageUrl ? (
+                  <div className="imageUpload">
+    
+                      <p className="img-fluid dropzone p-5">
+                        Click here to upload your image{' '}
+                      </p>
+                  </div>
+                ) : (
+                  <div className="imageUpload">
+                      <img
+                        src={imageUrl}
+                        className="img-fluid dropzone"
+                      />
+                  </div>
+                )}
+              </div>
                 <h3 className="pt-4">{fullname.toUpperCase()}</h3>
                 <span>{email}</span>
                 <span
@@ -222,8 +264,8 @@ export class Profile extends React.Component {
               </div>
               <form id="editDetails" hidden>
                 <UploadImage
-                  path={this.props.location.pathname}
-                  uploadedImage={imageUrl}
+                  uploadedImage={image}
+                  showImage={this.showImage}
                 />
                 <h3 className="pt-1">
                   <TextField
@@ -348,7 +390,7 @@ export class Profile extends React.Component {
   }
 }
 const propTypes = {
-  updateDetails: PropTypes.func.isRequired,
+  uploadUserImage: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   checkPassword: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
@@ -363,7 +405,7 @@ const mapStateToProps = state => ({
 Profile.propTypes = propTypes;
 
 export default connect(mapStateToProps, {
-  updateUserDetails,
+  uploadUserImage,
   checkPassword,
   getUser,
   eventBooked,

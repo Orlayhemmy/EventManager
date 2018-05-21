@@ -5,9 +5,10 @@ import {
   searchLocation,
   searchCapacity
 } from '../helper/centerSearchCriteria';
+import ActivityController from './activityContoller';
 
 const { Centers, Events } = models;
-
+const { setActivity } = ActivityController;
 /**
  * @class CenterController
  */
@@ -120,10 +121,9 @@ export default class CenterController {
       description,
       facilities,
       capacity,
-      imageUrl
+      imageUrl,
     } = req.body;
     const { id } = req.decoded;
-
     Centers.findOne({ where: { centerName } })
       .then((foundCenter) => {
         if (foundCenter) {
@@ -143,11 +143,13 @@ export default class CenterController {
           imageUrl,
           userId: id
         })
-          .then(center =>
+          .then((center) => {
+            setActivity(req, res, center.id);
             res.status(201).send({
               center,
               message: 'Successfully created a center'
-            }))
+            });
+          })
           .catch(error =>
             res.status(500).send({
               err: 'Error',

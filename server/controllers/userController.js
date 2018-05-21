@@ -43,7 +43,8 @@ export default class UserController {
           password: userPassword
         })
           .then((user) => {
-            const token = generateToken(user);
+            const payload = { userId: user.id };
+            const token = generateToken(payload);
             req.body.token = token;
             sendMail(req);
             return res.status(201).send({
@@ -83,7 +84,8 @@ export default class UserController {
         if (user) {
           const check = bcrypt.compareSync(loginPassword, user.password);
           if (check) {
-            const token = generateToken(user);
+            const payload = { id: user.id, isAdmin: user.isAdmin };
+            const token = generateToken(payload);
             req.body.token = token;
             return res.status(200).send({
               message: 'You are now logged In',
@@ -188,7 +190,6 @@ export default class UserController {
     const {
       email, newPassword, fullname, imageUrl
     } = req.body;
-
     Users.findOne({
       where: {
         id: req.decoded.id
@@ -196,7 +197,10 @@ export default class UserController {
     })
       .then((user) => {
         if (user) {
-          const hash = passwordHash(newPassword);
+          let hash;
+          if (newPassword) {
+            hash = passwordHash(newPassword);
+          }
           user
             .update({
               fullname: fullname || user.fullname,
