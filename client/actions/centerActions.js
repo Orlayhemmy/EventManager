@@ -6,14 +6,19 @@ import * as actionTypes from './types';
 /**
  * @returns {object} clear state
  */
-export function clearState() {
-  return dispatch => dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
+export function clearCenterStorage() {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
+    if (localStorage.getItem('center')) {
+      localStorage.removeItem('center');
+    }
+  };
 }
 
 
 /**
  * @param {object} data
- *  * @param {object} image
+ * @param {object} image
  * @returns {object} url of image uploaded
  */
 export function uploadImage(data, image) {
@@ -139,9 +144,11 @@ export function getCenterSelected(id, tag) {
 /**
  * @returns {void}
  */
-export function clearCenterStorage() {
-  localStorage.removeItem('center');
-}
+// export function clearCenterStorage() {
+//   if (localStorage.getItem('center')) {
+//     localStorage.removeItem('center');
+//   }
+// }
 
 // /**
 //  * @param {object} data

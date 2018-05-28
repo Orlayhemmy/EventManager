@@ -1,6 +1,6 @@
 import models from '../models';
 
-const { Activities } = models;
+const { Users ,Activities, Events } = models;
 
 /**
  * @class ActivityController
@@ -51,7 +51,6 @@ export default class ActivityController {
   static getAdminActivity(req, res) {
     Activities.findAll({
       where: {
-        userId: req.decoded.id,
         centerId: {
           $ne: null
         }
@@ -83,39 +82,120 @@ export default class ActivityController {
    * @returns {object} Failure message or Success message
    * @memberof ActivityController
    */
-  static setActivity(req, res, id) {
+  static setCenterActivity(req, res, id) {
     const {
-      eventTitle,
-      eventId,
-      text,
-      userId,
-      reason,
-      suggestion,
       centerName,
-      username
     } = req.body;
-    let info;
-    if (username) {
-      info = `${username} added an event ${eventTitle}`;
-    } else if (centerName) {
-      info = `A new center "${centerName}" has been added`;
-    } else if (text) {
-      info = `You ${text} ${eventTitle}`;
-    } else if (text) {
-      info = `${eventTitle} has been ${text}`;
-    } else {
-      info = `${eventTitle} is added and awaiting approval`;
-    }
     Activities.create({
-      description: info,
-      eventId,
+      description: `A new center "${centerName}" has been added`,
       centerId: id,
-      userId: userId || req.decoded.id,
     }).then(() => res.status(200).send({
       message: 'Activity added successfully',
     })).catch(error => res.status(500).send({
       message: error.message,
     }));
+  }
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @returns {object} message
+   */
+  static notifyAdmin(req, res) {
+    const {
+      centerId
+    } = req.body;
+    Users.findOne({
+      where: {
+        id: req.decoded.id,
+      }
+    })
+      .then((user) => {
+        Activities.create({
+          description: `${user.fullname} booked a center`,
+          centerId,
+        })
+          .then(() => res.status(200).send({
+            message: 'Activity added successfully',
+          })).catch(error => res.status(500).send({
+            message: error.message,
+          }));
+      });
+  }
+
+  /**
+   * Set activity when user performs an action
+   * @static
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} Failure message or Success message
+   * @memberof ActivityController
+   */
+  static setEventActivity(req, res) {
+    const {
+      eventTitle,
+    } = req.body;
+    Activities.create({
+      description: `${eventTitle} is added and awaiting approval`,
+      userId: req.decoded.id,
+    }).then(() => {
+      res.status(200).send({
+        message: 'Activity added successfully',
+      });
+    }).catch(error => res.status(500).send({
+      message: error.message,
+    }));
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @returns {object} message
+   */
+  static notifyUser(req, res) {
+    const {
+      eventTitle, isApproved
+    } = req.body;
+    let info;
+    if (isApproved) {
+      info = `${eventTitle} has been approved`;
+    } else {
+      info = `Your center booking for ${eventTitle} is declined`;
+    }
+    Activities.findById(req.params.id)
+      .then((activity) => {
+        Activities.create({
+          description: info,
+          userId: activity.userId,
+        })
+          .then(() => res.status(200).send({
+            message: 'Activity added successfully',
+          })).catch(error => res.status(500).send({
+            message: error.message,
+          }));
+      });
+  }
+
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @returns {object} message
+   */
+  static approveEvent(req, res) {
+    const {
+      eventTitle
+    } = req.body;
+    Activities.findById(req.params.id)
+      .then((activity) => {
+        Activities.create({
+          description: `${eventTitle} has been approved`,
+          userId: activity.userId,
+        })
+          .then(() => res.status(200).send({
+            message: 'Activity added successfully',
+          })).catch(error => res.status(500).send({
+            message: error.message,
+          }));
+      });
   }
 
   /**

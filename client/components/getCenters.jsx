@@ -83,15 +83,17 @@ export class DisplayCenters extends React.Component {
         .slice(0, 16);
       return (
         <div key={index} className="main-color-bg p-2 mb-1">
-          <Link to="/view-center-event">
-            <span className="fw">
-              <p className="activity-font mb-0 p-1">
+            <Link to="/view-center-event">
+              <p
+                className="activity-font mb-0 p-1 fw"
+                onClick={this.onClick.bind(this)}
+                id={activity.centerId}
+              >
                 {activity.description}
                 <br />
                 {creationDate}
               </p>
-            </span>
-          </Link>
+            </Link>
         </div>
       );
     });

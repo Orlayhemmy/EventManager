@@ -67,12 +67,12 @@ router.route('/centerStatus/:id').put(centerController.centerStatus);
 
 router
   .route('/activity')
-  .post(authToken, activityController.setActivity)
+  .post(authToken, activityController.setEventActivity)
   .get(authToken, activityController.getActivity);
 
 router
   .route('/adminactivity')
-  .post(authToken, activityController.setActivity)
+  .post(authToken, activityController.setCenterActivity)
   .get(authToken, activityController.getAdminActivity);
 
 router

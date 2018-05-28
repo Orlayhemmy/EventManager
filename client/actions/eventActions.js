@@ -143,7 +143,7 @@ export function modifyCenterEvent(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER_EVENT });
     return axios
-      .put(`/api/v1/approveEvent/${id}`)
+      .put(`/api/v1/approveEvent/${id}`, data)
       .then((response) => {
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,

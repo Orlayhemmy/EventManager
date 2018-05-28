@@ -32,14 +32,6 @@ export default (state = initialState, action) => {
         error: '',
       };
     }
-    case actionTypes.GET_EVENTS_FAIL: {
-      const { message, status } = action.payload;
-      return {
-        ...state,
-        message,
-        status,
-      };
-    }
     case actionTypes.GET_EVENTS_SUCCESS: {
       const { events } = action.payload;
       return {
@@ -49,6 +41,15 @@ export default (state = initialState, action) => {
         events,
       };
     }
+    case actionTypes.GET_EVENTS_FAIL: {
+      const { message, status } = action.payload;
+      return {
+        ...state,
+        message,
+        status,
+      };
+    }
+   
     case actionTypes.GET_CENTER_EVENTS: {
       return {
         ...state,

@@ -27,7 +27,7 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   componentWillMount() {
-    //this.props.clearCenterStorage();
+    this.props.clearCenterStorage();
     this.props.getEvents();
     this.props.getActivity(this.props.auth.user.id);
   }
@@ -149,14 +149,14 @@ export class Dashboard extends React.Component {
         </div>
       )
       const eventsArray = this.props.userEvent.events;
-      content = eventsArray.map((bookedEvent, index) => {
-        const {
-          centerName,
-          capacity,
-          location,
-          facilities,
-          imageUrl,
-        } = bookedEvent.Center;
+      content = _.map(eventsArray, (bookedEvent, index) => {
+        // const {
+        //   centerName,
+        //   capacity,
+        //   location,
+        //   facilities,
+        //   imageUrl,
+        // } = bookedEvent.Center;
         let eStatus;
         if (bookedEvent.isApproved) {
           eStatus = <i className="fa fa-thumbs-up green float-left"></i>
@@ -186,7 +186,7 @@ export class Dashboard extends React.Component {
                     </span>
                   </h2>
                 </div>
-                <div id={eventId} hidden>
+                {/* <div id={eventId} hidden>
                   <div className="media-body">
                     <h3>
                       <span>Date: </span> {bookedEvent.bookedDate}
@@ -207,7 +207,7 @@ export class Dashboard extends React.Component {
                       <span>Event description: </span> {bookedEvent.description}
                     </h3>
                   </div>
-                </div>
+                </div> */}
                 <span>
                 <Link
                   to="/modify-event"

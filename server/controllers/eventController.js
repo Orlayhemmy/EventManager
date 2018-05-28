@@ -1,5 +1,8 @@
 import jwt from 'jsonwebtoken';
 import models from '../models';
+import ActivityController from './activityContoller';
+
+const { setEventActivity, notifyAdmin, notifyUser } = ActivityController;
 
 const { Events, Centers } = models;
 
@@ -214,6 +217,8 @@ export default class EventController {
           userId: id
         })
           .then((bookedEvent) => {
+            setEventActivity(req, res);
+            notifyAdmin(req, res);
             res.status(201).send({
               message: 'Event booked Successfully',
               bookedEvent
@@ -330,10 +335,12 @@ export default class EventController {
             .update({
               isApproved: true
             })
-            .then(() =>
+            .then(() => {
+              notifyUser(req, res);
               res.status(200).send({
                 message: 'Event Approved'
-              }))
+              });
+            })
             .catch(err =>
               res.status(500).send({
                 message: err.message

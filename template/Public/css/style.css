@@ -84,6 +84,9 @@ nav.navbar.black-nav {
   transition: all 1s ease-in 0s;
   border: black;
 }
+.dropdown-toggle::after {
+  display: none;
+}
 
 .text-primary {
   color: #F97E04 !important;
