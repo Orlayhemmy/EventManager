@@ -1,3 +1,4 @@
+/* eslint disable */
 #about-page {
   .media-body {
     padding: 25px 20px;
@@ -7,13 +8,13 @@
   }
   .bg {
     padding: 10px;
-    opacity: .9;
+    opacity: 0.9;
   }
 }
 
 #about {
   p {
-    font-size:  1.2rem;
+    font-size: 1.2rem;
     line-height: 2rem;
   }
   h1 {
@@ -31,13 +32,13 @@
 #center-page {
   .row {
     margin-bottom: 10px;
-    opacity: .9;
+    opacity: 0.9;
   }
   .inner {
     background: none;
     padding: 0;
   }
-  
+
   .img {
     max-width: 280px;
     max-height: 220px;
@@ -52,34 +53,18 @@
     font-style: normal;
   }
 }
-#center-page, #dashboard {  
-
+#center-page,
+#dashboard {
   footer .row {
     background: none;
     margin-bottom: 0;
-      /* opacity: .9; */
   }
-
-  // body {
-  //   position: relative;
-  //   margin: 0;
-  //   padding-bottom: 6rem;
-  //   min-height: 100%;
-  // }
-
-  // .main-footer {
-  //   position: absolute;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   padding: 1rem;
-  // }
 
   span {
     text-transform: capitalize;
     font-style: italic;
     font-size: 1.2rem;
-    color:#F97E04;
+    color: #f97e04;
   }
 
   h3 {
@@ -127,7 +112,7 @@
     text-transform: uppercase;
   }
   span {
-    font-size: .9em;
+    font-size: 0.9em;
   }
   .center {
     margin: 0 auto;
@@ -155,7 +140,7 @@
   }
   .legend {
     padding: 10px 30px;
-    color: black;
+    color: #000000;
   }
 }
 
@@ -217,7 +202,8 @@
   }
 }
 
-#deleteModal, #eventStatus {
+#deleteModal,
+#eventStatus {
   .fa {
     padding: 0 35px;
     font-size: 32px;
@@ -242,7 +228,8 @@
     font-size: 24px;
   }
 }
-#center-page, #dashboard {
+#center-page,
+#dashboard {
   .nav-link-text {
     font-style: normal;
     color: #fff;
@@ -267,28 +254,29 @@
     color: white;
     border-top: 5px solid white;
   }
-  .main-content .intro h1, .main-content .form h1 {
-    color: #F97E04;
+  .main-content .intro h1,
+  .main-content .form h1 {
+    color: #f97e04;
     padding: 0 15px;
     font-style: normal;
   }
   .main-content .form h1 {
     text-align: center;
-    color: black;
+    color: #000000;
   }
   .main-content .form {
     background: #ffffff;
     padding: 25px;
     opacity: 0.8;
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid #000000;
   }
   .subcontent {
-    background: #F97E04;
+    background: #f97e04;
     margin-top: 30px;
   }
   .subcontent .icon {
     padding: 15px 30px;
-    background: black;
+    background: #000000;
     color: white;
     font-size: 2rem;
   }
@@ -312,11 +300,13 @@
   .col-lg-4 {
     margin: 0 auto;
   }
-  form input, form-input {
+  form input,
+  form-input {
     text-transform: none;
     text-align: center;
   }
-  form-input:focus, input:focus {
+  form-input:focus,
+  input:focus {
     border-bottom: none;
     transition: 1s all;
   }
@@ -332,7 +322,6 @@
     margin-top: 0.5rem;
     font-size: 0.8rem;
   }
-
 }
 
 #profile-page {
@@ -351,21 +340,21 @@
     position: fixed;
     bottom: 0;
     background: #222;
-    color: white;
+    color: #ffffff;
     padding-top: 20px;
   }
 }
 
 .col9-bg {
   background: #f5f5f5d1;
-  padding: 10px 30px;
+  padding: 10px 30px 10px 30px;
   border-top: 5px solid #f97e04d4;
 }
 
 .col3-bg {
   background: #f97e04d4;
   padding: 10px 30px;
-  border-bottom: 5px solid #f5f5f5d1
+  border-bottom: 5px solid #f5f5f5d1;
 }
 
 .grid-view {

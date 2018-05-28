@@ -15,7 +15,6 @@ export function clearCenterStorage() {
   };
 }
 
-
 /**
  * @param {object} data
  * @param {object} image

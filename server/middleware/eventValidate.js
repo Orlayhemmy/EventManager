@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default class Validation {
   /**
-   * Validates all events details before allowing access to controller class
+   * Validates all events details
    * @param {object} req
    * @param {object} res
    * @param {object} next
@@ -88,7 +88,7 @@ export default class Validation {
    * @param {object} res
    * @param {object} next
    * @class updateEvent
-   * @returns {object} Validation error messages or content of req.body passed to controller
+   * @returns {object} error messages or content of req.body
    * @memberof eventsValidation
    */
   static updateEvent(req, res, next) {

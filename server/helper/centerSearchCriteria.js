@@ -6,12 +6,12 @@ export function searchLocation(location) {
   let locationSearch;
   if (location) {
     locationSearch = {
-      $ilike: `%${location}%`,
+      $ilike: `%${location}%`
     };
     return locationSearch;
   }
   locationSearch = {
-    $ne: null,
+    $ne: null
   };
   return locationSearch;
 }
@@ -25,12 +25,12 @@ export function searchFacilities(facilities) {
   if (facilities) {
     const facility = facilities.toLowerCase();
     facilitySearch = {
-      $contains: [facility],
+      $contains: [facility]
     };
     return facilitySearch;
   }
   facilitySearch = {
-    $ne: null,
+    $ne: null
   };
   return facilitySearch;
 }
@@ -46,31 +46,31 @@ export function searchCapacity(capacityType, btwValue, capacity) {
   switch (capacityType) {
     case 'greater': {
       capacitySearch = {
-        $gt: capacity,
+        $gt: capacity
       };
       return capacitySearch;
     }
     case 'lesser': {
       capacitySearch = {
-        $lt: capacity,
+        $lt: capacity
       };
       return capacitySearch;
     }
     case 'equal': {
       capacitySearch = {
-        $eq: capacity,
+        $eq: capacity
       };
       return capacitySearch;
     }
     case 'between': {
       capacitySearch = {
-        $between: [capacity, btwValue],
+        $between: [capacity, btwValue]
       };
       return capacitySearch;
     }
     default: {
       capacitySearch = {
-        $ne: null,
+        $ne: null
       };
       return capacitySearch;
     }

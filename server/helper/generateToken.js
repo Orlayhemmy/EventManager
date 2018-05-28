@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import env from 'dotenv';
 
-
 env.config();
 /**
  * @param  {object} data
@@ -13,10 +12,10 @@ export default function generateToken(data) {
     email: data.email,
     isAdmin: data.isAdmin,
     imageUrl: data.imageUrl,
-    id: data.id,
+    id: data.id
   };
   const token = jwt.sign(payload, process.env.SECRET, {
-    expiresIn: 60 * 60 * 12,
+    expiresIn: 60 * 60 * 12
   });
   return token;
 }

@@ -1,3 +1,4 @@
+/* eslint disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
@@ -10,9 +11,12 @@ import EventForm from '../components/EventPage/EditEventForm';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
 import DeleteModal from './deleteModal';
-import { getCenterSelected, clearCenterStorage } from '../actions/centerActions';
+import {
+  getCenterSelected,
+  clearCenterStorage
+} from '../actions/centerActions';
 import Modal from './Flash/Modal';
-import { logout } from '../actions/signInActions';
+import { logout } from '../actions/userActions';
 import { getActivity } from '../actions/activityActions';
 
 /**
@@ -97,7 +101,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    */
   showHiddenDiv(e) {
-    const targetDiv =  e.target.id;
+    const targetDiv = e.target.id;
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
   }
@@ -143,25 +147,31 @@ export class Dashboard extends React.Component {
     } else {
       legend = (
         <div className="row center">
-          <span className="legend">Approved Booking: <i className="fa fa-thumbs-up green"></i></span>
-          <span className="legend">Edit Booking: ...<i className="fa fa-pencil main-color"></i></span>
-          <span className="legend">Delete Booking: <i className="fa fa-trash trash"></i></span>
+          <span className="legend">
+            Approved Booking: <i className="fa fa-thumbs-up green" />
+          </span>
+          <span className="legend">
+            Edit Booking: ...<i className="fa fa-pencil main-color" />
+          </span>
+          <span className="legend">
+            Delete Booking: <i className="fa fa-trash trash" />
+          </span>
         </div>
-      )
+      );
       const eventsArray = this.props.userEvent.events;
       content = _.map(eventsArray, (bookedEvent, index) => {
-        // const {
-        //   centerName,
-        //   capacity,
-        //   location,
-        //   facilities,
-        //   imageUrl,
-        // } = bookedEvent.Center;
+        const {
+          centerName,
+          capacity,
+          location,
+          facilities,
+          imageUrl
+        } = bookedEvent.Center;
         let eStatus;
         if (bookedEvent.isApproved) {
-          eStatus = <i className="fa fa-thumbs-up green float-left"></i>
+          eStatus = <i className="fa fa-thumbs-up green float-left" />;
         } else {
-          eStatus = <i className="fa fa-spinner main-color float-left"></i>;
+          eStatus = <i className="fa fa-spinner main-color float-left" />;
         }
         eventId = `eventDetails${index}`;
         editEventId = `eventDetails${index}`;
@@ -172,7 +182,7 @@ export class Dashboard extends React.Component {
             <div key={eventId} className="text-center">
               <div className="card p-1 mb-3 mw">
                 <div id={index} className="grid-view">
-                <span>{eStatus}</span>
+                  <span>{eStatus}</span>
                   <img className="img m-auto" src={imageUrl} />
                   <h2>
                     <span className="media-heading" id={index}>
@@ -209,14 +219,14 @@ export class Dashboard extends React.Component {
                   </div>
                 </div> */}
                 <span>
-                <Link
-                  to="/modify-event"
-                  id={bookedEvent.id}
-                  onClick={this.onClick.bind(this)}
-                  className="float-left"
-                >
-                  ...<i className="fa fa-pencil"></i>
-                </Link>
+                  <Link
+                    to="/modify-event"
+                    id={bookedEvent.id}
+                    onClick={this.onClick.bind(this)}
+                    className="float-left"
+                  >
+                    ...<i className="fa fa-pencil" />
+                  </Link>
                   <i
                     id={event.id}
                     className="fa fa-trash trash float-right"
@@ -246,7 +256,7 @@ export class Dashboard extends React.Component {
               id={activity.eventId}
             >
               {creationDate}
-              <br/>
+              <br />
               {activity.description}
             </p>
           </span>
@@ -262,15 +272,15 @@ export class Dashboard extends React.Component {
               <div className="row event">
                 <h1>Dashboard</h1>
                 <h3 className="main-color">List of events booked</h3>
-                <hr/>
+                <hr />
               </div>
               <div className="row">
                 {legend}
-              <div className="row">
-                {content}
-                <DeleteModal path={pathname} />
-                <Modal message={this.props.userEvent.message} />
-              </div>
+                <div className="row">
+                  {content}
+                  <DeleteModal path={pathname} />
+                  <Modal message={this.props.userEvent.message} />
+                </div>
               </div>
             </div>
             <div className="col-lg-3 col3-bg">
