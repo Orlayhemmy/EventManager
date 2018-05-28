@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 0 */
 #about-page {
   .media-body {
     padding: 25px 20px;
@@ -57,23 +58,7 @@
   footer .row {
     background: none;
     margin-bottom: 0;
-    /* opacity: .9; */
   }
-
-  // body {
-  //   position: relative;
-  //   margin: 0;
-  //   padding-bottom: 6rem;
-  //   min-height: 100%;
-  // }
-
-  // .main-footer {
-  //   position: absolute;
-  //   right: 0;
-  //   bottom: 0;
-  //   left: 0;
-  //   padding: 1rem;
-  // }
 
   span {
     text-transform: capitalize;

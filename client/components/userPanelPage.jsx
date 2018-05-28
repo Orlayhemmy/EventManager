@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 0 */
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
