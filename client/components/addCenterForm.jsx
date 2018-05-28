@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import { uploadImage } from '../actions/centerActions';
 import { addCenterValidation } from '../shared/centerValidations';
 import TextField from '../common/textField2';
-import { logout } from '../actions/signInActions';
+import { logout } from '../actions/userActions';
 import UploadImage from './ImageUpload';
 
 /**

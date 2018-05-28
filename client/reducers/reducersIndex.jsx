@@ -10,5 +10,5 @@ export default combineReducers({
   center,
   event,
   activity,
-  adminActivity,
+  adminActivity
 });

@@ -11,8 +11,14 @@ engines:
         enabled: false
       import/extensions:
         enabled: false
+  file-lines:
+    config:
+      threshold: 250
   fixme:
     enabled: true
+  method-lines:
+    config:
+      threshold: 50
 ratings:
   paths:
   - "server/*.js"

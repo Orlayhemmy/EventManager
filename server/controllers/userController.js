@@ -177,7 +177,6 @@ export default class UserController {
         }));
   }
 
-
   /**
    * Users details are captured and persisted on the database
    * @static

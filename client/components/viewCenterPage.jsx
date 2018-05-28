@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Navbar from './Navbar.jsx';
 import Content from './CenterDetails/CenterDetailsContent';
 import Footer from './Footer';
-import { logout } from '../actions/signInActions';
+import { logout } from '../actions/userActions';
 
 /**
  * @description ViewCenterDetails component

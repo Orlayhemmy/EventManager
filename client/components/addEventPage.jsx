@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Content from './EventPage';
 import Navbar from './Navbar.jsx';
 import Footer from './Footer.jsx';
-import { logout } from '../actions/signInActions';
+import { logout } from '../actions/userActions';
 
 /**
  * @description AddEventPage component

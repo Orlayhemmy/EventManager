@@ -121,7 +121,7 @@ export default class CenterController {
       description,
       facilities,
       capacity,
-      imageUrl,
+      imageUrl
     } = req.body;
     const { id } = req.decoded;
     Centers.findOne({ where: { centerName } })

@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
 import Content from './HomePage/HomeContent';
 import Footer from './Footer';
-import { userSignInRequest, userSignupRequest } from '../actions/signInActions';
+import { userSignInRequest, userSignupRequest } from '../actions/userActions';
 import {
   validateSigninInput,
   validateSignupInput

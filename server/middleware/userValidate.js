@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty';
  */
 export default class Validation {
   /**
-   * Validates all User signup details before allowing access to controller class
+   * Validates all User signup details
    * @static
    * @param {object} req
    * @param {object} res
@@ -64,7 +64,7 @@ export default class Validation {
   }
 
   /**
-   * Validates signin form input fields before allowing access to controller class
+   * Validates signin form input fields
    * @static
    * @param {object} req
    * @param {object} res
@@ -103,7 +103,7 @@ export default class Validation {
   }
 
   /**
-   * Validates all User update details before allowing access to controller class
+   * Validates all User update details
    * @static
    * @param {object} req
    * @param {object} res
@@ -132,7 +132,7 @@ export default class Validation {
   }
 
   /**
-   * Validates all User update details before allowing access to controller class
+   * Validates all User update details
    * @static
    * @param {object} req
    * @param {object} res

@@ -29,7 +29,7 @@ router
   .route('/centers')
   .post(authAdminToken, centerValidate.postCenter, centerController.postCenter)
   .get(centerController.getAllCenters);
-  
+
 router
   .route('/centers/:id')
   .get(authToken, centerController.getSingleCenter)
