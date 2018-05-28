@@ -16,25 +16,11 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case actionTypes.SET_CURRENT_USER: {
-      const {
-        newUser,
-        token
-      } = action.payload;
-      const {
-        fullname,
-        isAdmin,
-        id,
-      } = newUser;
-      const user = {
-        fullname,
-        isAdmin,
-        id,
-        token,
-      };
+      const { newUser } = action.payload;
       return {
         ...state,
         isAuth: !isEmpty(newUser),
-        user,
+        user: newUser,
         message: '',
       };
     }

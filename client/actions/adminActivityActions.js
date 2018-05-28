@@ -23,7 +23,7 @@ export function getAdminActivity() {
 export function setAdminActivity(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.SET_ADMINACTIVITY });
-    return axios.post('api/v1/adminactivity', data).then((response) => {
+    return axios.post('api/v1/activity', data).then((response) => {
       dispatch({ type: actionTypes.SET_ADMINACTIVITY_SUCCESS, payload: response.data });
     }).catch((err) => {
       dispatch({ type: actionTypes.SET_ADMINACTIVITY_FAILS, payload: err.response.data });

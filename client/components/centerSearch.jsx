@@ -90,7 +90,7 @@ export class SearchForm extends React.Component {
         </p>
 
         <div className="input-group">
-          <span class="input-group-addon">
+          <span class="input-group-addon search-icon p-1">
             <i className="fa fa-map-marker p-1" />
           </span>
           <input
@@ -103,7 +103,7 @@ export class SearchForm extends React.Component {
           />
           <div className="help-block">{errors.location}</div>
 
-          <span class="input-group-addon">
+          <span class="input-group-addon search-icon p-1">
             <i className="fa fa-cogs p-1" />
           </span>
           <input
@@ -115,7 +115,7 @@ export class SearchForm extends React.Component {
             className="form-control"
           />
           <div className="help-block">{errors.facilities}</div>
-          <div className="input-group-addon">
+          <div className="input-group-addon search-icon p-1">
             <select onChange={this.onChange} id="capacityType">
               <option value="greater">{greater}</option>
               <option value="lesser">{lesser}</option>

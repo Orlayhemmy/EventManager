@@ -13,6 +13,44 @@ export function clearStatus() {
 }
 
 /**
+ * @param {object} data
+ * @param {object} image
+ * @returns {object} success or failure
+ */
+export function uploadUserImage(data, image) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPLOAD_IMAGE });
+    delete axios.defaults.headers.common['x-access-token'];
+    return axios
+      .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
+      .then((response) => {
+        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
+        data.imageUrl = response.data.secure_url;
+        return axios
+          .put('/api/v1/users', data)
+          .then((res) => {
+            dispatch({
+              type: actionTypes.UPDATE_USER_SUCCESS,
+              payload: res.data
+            });
+          })
+          .catch((err) => {
+            dispatch({
+              type: actionTypes.UPDATE_USER_FAILS,
+              payload: err.response.data
+            });
+          });
+      })
+      .catch((err) => {
+        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
+        dispatch({
+          type: actionTypes.UPLOAD_IMAGE_FAILS,
+          payload: err.response.data
+        });
+      });
+  };
+}
+/**
  * @param {object} newUser
  * @param {object} token
  * @returns {object} current user token
@@ -167,33 +205,33 @@ export function getUser() {
   };
 }
 
-/**
- * @param {object} data
- * @returns {object} success or failure
- */
-export function updateUserDetails(data) {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.UPDATE_USER });
-    return axios
-      .put('/api/v1/users', data)
-      .then((response) => {
-        dispatch({
-          type: actionTypes.UPDATE_USER_SUCCESS,
-          payload: response.data
-        });
-        const { token } = response.data;
-        localStorage.setItem('jwtToken', token);
-        setAuthToken(token);
-        dispatch(setCurrentUser(jwt.decode(token), token));
-      })
-      .catch((err) => {
-        dispatch({
-          type: actionTypes.UPDATE_USER_FAILS,
-          payload: err.response.data
-        });
-      });
-  };
-}
+// /**
+//  * @param {object} data
+//  * @returns {object} success or failure
+//  */
+// export function updateUserDetails(data) {
+//   return (dispatch) => {
+//     dispatch({ type: actionTypes.UPDATE_USER });
+//     return axios
+//       .put('/api/v1/users', data)
+//       .then((response) => {
+//         dispatch({
+//           type: actionTypes.UPDATE_USER_SUCCESS,
+//           payload: response.data
+//         });
+//         const { token } = response.data;
+//         localStorage.setItem('jwtToken', token);
+//         setAuthToken(token);
+//         dispatch(setCurrentUser(jwt.decode(token), token));
+//       })
+//       .catch((err) => {
+//         dispatch({
+//           type: actionTypes.UPDATE_USER_FAILS,
+//           payload: err.response.data
+//         });
+//       });
+//   };
+// }
 
 /**
  * @param {object} id
@@ -231,36 +269,3 @@ export function checkPassword(data) {
   };
 }
 
-/**
- * @param {object} id
- * @param {object} data
- * @param {object} message
- * @param {object} email
- * @returns {object} success or failure
- */
-export function uploadUserImage(id, data) {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.UPLOAD_IMAGE });
-    delete axios.defaults.headers.common['x-access-token'];
-    return axios
-      .post('https://api.cloudinary.com/v1_1/kalel/image/upload', data)
-      .then((response) => {
-        dispatch({
-          type: actionTypes.UPLOAD_IMAGE_SUCCESS,
-          payload: response.data.secure_url
-        });
-        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        const imgData = {
-          imageUrl: response.data.secure_url
-        };
-        dispatch(updateUserDetails(imgData));
-      })
-      .catch((err) => {
-        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({
-          type: actionTypes.UPLOAD_IMAGE_FAILS,
-          payload: err.response.data
-        });
-      });
-  };
-}

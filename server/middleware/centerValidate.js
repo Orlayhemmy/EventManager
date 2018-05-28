@@ -20,16 +20,15 @@ export default class Validation {
       facilities,
       description,
       location,
-      capacity,
-      imageUrl
+      capacity
     } = req.body;
-
     const errors = {};
     if (
       centerName === undefined ||
       facilities === undefined ||
       description === undefined ||
-      location === undefined
+      location === undefined ||
+      capacity === undefined
     ) {
       return res.status(400).send({
         message: 'All or Some Fields are Undefined'
@@ -57,12 +56,6 @@ export default class Validation {
       }
     } else {
       errors.capacity = 'Center capacity cannot be blank';
-    }
-
-    // validations for url
-
-    if (!validator.isURL(imageUrl)) {
-      errors.imageUrl = 'The url is not valid';
     }
 
     // validations for facilities

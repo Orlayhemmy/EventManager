@@ -18,6 +18,14 @@ module.exports = {
           key: 'id',
         },
       },
+      reason: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      suggestion: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       centerId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

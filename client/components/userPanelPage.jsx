@@ -27,7 +27,7 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   componentWillMount() {
-    //this.props.clearCenterStorage();
+    this.props.clearCenterStorage();
     this.props.getEvents();
     this.props.getActivity(this.props.auth.user.id);
   }
@@ -118,6 +118,7 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
+    let legend;
     const { status } = this.props.userEvent;
     let content;
     if (!this.props.auth.isAuth) {
@@ -140,15 +141,22 @@ export class Dashboard extends React.Component {
         </div>
       );
     } else {
+      legend = (
+        <div className="row center">
+          <span className="legend">Approved Booking: <i className="fa fa-thumbs-up green"></i></span>
+          <span className="legend">Edit Booking: ...<i className="fa fa-pencil main-color"></i></span>
+          <span className="legend">Delete Booking: <i className="fa fa-trash trash"></i></span>
+        </div>
+      )
       const eventsArray = this.props.userEvent.events;
-      content = eventsArray.map((bookedEvent, index) => {
-        const {
-          centerName,
-          capacity,
-          location,
-          facilities,
-          imageUrl,
-        } = bookedEvent.Center;
+      content = _.map(eventsArray, (bookedEvent, index) => {
+        // const {
+        //   centerName,
+        //   capacity,
+        //   location,
+        //   facilities,
+        //   imageUrl,
+        // } = bookedEvent.Center;
         let eStatus;
         if (bookedEvent.isApproved) {
           eStatus = <i className="fa fa-thumbs-up green float-left"></i>
@@ -156,16 +164,16 @@ export class Dashboard extends React.Component {
           eStatus = <i className="fa fa-spinner main-color float-left"></i>;
         }
         eventId = `eventDetails${index}`;
-        console.log(eventId)
         editEventId = `eventDetails${index}`;
         form = `form${index}`;
         let dateBooked = `date${index}`;
         return (
           <div className="center" key={index}>
             <div key={eventId} className="text-center">
-              <div className="card p-1 bb mb-3">
-                <div id={index}>
-                  <img className="img" src={imageUrl} />
+              <div className="card p-1 mb-3 mw">
+                <div id={index} className="grid-view">
+                <span>{eStatus}</span>
+                  <img className="img m-auto" src={imageUrl} />
                   <h2>
                     <span className="media-heading" id={index}>
                       <Link
@@ -178,7 +186,7 @@ export class Dashboard extends React.Component {
                     </span>
                   </h2>
                 </div>
-                <div id={eventId} hidden>
+                {/* <div id={eventId} hidden>
                   <div className="media-body">
                     <h3>
                       <span>Date: </span> {bookedEvent.bookedDate}
@@ -199,17 +207,19 @@ export class Dashboard extends React.Component {
                       <span>Event description: </span> {bookedEvent.description}
                     </h3>
                   </div>
-                </div>
+                </div> */}
                 <span>
-                  {eStatus}
-                  <i
-                    id={eventId}
-                    className="fa fa-arrow-down"
-                    onClick={this.showHiddenDiv}
-                  />
+                <Link
+                  to="/modify-event"
+                  id={bookedEvent.id}
+                  onClick={this.onClick.bind(this)}
+                  className="float-left"
+                >
+                  ...<i className="fa fa-pencil"></i>
+                </Link>
                   <i
                     id={event.id}
-                    className="fa fa-trash trash"
+                    className="fa fa-trash trash float-right"
                     onClick={this.onDelete.bind(this)}
                     data-toggle="modal"
                     data-target="#deleteModal"
@@ -235,27 +245,40 @@ export class Dashboard extends React.Component {
               onClick={this.onClick.bind(this)}
               id={activity.eventId}
             >
-              {activity.description}
-              <br />
               {creationDate}
+              <br/>
+              {activity.description}
             </p>
           </span>
         </div>
       );
     });
     return (
-      <div id="event-page">
+      <div id="dashboard">
         <Navbar />
         <div className="container">
           <div className="row pt-4">
-            <div className="col-lg-9">
+            <div className="col-lg-9 col9-bg">
+              <div className="row event">
+                <h1>Dashboard</h1>
+                <h3 className="main-color">List of events booked</h3>
+                <hr/>
+              </div>
+              <div className="row">
+                {legend}
               <div className="row">
                 {content}
                 <DeleteModal path={pathname} />
                 <Modal message={this.props.userEvent.message} />
               </div>
+              </div>
             </div>
-            <div className="col-lg-3">{recentActivity}</div>
+            <div className="col-lg-3 col3-bg">
+              <div className="p-4 fw">
+                <h2>Notifications</h2>
+              </div>
+              {recentActivity}
+            </div>
           </div>
         </div>
         <Footer />

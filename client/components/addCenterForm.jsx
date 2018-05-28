@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import { addCenter } from '../actions/centerActions';
+import { uploadImage } from '../actions/centerActions';
 import { addCenterValidation } from '../shared/centerValidations';
 import TextField from '../common/textField2';
 import { logout } from '../actions/signInActions';
@@ -13,7 +13,7 @@ import UploadImage from './ImageUpload';
  * @description CenterForm component
  */
 export class CenterForm extends React.Component {
-   /**
+  /**
    * @memberof CenterForm
    * @description it creates an instance of CenterForm
    */
@@ -26,13 +26,14 @@ export class CenterForm extends React.Component {
       facilities: '',
       capacity: '',
       errors: {},
-      imageUrl: ''
+      image: '',
     };
 
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
     this.logout = this.logout.bind(this);
+    this.showImage = this.showImage.bind(this);
   }
   /**
    * @memberof CenterForm
@@ -45,6 +46,22 @@ export class CenterForm extends React.Component {
       [e.target.id]: e.target.value
     });
   }
+   /**
+   * @memberof CenterForm
+   * @method showImage
+   * @description it sets user input to state
+   * @param {object} event
+   */
+  showImage(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      this.state.imageData = event.target.files[0]
+      reader.onload = (e) => {
+          this.setState({image: e.target.result});
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
   /**
    * @memberof CenterForm
    * @method onSubmit
@@ -55,8 +72,18 @@ export class CenterForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.state.imageUrl = this.props.center.url;
-      this.props.addCenter(this.state);
+      const formData = new FormData();
+      formData.append('file', this.state.imageData);
+      formData.append('upload_preset', 'u8asaoka');
+      const data = {
+        centerName: this.state.centerName,
+        location: this.state.location,
+        description: this.state.description,
+        facilities: this.state.facilities,
+        capacity: this.state.capacity,
+      }
+      console.log(this.state)
+      //this.props.uploadImage(data, formData);
     }
   }
   /**
@@ -100,7 +127,8 @@ export class CenterForm extends React.Component {
       description,
       capacity,
       errors,
-      serverError
+      serverError,
+      image
     } = this.state;
     let buttonValue,
       nameHolder,
@@ -108,6 +136,7 @@ export class CenterForm extends React.Component {
       descHolder,
       locationHolder,
       capacityHolder;
+
     if (this.props.path === '/add-center') {
       buttonValue = 'Add Center';
     } else {
@@ -121,7 +150,10 @@ export class CenterForm extends React.Component {
     capacityHolder = 'Capacity';
     return (
       <form id="add-center-form" onSubmit={this.onSubmit}>
-        <UploadImage uploadedImage={this.props.center.url} />
+        <UploadImage
+          uploadedImage={image}
+          showImage={this.showImage}
+        />
         <span className="help-block">{this.props.center.error}</span>
         <TextField
           id="centerName"
@@ -183,7 +215,7 @@ export class CenterForm extends React.Component {
   }
 }
 const propTypes = {
-  addCenter: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
@@ -195,6 +227,6 @@ const mapStateToProps = state => ({
 CenterForm.propTypes = propTypes;
 
 export default connect(mapStateToProps, {
-  addCenter,
+  uploadImage,
   logout
 })(CenterForm);

@@ -154,7 +154,7 @@ export class CenterDetailsContent extends React.Component {
       const data = {
         eventTitle: eventTitle,
         centerId,
-        isApproved: 'TRUE',
+        isApproved: true,
         id,
         userId,
         text: 'approved',
