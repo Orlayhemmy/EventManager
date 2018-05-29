@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from './Navbar.jsx';
+import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import Form from './passwordRecovery/RecoveryForm';
 

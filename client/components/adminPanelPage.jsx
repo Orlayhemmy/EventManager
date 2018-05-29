@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import Centers from './GetCenters';
 import Search from './CenterSearch';
-import Navbar from './Navbar';
+import Navbar from './navbar';
 import Footer from './Footer';
 
 /**

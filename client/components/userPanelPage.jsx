@@ -8,7 +8,7 @@ import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getEvents, getEventSelected } from '../actions/eventActions';
 import EventForm from '../components/EventPage/EditEventForm';
-import Navbar from './Navbar.jsx';
+import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import DeleteModal from './deleteModal';
 import {

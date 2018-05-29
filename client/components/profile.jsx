@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '../common/textField3';
-import Navbar from './Navbar.jsx';
+import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import UploadImage from './imageUpload';
 import { updateUserValidation } from '../shared/userValidation';

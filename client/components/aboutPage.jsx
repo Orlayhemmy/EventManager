@@ -1,16 +1,15 @@
 import React from 'react';
 
-import Navbar from './Navbar.jsx';
-import Content from './AboutPage/AboutPageContent.jsx';
+import Navbar from './navbar.jsx';
+import Content from './aboutpage/AboutPageContent.jsx';
 import Footer from './footer.jsx';
-
 
 export default class AboutPage extends React.Component {
   render() {
     const { pathname } = this.props.location;
     return (
       <div id="about-page">
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <Content />
         <Footer />
       </div>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CenterForm from './AddCenterForm';
 import TextField from '../common/textField';
-import Navbar from './Navbar.jsx';
+import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import UploadImage from './ImageUpload';
 
