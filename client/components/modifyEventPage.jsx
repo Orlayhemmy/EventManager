@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Content from './EventPage';
 import Navbar from './Navbar.jsx';
-import Footer from './footer.jsx';
-import { logout } from '../actions/signInActions';
+import Footer from './Footer.jsx';
+import { logout } from '../actions/userActions';
 
 /**
  * @description ModifyEventPage component

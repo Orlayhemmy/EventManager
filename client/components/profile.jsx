@@ -10,9 +10,9 @@ import {
   uploadUserImage,
   checkPassword,
   getUser
-} from '../actions/signInActions';
+} from '../actions/userActions';
 import { eventBooked } from '../actions/eventActions';
-import { logout } from '../actions/signInActions';
+import { logout } from '../actions/userActions';
 
 /**
  * @description Profile component

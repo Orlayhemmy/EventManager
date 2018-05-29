@@ -8,8 +8,8 @@ const initialState = {
   error: '',
   centerSelected: '',
   center: {
-    facilities: [],
-  },
+    facilities: []
+  }
 };
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
         loading: '',
         loaded: '',
         message: '',
-        status: '',
+        status: ''
       };
     }
     case actionTypes.SET_CURRENT_CENTER: {
@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isCenter: !isEmpty(center),
-        center,
+        center
       };
     }
 
@@ -53,14 +53,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         status: '',
-        error: '',
+        error: ''
       };
     }
     case actionTypes.GET_CENTERS_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
-        error: message,
+        error: message
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
@@ -69,31 +69,28 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        centers,
+        centers
       };
     }
     case actionTypes.CENTER_SELECTED: {
-      const {
-        centerId,
-        centerName
-      } = action.payload;
+      const { centerId, centerName } = action.payload;
       return {
         ...state,
         centerId,
-        centerName,
+        centerName
       };
     }
     case actionTypes.GET_CENTER: {
       return {
         ...state,
-        error: '',
+        error: ''
       };
     }
     case actionTypes.GET_CENTER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
-        error: message,
+        error: message
       };
     }
     case actionTypes.GET_CENTER_SUCCESS: {
@@ -102,14 +99,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        center,
+        center
       };
     }
     case actionTypes.MODIFY_CENTER: {
       return {
         ...state,
         loading: true,
-        message: '',
+        message: ''
       };
     }
     case actionTypes.MODIFY_CENTER_FAILS: {
@@ -118,7 +115,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: message,
+        error: message
       };
     }
     case actionTypes.MODIFY_CENTER_SUCCESS: {
@@ -128,21 +125,21 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         message,
-        status: 200,
+        status: 200
       };
     }
     case actionTypes.DELETE_CENTER: {
       return {
         ...state,
         loading: true,
-        status: '',
+        status: ''
       };
     }
     case actionTypes.DELETE_CENTER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
-        error: message,
+        error: message
       };
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
@@ -152,7 +149,7 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         status: 200,
-        message,
+        message
       };
     }
     case actionTypes.ADD_CENTER: {
@@ -160,14 +157,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         status: '',
-        url: '',
+        url: ''
       };
     }
     case actionTypes.ADD_CENTER_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
-        error: message,
+        error: message
       };
     }
     case actionTypes.ADD_CENTER_SUCCESS: {
@@ -177,21 +174,21 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
         status: 201,
-        center,
+        center
       };
     }
     case actionTypes.ADD_IMAGE: {
       return {
         ...state,
         loading: true,
-        status: '',
+        status: ''
       };
     }
     case actionTypes.ADD_IMAGE_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
-        error: message,
+        error: message
       };
     }
     case actionTypes.ADD_IMAGE_SUCCESS: {
@@ -200,20 +197,20 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        url,
+        url
       };
     }
     case actionTypes.CENTER_STATUS_UPDATE: {
       return {
         ...state,
-        loading: true,
+        loading: true
       };
     }
     case actionTypes.CENTER_STATUS_UPDATE_SUCCESS: {
       return {
         ...state,
         loading: false,
-        loaded: true,
+        loaded: true
       };
     }
     case actionTypes.CENTER_STATUS_UPDATE_FAILS: {
@@ -222,7 +219,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: message,
+        error: message
       };
     }
     default:

@@ -17,7 +17,7 @@ import UserPanel from './components/UserPanelPage.jsx';
 import setAuthToken from './utils/setAuthorizationToken';
 import PasswordRecovery from './components/PasswordRecoveryPage';
 import Profile from './components/profile';
-import { setCurrentUser } from './actions/signInActions';
+import { setCurrentUser } from './actions/userActions';
 import { setCurrentEvent } from './actions/eventActions';
 import { setCurrentCenter } from './actions/centerActions';
 import style from './sass/style.scss';

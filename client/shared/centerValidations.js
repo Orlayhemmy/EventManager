@@ -7,9 +7,21 @@ import isEmpty from 'lodash/isEmpty';
  */
 export function modifyCenterValidation(data) {
   const {
-    centerName, facilities, description, location, capacity, imageUrl
+    centerName,
+    facilities,
+    description,
+    location,
+    capacity,
+    imageUrl
   } = data;
   const errors = {};
+
+  // validations for capacity
+  if (!validator.isEmpty(imageUrl)) {
+    if (!validator.isURL(imageUrl)) {
+      errors.imageUrl = 'Wrong image path';
+    }
+  }
 
   // validations for capacity
   if (!validator.isEmpty(capacity)) {
@@ -73,7 +85,11 @@ export function modifyCenterValidation(data) {
  */
 export function addCenterValidation(data) {
   const {
-    centerName, facilities, description, location, capacity, imageUrl,
+    centerName,
+    facilities,
+    description,
+    location,
+    capacity,
   } = data;
 
   const errors = {};
@@ -107,7 +123,7 @@ export function addCenterValidation(data) {
   if (!validator.isEmpty(facilities)) {
     if (!/^[a-zA-Z0-9,.& ]+$/.test(facilities)) {
       errors.facilities =
-        'Facilities can not include symbols except comma which you should use to separate the faciities';  // eslint-disable-line
+        'Facilities can not include symbols except comma which you should use to separate the faciities'; // eslint-disable-line
     }
     if (!validator.isLength(facilities, { min: 5, max: 1000 })) {
       errors.facilities =

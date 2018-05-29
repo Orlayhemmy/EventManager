@@ -10,8 +10,6 @@ module.exports = {
     port: 5432,
   },
   test: {
-    // url: 'postgres://liebwohs:vJE6zWFoCiSv7WsSojgoVhR-ieggIyR_@elmer.db.elephantsql.com:5432/liebwohs',
-    // dialect: 'postgres',
     username: 'postgres',
     database: 'centermanager_test',
     password: 'profyem001',

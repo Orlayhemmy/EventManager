@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/types';
 const initialState = {
   loading: false,
   loaded: false,
-  activities: [],
+  activities: []
 };
 
 export default (state = initialState, action) => {
@@ -11,14 +11,14 @@ export default (state = initialState, action) => {
     case actionTypes.SET_ACTIVITY: {
       return {
         ...state,
-        loading: true,
+        loading: true
       };
     }
     case actionTypes.SET_ACTIVITY_SUCCESS: {
       return {
         ...state,
         loading: false,
-        loaded: true,
+        loaded: true
       };
     }
     case actionTypes.SET_ACTIVITY_FAILS: {
@@ -27,14 +27,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: message,
+        error: message
       };
     }
     case actionTypes.GET_ACTIVITIES: {
       return {
         ...state,
         loading: true,
-        message: '',
+        message: ''
       };
     }
     case actionTypes.GET_ACTIVITIES_SUCCESS: {
@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
         ...state,
         loaded: true,
         loading: false,
-        activities,
+        activities
       };
     }
     case actionTypes.GET_ACTIVITIES_FAILS: {
@@ -52,14 +52,14 @@ export default (state = initialState, action) => {
         ...state,
         loaded: true,
         loading: false,
-        message,
+        message
       };
     }
     case actionTypes.DELETE_ACTIVITY: {
       return {
         ...state,
         loading: true,
-        message: '',
+        message: ''
       };
     }
     case actionTypes.DELETE_ACTIVITY_SUCCESS: {
@@ -68,7 +68,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        message,
+        message
       };
     }
     case actionTypes.DELETE_ACTIVITY_FAILS: {
@@ -77,7 +77,7 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: message,
+        error: message
       };
     }
     default:

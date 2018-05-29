@@ -7,11 +7,20 @@ import * as actionTypes from './types';
 export function getActivity() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_ACTIVITIES });
-    return axios.get('api/v1/activity').then((response) => {
-      dispatch({ type: actionTypes.GET_ACTIVITIES_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.GET_ACTIVITIES_FAILS, payload: err.response.data });
-    });
+    return axios
+      .get('api/v1/activity')
+      .then((response) => {
+        dispatch({
+          type: actionTypes.GET_ACTIVITIES_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.GET_ACTIVITIES_FAILS,
+          payload: err.response.data
+        });
+      });
   };
 }
 
@@ -22,10 +31,19 @@ export function getActivity() {
 export function deleteActivity(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_ACTIVITY });
-    return axios.delete(`api/v1/activity/${id}`).then((response) => {
-      dispatch({ type: actionTypes.DELETE_ACTIVITY_SUCCESS, payload: response.data });
-    }).catch((err) => {
-      dispatch({ type: actionTypes.DELETE_ACTIVITY_FAILS, payload: err.response.data.data });
-    });
+    return axios
+      .delete(`api/v1/activity/${id}`)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.DELETE_ACTIVITY_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.DELETE_ACTIVITY_FAILS,
+          payload: err.response.data.data
+        });
+      });
   };
 }

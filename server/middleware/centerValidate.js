@@ -11,7 +11,7 @@ export default class Validation {
    * @param {object} req
    * @param {object} res
    * @param {object} next
-   * @returns {object} Validation error messages or content of req.body passed to controller
+   * @returns {object} error messages or content of req.body
    * @memberof centersValidation
    */
   static postCenter(req, res, next) {
@@ -111,7 +111,7 @@ export default class Validation {
    * @param {object} req
    * @param {object} res
    * @param {object} next
-   * @returns {object} Validation error messages or content of req.body passed to controller
+   * @returns {object} error messages or content of req.body
    * @memberof centersValidation
    */
   static updateCenter(req, res, next) {
