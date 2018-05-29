@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import CenterForm from './AddCenterForm';
 import TextField from '../common/textField';
 import Navbar from './Navbar.jsx';
-import Footer from './Footer.jsx';
+import Footer from './footer.jsx';
 import UploadImage from './ImageUpload';
 
 /**

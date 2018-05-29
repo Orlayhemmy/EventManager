@@ -9,7 +9,7 @@ import swal from 'sweetalert';
 import { getEvents, getEventSelected } from '../actions/eventActions';
 import EventForm from '../components/EventPage/EditEventForm';
 import Navbar from './Navbar.jsx';
-import Footer from './Footer.jsx';
+import Footer from './footer.jsx';
 import DeleteModal from './deleteModal';
 import {
   getCenterSelected,

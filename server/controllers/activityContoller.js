@@ -15,7 +15,7 @@ export default class ActivityController {
    * @memberof ActivityController
    */
   static getActivity(req, res) {
-    Activities.findAll({
+    return Activities.findAll({
       where: {
         userId: req.decoded.id,
         centerId: {
@@ -92,16 +92,11 @@ export default class ActivityController {
     const { centerName } = req.body;
     Activities.create({
       description: `A new center "${centerName}" has been added`,
-      centerId: id
-    })
-      .then(() =>
-        res.status(200).send({
-          message: 'Activity added successfully'
-        }))
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      centerId: id,
+    }).then(() => 'Activity added successfully')
+      .catch(error => res.status(500).send({
+        message: error.message,
+      }));
   }
   /**
    * @param  {object} req
@@ -114,20 +109,17 @@ export default class ActivityController {
       where: {
         id: req.decoded.id
       }
-    }).then((user) => {
-      Activities.create({
-        description: `${user.fullname} booked a center`,
-        centerId
-      })
-        .then(() =>
-          res.status(200).send({
-            message: 'Activity added successfully'
-          }))
-        .catch(error =>
-          res.status(500).send({
-            message: error.message
+    })
+      .then((user) => {
+        Activities.create({
+          description: `${user.fullname} booked a center`,
+          centerId,
+        })
+          .then(() => 'Activity added successfully')
+          .catch(error => res.status(500).send({
+            message: error.message,
           }));
-    });
+      });
   }
 
   /**
@@ -142,46 +134,37 @@ export default class ActivityController {
     const { eventTitle } = req.body;
     Activities.create({
       description: `${eventTitle} is added and awaiting approval`,
-      userId: req.decoded.id
-    })
-      .then(() => {
-        res.status(200).send({
-          message: 'Activity added successfully'
-        });
-      })
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      userId: req.decoded.id,
+    }).then(() => 'Activity added successfully')
+      .catch(error => res.status(500).send({
+        message: error.message,
+      }));
   }
 
   /**
    * @param  {object} req
    * @param  {object} res
+   * @param  {string} userId
    * @returns {object} message
    */
-  static notifyUser(req, res) {
-    const { eventTitle, isApproved } = req.body;
+  static notifyUser(req, res, userId) {
+    const {
+      eventTitle, isApproved
+    } = req.body;
     let info;
     if (isApproved) {
       info = `${eventTitle} has been approved`;
     } else {
       info = `Your center booking for ${eventTitle} is declined`;
-    }
-    Activities.findById(req.params.id).then((activity) => {
       Activities.create({
         description: info,
-        userId: activity.userId
+        userId,
       })
-        .then(() =>
-          res.status(200).send({
-            message: 'Activity added successfully'
-          }))
-        .catch(error =>
-          res.status(500).send({
-            message: error.message
-          }));
-    });
+        .then(() => 'Activity added successfully')
+        .catch(error => res.status(500).send({
+          message: error.message,
+        }));
+    }
   }
 
   /**

@@ -8,7 +8,7 @@ import {
 import ActivityController from './activityContoller';
 
 const { Centers, Events } = models;
-const { setActivity } = ActivityController;
+const { setCenterActivity } = ActivityController;
 /**
  * @class CenterController
  */
@@ -144,8 +144,8 @@ export default class CenterController {
           userId: id
         })
           .then((center) => {
-            setActivity(req, res, center.id);
-            res.status(201).send({
+            setCenterActivity(req, res, center.id);
+            return res.status(201).send({
               center,
               message: 'Successfully created a center'
             });
@@ -199,10 +199,9 @@ export default class CenterController {
               capacity: capacity || center.capacity,
               imageUrl: imageUrl || center.imageUrl
             })
-            .then(() =>
-              res.status(200).send({
-                message: 'Successfully updated center'
-              }))
+            .then(() => res.status(200).send({
+              message: 'Successfully updated center'
+            }))
             .catch(error =>
               res.status(500).send({
                 err: 'Error',

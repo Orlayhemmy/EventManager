@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Centers from './GetCenters';
 import Search from './centerSearch';
 import Navbar from './Navbar.jsx';
-import Footer from './Footer.jsx';
+import Footer from './footer.jsx';
 
 /**
  * @description CenterPage component
