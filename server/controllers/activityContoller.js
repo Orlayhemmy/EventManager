@@ -15,7 +15,7 @@ export default class ActivityController {
    * @memberof ActivityController
    */
   static getActivity(req, res) {
-    Activities.findAll({
+    return Activities.findAll({
       where: {
         userId: req.decoded.id,
         centerId: {

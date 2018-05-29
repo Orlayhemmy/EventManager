@@ -3,7 +3,7 @@ module.exports = {
     fullname: 'John',
     password: '$2a$10$/HaQApiK8ZEuZcmgWAUHr.fwNMK3iJLMOnSWK3yGeor/2cuubnVUC',
     email: 'admin@test.com',
-    isAdmin: 'true',
+    isAdmin: true,
     createdAt: new Date(),
     updatedAt: new Date(),
   }, {
