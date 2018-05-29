@@ -14,3 +14,6 @@ cache:
     - "node_modules"  
 script: 
   - npm test
+
+after-success:
+  - npm run coverage
