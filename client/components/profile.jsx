@@ -34,7 +34,7 @@ export class Profile extends React.Component {
       wrongPasswordError: '',
       imageUrl: '',
       createdAt: '',
-      image: '',
+      image: ''
     };
     this.initialState = this.state;
     this.onChange = this.onChange.bind(this);
@@ -81,7 +81,7 @@ export class Profile extends React.Component {
       });
     }
   }
-   /**
+  /**
    * @memberof CenterForm
    * @method showImage
    * @description it sets user input to state
@@ -91,8 +91,8 @@ export class Profile extends React.Component {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       this.state.imageData = event.target.files[0];
-      reader.onload = (e) => {
-          this.setState({image: e.target.result});
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -235,23 +235,19 @@ export class Profile extends React.Component {
               <div className="text-primary">Personal Information</div>
               <hr />
               <div id="showDetails">
-              <div>
-                {!imageUrl ? (
-                  <div className="imageUpload">
-    
+                <div>
+                  {!imageUrl ? (
+                    <div className="imageUpload">
                       <p className="img-fluid dropzone p-5">
                         Click here to upload your image{' '}
                       </p>
-                  </div>
-                ) : (
-                  <div className="imageUpload">
-                      <img
-                        src={imageUrl}
-                        className="img-fluid dropzone"
-                      />
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ) : (
+                    <div className="imageUpload">
+                      <img src={imageUrl} className="img-fluid dropzone" />
+                    </div>
+                  )}
+                </div>
                 <h3 className="pt-4">{fullname.toUpperCase()}</h3>
                 <span>{email}</span>
                 <span
@@ -263,10 +259,7 @@ export class Profile extends React.Component {
                 </span>
               </div>
               <form id="editDetails" hidden>
-                <UploadImage
-                  uploadedImage={image}
-                  showImage={this.showImage}
-                />
+                <UploadImage uploadedImage={image} showImage={this.showImage} />
                 <h3 className="pt-1">
                   <TextField
                     id="fullname"

@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from './navbar.jsx';
-import Content from './CenterDetails/CenterDetailsContent';
-import Footer from './Footer';
+import Content from './CenterDetails/centerDetailsContent';
+import Footer from './footer';
 import { logout } from '../actions/userActions';
 
 /**

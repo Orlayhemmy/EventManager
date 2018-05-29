@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getEvents, getEventSelected } from '../actions/eventActions';
-import EventForm from '../components/EventPage/EditEventForm';
+import EventForm from '../components/EventPage/editEventForm';
 import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import DeleteModal from './deleteModal';
@@ -15,7 +15,7 @@ import {
   getCenterSelected,
   clearCenterStorage
 } from '../actions/centerActions';
-import Modal from './Flash/Modal';
+import Modal from './Flash/modal';
 import { logout } from '../actions/userActions';
 import { getActivity } from '../actions/activityActions';
 

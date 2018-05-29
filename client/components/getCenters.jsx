@@ -8,7 +8,7 @@ import {
   centerSelected,
   getCenterSelected
 } from '../actions/centerActions';
-import DeleteModal from './DeleteModal';
+import DeleteModal from './deleteModal';
 import { getAdminActivity } from '../actions/adminActivityActions';
 
 /**

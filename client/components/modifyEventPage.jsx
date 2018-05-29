@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Content from './EventPage';
+import Content from './eventPage';
 import Navbar from './navbar.jsx';
-import Footer from './Footer.jsx';
+import Footer from './footer.jsx';
 import { logout } from '../actions/userActions';
 
 /**

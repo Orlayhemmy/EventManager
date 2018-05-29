@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Navbar from './navbar.jsx';
-import Content from './HomePage/HomeContent';
-import Footer from './Footer';
+import Content from './HomePage/homeContent';
+import Footer from './footer';
 import { userSignInRequest, userSignupRequest } from '../actions/userActions';
 import {
   validateSigninInput,
