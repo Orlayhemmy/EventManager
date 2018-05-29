@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import store from './store';
 import allReducers from './reducers/reducersIndex';
-import HomePage from './components/homepage';
+import HomePage from './components/homePage';
 import CentersPage from './components/centersPage';
 import AboutPage from './components/aboutPage';
 import AdminPanelPage from './components/adminPanelPage';
