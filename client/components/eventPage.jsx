@@ -9,9 +9,9 @@ import {
   clearState
 } from '../actions/centerActions';
 import { getEventSelected } from '../actions/eventActions';
-import AddEventForm from './EventPage/AddEventForm';
-import EditEventForm from './EventPage/EditEventForm';
-import Modal from './Flash/Modal';
+import AddEventForm from './EventPage/addEventForm';
+import EditEventForm from './EventPage/editEventForm';
+import Modal from './Flash/modal';
 
 /**
  * @description Event component

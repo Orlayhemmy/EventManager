@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Centers from './GetCenters';
+import Centers from './getCenters';
 import Search from './centerSearch';
-import Navbar from './Navbar.jsx';
+import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 
 /**
