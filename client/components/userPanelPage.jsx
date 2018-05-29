@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getEvents, getEventSelected } from '../actions/eventActions';
-import EventForm from '../components/EventPageContent/editEventForm';
+import EventForm from '../components/EventPage/editEventForm';
 import Navbar from './navbar.jsx';
 import Footer from './footer.jsx';
 import DeleteModal from './deleteModal';
