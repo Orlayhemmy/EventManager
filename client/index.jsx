@@ -12,7 +12,7 @@ import store from './store';
 import allReducers from './reducers/reducersIndex';
 import HomePage from './components/homepage';
 import CentersPage from './components/centersPage';
-import AboutPage from './components/aboutpage';
+import AboutPage from './components/aboutPage';
 import AdminPanelPage from './components/adminPanelPage';
 import AddCenterPage from './components/addCenterPage';
 import AddEvent from './components/addEventPage';
