@@ -1,3 +1,4 @@
+/* eslint-disable */
 import supertest from 'supertest';
 import { expect } from 'chai';
 import models from '../models';
@@ -51,203 +52,224 @@ describe('test for post, update, get and delete event processes', () => {
     });
   });
 
-  describe('test for undefined, empty and invalid inputs on event creation', () => {
-    it('should return an error when some fields are undefined', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'birthday party',
-          centerId: '1'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('All or Some Fields are Undefined');
-        });
-    });
+  describe(
+    'test for undefined, empty and invalid inputs on event creation',
+    () => {
+      it('should return an error when some fields are undefined', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'birthday party',
+            centerId: '1'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message)
+              .to.deep.equal('All or Some Fields are Undefined');
+          });
+      });
 
-    it('should return an error when eventTitle is empty', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: '',
-          centerId: '1',
-          description: 'Come have fun',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Event Name cannot be blank');
-        });
-    });
+      it('should return an error when eventTitle is empty', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: '',
+            centerId: '1',
+            description: 'Come have fun',
+            bookedDate: '12/12/2012'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message)
+              .to.deep.equal('Event Name cannot be blank');
+          });
+      });
 
-    it('should return an error when eventTitle has less than 5 characters', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun',
-          centerId: '1',
-          description: 'Come have fun',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('The event Name must be more than 5 characters but less than 20');
-        });
-    });
+      it(
+        'should return an error when eventTitle has less than 5 characters',
+        () => {
+          request
+            .post('/api/v1/events')
+            .set('x-access-token', userToken)
+            .send({
+              eventTitle: 'Fun',
+              centerId: '1',
+              description: 'Come have fun',
+              bookedDate: '12/12/2012'
+            })
+            .expect(400)
+            .end((err, res) => {
+              expect(res.body).to.have.property('message');
+              expect(res.body.message).to.not.equal(null);
+              expect(res.body.message)
+                .to.deep.equal('The event Name must be more than 5 characters but less than 20'); //eslint-disable-line
+            });
+        }
+      );
 
-    it('should return an error when eventTitle contains unacceptable characters', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun$%dfg',
-          centerId: '1',
-          description: 'Come have fun',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Event Name can only contain numbers and letters');
-        });
-    });
+      it(
+        'should return an error when eventTitle contains unacceptable characters', //eslint-disable-line
+        () => {
+          request
+            .post('/api/v1/events')
+            .set('x-access-token', userToken)
+            .send({
+              eventTitle: 'Fun$%dfg',
+              centerId: '1',
+              description: 'Come have fun',
+              bookedDate: '12/12/2012'
+            })
+            .expect(400)
+            .end((err, res) => {
+              expect(res.body).to.have.property('message');
+              expect(res.body.message).to.not.equal(null);
+              expect(res.body.message)
+                .to.deep.equal('Event Name can only contain numbers and letters'); //eslint-disable-line
+            });
+        }
+      );
 
-    it('should return an error when description is empty', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: '1',
-          description: '',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Event should have a description');
-        });
-    });
+      it('should return an error when description is empty', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Birthday Party',
+            centerId: '1',
+            description: '',
+            bookedDate: '12/12/2012'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message)
+              .to.deep.equal('Event should have a description');
+          });
+      });
 
-    it('should return an error when description has less than 5 characters', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Funny Day',
-          centerId: '1',
-          description: 'Come',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('description must be greater than 5 but less than 1000 words');
-        });
-    });
+      it(
+        'should return an error when description has less than 5 characters',
+        () => {
+          request
+            .post('/api/v1/events')
+            .set('x-access-token', userToken)
+            .send({
+              eventTitle: 'Funny Day',
+              centerId: '1',
+              description: 'Come',
+              bookedDate: '12/12/2012'
+            })
+            .expect(400)
+            .end((err, res) => {
+              expect(res.body).to.have.property('message');
+              expect(res.body.message).to.not.equal(null);
+              expect(res.body.message)
+                .to.deep.equal('description must be greater than 5 but less than 1000 words'); //eslint-disable-line
+            });
+        }
+      );
 
-    it('should return an error when description contains unacceptable characters', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun Day',
-          centerId: '1',
-          description: 'Come have fun$##',
-          bookedDate: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('description can not include symbols except comma and full stop');
-        });
-    });
+      it(
+        'should return an error when description contains unacceptable characters', //eslint-disable-line
+        () => {
+          request
+            .post('/api/v1/events')
+            .set('x-access-token', userToken)
+            .send({
+              eventTitle: 'Fun Day',
+              centerId: '1',
+              description: 'Come have fun$##',
+              bookedDate: '12/12/2012'
+            })
+            .expect(400)
+            .end((err, res) => {
+              expect(res.body).to.have.property('message');
+              expect(res.body.message).to.not.equal(null);
+              expect(res.body.message)
+                .to.deep.equal('description can not include symbols except comma and full stop'); //eslint-disable-line
+            });
+        }
+      );
 
-    it('should return an error when bookedDate is empty', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: '1',
-          description: 'Come and have fun',
-          bookedDate: ''
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Date cannot be empty');
-        });
-    });
+      it('should return an error when bookedDate is empty', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Birthday Party',
+            centerId: '1',
+            description: 'Come and have fun',
+            bookedDate: ''
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message).to.deep.equal('Date cannot be empty');
+          });
+      });
 
-    it('should return an error when bookedDate is invalid', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: '1',
-          description: 'Come and have fun',
-          bookedDate: '230/34/13243'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Invalid Date');
-        });
-    });
+      it('should return an error when bookedDate is invalid', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Birthday Party',
+            centerId: '1',
+            description: 'Come and have fun',
+            bookedDate: '230/34/13243'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message).to.deep.equal('Invalid Date');
+          });
+      });
 
-    it('should return an error when center is empty', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: '',
-          description: 'Come and have fun',
-          bookedDate: '23/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Please select a Center');
-        });
-    });
+      it('should return an error when center is empty', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Birthday Party',
+            centerId: '',
+            description: 'Come and have fun',
+            bookedDate: '23/12/2012'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message).to.deep.equal('Please select a Center');
+          });
+      });
 
-    it('should return an error when centerId is invalid', () => {
-      request
-        .post('/api/v1/events')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: 'a',
-          description: 'Come and have fun',
-          bookedDate: '23/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('centerId must be a number');
-        });
+      it('should return an error when centerId is invalid', () => {
+        request
+          .post('/api/v1/events')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Birthday Party',
+            centerId: 'a',
+            description: 'Come and have fun',
+            bookedDate: '23/12/2012'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message).to.deep.equal('centerId must be a number');
+          });
+      });
     });
-  });
 
   describe('test for successful event creation', () => {
     it('should return success when event is created', (done) => {

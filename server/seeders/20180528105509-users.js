@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [{
     fullname: 'John',

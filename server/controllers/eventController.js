@@ -336,7 +336,7 @@ export default class EventController {
               isApproved: true
             })
             .then(() => {
-              notifyUser(req, res);
+              notifyUser(req, res, event.userId);
               res.status(200).send({
                 message: 'Event Approved'
               });

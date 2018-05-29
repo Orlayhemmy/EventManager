@@ -1,6 +1,6 @@
 import models from '../models';
 
-const { Users ,Activities, Events } = models;
+const { Users, Activities } = models;
 
 /**
  * @class ActivityController
@@ -89,11 +89,10 @@ export default class ActivityController {
     Activities.create({
       description: `A new center "${centerName}" has been added`,
       centerId: id,
-    }).then(() => res.status(200).send({
-      message: 'Activity added successfully',
-    })).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+    }).then(() => 'Activity added successfully')
+      .catch(error => res.status(500).send({
+        message: error.message,
+      }));
   }
   /**
    * @param  {object} req
@@ -114,9 +113,8 @@ export default class ActivityController {
           description: `${user.fullname} booked a center`,
           centerId,
         })
-          .then(() => res.status(200).send({
-            message: 'Activity added successfully',
-          })).catch(error => res.status(500).send({
+          .then(() => 'Activity added successfully')
+          .catch(error => res.status(500).send({
             message: error.message,
           }));
       });
@@ -137,21 +135,19 @@ export default class ActivityController {
     Activities.create({
       description: `${eventTitle} is added and awaiting approval`,
       userId: req.decoded.id,
-    }).then(() => {
-      res.status(200).send({
-        message: 'Activity added successfully',
-      });
-    }).catch(error => res.status(500).send({
-      message: error.message,
-    }));
+    }).then(() => 'Activity added successfully')
+      .catch(error => res.status(500).send({
+        message: error.message,
+      }));
   }
 
   /**
    * @param  {object} req
    * @param  {object} res
+   * @param  {string} userId
    * @returns {object} message
    */
-  static notifyUser(req, res) {
+  static notifyUser(req, res, userId) {
     const {
       eventTitle, isApproved
     } = req.body;
@@ -160,19 +156,15 @@ export default class ActivityController {
       info = `${eventTitle} has been approved`;
     } else {
       info = `Your center booking for ${eventTitle} is declined`;
+      Activities.create({
+        description: info,
+        userId,
+      })
+        .then(() => 'Activity added successfully')
+        .catch(error => res.status(500).send({
+          message: error.message,
+        }));
     }
-    Activities.findById(req.params.id)
-      .then((activity) => {
-        Activities.create({
-          description: info,
-          userId: activity.userId,
-        })
-          .then(() => res.status(200).send({
-            message: 'Activity added successfully',
-          })).catch(error => res.status(500).send({
-            message: error.message,
-          }));
-      });
   }
 
   /**

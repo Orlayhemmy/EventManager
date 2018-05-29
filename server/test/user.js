@@ -1,3 +1,4 @@
+/* eslint-disable */
 import supertest from 'supertest';
 import { expect } from 'chai';
 import app from '../app';
