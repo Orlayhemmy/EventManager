@@ -15,5 +15,5 @@ cache:
 script: 
   - npm test
 
-after-success:
+after_script:
   - npm run coverage
