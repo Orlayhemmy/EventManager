@@ -1,5 +1,4 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 import { getCenterEvents } from './eventActions';
 import * as actionTypes from './types';
 
@@ -111,12 +110,24 @@ export function centerSelected(center) {
     dispatch({ type: actionTypes.CENTER_SELECTED, payload: center });
   };
 }
+
+/**
+ * @param {object} center
+ * @returns {void}
+ */
+export function viewCenterSelected(center) {
+  return (dispatch) => {
+    dispatch({ type: 'CENTER' });
+    localStorage.setItem('centerId', center);
+  };
+}
 /**
  * @param {object} id
  * @param {object} tag
  * @returns {object} current center
  */
-export function getCenterSelected(id, tag) {
+export function getCenterSelected() {
+  const id = localStorage.getItem('centerId');
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER });
     return axios
@@ -126,11 +137,6 @@ export function getCenterSelected(id, tag) {
           type: actionTypes.GET_CENTER_SUCCESS,
           payload: response.data
         });
-        if (!tag) {
-          const { token } = response.data;
-          localStorage.setItem('center', token);
-          dispatch(setCurrentCenter(jwt.decode(token)));
-        }
       })
       .catch((err) => {
         dispatch({

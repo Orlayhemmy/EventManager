@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
   getCenterSelected,
-  modifyCenter,
-  clearState
+  modifyCenter  
 } from '../../actions/centerActions';
 import {
   getEventSelected,
@@ -56,6 +55,9 @@ export class CenterDetailsContent extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+  componentWillMount() {
+    this.props.getCenterSelected();
+  }
   /**
    * @memberof CenterDetailsContent
    * @method onChange
@@ -63,9 +65,6 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    */
   onChange(e) {
-    if (this.props.centerData.message) {
-      this.props.clearState();
-    }
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -211,8 +210,8 @@ export class CenterDetailsContent extends React.Component {
       errors
     } = this.state;
     const { path } = this.props;
-    const { event } = this.props.event;
-    const events = _.map(this.props.events, event => {
+    const { Events } = this.props.centerData.center;
+    const events = _.map(Events, event => {
       let eStatus;
       if (event.isApproved) {
         eStatus = <i id={event.id} className="fa fa-thumbs-up green" />;
@@ -492,8 +491,7 @@ const propTypes = {
   deleteCenterEvent: PropTypes.func.isRequired,
   getCenterEvents: PropTypes.func.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
-  modifyCenter: PropTypes.func.isRequired,
-  clearState: PropTypes.func.isRequired
+  modifyCenter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -511,6 +509,5 @@ export default connect(mapStateToProps, {
   deleteCenterEvent,
   getCenterEvents,
   getCenterSelected,
-  modifyCenter,
-  clearState
+  modifyCenter
 })(CenterDetailsContent);
