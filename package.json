@@ -8,7 +8,7 @@
     "client:test": "jest client/ --coverage",
     "test": "npm run unmigrate && npm run migrate && npm run test:run",
     "test:run": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
-    "coverage": "nyc report --reporter=text-icov | coveralls",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
     "migrate": "NODE_ENV=test sequelize db:migrate && npm run seed",
     "seed": "NODE_ENV=test sequelize db:seed:all",
