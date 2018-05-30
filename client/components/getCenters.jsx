@@ -6,7 +6,7 @@ import isEmpty from 'lodash/isEmpty';
 import {
   getCenters,
   centerSelected,
-  getCenterSelected
+  viewCenterSelected
 } from '../actions/centerActions';
 import DeleteModal from './deleteModal';
 import { getAdminActivity } from '../actions/adminActivityActions';
@@ -15,6 +15,11 @@ import { getAdminActivity } from '../actions/adminActivityActions';
  * @description DisplayCenters form component
  */
 export class DisplayCenters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.showCenter = this.showCenter.bind(this);
+  }
+
   /**
    * @memberof DisplayCenters
    * @method componentWillMount
@@ -40,13 +45,13 @@ export class DisplayCenters extends React.Component {
 
   /**
    * @memberof DisplayCenters
-   * @method onClick
+   * @method showCenter
    * @description it fetches the details of the center to be viewed
    * @param {object} event
    * @returns {void}
    */
-  onClick(e) {
-    this.props.getCenterSelected(e.target.id);
+  showCenter(e) {
+    this.props.viewCenterSelected(e.target.id);
   }
 
   /**
@@ -86,7 +91,7 @@ export class DisplayCenters extends React.Component {
             <Link to="/view-center-event">
               <p
                 className="activity-font mb-0 p-1 fw"
-                onClick={this.onClick.bind(this)}
+                onClick={this.showCenter}
                 id={activity.centerId}
               >
                 {activity.description}
@@ -115,7 +120,7 @@ export class DisplayCenters extends React.Component {
             <div className="col-8 col-md-8 col-sm-12 pl-4">
               <h2 className="media-heading text-center">
                 <Link to="/view-center-event">
-                  <span onClick={this.onClick.bind(this)} id={center.id}>
+                  <span onClick={this.showCenter} id={center.id}>
                     {center.centerName}
                   </span>
                 </Link>
@@ -209,7 +214,7 @@ const propTypes = {
   getAdminActivity: PropTypes.func.isRequired,
   centerSelected: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
-  getCenterSelected: PropTypes.func.isRequired
+  viewCenterSelected: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -224,5 +229,5 @@ export default connect(mapStateToProps, {
   centerSelected,
   getAdminActivity,
   getCenters,
-  getCenterSelected
+  viewCenterSelected
 })(DisplayCenters);

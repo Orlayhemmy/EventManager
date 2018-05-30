@@ -82,8 +82,7 @@ export class CenterForm extends React.Component {
         facilities: this.state.facilities,
         capacity: this.state.capacity,
       }
-      console.log(this.state)
-      //this.props.uploadImage(data, formData);
+      this.props.uploadImage(data, formData);
     }
   }
   /**

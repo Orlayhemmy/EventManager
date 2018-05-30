@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-watch server/app.js",
+    "start": "nodemon --watch server --exec babel-node -- server/app.js",
     "client:test": "jest client/ --coverage",
     "test": "npm run unmigrate && npm run migrate && npm run test:run",
     "test:run": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",

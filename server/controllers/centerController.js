@@ -81,15 +81,7 @@ export default class CenterController {
     })
       .then((center) => {
         if (center) {
-          const payload = {
-            center
-          };
-          const token = jwt.sign(payload, process.env.SECRET, {
-            expiresIn: 60 * 60 * 12
-          });
-          req.body.token = token;
           return res.status(200).send({
-            token,
             center,
             message: 'Center found'
           });
