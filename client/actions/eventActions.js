@@ -1,7 +1,7 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
-import { centerStatus } from './centerActions';
-import { setActivity } from './activityActions';
+// import jwt from 'jsonwebtoken';
+// import { centerStatus } from './centerActions';
+// import { setActivity } from './activityActions';
 import * as actionTypes from './types';
 
 /**
@@ -19,14 +19,6 @@ export function createEvent(data) {
           type: actionTypes.ADD_EVENT_SUCCESS,
           payload: response.data
         });
-        const info = {
-          id: eventInfo.centerId,
-          eventTitle: eventInfo.eventTitle,
-          eventId: response.data.bookedEvent.id,
-          username: data.user
-        };
-        dispatch(centerStatus(info.id));
-        dispatch(setActivity(info));
       })
       .catch((err) => {
         dispatch({
@@ -109,7 +101,7 @@ export function setCurrentEvent(event) {
  * @param {object} tag
  * @returns {object} an event
  */
-export function getEventSelected(id, tag) {
+export function getEventSelected(id) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENT });
     return axios
@@ -119,11 +111,6 @@ export function getEventSelected(id, tag) {
           type: actionTypes.GET_EVENT_SUCCESS,
           payload: response.data
         });
-        if (!tag) {
-          const { token } = response.data;
-          localStorage.setItem('event', token);
-          dispatch(setCurrentEvent(jwt.decode(token)));
-        }
       })
       .catch((err) => {
         dispatch({
@@ -149,7 +136,7 @@ export function modifyCenterEvent(data) {
           type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
           payload: response.data
         });
-        dispatch(setActivity(data));
+        // dispatch(setActivity(data));
         dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
@@ -201,7 +188,6 @@ export function deleteCenterEvent(data) {
           type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
           payload: response.data
         });
-        dispatch(setActivity(data));
         dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {

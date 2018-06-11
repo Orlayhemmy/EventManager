@@ -11,12 +11,12 @@ const mockStore = configureMockStore(middlewares);
 const mockSignup = {
   fullname: 'Orlayhemmy',
   email: 'mail@mail.com',
-  password: 'userPassword',
+  password: 'userPassword'
 };
 
 const mockSignin = {
   loginEmail: 'mail@mail.com',
-  loginPassword: 'userPassword',
+  loginPassword: 'userPassword'
 };
 
 const mockCode = 'RRERW#$#@$@';
@@ -42,12 +42,12 @@ describe('user signup action', () => {
     const expectedActions = [
       { type: 'USER_SIGNUP' },
       {
-        type: 'USER_SIGNUP_SUCCESS',
-        payload: { message: 'signup sucessful', token: 'sdefeffefrg' }
+        payload: { status: 201, token: 'sdefeffefrg' },
+        type: 'USER_SIGNUP_SUCCESS'
       },
       {
-        type: 'SET_CURRENT_USER',
-        payload: { newUser: null, token: 'sdefeffefrg' }
+        payload: { newUser: null, token: 'sdefeffefrg' },
+        type: 'SET_CURRENT_USER'
       }
     ];
     const store = mockStore({});
@@ -62,7 +62,7 @@ describe('user signup action', () => {
     moxios.stubRequest('/api/v1/users', {
       status: 400,
       response: {
-        message: 'signup fails',
+        message: 'signup fails'
       }
     });
 
@@ -123,7 +123,7 @@ describe('user signin action', () => {
     moxios.stubRequest('/api/v1/users/login', {
       status: 400,
       response: {
-        message: 'signup fails',
+        message: 'signup fails'
       }
     });
 
@@ -156,13 +156,16 @@ describe('confirm email action', () => {
     moxios.stubRequest('/api/v1/passrecovery', {
       status: 200,
       response: {
-        message: 'Email exists',
+        message: 'Email exists'
       }
     });
 
     const expectedActions = [
       { type: actionTypes.VERIFY_EMAIL },
-      { type: actionTypes.VERIFY_EMAIL_SUCCESS, payload: { message: 'Email exists' } }
+      {
+        type: actionTypes.VERIFY_EMAIL_SUCCESS,
+        payload: { message: 'Email exists' }
+      }
     ];
     const store = mockStore({});
 
@@ -175,7 +178,7 @@ describe('confirm email action', () => {
     moxios.stubRequest('/api/v1/passrecovery', {
       status: 400,
       response: {
-        message: 'Email not found',
+        message: 'Email not found'
       }
     });
 
@@ -208,7 +211,7 @@ describe('generate code action', () => {
     moxios.stubRequest('/api/v1/shortcode', {
       status: 200,
       response: {
-        mockCode,
+        mockCode
       }
     });
 
@@ -227,7 +230,7 @@ describe('generate code action', () => {
     moxios.stubRequest('/api/v1/shortcode', {
       status: 400,
       response: {
-        mockCode,
+        mockCode
       }
     });
 
@@ -256,7 +259,7 @@ describe('get user action', () => {
     moxios.stubRequest('/api/v1/users', {
       status: 200,
       response: {
-        mockSignup,
+        mockSignup
       }
     });
 
@@ -275,7 +278,7 @@ describe('get user action', () => {
     moxios.stubRequest('/api/v1/users', {
       status: 400,
       response: {
-        mockSignup,
+        mockSignup
       }
     });
 
@@ -304,7 +307,7 @@ describe('get user email action', () => {
     moxios.stubRequest('/api/v1/userEmail/1', {
       status: 200,
       response: {
-        Email: mockSignup.email,
+        Email: mockSignup.email
       }
     });
 
@@ -356,13 +359,13 @@ describe('check password action', () => {
     moxios.stubRequest('/api/v1/passwordcheck', {
       status: 400,
       response: {
-        differentPassword,
+        differentPassword
       }
     });
 
     const expectedActions = [
       { type: actionTypes.CHECK_PASSWORD },
-      { type: actionTypes.CHECK_PASSWORD_FAILS, payload: { differentPassword } },
+      { type: actionTypes.CHECK_PASSWORD_FAILS, payload: { differentPassword } }
     ];
     const store = mockStore({});
 
@@ -372,68 +375,78 @@ describe('check password action', () => {
   });
 });
 
-describe('update user details action', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  const updateSuccess = 'Changes Applied Successfully';
-  const updateFails = 'User not found';
-
-  it('return true when user info updates', () => {
-    moxios.stubRequest('/api/v1/users', {
-      status: 200,
-      response: {
-        updateSuccess,
-        token: '##EEDDDFDGFE',
-      }
-    });
-
+describe('log user out', () => {
+  it('should log user out', () => {
     const expectedActions = [
-      { type: actionTypes.UPDATE_USER },
-      {
-        type: actionTypes.UPDATE_USER_SUCCESS,
-        payload: {
-          updateSuccess,
-          token: '##EEDDDFDGFE',
-        }
-      },
-      {
-        type: actionTypes.SET_CURRENT_USER,
-        payload: {
-          newUser: null,
-          token: '##EEDDDFDGFE'
-        }
-      }
+      { payload: { newUser: {}, token: undefined }, type: 'SET_CURRENT_USER' }
     ];
+
     const store = mockStore({});
-
-    return store.dispatch(actions.updateUserDetails(mockSignup)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  it('return failure when user info fails to update', () => {
-    moxios.stubRequest('/api/v1/users', {
-      status: 400,
-      response: {
-        updateFails,
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.UPDATE_USER },
-      { type: actionTypes.UPDATE_USER_FAILS, payload: { updateFails } },
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.updateUserDetails(mockSignup)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    store.dispatch(actions.logout());
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });
+// describe('update user details action', () => {
+//   beforeEach(() => {
+//     moxios.install();
+//   });
 
+//   afterEach(() => {
+//     moxios.uninstall();
+//   });
+
+//   const updateSuccess = 'Changes Applied Successfully';
+//   const updateFails = 'User not found';
+
+//   it('return true when user info updates', () => {
+//     moxios.stubRequest('/api/v1/users', {
+//       status: 200,
+//       response: {
+//         updateSuccess,
+//         token: '##EEDDDFDGFE',
+//       }
+//     });
+
+//     const expectedActions = [
+//       { type: actionTypes.UPLOAD_IMAGE },
+//       {
+//         type: actionTypes.UPDATE_USER_SUCCESS,
+//         payload: {
+//           updateSuccess,
+//           token: '##EEDDDFDGFE',
+//         }
+//       },
+//       {
+//         type: actionTypes.SET_CURRENT_USER,
+//         payload: {
+//           newUser: null,
+//           token: '##EEDDDFDGFE'
+//         }
+//       }
+//     ];
+//     const store = mockStore({});
+
+//     return store.dispatch(actions.uploadUserImage(mockSignup, 'image')).then(() => {
+//       expect(store.getActions()).toEqual(expectedActions);
+//     });
+//   });
+
+//   it('return failure when user info fails to update', () => {
+//     moxios.stubRequest('/api/v1/users', {
+//       status: 400,
+//       response: {
+//         updateFails,
+//       }
+//     });
+
+//     const expectedActions = [
+//       { type: actionTypes.UPLOAD_IMAGE },
+//       { type: actionTypes.UPDATE_USER_FAILS, payload: { updateFails } },
+//     ];
+//     const store = mockStore({});
+
+//     return store.dispatch(actions.uploadUserImage(mockSignup, 'image')).then(() => {
+//       expect(store.getActions()).toEqual(expectedActions);
+//     });
+//   });
+// });

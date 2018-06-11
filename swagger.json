@@ -21,16 +21,16 @@
     "application/json"
   ],
   "paths": {
-    "/api": {
+    "/": {
       "get": {
-        "description": "A simple welcome message in json",
+        "description": "Landing page for EventManager",
         "operationId": "welcome",
         "produces": [
           "application/json"
         ],
         "responses": {
           "200": {
-            "description": "a simple welcome response",
+            "description": "Landing page for EventManager",
             "schema": {
               "type": "object",
               "items": {
@@ -50,47 +50,179 @@
         ],
         "parameters": [
           {
-            "name": "firstname",
+            "name": "Fullname",
             "in": "body",
-            "description": "firstname of user who wants to signup",
+            "description": "fullname of user who wants to signup",
             "required": true,
             "type": "string"
           },
           {
-            "name": "lastname",
-            "in": "body",
-            "description": "lastname of user who wants to signup",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "email",
+            "name": "Email",
             "in": "body",
             "description": "email of user who wants to signup",
             "required": true,
             "type": "string"
           },
           {
-            "name": "password",
+            "name": "Password",
             "in": "body",
-            "description": "passord of user who wants to signup",
+            "description": "password of user who wants to signup",
             "required": true,
             "type": "string"
           },
           {
-            "name": "confirmpassword",
+            "name": "Confirmpassword",
             "in": "body",
-            "description": "repetition of passord of user who wants to signup",
+            "description": "repetition of password of user who wants to signup",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "201": {
-            "description": "a success response if no error is found containing jwt token",
+            "description": "a success response containing jwt token if no error is found",
             "schema": {
               "type": "application/json",
-              "$ref": "#/definitions/Pet"
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "500": {
+            "description": "server side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "409": {
+            "description": "conflict error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Returns a token and message or just an error message",
+        "operationId": "updateUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "fullname",
+            "in": "body",
+            "description": "fullname of user",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "body",
+            "description": "email of user",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "description": "password of user",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "retypePassword",
+            "in": "body",
+            "description": "repetition of password of user",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "imageUrl",
+            "in": "body",
+            "description": "url of user image",
+            "required": false,
+            "type": "url"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "a success response containing jwt token if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "500": {
+            "description": "server side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "409": {
+            "description": "conflict error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Returns user details and a message or just an error message",
+        "operationId": "getUser",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "a success response containing user details if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "500": {
+            "description": "server side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "404": {
+            "description": "client side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/login": {
+      "post": {
+        "description": "Returns a token and message or just an error message",
+        "operationId": "signInuser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "body",
+            "description": "email of user who wants to signup",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Password",
+            "in": "body",
+            "description": "password of user who wants to signup",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a success response containing jwt token if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Users"
             }
           },
           "400": {
@@ -99,8 +231,14 @@
               "$ref": "#/definitions/ErrorModel"
             }
           },
-          "409": {
-            "description": "conflict error",
+          "404": {
+            "description": "not found error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "server-side error",
             "schema": {
               "$ref": "#/definitions/ErrorModel"
             }
@@ -126,6 +264,165 @@
           },
           "default": {
             "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/passrecovery": {
+      "post": {
+        "description": "Returns a success message or just an error message",
+        "operationId": "checkEmail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Email",
+            "in": "body",
+            "description": "email of user who wants to recover password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "a success response containing a message if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "404": {
+            "description": "not found error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "server-side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "deletes a single pet based on the ID supplied",
+        "operationId": "deletePet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of pet to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "pet deleted"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/centers": {
+      "post": {
+        "description": "Returns a success message or just an error message",
+        "operationId": "createCenter",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "centerName",
+            "in": "body",
+            "description": "name of center to be added",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "location",
+            "in": "body",
+            "description": "location of center to be added",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "facilities",
+            "in": "body",
+            "description": "facilities in the center to be added",
+            "required": true,
+            "type": "array"
+          },
+          {
+            "name": "capacity",
+            "in": "body",
+            "description": "capacity of center to be added",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "imageUrl",
+            "in": "body",
+            "description": "url of center image to be added",
+            "required": true,
+            "type": "url"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "a success message and center details if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Centers"
+            }
+          },
+          "409": {
+            "description": "conflict error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "500": {
+            "description": "server-side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      },
+      "get": {
+        "description": "Returns center details and a message or just an error message",
+        "operationId": "getCenter",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "a success response containing center details if no error is found",
+            "schema": {
+              "type": "application/json",
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "500": {
+            "description": "server side error",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          },
+          "404": {
+            "description": "center cannot be found",
             "schema": {
               "$ref": "#/definitions/ErrorModel"
             }

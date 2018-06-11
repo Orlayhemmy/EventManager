@@ -16,45 +16,6 @@ export function clearCenterStorage() {
 
 /**
  * @param {object} data
- * @param {object} image
- * @returns {object} url of image uploaded
- */
-export function uploadImage(data, image) {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.ADD_IMAGE });
-    delete axios.defaults.headers.common['x-access-token'];
-    return axios
-      .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
-      .then((response) => {
-        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        data.imageUrl = response.data.secure_url;
-        return axios
-          .post('/api/v1/centers', data)
-          .then((res) => {
-            dispatch({
-              type: actionTypes.ADD_CENTER_SUCCESS,
-              payload: res.data
-            });
-          })
-          .catch((err) => {
-            dispatch({
-              type: actionTypes.ADD_CENTER_FAILS,
-              payload: err.response.data
-            });
-          });
-      })
-      .catch((err) => {
-        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        dispatch({
-          type: actionTypes.ADD_IMAGE_FAILS,
-          payload: err.response.data
-        });
-      });
-  };
-}
-
-/**
- * @param {object} data
  * @returns {object} Get centers
  */
 export function getCenters(data) {
@@ -74,7 +35,7 @@ export function getCenters(data) {
     } else {
       query = axios.get('/api/v1/centers');
     }
-    query
+    return query
       .then((response) => {
         dispatch({
           type: actionTypes.GET_CENTERS_SUCCESS,
@@ -155,16 +116,30 @@ export function getCenterSelected() {
 //   }
 // }
 
-// /**
-//  * @param {object} data
-//  * @param {object} image
-//  * @returns {object} new center information
-//  */
-// export function addCenter(data, image) {
-//   return (dispatch) => {
-//     dispatch(uploadImage(data, image));
-//   };
-// }
+/**
+ * @param {object} data
+ * @param {object} image
+ * @returns {object} new center information
+ */
+export function addCenter(data) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ADD_CENTER });
+    return axios
+      .post('/api/v1/centers', data)
+      .then((res) => {
+        dispatch({
+          type: actionTypes.ADD_CENTER_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.ADD_CENTER_FAILS,
+          payload: err.response.data
+        });
+      });
+  };
+}
 
 /**
  * @param {object} data
@@ -235,6 +210,32 @@ export function centerStatus(id) {
       .catch((err) => {
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
+          payload: err.response.data
+        });
+      });
+  };
+}
+
+/**
+ * @param {object} data
+ * @param {object} image
+ * @returns {object} url of image uploaded
+ */
+export function uploadImage(data, image) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.ADD_IMAGE });
+    delete axios.defaults.headers.common['x-access-token'];
+    return axios
+      .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
+      .then((response) => {
+        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
+        data.imageUrl = response.data.secure_url;
+        dispatch(addCenter(data));
+      })
+      .catch((err) => {
+        axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
+        dispatch({
+          type: actionTypes.ADD_IMAGE_FAILS,
           payload: err.response.data
         });
       });
