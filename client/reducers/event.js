@@ -2,14 +2,10 @@ import isEmpty from 'lodash/isEmpty';
 import * as actionTypes from '../actions/types';
 
 const initialState = {
-  loading: false,
-  loaded: false,
   events: [],
   disableDates: [],
   error: null,
   event: {},
-  message: '',
-  status: '',
   isEvent: false
 };
 export default (state = initialState, action) => {
@@ -76,14 +72,14 @@ export default (state = initialState, action) => {
         disableDates
       };
     }
-    case actionTypes.EVENT_SELECTED: {
-      const { eventId, eventTitle } = action.payload;
-      return {
-        ...state,
-        eventId,
-        eventTitle
-      };
-    }
+    // case actionTypes.EVENT_SELECTED: {
+    //   const { eventId, eventTitle } = action.payload;
+    //   return {
+    //     ...state,
+    //     eventId,
+    //     eventTitle
+    //   };
+    // }
     case actionTypes.GET_EVENT: {
       return {
         ...state,
@@ -264,30 +260,6 @@ export default (state = initialState, action) => {
         ...state,
         error: message,
         status
-      };
-    }
-    case actionTypes.GET_EVENTS_DELETED_COUNT: {
-      return {
-        ...state,
-        loading: true,
-        message: '',
-        status: ''
-      };
-    }
-    case actionTypes.EVENTS_DELETED_COUNT_SUCCESS: {
-      const { message, eventDeletedCount } = action.payload;
-      return {
-        ...state,
-        message,
-        status: 200,
-        eventDeletedCount
-      };
-    }
-    case actionTypes.EVENTS_DELETED_COUNT_FAIL: {
-      const { message } = action.payload;
-      return {
-        ...state,
-        error: message
       };
     }
     default:

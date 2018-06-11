@@ -2,15 +2,8 @@ import isEmpty from 'lodash/isEmpty';
 import * as actionTypes from '../actions/types';
 
 const initialState = {
-  userDetails: {},
   isAuth: false,
   user: {},
-  loading: '',
-  loaded: '',
-  status: '',
-  message: '',
-  error: '',
-  userToken: ''
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -20,7 +13,6 @@ export default (state = initialState, action = {}) => {
         ...state,
         isAuth: !isEmpty(newUser),
         user: newUser,
-        message: ''
       };
     }
     case actionTypes.USER_LOGIN: {
@@ -81,8 +73,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         loading: true,
-        status: '',
-        message: ''
       };
     }
     case actionTypes.VERIFY_EMAIL_SUCCESS: {
@@ -93,7 +83,7 @@ export default (state = initialState, action = {}) => {
         status: 200
       };
     }
-    case actionTypes.VERIFY_EMAIL_FAIL: {
+    case actionTypes.VERIFY_EMAIL_FAILS: {
       const { message } = action.payload;
       return {
         ...state,
@@ -113,7 +103,6 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         status: 201,
-        codeMessage: '',
         code: shortCode
       };
     }
@@ -124,14 +113,13 @@ export default (state = initialState, action = {}) => {
         message
       };
     }
-    case actionTypes.WRONG_CODE: {
-      return {
-        ...state,
-        status: '',
-        codeMessage: action.payload,
-        codeStatus: ''
-      };
-    }
+    // case actionTypes.WRONG_CODE: {
+    //   return {
+    //     ...state,
+    //     status: '',
+    //     codeMessage: action.payload
+    //   };
+    // }
     case actionTypes.UPDATE_USER: {
       return {
         ...state,
@@ -161,37 +149,37 @@ export default (state = initialState, action = {}) => {
         message
       };
     }
-    case actionTypes.SEND_MAIL: {
-      return {
-        ...state,
-        loading: true,
-        loaded: false,
-        status: '',
-        message: ''
-      };
-    }
-    case actionTypes.SEND_MAIL_SUCCESS: {
-      const { status } = action.payload;
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        status
-      };
-    }
-    case actionTypes.SEND_MAIL_FAIL: {
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        message: action.payload
-      };
-    }
+    // case actionTypes.SEND_MAIL: {
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     loaded: false,
+    //     status: '',
+    //     message: ''
+    //   };
+    // }
+    // case actionTypes.SEND_MAIL_SUCCESS: {
+    //   const { status } = action.payload;
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     loaded: true,
+    //     status
+    //   };
+    // }
+    // case actionTypes.SEND_MAIL_FAIL: {
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     loaded: true,
+    //     message: action.payload
+    //   };
+    // }
     case actionTypes.GET_USER: {
       return {
         ...state,
-        loaded: true,
-        loading: false
+        loaded: false,
+        loading: true
       };
     }
     case actionTypes.GET_USER_SUCCESS: {
