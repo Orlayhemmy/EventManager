@@ -35,7 +35,7 @@ describe('get events action', () => {
       status: 200,
       response: {
         message: 'Events found',
-        mockEvents,
+        events: mockEvents,
       }
     });
 
@@ -44,8 +44,8 @@ describe('get events action', () => {
       {
         type: actionTypes.GET_EVENTS_SUCCESS,
         payload: {
-          mockEvents,
-          message: 'Events found',
+          status: 200,
+          events: mockEvents,
         }
       }
     ];
@@ -70,6 +70,7 @@ describe('get events action', () => {
       {
         type: actionTypes.GET_EVENTS_FAIL,
         payload: {
+          status: 400,
           message: 'Events not found',
         }
       }
@@ -171,7 +172,7 @@ describe('get event selected action', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.getEventSelected('1', 'tag')).then(() => {
+    return store.dispatch(actions.getEventSelected('1')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -231,7 +232,6 @@ describe('get center event selected action', () => {
           message: 'Event updated',
         }
       },
-      { type: actionTypes.SET_ACTIVITY },
       { type: actionTypes.GET_CENTER_EVENTS }
     ];
     const store = mockStore({});
@@ -296,7 +296,7 @@ describe('modify event action', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.modifyEvent('1')).then(() => {
+    return store.dispatch(actions.modifyEvent('1', 'data')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -321,7 +321,7 @@ describe('modify event action', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.modifyEvent('1')).then(() => {
+    return store.dispatch(actions.modifyEvent('1', 'data')).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -338,6 +338,7 @@ describe('delete center event action', () => {
   });
   const data = {
     id: 1,
+    centerId: 2
   };
   it('returns success when center event is deleted successfully', (done) => {
     moxios.stubRequest('/api/v1/events/1', {
@@ -355,7 +356,6 @@ describe('delete center event action', () => {
           message: 'Event deleted',
         }
       },
-      { type: actionTypes.SET_ACTIVITY },
       { type: actionTypes.GET_CENTER_EVENTS }
     ];
     const store = mockStore({});
@@ -481,7 +481,7 @@ describe('event booked action', () => {
         }
       }
     ];
-    
+
     const store = mockStore({});
 
     return store.dispatch(actions.eventBooked('1')).then(() => {
@@ -501,7 +501,7 @@ describe('event booked action', () => {
     const expectedActions = [
       { type: actionTypes.GET_EVENTS_BOOKED_COUNT },
       {
-        type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAILS,
+        type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
         payload: {
           message: 'Events not found',
         }
@@ -570,6 +570,91 @@ describe('date joined action', () => {
     const store = mockStore({});
 
     return store.dispatch(actions.dateJoined('1')).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+});
+
+describe('other event actions', () => {
+  it('should clear event state', () => {
+    const expectedActions = [{ type: actionTypes.CLEAR_EVENT_STATE }];
+
+    const store = mockStore({});
+    store.dispatch(actions.clearEventState());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('should set current event', () => {
+    const expectedActions = [
+      {
+        payload: mockEvents[0],
+        type: actionTypes.SET_CURRENT_EVENT
+      }
+    ];
+
+    const store = mockStore({});
+    store.dispatch(actions.setCurrentEvent(mockEvents[0]));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
+
+describe('create event action', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
+  it('returns success when event is created', (done) => {
+    moxios.stubRequest('/api/v1/events', {
+      status: 200,
+      response: {
+        message: 'Event Created',
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.ADD_EVENT },
+      {
+        type: actionTypes.ADD_EVENT_SUCCESS,
+        payload: {
+          message: 'Event Created',
+        }
+      }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(actions.createEvent(mockEvents[0])).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+
+  it('returns success when event is created', (done) => {
+    moxios.stubRequest('/api/v1/events', {
+      status: 500,
+      response: {
+        message: 'Event cannot be created',
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.ADD_EVENT },
+      {
+        type: actionTypes.ADD_EVENT_FAILS,
+        payload: {
+          message: 'Event cannot be created',
+        }
+      }
+    ];
+
+    const store = mockStore({});
+
+    return store.dispatch(actions.createEvent(mockEvents[0])).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
