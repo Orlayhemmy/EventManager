@@ -2,11 +2,7 @@ import isEmpty from 'lodash/isEmpty';
 import * as actionTypes from '../actions/types';
 
 const initialState = {
-  loading: false,
-  loaded: false,
   centers: [],
-  error: '',
-  centerSelected: '',
   center: {
     facilities: []
   }
@@ -56,7 +52,7 @@ export default (state = initialState, action) => {
         error: ''
       };
     }
-    case actionTypes.GET_CENTERS_FAILS: {
+    case actionTypes.GET_CENTERS_FAIL: {
       const { message } = action.payload;
       return {
         ...state,
