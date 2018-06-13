@@ -3,30 +3,22 @@ import { connect } from 'react-redux';
 import { Link, Redirect, browserHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import {
-  getCenters,
-  centerSelected,
-  viewCenterSelected
-} from '../actions/centerActions';
 import DeleteModal from './deleteModal';
 import { getAdminActivity } from '../actions/adminActivityActions';
+import { getCenters } from '../actions/centerActions';
 
 /**
  * @description DisplayCenters form component
  */
 export class DisplayCenters extends React.Component {
-  constructor(props) {
-    super(props);
-    this.showCenter = this.showCenter.bind(this);
-  }
-
   /**
    * @memberof DisplayCenters
    * @method componentWillMount
    * @description it gets the necessary object before component is mounted
    */
   componentWillMount() {
-    this.props.getCenters();
+    const {searchState} = this.props;
+    this.props.getCenters(searchState, searchState.counter);
     this.props.getAdminActivity();
   }
 
@@ -45,36 +37,11 @@ export class DisplayCenters extends React.Component {
 
   /**
    * @memberof DisplayCenters
-   * @method showCenter
-   * @description it fetches the details of the center to be viewed
-   * @param {object} event
-   * @returns {void}
-   */
-  showCenter(e) {
-    this.props.viewCenterSelected(e.target.id);
-  }
-
-  /**
-   * @memberof DisplayCenters
-   * @method onDelete
-   * @description it fetches the details of the center to be deleted
-   * @param {object} event
-   * @returns {void}
-   */
-  onDelete(e) {
-    const center = {
-      centerId: e.target.id,
-      centerName: e.target.parentNode.id
-    };
-    this.props.centerSelected(center);
-  }
-
-  /**
-   * @memberof DisplayCenters
    * @method render
    * @description it renders the component
    * @returns the HTML of displaycenters component
    */
+
   render() {
     const path = this.props.path;
     const { centers } = this.props.eventCenter;
@@ -120,7 +87,7 @@ export class DisplayCenters extends React.Component {
             <div className="col-8 col-md-8 col-sm-12 pl-4">
               <h2 className="media-heading text-center">
                 <Link to="/view-center-event">
-                  <span onClick={this.showCenter} id={center.id}>
+                  <span onClick={this.props.showCenter} id={center.id}>
                     {center.centerName}
                   </span>
                 </Link>
@@ -143,7 +110,7 @@ export class DisplayCenters extends React.Component {
               </h3>
             </div>
             <span
-              onClick={this.onDelete.bind(this)}
+              onClick={this.props.onDelete}
               className="trash p-2"
               data-toggle="modal"
               data-target="#deleteModal"
@@ -161,8 +128,20 @@ export class DisplayCenters extends React.Component {
         <div className="row title">
           <h1>List Of Centers</h1>
         </div>
-        <div className="row">
-          <div className="col-lg-8 mr-3">{adminCenter}</div>
+        <div className="row wc">
+          <div className="col-lg-8 mr-3">
+            {this.props.counter > 0 ? 
+              <div className="page-icon bounce">
+                <i className="fa fa-chevron-up icon" id="previous" onClick={this.props.nextCenters}></i>
+              </div> : '' 
+            }
+            {adminCenter}
+            {centers.length > 4 ?
+              <div className="page-icon bounce">
+                <i className="fa fa-chevron-down icon" id="next" onClick={this.props.nextCenters}></i>
+              </div> : ''
+            }
+          </div>
           <div className="col-lg-3 bw p-2 ho">
             <h2>Notifications</h2>
             {recentActivity}
@@ -170,7 +149,7 @@ export class DisplayCenters extends React.Component {
         </div>
       </div>
     );
-    const guestCenterPage = centers.map((center, index) => {
+    const guestCenters = centers.map((center, index) => {
       return (
         <div className="row" id={center.id} key={index}>
           <div className="col-lg-4 col-md-12 col-sm-12 text-center">
@@ -199,6 +178,21 @@ export class DisplayCenters extends React.Component {
       );
     });
 
+    const guestCenterPage = (
+      <div>
+        {this.props.counter > 0 ? 
+          <div className="page-icon bounce">
+            <i className="fa fa-chevron-up icon" id="previous" onClick={this.props.nextCenters}></i>
+          </div> : '' 
+        }
+        {guestCenters}
+        {centers.length > 1 ?
+          <div className="page-icon bounce">
+            <i className="fa fa-chevron-down icon" id="next" onClick={this.props.nextCenters}></i>
+          </div> : ''
+        }
+      </div>
+    );
     return (
       <div>
         {this.props.auth.user.isAdmin ? adminCenterPage : guestCenterPage}
@@ -212,9 +206,7 @@ const propTypes = {
   eventCenter: PropTypes.object.isRequired,
   adminActivity: PropTypes.object.isRequired,
   getAdminActivity: PropTypes.func.isRequired,
-  centerSelected: PropTypes.func.isRequired,
-  getCenters: PropTypes.func.isRequired,
-  viewCenterSelected: PropTypes.func.isRequired
+  getCenters: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -226,8 +218,6 @@ const mapStateToProps = state => ({
 DisplayCenters.propTypes = propTypes;
 
 export default connect(mapStateToProps, {
-  centerSelected,
   getAdminActivity,
-  getCenters,
-  viewCenterSelected
+  getCenters
 })(DisplayCenters);

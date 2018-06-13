@@ -97,6 +97,7 @@ export default class EventController {
    */
   static getUserEvents(req, res) {
     const { id } = req.decoded;
+    const skip = req.params.id * 9;
     // get events
     Events.all({
       where: {
@@ -106,7 +107,10 @@ export default class EventController {
         {
           model: Centers
         }
-      ]
+      ],
+      offset: `${skip}`,
+      limit: 9,
+      order: [['createdAt', 'DESC']]
     })
       .then((events) => {
         // if events are available

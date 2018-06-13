@@ -105,6 +105,45 @@ nav.navbar.black-nav {
 .fw {
   color: white;
 }
+.wc {
+  text-align: -webkit-center;
+}
+@keyframes bounce {
+	0% {
+    transform: translateY(0);
+  }
+	40% {
+    transform:translateY(-10px);
+  }
+	60% {
+    transform:translateY(-15px);
+  }
+  80% {
+    transform:translateY(-20px);
+  }
+  100% {
+    transform:translateY(-25px);
+  }
+}
+
+.page-icon {
+  border-radius: 50%;
+  width: fit-content;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+
+
+.page-icon .icon {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.bounce {
+  animation: bounce 0.8s infinite;
+}
+
 .emptyCenter, .emptyEvent {
   width: 100%;
   min-height: 600px;
