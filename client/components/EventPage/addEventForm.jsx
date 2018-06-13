@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
-import CenterSearch from '../centerSearch';
+import CenterSearch from '../Common/Search';
 import { createEvent, getCenterEvents } from '../../actions/eventActions';
 import TextField from '../../common/textField';
 import { addEventValidation, modifyEventValidation } from '../../shared/eventValidations';

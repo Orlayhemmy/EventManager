@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert';
-import CenterSearch from '../centerSearch';
+import CenterSearch from '../Common/Search';
 import { modifyEvent } from '../../actions/eventActions';
 import { modifyEventValidation } from '../../shared/eventValidations';
 import TextField from '../../common/textField';
