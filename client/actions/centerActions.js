@@ -16,9 +16,10 @@ export function clearCenterStorage() {
 
 /**
  * @param {object} data
+ * @param {object} page
  * @returns {object} Get centers
  */
-export function getCenters(data) {
+export function getCenters(data, page) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTERS });
     let query;
@@ -29,11 +30,16 @@ export function getCenters(data) {
           facilities: data.facilities,
           capacity: data.capacity,
           capacityType: data.capacityType,
-          btwValue: data.btwValue
+          btwValue: data.btwValue,
+          page
         }
       });
     } else {
-      query = axios.get('/api/v1/centers');
+      query = axios.get('/api/v1/centers', {
+        params: {
+          page
+        }
+      });
     }
     return query
       .then((response) => {

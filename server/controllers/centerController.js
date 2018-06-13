@@ -26,16 +26,20 @@ export default class CenterController {
       facilities,
       capacity,
       capacityType,
-      btwValue
+      btwValue,
+      page
     } = req.query;
-
+    const skip = page * 5;
     // get centers
     Centers.findAll({
       where: {
         location: searchLocation(location),
         capacity: searchCapacity(capacityType, btwValue, capacity),
         facilities: searchFacilities(facilities)
-      }
+      },
+      offset: `${skip}`,
+      limit: 5,
+      order: [['centerName', 'ASC']]
     })
       .then((centers) => {
         // if centers are available

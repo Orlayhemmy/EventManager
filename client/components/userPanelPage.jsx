@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { getEvents, getEventSelected } from '../actions/eventActions';
@@ -18,11 +17,22 @@ import {
 import Modal from './Flash/modal';
 import { logout } from '../actions/userActions';
 import { getActivity } from '../actions/activityActions';
+import DashboardContent from './Dashboard/UserEvents';
+import DashboardNotifications from './Dashboard/UserNotifications';
 
 /**
  * @description Dashboard component
  */
 export class Dashboard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      counter: 0
+    }
+    this.onClick = this.onClick.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.nextEvents = this.nextEvents.bind(this);
+  }
   /**
    * @memberof Dashboard
    * @method componentWillMount
@@ -32,7 +42,7 @@ export class Dashboard extends React.Component {
    */
   componentWillMount() {
     this.props.clearCenterStorage();
-    this.props.getEvents();
+    this.props.getEvents(0);
     this.props.getActivity(this.props.auth.user.id);
   }
   /**
@@ -115,6 +125,25 @@ export class Dashboard extends React.Component {
   logout(e) {
     this.props.logout();
   }
+   /**
+   * @memberof Dashboard
+   * @method nextEvents
+   * @description it fetches the next centers
+   * @returns {void}
+   */
+  nextEvents(e) {
+    if (e.target.id === 'next') {
+      this.setState({
+        counter: this.state.counter + 1,
+      });
+      this.props.getEvents(++this.state.counter)
+    } else {
+      this.setState({
+        counter: this.state.counter - 1,
+      });
+      this.props.getEvents(--this.state.counter)
+    }
+  }
   /**
    * @memberof Dashboard
    * @method render
@@ -122,147 +151,15 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
-    let legend;
-    const { status } = this.props.userEvent;
-    let content;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
     if (status === 498 || status === 403) {
       this.logout();
     }
-    const { activities } = this.props.activity;
-
-    const { message } = this.props.userEvent;
-    let eventId, editEventId, eventBody, form;
     const { pathname } = this.props.location;
-    if (isEmpty(this.props.userEvent.events)) {
-      content = (
-        <div className="emptyEvent img-fluid text-center ml-2 mt-3 pt-2">
-          <span>
-            <p className="display-3">No Event Booked Yet</p>
-          </span>
-        </div>
-      );
-    } else {
-      legend = (
-        <div className="row center">
-          <span className="legend">
-            Approved Booking: <i className="fa fa-thumbs-up green" />
-          </span>
-          <span className="legend">
-            Edit Booking: ...<i className="fa fa-pencil main-color" />
-          </span>
-          <span className="legend">
-            Delete Booking: <i className="fa fa-trash trash" />
-          </span>
-        </div>
-      );
-      const eventsArray = this.props.userEvent.events;
-      content = _.map(eventsArray, (bookedEvent, index) => {
-        const {
-          centerName,
-          capacity,
-          location,
-          facilities,
-          imageUrl
-        } = bookedEvent.Center;
-        let eStatus;
-        if (bookedEvent.isApproved) {
-          eStatus = <i className="fa fa-thumbs-up green float-left" />;
-        } else {
-          eStatus = <i className="fa fa-spinner main-color float-left" />;
-        }
-        eventId = `eventDetails${index}`;
-        editEventId = `eventDetails${index}`;
-        form = `form${index}`;
-        let dateBooked = `date${index}`;
-        return (
-          <div className="center" key={index}>
-            <div key={eventId} className="text-center">
-              <div className="card p-1 mb-3 mw">
-                <div id={index} className="grid-view">
-                  <span>{eStatus}</span>
-                  <img className="img m-auto" src={imageUrl} />
-                  <h2>
-                    <span className="media-heading" id={index}>
-                      <Link
-                        to="/modify-event"
-                        id={bookedEvent.id}
-                        onClick={this.onClick.bind(this)}
-                      >
-                        {bookedEvent.eventTitle}
-                      </Link>
-                    </span>
-                  </h2>
-                </div>
-                {/* <div id={eventId} hidden>
-                  <div className="media-body">
-                    <h3>
-                      <span>Date: </span> {bookedEvent.bookedDate}
-                    </h3>
-                    <h3>
-                      <span>Center: </span> {centerName}
-                    </h3>
-                    <h3>
-                      <span>Capacity: </span> {capacity}
-                    </h3>
-                    <h3>
-                      <span>Location: </span> {location}
-                    </h3>
-                    <h3>
-                      <span>facilities: </span> {facilities}
-                    </h3>
-                    <h3>
-                      <span>Event description: </span> {bookedEvent.description}
-                    </h3>
-                  </div>
-                </div> */}
-                <span>
-                  <Link
-                    to="/modify-event"
-                    id={bookedEvent.id}
-                    onClick={this.onClick.bind(this)}
-                    className="float-left"
-                  >
-                    ...<i className="fa fa-pencil" />
-                  </Link>
-                  <i
-                    id={event.id}
-                    className="fa fa-trash trash float-right"
-                    onClick={this.onDelete.bind(this)}
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                  />
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      });
-    }
-    const recentActivity = activities.map((activity, index) => {
-      const creationDate = activity.createdAt
-        .replace(/-/g, '/')
-        .replace('Z', '')
-        .replace('T', ' ')
-        .slice(0, 16);
-      return (
-        <div className="row card p-1 mb-1" key={index}>
-          <span>
-            <p
-              className="activity-font mb-0 p-1"
-              onClick={this.onClick.bind(this)}
-              id={activity.eventId}
-            >
-              {creationDate}
-              <br />
-              {activity.description}
-            </p>
-          </span>
-        </div>
-      );
-    });
+    const { activities } = this.props.activity;
+    const { message } = this.props.userEvent;
     return (
       <div id="dashboard">
         <Navbar />
@@ -275,19 +172,25 @@ export class Dashboard extends React.Component {
                 <hr />
               </div>
               <div className="row">
-                {legend}
-                <div className="row">
-                  {content}
+                <DashboardContent
+                  userEvent={this.props.userEvent}
+                  counter={this.state.counter}
+                  onClick={this.onClick}
+                  onDelete={this.onDelete}
+                  nextEvents={this.nextEvents}
+                />
                   <DeleteModal path={pathname} />
                   <Modal message={this.props.userEvent.message} />
-                </div>
               </div>
             </div>
             <div className="col-lg-3 col3-bg">
               <div className="p-4 fw">
                 <h2>Notifications</h2>
               </div>
-              {recentActivity}
+              <DashboardNotifications 
+                activities={activities}
+                onClick={this.onClick}
+              />
             </div>
           </div>
         </div>

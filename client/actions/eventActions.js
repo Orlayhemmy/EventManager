@@ -31,12 +31,13 @@ export function createEvent(data) {
 
 /**
  * @returns {object} list of events
+ * @param {object} data
  */
-export function getEvents() {
+export function getEvents(data) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENTS });
     return axios
-      .get('/api/v1/userEvents')
+      .get(`/api/v1/userEvents/${data}`)
       .then((response) => {
         const { status } = response;
         const { events } = response.data;

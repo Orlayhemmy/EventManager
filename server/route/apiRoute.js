@@ -53,7 +53,8 @@ router
   .route('/approveEvent/:id')
   .put(authAdminToken, eventController.approveEvent);
 
-router.route('/userEvents').get(authToken, eventController.getUserEvents);
+router.route('/userEvents/:id')
+  .get(authToken, eventController.getUserEvents);
 
 router
   .route('/events/:id')
