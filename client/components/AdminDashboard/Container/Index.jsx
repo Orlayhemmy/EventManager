@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminContent from '../Template/Content/AdminContent';
 import Navbar from '../../Navbar/Index';
-import Footer from '../../Footer/Index';
+import Footer from '../../Footer/Container/Index';
 /**
  * @memberof AdminDashMethod
  * @method render
@@ -12,9 +12,7 @@ export default class AdminDashMethod extends React.Component {
     return (
       <div id="center-page">
         <Navbar />
-        <div className="container">
-          <AdminContent pathname={pathname}/>
-        </div>
+        <AdminContent pathname={pathname}/>
         <Footer />
       </div>
     )

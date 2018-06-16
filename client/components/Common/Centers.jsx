@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link, Redirect, browserHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import DeleteModal from '../Modal/deleteModal';
+import DeleteModal from '../Modal/Container/deleteModal';
 import { getAdminActivity } from '../../actions/adminActivityActions';
 import { getCenters } from '../../actions/centerActions';
 

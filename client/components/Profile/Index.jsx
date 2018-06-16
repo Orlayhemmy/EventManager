@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '../../common/textField3';
 import Navbar from '../Navbar/Index.jsx';
-import Footer from '../Footer/Index';
+import Footer from '../Footer/Container/Index';
 import UploadImage from '../ImageUpload/imageUpload';
 import { updateUserValidation } from '../../shared/userValidation';
 import {
@@ -397,10 +397,13 @@ const mapStateToProps = state => ({
 });
 Profile.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  uploadUserImage,
-  checkPassword,
-  getUser,
-  eventBooked,
-  logout
-})(Profile);
+export default connect(
+  mapStateToProps,
+  {
+    uploadUserImage,
+    checkPassword,
+    getUser,
+    eventBooked,
+    logout
+  }
+)(Profile);

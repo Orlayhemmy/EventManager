@@ -88,12 +88,15 @@ export function getCenterEvents(id) {
 }
 
 /**
- * @param {object} event
+ * @param {object} eventId
+ * @param {object} centerId
  * @returns {object} current event
  */
-export function setCurrentEvent(event) {
+export function setCurrentEvent(eventId, centerId) {
   return (dispatch) => {
-    dispatch({ type: actionTypes.SET_CURRENT_EVENT, payload: event });
+    localStorage.setItem('event', eventId);
+    localStorage.setItem('centerId', centerId);
+    dispatch({ type: actionTypes.SET_CURRENT_EVENT, payload: eventId });
   };
 }
 
@@ -102,7 +105,8 @@ export function setCurrentEvent(event) {
  * @param {object} tag
  * @returns {object} an event
  */
-export function getEventSelected(id) {
+export function getEventSelected() {
+  const id = localStorage.getItem('event');
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENT });
     return axios

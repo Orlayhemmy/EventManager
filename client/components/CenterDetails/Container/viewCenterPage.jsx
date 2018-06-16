@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from '../../Navbar/Index.jsx';
 import Content from '../Template/Content/centerDetailsContent';
-import Footer from '../../Footer/Index';
+import Footer from '../../Footer/Container/Index';
 import { logout } from '../../../actions/userActions';
 
 /**

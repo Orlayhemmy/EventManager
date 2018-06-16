@@ -29,7 +29,12 @@ export default class CenterController {
       btwValue,
       page
     } = req.query;
-    const skip = page * 5;
+    let skip;
+    if (!page) {
+      skip = 0;
+    } else {
+      skip = page * 5;
+    }
     // get centers
     Centers.findAll({
       where: {

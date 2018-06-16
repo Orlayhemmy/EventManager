@@ -30,7 +30,7 @@ export default class Content extends React.Component {
           </div>
         );
         const eventsArray = this.props.userEvent.events;
-        content = _.map(eventsArray, (bookedEvent, index) => {
+        content = eventsArray.map((bookedEvent, index) => {
           const {
             centerName,
             capacity,
@@ -56,7 +56,7 @@ export default class Content extends React.Component {
                     <span>{eStatus}</span>
                     <img className="img m-auto" src={imageUrl} />
                     <h2>
-                      <span className="media-heading" id={index}>
+                      <span className="media-heading" id={bookedEvent.centerId}>
                         <Link
                           to="/modify-event"
                           id={bookedEvent.id}

@@ -8,9 +8,9 @@ import {
   updateUserDetails,
   wrongCode,
   sendMail
-} from '../../actions/userActions';
-import { recoverPassword, updateUser } from '../../shared/userValidation';
-import TextField from '../../common/textField3';
+} from '../../../../actions/userActions';
+import { recoverPassword, updateUser } from '../../../../shared/userValidation';
+import TextField from '../../../../common/textField3';
 
 /**
  * @description PasswordRecoveryForm component

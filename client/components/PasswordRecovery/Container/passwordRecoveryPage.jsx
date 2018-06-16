@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../Navbar/Index';
-import Footer from '../Footer/Index';
-import Form from './recoveryForm';
+import Navbar from '../../Navbar/Index';
+import Footer from '../../Footer/Container/Index';
+import Form from '../Template/Form/recoveryForm';
 
 /**
  * @description PasswordRecovery component
@@ -19,17 +19,17 @@ export default class PasswordRecovery extends React.Component {
         <Navbar />
         <div className="container">
           <div className="row">
-          <div className="col-lg-4">
-            <div className="form-outer text-center">
-              <div className="form-inner">
-                <Form />
+            <div className="col-lg-4">
+              <div className="form-outer text-center">
+                <div className="form-inner">
+                  <Form />
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
         <Footer />
       </div>
-    )
+    );
   }
 }

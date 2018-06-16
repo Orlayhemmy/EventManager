@@ -1,20 +1,16 @@
 /* eslint disable */
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert';
-import { getEvents, getEventSelected } from '../../../actions/eventActions';
-import EventForm from '../../EventPage/editEventForm';
+import { getEvents, setCurrentEvent } from '../../../actions/eventActions';
+import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Index';
-import Footer from '../../Footer/Index';
-import DeleteModal from '../../Modal/deleteModal';
-import {
-  getCenterSelected,
-  clearCenterStorage
-} from '../../../actions/centerActions';
-import Modal from '../../Flash/modal';
+import Footer from '../../Footer/Container/Index';
+import DeleteModal from '../../Modal/Container/deleteModal';
+import { clearCenterStorage } from '../../../actions/centerActions';
+import Modal from '../../Flash/Container/modal';
 import { logout } from '../../../actions/userActions';
 import { getActivity } from '../../../actions/activityActions';
 import DashboardContent from '../Template/Content/UserEvents';
@@ -53,28 +49,7 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   onClick(e) {
-    this.props.getCenterSelected(e.target.parentNode.id);
-    this.props.getEventSelected(e.target.id);
-  }
-  /**
-   * @memberof Dashboard
-   * @method getId
-   * @description it calls an action
-   * @param {object} event
-   * @returns {void}
-   */
-  getId(e) {
-    this.props.eventSelected(e.target.id);
-  }
-  /**
-   * @memberof Dashboard
-   * @method getCenter
-   * @description it calls an action
-   * @param {String} id
-   * @returns {void}
-   */
-  getCenter(id) {
-    this.props.centerSelected(id);
+    this.props.setCurrentEvent(e.target.id, e.target.parentNode.id);
   }
   /**
    * @memberof Dashboard
@@ -151,6 +126,7 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
+    const { status } = this.props.userEvent;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
@@ -204,9 +180,8 @@ const propTypes = {
   userEvent: PropTypes.object.isRequired,
   activity: PropTypes.object.isRequired,
   getEvents: PropTypes.func.isRequired,
-  getEventSelected: PropTypes.func.isRequired,
   clearCenterStorage: PropTypes.func.isRequired,
-  getCenterSelected: PropTypes.func.isRequired,
+  setCurrentEvent: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired
 };
@@ -218,10 +193,9 @@ const mapStateToProps = state => ({
 Dashboard.propTypes = propTypes;
 
 export default connect(mapStateToProps, {
-  getCenterSelected,
+  setCurrentEvent,
   logout,
   getEvents,
-  getEventSelected,
   getActivity,
   clearCenterStorage
 })(Dashboard);
