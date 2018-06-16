@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import {
   getCenterSelected,
   modifyCenter  
@@ -11,10 +12,10 @@ import {
   deleteCenterEvent,
   getCenterEvents
 } from '../../../../actions/eventActions';
-import ModalContent from '../../../Modal/modalContent';
+import ModalContent from '../../../Modal/Container/modalContent';
 import CenterForm from '../Form/addCenterForm';
-import DeleteModal from '../../../Modal/deleteModal';
-import Modal from '../../../Flash/modal';
+import DeleteModal from '../../../Modal/Container/deleteModal';
+import Modal from '../../../Flash/Container/modal';
 import UploadImage from '../../../ImageUpload/imageUpload';
 
 /**

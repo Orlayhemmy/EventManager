@@ -15,7 +15,6 @@ export default class ImageUpload extends React.Component {
    */
   render() {
     return (
-      <div>
         <div>
           {this.props.uploadedImage === '' || !this.props.uploadedImage ? (
             <div className="imageUpload">
@@ -46,7 +45,6 @@ export default class ImageUpload extends React.Component {
             </div>
           )}
         </div>
-      </div>
     );
   }
 }

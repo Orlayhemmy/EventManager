@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CenterForm from '../Template/Form/addCenterForm';
 import Navbar from '../../Navbar/Index.jsx';
-import Footer from '../../Footer/Index';
+import Footer from '../../Footer/Container/Index';
 
 /**
  * @description AddCenterPage component

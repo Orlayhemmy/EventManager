@@ -89,12 +89,16 @@ export function viewCenterSelected(center) {
   };
 }
 /**
- * @param {object} id
- * @param {object} tag
+ * @param {object} data
  * @returns {object} current center
  */
-export function getCenterSelected() {
-  const id = localStorage.getItem('centerId');
+export function getCenterSelected(data) {
+  let id;
+  if (data) {
+    id = data;
+  } else {
+    id = localStorage.getItem('centerId');
+  }
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER });
     return axios

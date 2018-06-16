@@ -15,12 +15,12 @@ import CentersPage from './components/GuestCenters/Container/centersPage';
 import AboutPage from './components/AboutPage/Index';
 import AdminPanelPage from './components/AdminDashboard/Container/Index';
 import AddCenterPage from './components/CenterDetails/Container/addCenterPage';
-import AddEvent from './components/EventPage/addEventPage';
-import ModifyEvent from './components/EventPage/modifyEventPage';
+import AddEvent from './components/EventPage/Container/addEventPage';
+import ModifyEvent from './components/EventPage/Container/modifyEventPage';
 import ViewCenter from './components/CenterDetails/Container/viewCenterPage';
 import UserPanel from './components/Dashboard/Index';
 import setAuthToken from './utils/setAuthorizationToken';
-import PasswordRecovery from './components/PasswordRecovery/passwordRecoveryPage';
+import PasswordRecovery from './components/PasswordRecovery/Container/passwordRecoveryPage';
 import Profile from './components/Profile/Index';
 import { setCurrentUser } from './actions/userActions';
 import { setCurrentEvent } from './actions/eventActions';
@@ -31,12 +31,6 @@ import Image from './components/ImageUpload/imageUpload';
 if (localStorage.jwtToken) {
   setAuthToken(localStorage.jwtToken);
   store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
-}
-if (localStorage.event) {
-  store.dispatch(setCurrentEvent(jwt.decode(localStorage.event)));
-}
-if (localStorage.center) {
-  store.dispatch(setCurrentCenter(jwt.decode(localStorage.center)));
 }
 //put component into html page
 ReactDOM.render(

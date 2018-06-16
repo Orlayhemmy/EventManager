@@ -73,8 +73,8 @@ export default class SearchForm extends React.Component {
             className="form-control"
             hidden
           />
-          <button className="btn btn-success">
-            <i className="fa fa-search" onClick={this.props.search}>
+          <button className="btn btn-success" onClick={this.props.search}>
+            <i className="fa fa-search">
               {' '}
               Search
             </i>

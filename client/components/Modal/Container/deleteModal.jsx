@@ -5,9 +5,9 @@ import {
   deleteCenterEvent,
   deleteEvent,
   clearEventState
-} from '../../actions/eventActions';
-import { deleteCenter } from '../../actions/centerActions';
-import { getUserEmail } from '../../actions/userActions';
+} from '../../../actions/eventActions';
+import { deleteCenter } from '../../../actions/centerActions';
+import { getUserEmail } from '../../../actions/userActions';
 
 /**
  * @description DeleteModal component

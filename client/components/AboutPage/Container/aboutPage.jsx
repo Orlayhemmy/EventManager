@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../Navbar/Index.jsx';
 import Content from '../Template/aboutPageContent';
-import Footer from '../../Footer/Index';
+import Footer from '../../Footer/Container/Index';
 
 export default class AboutPage extends React.Component {
   render() {
