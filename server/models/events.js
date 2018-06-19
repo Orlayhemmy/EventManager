@@ -10,8 +10,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     bookedDate: {
-      type: DataTypes.DATEONLY,
-      unique: true,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     description: {

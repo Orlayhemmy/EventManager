@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 import Content from '../Template/Content/eventContent';
 import Navbar from '../../Navbar/Index';
 import Footer from '../../Footer/Container/Index';
 import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { modifyEventValidation } from '../../../shared/eventValidations';
-import { modifyEvent, getEventSelected } from '../../../actions/eventActions';
+import { modifyEvent, getEventSelected, checkAvailableDate } from '../../../actions/eventActions';
 
 
 
@@ -34,6 +35,8 @@ export class ModifyEventPage extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
+    this.checkDate = this.checkDate.bind(this);
+    this.removeDate = this.removeDate.bind(this);
   }
   /**
   * @memberof AddEventForm
@@ -41,15 +44,32 @@ export class ModifyEventPage extends React.Component {
   * @description it sets user input to state
   * @param {object} event
   */
- onChange(e) {
-   this.setState({
-     [e.target.id]: e.target.value
-   });
-   if (e.target.id === 'centerId') {
-     this.state.centerId = e.target.value;
-     this.props.getCenterSelected(e.target.value, 'tag');
-   }
- }
+  onChange(e) {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+    if (e.target.id === 'centerId') {
+      this.state.centerId = e.target.value;
+      this.props.getCenterSelected(e.target.value, 'tag');
+    }
+  }
+
+  removeDate(data) {
+    const { dateArray } = this.state;
+    const dataIndex = dateArray.indexOf(data);
+    dateArray.splice(dataIndex, 1);
+  }
+  /**
+    * @memberof AddEventForm
+    * @method checkDate
+    * @param {object} event
+    */
+  checkDate(e) {
+    e.preventDefault();
+    if (this.state.bookedDate && this.state.centerId) {
+      this.props.checkAvailableDate(this.state);
+    }
+  }
 
  /**
   * @memberof EditEventForm
@@ -64,13 +84,14 @@ export class ModifyEventPage extends React.Component {
        description,
        eventTitle,
        bookedDate,
+       dateArray,
        centerId,
        centerName
      } = nextProps.userEvent.event;
 
      this.setState({
        eventTitle: eventTitle || '',
-       bookedDate: bookedDate || '',
+       dateArray: bookedDate || '',
        description: description || '',
        centerName: centerName || '',
        centerId: centerId || '',
@@ -139,7 +160,10 @@ export class ModifyEventPage extends React.Component {
     if (this.props.center.status === 401) {
       this.logout();
     }
-
+    if(this.props.userEvent.status === 202) {
+      swal(this.props.userEvent.message);
+      return <Redirect to="/dashboard" />;
+    }
     const { pathname } = this.props.location;
     return (
       <div>
@@ -149,6 +173,8 @@ export class ModifyEventPage extends React.Component {
           eventState={this.state}
           onFormChange={this.onChange}
           onFormSubmit={this.onSubmit}
+          checkDate={this.checkDate}
+          removeDate={this.removeDate}
         />
         <Footer />
       </div>
@@ -161,7 +187,8 @@ const propTypes = {
   center: PropTypes.object.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
   modifyEvent: PropTypes.func.isRequired,
-  getEventSelected: PropTypes.func.isRequired
+  getEventSelected: PropTypes.func.isRequired,
+  checkAvailableDate: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -174,5 +201,6 @@ export default connect(mapStateToProps, {
   logout,
   getCenterSelected,
   modifyEvent,
-  getEventSelected
+  getEventSelected,
+  checkAvailableDate
 })(ModifyEventPage);

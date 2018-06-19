@@ -71,7 +71,6 @@ export function validateSigninInput(data) {
   if (validator.isEmpty(loginPassword)) {
     errors.loginPassword = 'password is required';
   }
-  console.log(data)
   return { errors, isValid: isEmpty(errors) };
 }
 

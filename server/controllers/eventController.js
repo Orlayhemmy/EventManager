@@ -182,51 +182,30 @@ export default class EventController {
    */
   static postEvent(req, res) {
     const {
-      eventTitle, centerId, description, bookedDate
+      eventTitle, centerId, description, dateArray
     } = req.body;
     const { id } = req.decoded;
 
-    // query db
-    Events.findOne({
-      where: {
-        centerId,
-        bookedDate
-      }
+    return Events.create({
+      eventTitle,
+      description,
+      bookedDate: dateArray,
+      centerId,
+      userId: id
     })
-      .then((event) => {
-        if (event) {
-          return res.status(409).send({
-            message:
-              'The date chosen is booked, Please select another day or center'
-          });
-        }
-        return Events.create({
-          eventTitle,
-          description,
-          bookedDate,
-          centerId,
-          userId: id
-        })
-          .then((bookedEvent) => {
-            setEventActivity(req, res);
-            notifyAdmin(req, res);
-            res.status(201).send({
-              message: 'Event booked Successfully',
-              bookedEvent
-            });
-          })
-          .catch(error =>
-            res.status(500).send({
-              err: 'Error',
-              message: error.message
-            }));
+      .then((bookedEvent) => {
+        setEventActivity(req, res);
+        notifyAdmin(req, res);
+        res.status(201).send({
+          message: 'Event booked Successfully',
+          bookedEvent
+        });
       })
-      .catch((error) => {
+      .catch(error =>
         res.status(500).send({
           err: 'Error',
           message: error.message
-        });
-      });
+        }));
   }
 
   /**
@@ -239,74 +218,33 @@ export default class EventController {
    */
   static updateEvent(req, res) {
     const {
-      eventTitle, description, bookedDate, centerId
+      eventTitle, description, dateArray, centerId
     } = req.body;
     const { id } = req.params;
     // find the requested event
     Events.findById(id).then((event) => {
-      if (event) {
-        Events.findOne({
-          where: {
-            bookedDate,
-            centerId
-          }
+      return event
+        .update({
+          eventTitle: eventTitle || event.eventTitle,
+          bookedDate: dateArray || event.bookedDate,
+          description: description || event.description,
+          centerId: centerId || event.centerId
         })
-          .then((events) => {
-            if (events) {
-              if (events.id === event.id) {
-                return events
-                  .update({
-                    eventTitle: eventTitle || events.eventTitle,
-                    bookedDate: bookedDate || events.bookedDate,
-                    description: description || events.description,
-                    centerId: centerId || events.centerId
-                  })
-                  .then(() =>
-                    res.status(200).send({
-                      message: 'Changes Applied',
-                      event
-                    }))
-                  .catch(error =>
-                    res.status(500).send({
-                      message: error.message
-                    }));
-              }
-              return res.status(409).send({
-                message:
-                  'The date is not available, choose another day or center'
-              });
-            }
-
+        .then(() =>
+          res.status(202).send({
+            message: 'Changes Applied',
             event
-              .update({
-                eventTitle: eventTitle || Events.eventTitle,
-                bookedDate: bookedDate || Events.bookedDate,
-                description: description || Events.description,
-                centerId: centerId || Events.centerId
-              })
-              .then(() =>
-                res.status(200).send({
-                  message: 'Changes Applied',
-                  event
-                }))
-              .catch(error =>
-                res.status(500).send({
-                  err: 'Error',
-                  message: error.message
-                }));
-          })
-          .catch(error =>
-            res.status(500).send({
-              err: 'Error',
-              message: error.message
-            }));
-      } else {
-        return res.status(404).send({
+          }))
+        .catch(error =>
+          res.status(500).send({
+            message: error.message
+          }));
+    })
+      .catch(error =>
+        res.status(500).send({
           err: 'Error',
-          message: 'Event does not exist'
-        });
-      }
-    });
+          message: error.message
+        }));
   }
 
   /**
@@ -328,7 +266,7 @@ export default class EventController {
             })
             .then(() => {
               notifyUser(req, res, event.userId);
-              res.status(200).send({
+              res.status(202).send({
                 message: 'Event Approved'
               });
             })
@@ -405,6 +343,42 @@ export default class EventController {
         res.status(200).send({
           message: 'Events found',
           eventBookedCount
+        });
+      })
+      .catch(err =>
+        res.status(500).send({
+          err: 'Error',
+          message: err.message
+        }));
+  }
+  /**
+   * @param  {object} req
+   * @param  {object} res
+   * @returns {object} true or false
+   * @memberof EventController
+   */
+  static checkEventDate(req, res) {
+    const { bookedDate, centerId } = req.body;
+    // query db
+    Events.findOne({
+      where: {
+        bookedDate: {
+          $contains: [bookedDate]
+        },
+        centerId
+      }
+    })
+      .then((event) => {
+        if (event) {
+          return res.status(409).send({
+            isAvailable: false,
+            message:
+            'The date chosen is booked, Please select another day or center'
+          });
+        }
+        return res.status(200).send({
+          isAvailable: true,
+          message: 'Date is available'
         });
       })
       .catch(err =>

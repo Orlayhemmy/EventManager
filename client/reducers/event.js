@@ -120,13 +120,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { status, data: { message } } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 200
+        status,
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT: {
@@ -231,7 +231,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         status: '',
-        message: ''
+        message: '',
+        isAvailable: ''
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT: {
@@ -260,6 +261,36 @@ export default (state = initialState, action) => {
         ...state,
         error: message,
         status
+      };
+    }
+    case actionTypes.CHECK_DATE: {
+      return {
+        ...state,
+        loading: true,
+        message: '',
+        status: '',
+        isAvailable: '',
+        error: '',
+      };
+    }
+    case actionTypes.CHECK_DATE_FAILS: {
+      const { status, data: { message } } = action.payload;
+      return {
+        ...state,
+        error: message,
+        status,
+        isAvailable: false
+      };
+    }
+    case actionTypes.CHECK_DATE_SUCCESS: {
+      const { status, data: { message, isAvailable } } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message,
+        isAvailable,
+        status,
       };
     }
     default:

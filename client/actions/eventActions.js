@@ -139,7 +139,7 @@ export function modifyCenterEvent(data) {
       .then((response) => {
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
         // dispatch(setActivity(data));
         dispatch(getCenterEvents(centerId));
@@ -166,7 +166,7 @@ export function modifyEvent(id, data) {
       .then((response) => {
         dispatch({
           type: actionTypes.MODIFY_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
@@ -283,6 +283,30 @@ export function dateJoined(id) {
         dispatch({
           type: actionTypes.DATE_JOINED_FAILS,
           payload: err.response.data
+        });
+      });
+  };
+}
+
+/**
+ * @param {object} data
+ * @returns {object} true or false
+ */
+export function checkAvailableDate(data) {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CHECK_DATE });
+    return axios
+      .post('/api/v1/checkDate', data)
+      .then((response) => {
+        dispatch({
+          type: actionTypes.CHECK_DATE_SUCCESS,
+          payload: response
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.CHECK_DATE_FAILS,
+          payload: err.response
         });
       });
   };
