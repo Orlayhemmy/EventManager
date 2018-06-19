@@ -47,9 +47,7 @@ export default class Validation {
     // validations for bookedDate
     if (dateArray) {
       dateArray.map((date) => {
-        console.log(date, '###################');
         if (!validator.toDate(date)) {
-          console.log('@@@@@@@@@@@@@@@@@@@@@@@', !validator.toDate(date));
           errors.dateArray = 'Invalid Date';
         }
         return errors.dateArray;

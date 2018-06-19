@@ -284,7 +284,6 @@ describe('test for post, update, get and delete event processes', () => {
         })
         .expect(201)
         .end((err, res) => {
-          console.log(res.body)
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).to.deep.equal('Event booked Successfully');
