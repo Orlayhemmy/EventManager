@@ -48,7 +48,7 @@ export function modifyEventValidation(data) {
  */
 export function addEventValidation(data) {
   const {
-    eventTitle, bookedDate, description, centerId
+    eventTitle, dateArray, description, centerId, bookedDate
   } = data;
   const errors = {};
 
@@ -66,14 +66,11 @@ export function addEventValidation(data) {
     errors.eventTitle = 'event Name cannot be blank';
   }
 
-  // validations for bookedDate
-  if (!validator.isEmpty(bookedDate)) {
-    if (!validator.toDate(bookedDate)) {
-      errors.bookedDate = bookedDate;
-    }
-  } else {
-    errors.bookedDate = 'please select a date for your event';
-  }
+  // // validations for bookedDate
+  // if (!validator.isEmpty(dateArray)) {
+  //   console.log('@@@@@@@@@@@@@@@@@@@@@@@@')
+  //   errors.bookedDate = 'please select a date for your event';
+  // }
 
   // validations for description
   if (!validator.isEmpty(description)) {

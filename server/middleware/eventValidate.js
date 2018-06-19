@@ -44,14 +44,14 @@ export default class Validation {
       errors.eventTitle = 'Event Name cannot be blank';
     }
 
-    // validations for bookedDate
-    if (!validator.isEmpty(bookedDate)) {
-      if (!validator.toDate(bookedDate)) {
-        errors.bookedDate = 'Invalid Date';
-      }
-    } else {
-      errors.bookedDate = 'Date cannot be empty';
-    }
+    // // validations for bookedDate
+    // if (!validator.isEmpty(bookedDate)) {
+    //   if (!validator.toDate(bookedDate)) {
+    //     errors.bookedDate = 'Invalid Date';
+    //   }
+    // } else {
+    //   errors.bookedDate = 'Date cannot be empty';
+    // }
 
     // validations for description
     if (!validator.isEmpty(description)) {

@@ -20,7 +20,7 @@ module.exports = {
         defaultValue: false,
       },
       bookedDate: {
-        type: Sequelize.DATEONLY,
+        type: Sequelize.ARRAY(Sequelize.STRING),
         allowNull: false,
       },
       userId: {

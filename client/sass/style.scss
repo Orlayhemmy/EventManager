@@ -170,6 +170,11 @@
     text-align: center;
     text-transform: capitalize;
   }
+  .date-button {
+    max-width: 80px;
+    min-height: 37px;
+    border-radius: 3px;
+  }
 }
 #center-search {
   select {

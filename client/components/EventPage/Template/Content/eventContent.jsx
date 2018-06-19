@@ -8,7 +8,7 @@ import {
   getCenterSelected,
   clearCenterStorage
 } from '../../../../actions/centerActions';
-import { getEventSelected } from '../../../../actions/eventActions';
+import { getEventSelected, checkAvailableDate } from '../../../../actions/eventActions';
 import AddEventForm from '../Form/addEventForm';
 import EditEventForm from '../Form/editEventForm';
 import Modal from '../../../Flash/Container/modal';
@@ -37,6 +37,7 @@ export class Event extends React.Component {
     this.search = this.search.bind(this);
     this.onChange = this.onChange.bind(this);
     this.isValid = this.isValid.bind(this);
+    // this.checkDate = this.checkDate.bind(this);
   }
     /**
    * @memberof AdminDashMethod
@@ -84,12 +85,22 @@ export class Event extends React.Component {
     }
   }
   /**
+  // * @memberof AddEventForm
+  // * @method checkDate
+  // * @param {object} event
+  // */
+  checkDate(e) {
+    e.preventDefault();
+    this.props.checkAvailableDate(this.state);
+  }
+  /**
    * @memberof EditEventForm
    * @method componentDidUpdate
    * @description it calls a script
    * @returns {void}
    */
   componentDidUpdate() {
+    let dateCounter;
     let date = new Date();
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
@@ -169,6 +180,8 @@ export class Event extends React.Component {
         criteria={this.state}
         onFormChange={this.props.onFormChange}
         onFormSubmit={this.props.onFormSubmit}
+        checkDate={this.props.checkDate}
+        removeDate={this.props.removeDate}
       />;
     } else {
       content = <AddEventForm
@@ -178,6 +191,8 @@ export class Event extends React.Component {
         criteria={this.state}
         onFormChange={this.props.onFormChange}
         onFormSubmit={this.props.onFormSubmit}
+        checkDate={this.props.checkDate}
+        removeDate={this.props.removeDate}
       />;
     }
     return (
@@ -192,7 +207,7 @@ export class Event extends React.Component {
                 lets make your <strong className="text-primary">event</strong> a
                 memorable one
               </div>
-              <hr />
+              <hr className="mb-0"/>
               {content}
             </div>
             <span data-toggle="modal" data-target="#event">
@@ -211,7 +226,8 @@ const propTypes = {
   clearCenterStorage: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   eventCenter: PropTypes.object.isRequired,
-  userEvent: PropTypes.object.isRequired
+  userEvent: PropTypes.object.isRequired,
+  checkAvailableDate: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -224,5 +240,6 @@ export default connect(mapStateToProps, {
   getCenters,
   getCenterSelected,
   clearCenterStorage,
-  getEventSelected
+  getEventSelected,
+  checkAvailableDate
 })(Event);

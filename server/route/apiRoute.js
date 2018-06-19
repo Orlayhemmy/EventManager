@@ -87,5 +87,8 @@ router
   .get(authToken, eventController.getEventBookedCount);
 
 router.route('/shortcode').get(shortCode);
+router
+  .route('/checkDate')
+  .post(authToken, eventController.checkEventDate);
 // Return router
 export default router;

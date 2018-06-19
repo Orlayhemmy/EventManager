@@ -199,7 +199,7 @@ export default class CenterController {
               capacity: capacity || center.capacity,
               imageUrl: imageUrl || center.imageUrl
             })
-            .then(() => res.status(200).send({
+            .then(() => res.status(202).send({
               message: 'Successfully updated center'
             }))
             .catch(error =>
@@ -267,7 +267,7 @@ export default class CenterController {
               status: false
             })
             .then(() =>
-              res.status(200).send({
+              res.status(202).send({
                 message: 'ok'
               }));
         }

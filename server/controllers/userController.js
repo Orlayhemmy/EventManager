@@ -210,7 +210,7 @@ export default class UserController {
             .then((updatedUser) => {
               const token = generateToken(updatedUser);
               req.body.token = token;
-              return res.status(200).send({
+              return res.status(202).send({
                 token,
                 message: 'Changes Applied Successfully'
               });

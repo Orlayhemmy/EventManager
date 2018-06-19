@@ -5,7 +5,6 @@ import UserNavbar from './UserContent/UserNavbar';
 export default class DefaultNavbar extends React.Component {
 
   render() {
-    console.log(this.props)
     const { isAdmin } = this.props.navbarProps.auth.user;
     return (
       <div>

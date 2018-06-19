@@ -164,7 +164,7 @@ export function modifyCenter(data, centerId) {
       .then((response) => {
         dispatch({
           type: actionTypes.MODIFY_CENTER_SUCCESS,
-          payload: response.data
+          payload: response
         });
         dispatch(getCenterSelected(centerId));
       })
