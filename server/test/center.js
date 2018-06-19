@@ -196,7 +196,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           capacity: '500',
           imageUrl: 'https://wwww.image.com/centerImage'
         })
-        .expect(200)
+        .expect(202)
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body).deep.equal({

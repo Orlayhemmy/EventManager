@@ -53,14 +53,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_FAIL: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
-      const { centers } = action.payload;
+      const { centers } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -83,14 +83,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.GET_CENTER_SUCCESS: {
-      const { center } = action.payload;
+      const { center } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -106,7 +106,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -115,13 +115,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 200
+        status
       };
     }
     case actionTypes.DELETE_CENTER: {
@@ -132,19 +132,19 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 200,
+        status,
         message
       };
     }
@@ -157,19 +157,19 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_CENTER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.ADD_CENTER_SUCCESS: {
-      const { center } = action.payload;
+      const { data: { center }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 201,
+        status,
         center
       };
     }
@@ -181,7 +181,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_IMAGE_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
@@ -210,7 +210,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.CENTER_STATUS_UPDATE_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
