@@ -17,12 +17,12 @@ export default class Validation {
    */
   static postEvent(req, res, next) {
     const {
-      eventTitle, bookedDate, description, centerId
+      eventTitle, dateArray, description, centerId
     } = req.body;
     const errors = {};
     if (
       eventTitle === undefined ||
-      bookedDate === undefined ||
+      dateArray === undefined ||
       description === undefined ||
       centerId === undefined
     ) {
@@ -44,15 +44,17 @@ export default class Validation {
       errors.eventTitle = 'Event Name cannot be blank';
     }
 
-    // // validations for bookedDate
-    // if (!validator.isEmpty(bookedDate)) {
-    //   if (!validator.toDate(bookedDate)) {
-    //     errors.bookedDate = 'Invalid Date';
-    //   }
-    // } else {
-    //   errors.bookedDate = 'Date cannot be empty';
-    // }
-
+    // validations for bookedDate
+    if (dateArray) {
+      dateArray.map((date) => {
+        if (!validator.toDate(date)) {
+          errors.dateArray = 'Invalid Date';
+        }
+        return errors.dateArray;
+      });
+    } else {
+      errors.dateArray = 'Date cannot be empty';
+    }
     // validations for description
     if (!validator.isEmpty(description)) {
       if (!validator.isLength(description, { min: 5, max: 1000 })) {

@@ -45,13 +45,13 @@ export function getCenters(data, page) {
       .then((response) => {
         dispatch({
           type: actionTypes.GET_CENTERS_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.GET_CENTERS_FAIL,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -106,13 +106,13 @@ export function getCenterSelected(data) {
       .then((response) => {
         dispatch({
           type: actionTypes.GET_CENTER_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.GET_CENTER_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -145,7 +145,7 @@ export function addCenter(data) {
       .catch((err) => {
         dispatch({
           type: actionTypes.ADD_CENTER_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -171,7 +171,7 @@ export function modifyCenter(data, centerId) {
       .catch((err) => {
         dispatch({
           type: actionTypes.MODIFY_CENTER_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -189,14 +189,14 @@ export function deleteCenter(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.DELETE_CENTER_SUCCESS,
-          payload: response.data
+          payload: response
         });
         dispatch(getCenters());
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.DELETE_CENTER_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -214,13 +214,13 @@ export function centerStatus(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -239,14 +239,14 @@ export function uploadImage(data, image) {
       .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
       .then((response) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        data.imageUrl = response.data.secure_url;
+        data.imageUrl = response.secure_url;
         dispatch(addCenter(data));
       })
       .catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
         dispatch({
           type: actionTypes.ADD_IMAGE_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };

@@ -80,7 +80,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: '',
             centerId: '1',
             description: 'Come have fun',
-            bookedDate: '12/12/2012'
+            dateArray: '12/12/2012'
           })
           .expect(400)
           .end((err, res) => {
@@ -101,7 +101,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Fun',
               centerId: '1',
               description: 'Come have fun',
-              bookedDate: '12/12/2012'
+              dateArray: '12/12/2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -123,7 +123,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Fun$%dfg',
               centerId: '1',
               description: 'Come have fun',
-              bookedDate: '12/12/2012'
+              dateArray: '12/12/2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -143,7 +143,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Birthday Party',
             centerId: '1',
             description: '',
-            bookedDate: '12/12/2012'
+            dateArray: '12/12/2012'
           })
           .expect(400)
           .end((err, res) => {
@@ -164,7 +164,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Funny Day',
               centerId: '1',
               description: 'Come',
-              bookedDate: '12/12/2012'
+              dateArray: '12/12/2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -186,7 +186,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Fun Day',
               centerId: '1',
               description: 'Come have fun$##',
-              bookedDate: '12/12/2012'
+              dateArray: '12/12/2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -206,7 +206,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Birthday Party',
             centerId: '1',
             description: 'Come and have fun',
-            bookedDate: ''
+            dateArray: ''
           })
           .expect(400)
           .end((err, res) => {
@@ -224,7 +224,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Birthday Party',
             centerId: '1',
             description: 'Come and have fun',
-            bookedDate: '230/34/13243'
+            dateArray: '230/34/13243'
           })
           .expect(400)
           .end((err, res) => {
@@ -242,7 +242,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Birthday Party',
             centerId: '',
             description: 'Come and have fun',
-            bookedDate: '23/12/2012'
+            dateArray: '23/12/2012'
           })
           .expect(400)
           .end((err, res) => {
@@ -260,7 +260,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Birthday Party',
             centerId: 'a',
             description: 'Come and have fun',
-            bookedDate: '23/12/2012'
+            dateArray: '23/12/2012'
           })
           .expect(400)
           .end((err, res) => {
@@ -280,7 +280,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Funny Day',
           centerId: '1',
           description: 'Come and have fun',
-          bookedDate: '2018-04-15'
+          dateArray: ['2018-04-15']
         })
         .expect(201)
         .end((err, res) => {
@@ -296,13 +296,13 @@ describe('test for post, update, get and delete event processes', () => {
   describe('test for unsuccessful event creation', () => {
     it('should return error when event date is already booked', (done) => {
       request
-        .post('/api/v1/events')
+        .post('/api/v1/checkDate')
         .set('x-access-token', userToken)
         .send({
           eventTitle: 'Seminar',
           centerId: '1',
           description: 'Come and be exposed',
-          bookedDate: '2018-04-15'
+          bookedDate: ['2018-04-15']
         })
         .expect(409)
         .end((err, res) => {
@@ -324,7 +324,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Fun',
           centerId: '1',
           description: 'Come have fun',
-          bookedDate: '12/12/2012'
+          dateArray: ['12/12/2012']
         })
         .expect(400)
         .end((err, res) => {
@@ -342,7 +342,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Fun$%dfg',
           centerId: '1',
           description: 'Come have fun',
-          bookedDate: '12/12/2012'
+          dateArray: '12/12/2012'
         })
         .expect(400)
         .end((err, res) => {
@@ -360,7 +360,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Funny Day',
           centerId: '1',
           description: 'Come',
-          bookedDate: '12/12/2012'
+          dateArray: ['12/12/2012']
         })
         .expect(400)
         .end((err, res) => {
@@ -378,7 +378,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Fun Day',
           centerId: '1',
           description: 'Come have fun$##',
-          bookedDate: '12/12/2012'
+          dateArray: ['12/12/2012']
         })
         .expect(400)
         .end((err, res) => {
@@ -388,23 +388,23 @@ describe('test for post, update, get and delete event processes', () => {
         });
     });
 
-    it('should return an error when bookedDate is invalid', () => {
-      request
-        .put('/api/v1/events/1')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Birthday Party',
-          centerId: '1',
-          description: 'Come and have fun',
-          bookedDate: '230/34/13243'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Invalid Date');
-        });
-    });
+    // it('should return an error when bookedDate is invalid', () => {
+    //   request
+    //     .put('/api/v1/events/1')
+    //     .set('x-access-token', userToken)
+    //     .send({
+    //       eventTitle: 'Birthday Party',
+    //       centerId: '1',
+    //       description: 'Come and have fun',
+    //       dateArray: ['230']
+    //     })
+    //     .expect(400)
+    //     .end((err, res) => {
+    //       expect(res.body).to.have.property('message');
+    //       expect(res.body.message).to.not.equal(null);
+    //       expect(res.body.message).to.deep.equal('Invalid Date');
+    //     });
+    // });
   });
 
   describe('test for result on event modification', () => {
@@ -416,7 +416,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Birthday',
           centerId: '1',
           description: 'Come and have fun',
-          bookedDate: '2018-04-15'
+          dateArray: ['2018-04-15']
         })
         .expect(404)
         .end((err, res) => {
@@ -436,9 +436,9 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Funny Day',
           centerId: '1',
           description: 'Come and have fun',
-          bookedDate: '2018-04-15'
+          dateArray: ['2018-04-15']
         })
-        .expect(200)
+        .expect(202)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
@@ -480,7 +480,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return all events booked by the user', (done) => {
       request
-        .get('/api/v1/userEvents')
+        .get('/api/v1/userEvents/0')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {
@@ -510,7 +510,7 @@ describe('test for post, update, get and delete event processes', () => {
       request
         .put('/api/v1/approveEvent/1')
         .set('x-access-token', userToken)
-        .expect(200)
+        .expect(202)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);

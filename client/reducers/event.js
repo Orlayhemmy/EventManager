@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_SUCCESS: {
-      const { events } = action.payload;
+      const { events } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -38,7 +38,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_FAIL: {
-      const { message, status } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         message,
@@ -55,14 +55,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTER_EVENTS_FAIL: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.GET_CENTER_EVENTS_SUCCESS: {
-      const { events } = action.payload;
+      const { events } = action.payload.data;
       const disableDates = events.map(event => event.bookedDate);
       return {
         ...state,
@@ -89,14 +89,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         message
       };
     }
     case actionTypes.GET_EVENT_SUCCESS: {
-      const { event } = action.payload;
+      const { event } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -113,7 +113,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
@@ -138,19 +138,19 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 200,
+        status,
         message
       };
     }
@@ -161,20 +161,20 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.DELETE_CENTER_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 200
+        status
       };
     }
     case actionTypes.ADD_EVENT: {
@@ -186,20 +186,20 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.ADD_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 201
+        status
       };
     }
     case actionTypes.DELETE_EVENT: {
@@ -211,20 +211,20 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_EVENT_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.DELETE_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 200
+        status
       };
     }
     case actionTypes.CLEAR_EVENT_STATE: {
@@ -244,11 +244,11 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS: {
-      const { message, eventBookedCount } = action.payload;
+      const { data: { message, eventBookedCount }, status } = action.payload;
       return {
         ...state,
         message,
-        status: 200,
+        status,
         eventBookedCount
       };
     }

@@ -17,13 +17,13 @@ export function createEvent(data) {
       .then((response) => {
         dispatch({
           type: actionTypes.ADD_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.ADD_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -39,25 +39,15 @@ export function getEvents(data) {
     return axios
       .get(`/api/v1/userEvents/${data}`)
       .then((response) => {
-        const { status } = response;
-        const { events } = response.data;
         dispatch({
           type: actionTypes.GET_EVENTS_SUCCESS,
-          payload: {
-            status,
-            events
-          }
+          payload: response
         });
       })
       .catch((err) => {
-        const { status } = err.response;
-        const { message } = err.response.data;
         dispatch({
           type: actionTypes.GET_EVENTS_FAIL,
-          payload: {
-            status,
-            message
-          }
+          payload: err.response
         });
       });
   };
@@ -75,13 +65,13 @@ export function getCenterEvents(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.GET_CENTER_EVENTS_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.GET_CENTER_EVENTS_FAIL,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -114,13 +104,13 @@ export function getEventSelected() {
       .then((response) => {
         dispatch({
           type: actionTypes.GET_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.GET_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -147,7 +137,7 @@ export function modifyCenterEvent(data) {
       .catch((err) => {
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -172,7 +162,7 @@ export function modifyEvent(id, data) {
       .catch((err) => {
         dispatch({
           type: actionTypes.MODIFY_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -191,14 +181,14 @@ export function deleteCenterEvent(data) {
       .then((response) => {
         dispatch({
           type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
         dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.DELETE_CENTER_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -216,14 +206,14 @@ export function deleteEvent(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.DELETE_EVENT_SUCCESS,
-          payload: response.data
+          payload: response
         });
         dispatch(getEvents());
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.DELETE_EVENT_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -252,13 +242,13 @@ export function eventBooked(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -276,13 +266,13 @@ export function dateJoined(id) {
       .then((response) => {
         dispatch({
           type: actionTypes.DATE_JOINED_SUCCESS,
-          payload: response.data
+          payload: response
         });
       })
       .catch((err) => {
         dispatch({
           type: actionTypes.DATE_JOINED_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };

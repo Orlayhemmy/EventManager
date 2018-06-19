@@ -87,7 +87,6 @@ export class CenterPage extends React.Component {
    * @returns {void}
    */
   nextCenters(e) {
-    console.log(this.state)
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1,
