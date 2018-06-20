@@ -39,25 +39,25 @@ export function getEvents(data) {
     return axios
       .get(`/api/v1/userEvents/${data}`)
       .then((response) => {
-        const { status } = response;
-        const { events } = response.data;
+        const { status, data: { events } } = response;
+        const res = {
+          status,
+          events
+        };
         dispatch({
           type: actionTypes.GET_EVENTS_SUCCESS,
-          payload: {
-            status,
-            events
-          }
+          payload: res
         });
       })
       .catch((err) => {
-        const { status } = err.response;
-        const { message } = err.response.data;
+        const { status, data: { message } } = err.response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.GET_EVENTS_FAIL,
-          payload: {
-            status,
-            message
-          }
+          payload: res
         });
       });
   };
@@ -112,9 +112,14 @@ export function getEventSelected() {
     return axios
       .get(`/api/v1/events/${id}`)
       .then((response) => {
+        const { status, data: { event } } = response;
+        const res = {
+          status,
+          event
+        };
         dispatch({
           type: actionTypes.GET_EVENT_SUCCESS,
-          payload: response.data
+          payload: res
         });
       })
       .catch((err) => {
@@ -127,27 +132,33 @@ export function getEventSelected() {
 }
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} success or failure
  */
-export function modifyCenterEvent(data) {
-  const { id, centerId } = data;
+export function modifyCenterEvent(info) {
+  const { id, centerId } = info;
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER_EVENT });
     return axios
-      .put(`/api/v1/approveEvent/${id}`, data)
+      .put(`/api/v1/approveEvent/${id}`, info)
       .then((response) => {
+        const { status, data: { message } } = response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
-          payload: response
+          payload: res
         });
         // dispatch(setActivity(data));
         dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_FAILS,
-          payload: err.response.data
+          payload: data
         });
       });
   };
@@ -155,18 +166,23 @@ export function modifyCenterEvent(data) {
 
 /**
  * @param {object} id
- * @param {object} data
+ * @param {object} eventData
  * @returns {object} success or failure
  */
-export function modifyEvent(id, data) {
+export function modifyEvent(id, eventData) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_EVENT });
     return axios
-      .put(`/api/v1/events/${id}`, data)
+      .put(`/api/v1/events/${id}`, eventData)
       .then((response) => {
+        const { status, data: { message } } = response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.MODIFY_EVENT_SUCCESS,
-          payload: response
+          payload: res
         });
       })
       .catch((err) => {

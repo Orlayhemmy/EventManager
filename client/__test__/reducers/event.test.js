@@ -8,7 +8,8 @@ describe.only('center reducers', () => {
     disableDates: [],
     error: null,
     event: {},
-    isEvent: false
+    isEvent: false,
+    isAvailable: ''
   };
 
   // it('should return the initial state', () => {
@@ -168,7 +169,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.MODIFY_EVENT_SUCCESS,
       payload: {
-        message: 'Update successful'
+        message: 'Update successful',
+        status: 202
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -176,7 +178,7 @@ describe.only('center reducers', () => {
       loading: false,
       loaded: true,
       message: action.payload.message,
-      status: 200
+      status: 202
     });
     done();
   });
@@ -350,7 +352,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
       payload: {
-        message: 'Update successful'
+        message: 'Update successful',
+        status: 202,
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -358,7 +361,7 @@ describe.only('center reducers', () => {
       message: action.payload.message,
       loading: false,
       loaded: true,
-      status: 200,
+      status: 202,
     });
     done();
   });

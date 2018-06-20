@@ -120,7 +120,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_EVENT_SUCCESS: {
-      const { status, data: { message } } = action.payload;
+      const { status, message } = action.payload;
       return {
         ...state,
         loading: false,
@@ -145,12 +145,12 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT_SUCCESS: {
-      const { message } = action.payload;
+      const { message, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 200,
+        status,
         message
       };
     }

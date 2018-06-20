@@ -120,7 +120,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.MODIFY_CENTER_SUCCESS,
       payload: {
-        message: 'Update successful'
+        message: 'Update successful',
+        status: 202
       }
     };
     expect(centerReducer(initialState, action)).toEqual({
@@ -128,7 +129,7 @@ describe.only('center reducers', () => {
       loading: false,
       loaded: true,
       message: action.payload.message,
-      status: 200
+      status: 202
     });
     done();
   });
@@ -159,11 +160,12 @@ describe.only('center reducers', () => {
     done();
   });
 
-  it('should return success code on modify center', (done) => {
+  it('should return success code on delete center', (done) => {
     const action = {
       type: actionTypes.DELETE_CENTER_SUCCESS,
       payload: {
-        message: 'Center deleted'
+        message: 'Center deleted',
+        status: 200
       }
     };
     expect(centerReducer(initialState, action)).toEqual({
@@ -171,7 +173,7 @@ describe.only('center reducers', () => {
       loading: false,
       loaded: true,
       message: action.payload.message,
-      status: 200
+      status: action.payload.status,
     });
     done();
   });
@@ -205,7 +207,9 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.ADD_CENTER_SUCCESS,
       payload: {
-        center: {}
+        center: {},
+        status: 201,
+        message: 'Center Added'
       }
     };
     expect(centerReducer(initialState, action)).toEqual({
@@ -213,7 +217,7 @@ describe.only('center reducers', () => {
       loading: false,
       loaded: true,
       status: 201,
-      center: action.payload.center,
+      message: action.payload.message,
     });
     done();
   });
