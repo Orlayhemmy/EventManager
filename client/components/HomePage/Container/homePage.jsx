@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Navbar from '../../Navbar/Container/navbar';
 import Content from '../Template/Content/homeContent';
-import Footer from '../../Footer/Container/footer';
+import Footer from '../../Footer/footer';
 import { userSignInRequest, userSignupRequest } from '../../../actions/userActions';
 import {
   validateSigninInput,

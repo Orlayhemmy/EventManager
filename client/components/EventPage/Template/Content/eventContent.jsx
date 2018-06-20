@@ -11,7 +11,7 @@ import {
 import { getEventSelected, checkAvailableDate } from '../../../../actions/eventActions';
 import AddEventForm from '../Form/addEventForm';
 import EditEventForm from '../Form/editEventForm';
-import Modal from '../../../Flash/Container/modal';
+import Modal from '../../../Flash/modal';
 import { searchValidation } from '../../../../shared/centerValidations';
 
 

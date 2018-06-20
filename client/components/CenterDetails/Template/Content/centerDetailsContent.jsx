@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import {
   getCenterSelected,
-  modifyCenter  
+  modifyCenter
 } from '../../../../actions/centerActions';
 import {
   getEventSelected,
@@ -15,7 +15,7 @@ import {
 import ModalContent from '../../../Modal/Container/modalContent';
 import CenterForm from '../Form/addCenterForm';
 import DeleteModal from '../../../Modal/Container/deleteModal';
-import Modal from '../../../Flash/Container/modal';
+import Modal from '../../../Flash/modal';
 import UploadImage from '../../../ImageUpload/imageUpload';
 
 /**
@@ -504,11 +504,14 @@ const mapStateToProps = state => ({
 
 CenterDetailsContent.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  getEventSelected,
-  modifyCenterEvent,
-  deleteCenterEvent,
-  getCenterEvents,
-  getCenterSelected,
-  modifyCenter
-})(CenterDetailsContent);
+export default connect(
+  mapStateToProps,
+  {
+    getEventSelected,
+    modifyCenterEvent,
+    deleteCenterEvent,
+    getCenterEvents,
+    getCenterSelected,
+    modifyCenter
+  }
+)(CenterDetailsContent);

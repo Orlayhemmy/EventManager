@@ -7,10 +7,10 @@ import swal from 'sweetalert';
 import { getEvents, setCurrentEvent } from '../../../actions/eventActions';
 import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/footer';
+import Footer from '../../Footer/footer';
 import DeleteModal from '../../Modal/Container/deleteModal';
 import { clearCenterStorage } from '../../../actions/centerActions';
-import Modal from '../../Flash/Container/modal';
+import Modal from '../../Flash/modal';
 import { logout } from '../../../actions/userActions';
 import { getActivity } from '../../../actions/activityActions';
 import DashboardContent from '../Template/Content/UserEvents';
@@ -24,7 +24,7 @@ export class Dashboard extends React.Component {
     super();
     this.state = {
       counter: 0
-    }
+    };
     this.onClick = this.onClick.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.nextEvents = this.nextEvents.bind(this);
@@ -100,7 +100,7 @@ export class Dashboard extends React.Component {
   logout(e) {
     this.props.logout();
   }
-   /**
+  /**
    * @memberof Dashboard
    * @method nextEvents
    * @description it fetches the next centers
@@ -109,14 +109,14 @@ export class Dashboard extends React.Component {
   nextEvents(e) {
     if (e.target.id === 'next') {
       this.setState({
-        counter: this.state.counter + 1,
+        counter: this.state.counter + 1
       });
-      this.props.getEvents(++this.state.counter)
+      this.props.getEvents(++this.state.counter);
     } else {
       this.setState({
-        counter: this.state.counter - 1,
+        counter: this.state.counter - 1
       });
-      this.props.getEvents(--this.state.counter)
+      this.props.getEvents(--this.state.counter);
     }
   }
   /**
@@ -155,15 +155,15 @@ export class Dashboard extends React.Component {
                   onDelete={this.onDelete}
                   nextEvents={this.nextEvents}
                 />
-                  <DeleteModal path={pathname} />
-                  <Modal message={this.props.userEvent.message} />
+                <DeleteModal path={pathname} />
+                <Modal message={this.props.userEvent.message} />
               </div>
             </div>
             <div className="col-lg-3 col3-bg">
               <div className="p-4 fw">
                 <h2>Notifications</h2>
               </div>
-              <DashboardNotifications 
+              <DashboardNotifications
                 activities={activities}
                 onClick={this.onClick}
               />
@@ -192,10 +192,13 @@ const mapStateToProps = state => ({
 });
 Dashboard.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  setCurrentEvent,
-  logout,
-  getEvents,
-  getActivity,
-  clearCenterStorage
-})(Dashboard);
+export default connect(
+  mapStateToProps,
+  {
+    setCurrentEvent,
+    logout,
+    getEvents,
+    getActivity,
+    clearCenterStorage
+  }
+)(Dashboard);

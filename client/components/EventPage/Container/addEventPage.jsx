@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 import { Redirect } from 'react-router-dom';
 import Content from '../Template/Content/eventContent';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/footer';
+import Footer from '../../Footer/footer';
 import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { addEventValidation } from '../../../shared/eventValidations';

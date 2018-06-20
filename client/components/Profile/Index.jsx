@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import TextField from '../../common/textField3';
 import Navbar from '../Navbar/Container/navbar';
-import Footer from '../Footer/Container/footer';
+import Footer from '../Footer/footer';
 import UploadImage from '../ImageUpload/imageUpload';
 import { updateUserValidation } from '../../shared/userValidation';
 import {
