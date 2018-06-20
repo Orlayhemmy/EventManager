@@ -75,23 +75,27 @@ export function userSignupRequest(user) {
     return axios
       .post('/api/v1/users', user)
       .then((response) => {
-        const { status } = response;
-        const { token } = response.data;
+        const { data: { token }, status } = response;
+        const res = {
+          status
+        };
         dispatch({
           type: actionTypes.USER_SIGNUP_SUCCESS,
-          payload: {
-            status,
-            token
-          }
+          payload: res
         });
         localStorage.setItem('jwtToken', token);
         setAuthToken(token);
         dispatch(setCurrentUser(jwt.decode(token), token));
       })
       .catch((err) => {
+        const { status, data: { message } } = err.response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.USER_SIGNUP_FAILS,
-          payload: err.response.data
+          payload: res
         });
       });
   };
@@ -118,9 +122,10 @@ export function userSignInRequest(user) {
     return axios
       .post('/api/v1/users/login', user)
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.USER_LOGIN_SUCCESS,
-          payload: response.data
+          payload: data
         });
         const { token } = response.data;
         localStorage.setItem('jwtToken', token);
@@ -128,33 +133,41 @@ export function userSignInRequest(user) {
         dispatch(setCurrentUser(jwt.decode(token), token));
       })
       .catch((err) => {
+        const { data: { message }, status } = err.response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.USER_LOGIN_FAILS,
-          payload: err.response.data
+          payload: res
         });
       });
   };
 }
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} success or failure
  */
-export function confirmEmail(data) {
+export function confirmEmail(info) {
   return (dispatch) => {
     dispatch({ type: actionTypes.VERIFY_EMAIL });
     return axios
-      .post('/api/v1/passrecovery', data)
+      .post('/api/v1/passrecovery', info)
       .then((response) => {
+        const { data: { message }, status } = response;
+        const res = { message, status };
         dispatch({
           type: actionTypes.VERIFY_EMAIL_SUCCESS,
-          payload: response.data
+          payload: res
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.VERIFY_EMAIL_FAILS,
-          payload: err.response.data
+          payload: data
         });
       });
   };
@@ -169,15 +182,21 @@ export function generateCode() {
     return axios
       .get('/api/v1/shortcode')
       .then((response) => {
+        const { status, data: { shortCode } } = response;
+        const res = {
+          status,
+          shortCode
+        };
         dispatch({
           type: actionTypes.GET_CODE_SUCCESS,
-          payload: response.data
+          payload: res
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_CODE_FAILS,
-          payload: err.response.data
+          payload: data
         });
       });
   };
@@ -192,15 +211,21 @@ export function getUser() {
     return axios
       .get('/api/v1/users')
       .then((response) => {
+        const { status, data: { userDetails } } = response;
+        const res = {
+          status,
+          userDetails
+        };
         dispatch({
           type: actionTypes.GET_USER_SUCCESS,
-          payload: response.data
+          payload: res
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_USER_FAILS,
-          payload: err.response.data
+          payload: data
         });
       });
   };
@@ -246,25 +271,31 @@ export function getUserEmail(id) {
 }
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} success or failure
  */
-export function checkPassword(data) {
+export function checkPassword(info) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CHECK_PASSWORD });
     return axios
-      .post('/api/v1/passwordcheck', data)
+      .post('/api/v1/passwordcheck', info)
       .then((response) => {
+        const { status, data: { message } } = response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.CHECK_PASSWORD_SUCCESS,
-          payload: response.data
+          payload: res
         });
         dispatch(clearStatus());
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.CHECK_PASSWORD_FAILS,
-          payload: err.response.data
+          payload: data
         });
       });
   };

@@ -26,13 +26,18 @@ describe('Authentication Reducer', () => {
   });
 
   it('should return success code on sign up', (done) => {
-    const action = { type: actionTypes.USER_SIGNUP_SUCCESS };
+    const action = {
+      type: actionTypes.USER_SIGNUP_SUCCESS,
+      payload: {
+        status: 201,
+      }
+    };
     expect(userReducer(initialState, action)).toEqual({
       isAuth: false,
       user: {},
       loading: false,
       loaded: true,
-      status: 200
+      status: 201
     });
     done();
   });
@@ -41,7 +46,8 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.USER_SIGNUP_FAILS,
       payload: {
-        message: 'Sorry you cannot be signed up now'
+        message: 'Sorry you cannot be signed up now',
+        status: 401,
       }
     };
     expect(userReducer(initialState, action)).toEqual({
@@ -86,7 +92,8 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.USER_LOGIN_FAILS,
       payload: {
-        message: 'Sorry you cannot be signed in'
+        message: 'Sorry you cannot be signed in',
+        status: 401
       }
     };
     expect(userReducer(initialState, action)).toEqual({
@@ -129,7 +136,10 @@ describe('Authentication Reducer', () => {
 
   it('should return success on email verification', (done) => {
     const action = {
-      type: actionTypes.VERIFY_EMAIL_SUCCESS
+      type: actionTypes.VERIFY_EMAIL_SUCCESS,
+      payload: {
+        status: 200,
+      }
     };
     expect(userReducer(initialState, action)).toEqual({
       isAuth: false,
@@ -172,14 +182,15 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.GET_CODE_SUCCESS,
       payload: {
-        shortCode: 'dedhjfbjkweb4'
+        shortCode: 'dedhjfbjkweb4',
+        status: 200
       }
     };
     expect(userReducer(initialState, action)).toEqual({
       isAuth: false,
       user: {},
       code: action.payload.shortCode,
-      status: 201,
+      status: 200,
     });
     done();
   });
@@ -217,7 +228,8 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.UPDATE_USER_SUCCESS,
       payload: {
-        message: 'User successfully updated'
+        message: 'User successfully updated',
+        status: 200
       }
     };
     expect(userReducer(initialState, action)).toEqual({
@@ -263,7 +275,8 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.GET_USER_SUCCESS,
       payload: {
-        userDetails: {}
+        userDetails: {},
+        status: 200
       }
     };
     expect(userReducer(initialState, action)).toEqual({
@@ -309,7 +322,8 @@ describe('Authentication Reducer', () => {
     const action = {
       type: actionTypes.CHECK_PASSWORD_SUCCESS,
       payload: {
-        message: 'password correct'
+        message: 'password correct',
+        status: 200,
       }
     };
     expect(userReducer(initialState, action)).toEqual({

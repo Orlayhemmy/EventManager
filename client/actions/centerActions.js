@@ -241,9 +241,10 @@ export function centerStatus(id) {
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -254,7 +255,7 @@ export function centerStatus(id) {
  * @param {object} image
  * @returns {object} url of image uploaded
  */
-export function uploadImage(data, image) {
+export function uploadImage(info, image) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_IMAGE });
     delete axios.defaults.headers.common['x-access-token'];
@@ -262,14 +263,15 @@ export function uploadImage(data, image) {
       .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
       .then((response) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        data.imageUrl = response.secure_url;
-        dispatch(addCenter(data));
+        info.imageUrl = response.secure_url;
+        dispatch(addCenter(info));
       })
       .catch((err) => {
+        const { data } = err.response;
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
         dispatch({
           type: actionTypes.ADD_IMAGE_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
