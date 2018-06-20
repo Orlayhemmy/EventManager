@@ -83,11 +83,11 @@ describe('modify center selected action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when center is received', (done) => {
+  it('returns success when center is modified', (done) => {
     moxios.stubRequest('/api/v1/centers/1', {
-      status: 200,
       response: {
-        message: 'Center updated successfully'
+        message: 'Center updated successfully',
+        status: 202
       }
     });
 
@@ -157,7 +157,8 @@ describe('delete center action', () => {
       {
         type: actionTypes.DELETE_CENTER_SUCCESS,
         payload: {
-          message: 'Center deleted'
+          message: 'Center deleted',
+          status: 200
         }
       },
       { type: actionTypes.GET_CENTERS }
@@ -387,7 +388,7 @@ describe('add centers action', () => {
   });
   it('returns success when center is added', (done) => {
     moxios.stubRequest('/api/v1/centers', {
-      status: 200,
+      status: 202,
       response: {
         message: 'Centers successfully added'
       }
@@ -397,7 +398,8 @@ describe('add centers action', () => {
       { type: actionTypes.ADD_CENTER },
       {
         payload: {
-          message: 'Centers successfully added'
+          message: 'Centers successfully added',
+          status: 202
         },
         type: actionTypes.ADD_CENTER_SUCCESS
       }

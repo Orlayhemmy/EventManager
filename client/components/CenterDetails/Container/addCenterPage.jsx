@@ -3,8 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CenterForm from '../Template/Form/addCenterForm';
-import Navbar from '../../Navbar/Index.jsx';
-import Footer from '../../Footer/Container/Index';
+import Navbar from '../../Navbar/Container/navbar';
+import Footer from '../../Footer/Container/index';
 
 /**
  * @description AddCenterPage component

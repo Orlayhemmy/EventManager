@@ -15,22 +15,22 @@ export function clearCenterStorage() {
 }
 
 /**
- * @param {object} data
+ * @param {object} centerInfo
  * @param {object} page
  * @returns {object} Get centers
  */
-export function getCenters(data, page) {
+export function getCenters(centerInfo, page) {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTERS });
     let query;
-    if (data) {
+    if (centerInfo) {
       query = axios.get('/api/v1/centers', {
         params: {
-          location: data.location,
-          facilities: data.facilities,
-          capacity: data.capacity,
-          capacityType: data.capacityType,
-          btwValue: data.btwValue,
+          location: centerInfo.location,
+          facilities: centerInfo.facilities,
+          capacity: centerInfo.capacity,
+          capacityType: centerInfo.capacityType,
+          btwValue: centerInfo.btwValue,
           page
         }
       });
@@ -43,15 +43,17 @@ export function getCenters(data, page) {
     }
     return query
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.GET_CENTERS_SUCCESS,
-          payload: response
+          payload: data
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_CENTERS_FAIL,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -89,13 +91,13 @@ export function viewCenterSelected(center) {
   };
 }
 /**
- * @param {object} data
+ * @param {object} centerInfo
  * @returns {object} current center
  */
-export function getCenterSelected(data) {
+export function getCenterSelected(centerInfo) {
   let id;
-  if (data) {
-    id = data;
+  if (centerInfo) {
+    id = centerInfo;
   } else {
     id = localStorage.getItem('centerId');
   }
@@ -104,15 +106,17 @@ export function getCenterSelected(data) {
     return axios
       .get(`/api/v1/centers/${id}`)
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.GET_CENTER_SUCCESS,
-          payload: response
+          payload: data
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_CENTER_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -127,51 +131,63 @@ export function getCenterSelected(data) {
 // }
 
 /**
- * @param {object} data
+ * @param {object} centerInfo
  * @param {object} image
  * @returns {object} new center information
  */
-export function addCenter(data) {
+export function addCenter(centerInfo) {
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_CENTER });
     return axios
-      .post('/api/v1/centers', data)
-      .then((res) => {
+      .post('/api/v1/centers', centerInfo)
+      .then((response) => {
+        const { data: { message }, status } = response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.ADD_CENTER_SUCCESS,
-          payload: res.data
+          payload: res
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.ADD_CENTER_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
 }
 
 /**
- * @param {object} data
+ * @param {object} centerInfo
  * @param {object} centerId
  * @returns {object} success or failure
  */
-export function modifyCenter(data, centerId) {
+export function modifyCenter(centerInfo, centerId) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER });
     return axios
-      .put(`/api/v1/centers/${centerId}`, data)
+      .put(`/api/v1/centers/${centerId}`, centerInfo)
       .then((response) => {
+        const { data: { message }, status } = response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.MODIFY_CENTER_SUCCESS,
-          payload: response
+          payload: res
         });
         dispatch(getCenterSelected(centerId));
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.MODIFY_CENTER_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -187,16 +203,22 @@ export function deleteCenter(id) {
     return axios
       .delete(`/api/v1/centers/${id}`)
       .then((response) => {
+        const { data: { message }, status } = response;
+        const res = {
+          message,
+          status
+        };
         dispatch({
           type: actionTypes.DELETE_CENTER_SUCCESS,
-          payload: response
+          payload: res
         });
         dispatch(getCenters());
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.DELETE_CENTER_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -212,9 +234,10 @@ export function centerStatus(id) {
     return axios
       .put(`/api/v1/centerStatus/${id}`)
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS,
-          payload: response
+          payload: data
         });
       })
       .catch((err) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminContent from '../Template/Content/AdminContent';
-import Navbar from '../../Navbar/Index';
-import Footer from '../../Footer/Container/Index';
+import Navbar from '../../Navbar/Container/navbar';
+import Footer from '../../Footer/Container/index';
 /**
  * @memberof AdminDashMethod
  * @method render
