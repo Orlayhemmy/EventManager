@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 import { getEvents, setCurrentEvent } from '../../../actions/eventActions';
 import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/index';
+import Footer from '../../Footer/Container/footer';
 import DeleteModal from '../../Modal/Container/deleteModal';
 import { clearCenterStorage } from '../../../actions/centerActions';
 import Modal from '../../Flash/Container/modal';

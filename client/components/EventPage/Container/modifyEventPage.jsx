@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import swal from 'sweetalert';
 import Content from '../Template/Content/eventContent';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/index';
+import Footer from '../../Footer/Container/footer';
 import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { modifyEventValidation } from '../../../shared/eventValidations';
