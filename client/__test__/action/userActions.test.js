@@ -42,7 +42,7 @@ describe('user signup action', () => {
     const expectedActions = [
       { type: 'USER_SIGNUP' },
       {
-        payload: { status: 201, token: 'sdefeffefrg' },
+        payload: { status: 201 },
         type: 'USER_SIGNUP_SUCCESS'
       },
       {
@@ -70,7 +70,7 @@ describe('user signup action', () => {
       { type: 'USER_SIGNUP' },
       {
         type: 'USER_SIGNUP_FAILS',
-        payload: { message: 'signup fails' }
+        payload: { message: 'signup fails', status: 400 }
       }
     ];
     const store = mockStore({});
@@ -131,7 +131,7 @@ describe('user signin action', () => {
       { type: 'USER_LOGIN' },
       {
         type: 'USER_LOGIN_FAILS',
-        payload: { message: 'signup fails' }
+        payload: { message: 'signup fails', status: 400 }
       }
     ];
     const store = mockStore({});
@@ -164,7 +164,7 @@ describe('confirm email action', () => {
       { type: actionTypes.VERIFY_EMAIL },
       {
         type: actionTypes.VERIFY_EMAIL_SUCCESS,
-        payload: { message: 'Email exists' }
+        payload: { message: 'Email exists', status: 200 }
       }
     ];
     const store = mockStore({});
@@ -211,13 +211,16 @@ describe('generate code action', () => {
     moxios.stubRequest('/api/v1/shortcode', {
       status: 200,
       response: {
-        mockCode
+        shortCode: mockCode
       }
     });
 
     const expectedActions = [
       { type: actionTypes.GET_CODE },
-      { type: actionTypes.GET_CODE_SUCCESS, payload: { mockCode } }
+      {
+        type: actionTypes.GET_CODE_SUCCESS,
+        payload: { shortCode: mockCode, status: 200 }
+      }
     ];
     const store = mockStore({});
 
@@ -259,13 +262,16 @@ describe('get user action', () => {
     moxios.stubRequest('/api/v1/users', {
       status: 200,
       response: {
-        mockSignup
+        userDetails: mockSignup
       }
     });
 
     const expectedActions = [
       { type: actionTypes.GET_USER },
-      { type: actionTypes.GET_USER_SUCCESS, payload: { mockSignup } }
+      {
+        type: actionTypes.GET_USER_SUCCESS,
+        payload: { status: 200, userDetails: mockSignup }
+      }
     ];
     const store = mockStore({});
 
@@ -339,13 +345,16 @@ describe('check password action', () => {
     moxios.stubRequest('/api/v1/passwordcheck', {
       status: 200,
       response: {
-        matchPassword
+        message: matchPassword
       }
     });
 
     const expectedActions = [
       { type: actionTypes.CHECK_PASSWORD },
-      { type: actionTypes.CHECK_PASSWORD_SUCCESS, payload: { matchPassword } },
+      {
+        type: actionTypes.CHECK_PASSWORD_SUCCESS,
+        payload: { status: 200, message: matchPassword }
+      },
       { type: actionTypes.CLEAR_STATUS }
     ];
     const store = mockStore({});

@@ -224,7 +224,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
       payload: {
-        message: 'Deleted'
+        message: 'Deleted',
+        status: 200
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -266,7 +267,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.ADD_EVENT_SUCCESS,
       payload: {
-        message: 'Event added'
+        message: 'Event added',
+        status: 201
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -294,13 +296,13 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
       payload: {
-        data: { message: 'Error' },
+        message: 'Error',
         status: 500
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
       ...initialState,
-      error: action.payload.data.message,
+      error: action.payload.message,
       status: action.payload.status
     });
     done();
@@ -311,7 +313,8 @@ describe.only('center reducers', () => {
       type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
       payload: {
         message: 'Events count',
-        eventBookedCount: 7
+        eventBookedCount: 7,
+        status: 200
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -395,7 +398,8 @@ describe.only('center reducers', () => {
     const action = {
       type: actionTypes.DELETE_EVENT_SUCCESS,
       payload: {
-        message: 'Deleted'
+        message: 'Deleted',
+        status: 200
       }
     };
     expect(eventReducer(initialState, action)).toEqual({

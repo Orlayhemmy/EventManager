@@ -1,29 +1,29 @@
 import axios from 'axios';
-// import jwt from 'jsonwebtoken';
-// import { centerStatus } from './centerActions';
-// import { setActivity } from './activityActions';
 import * as actionTypes from './types';
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} new event details
  */
-export function createEvent(data) {
-  const { eventInfo } = data;
+export function createEvent(info) {
+  const { eventInfo } = info;
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_EVENT });
     return axios
       .post('/api/v1/events', eventInfo)
       .then((response) => {
+        const { data: { message }, status } = response;
+        const res = { message, status };
         dispatch({
           type: actionTypes.ADD_EVENT_SUCCESS,
-          payload: response
+          payload: res
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.ADD_EVENT_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -73,15 +73,17 @@ export function getCenterEvents(id) {
     return axios
       .get(`/api/v1/centerEvents/${id}`)
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.GET_CENTER_EVENTS_SUCCESS,
-          payload: response
+          payload: data
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_CENTER_EVENTS_FAIL,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -123,9 +125,10 @@ export function getEventSelected() {
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.GET_EVENT_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -186,35 +189,42 @@ export function modifyEvent(id, eventData) {
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.MODIFY_EVENT_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
 }
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} success or failure
  */
-export function deleteCenterEvent(data) {
-  const { id, centerId } = data;
+export function deleteCenterEvent(info) {
+  const { id, centerId } = info;
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_CENTER_EVENT });
     return axios
       .delete(`/api/v1/events/${id}`)
       .then((response) => {
+        const { status, data: { message } } = response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
-          payload: response
+          payload: res
         });
         dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.DELETE_CENTER_EVENT_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -230,16 +240,22 @@ export function deleteEvent(id) {
     return axios
       .delete(`/api/v1/events/${id}`)
       .then((response) => {
+        const { status, data: { message } } = response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.DELETE_EVENT_SUCCESS,
-          payload: response
+          payload: res
         });
         dispatch(getEvents());
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.DELETE_EVENT_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
@@ -266,15 +282,26 @@ export function eventBooked(id) {
     return axios
       .get(`/api/v1/eventsbookedcount/${id}`)
       .then((response) => {
+        const { status, data: { message, eventBookedCount } } = response;
+        const res = {
+          status,
+          message,
+          eventBookedCount
+        };
         dispatch({
           type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
-          payload: response
+          payload: res
         });
       })
       .catch((err) => {
+        const { status, data: { message } } = err.response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
-          payload: err.response
+          payload: res
         });
       });
   };
@@ -290,39 +317,52 @@ export function dateJoined(id) {
     return axios
       .get(`/api/v1/datejoined/${id}`)
       .then((response) => {
+        const { data } = response;
         dispatch({
           type: actionTypes.DATE_JOINED_SUCCESS,
-          payload: response
+          payload: data
         });
       })
       .catch((err) => {
+        const { data } = err.response;
         dispatch({
           type: actionTypes.DATE_JOINED_FAILS,
-          payload: err.response
+          payload: data
         });
       });
   };
 }
 
 /**
- * @param {object} data
+ * @param {object} info
  * @returns {object} true or false
  */
-export function checkAvailableDate(data) {
+export function checkAvailableDate(info) {
   return (dispatch) => {
     dispatch({ type: actionTypes.CHECK_DATE });
     return axios
-      .post('/api/v1/checkDate', data)
+      .post('/api/v1/checkDate', info)
       .then((response) => {
+        const { status, message, isAvailable } = response;
+        const res = {
+          status,
+          message,
+          isAvailable
+        };
         dispatch({
           type: actionTypes.CHECK_DATE_SUCCESS,
-          payload: response
+          payload: res
         });
       })
       .catch((err) => {
+        const { status, data: { message } } = err.response;
+        const res = {
+          status,
+          message
+        };
         dispatch({
           type: actionTypes.CHECK_DATE_FAILS,
-          payload: err.response
+          payload: res
         });
       });
   };

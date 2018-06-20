@@ -357,6 +357,7 @@ describe('delete center event action', () => {
         type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
         payload: {
           message: 'Event deleted',
+          status: 200,
         }
       },
       { type: actionTypes.GET_CENTER_EVENTS }
@@ -418,6 +419,7 @@ describe('delete event action', () => {
         type: actionTypes.DELETE_EVENT_SUCCESS,
         payload: {
           message: 'Event deleted',
+          status: 200
         }
       },
       { type: actionTypes.GET_EVENTS }
@@ -469,7 +471,7 @@ describe('event booked action', () => {
     moxios.stubRequest('/api/v1/eventsbookedcount/1', {
       status: 200,
       response: {
-        count: '3',
+        eventBookedCount: '3',
         message: 'Events found',
       }
     });
@@ -479,8 +481,9 @@ describe('event booked action', () => {
       {
         type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
         payload: {
-          count: '3',
+          eventBookedCount: '3',
           message: 'Events found',
+          status: 200
         }
       }
     ];
@@ -507,6 +510,7 @@ describe('event booked action', () => {
         type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
         payload: {
           message: 'Events not found',
+          status: 400,
         }
       }
     ];
@@ -627,6 +631,7 @@ describe('create event action', () => {
         type: actionTypes.ADD_EVENT_SUCCESS,
         payload: {
           message: 'Event Created',
+          status: 200
         }
       }
     ];

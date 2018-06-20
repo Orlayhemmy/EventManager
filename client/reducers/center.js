@@ -53,14 +53,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_FAIL: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
-      const { centers } = action.payload.data;
+      const { centers } = action.payload;
       return {
         ...state,
         loading: false,
@@ -83,14 +83,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTER_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         error: message
       };
     }
     case actionTypes.GET_CENTER_SUCCESS: {
-      const { center } = action.payload.data;
+      const { center } = action.payload;
       return {
         ...state,
         loading: false,
@@ -106,7 +106,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
@@ -132,7 +132,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         error: message
@@ -157,7 +157,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_CENTER_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         error: message
@@ -181,7 +181,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.ADD_IMAGE_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         error: message
@@ -212,7 +212,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.CENTER_STATUS_UPDATE_FAILS: {
-      const { message } = action.payload.data;
+      const { message } = action.payload;
       return {
         ...state,
         loading: false,
