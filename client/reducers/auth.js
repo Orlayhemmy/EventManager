@@ -24,7 +24,7 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_LOGIN_SUCCESS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -33,12 +33,12 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_LOGIN_FAILS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 401,
+        status,
         signinError: message
       };
     }
@@ -52,15 +52,16 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.USER_SIGNUP_SUCCESS: {
+      const { status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 200
+        status
       };
     }
     case actionTypes.USER_SIGNUP_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -76,15 +77,16 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.VERIFY_EMAIL_SUCCESS: {
+      const { status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        status: 200
+        status
       };
     }
     case actionTypes.VERIFY_EMAIL_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -99,15 +101,15 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.GET_CODE_SUCCESS: {
-      const { shortCode } = action.payload;
+      const { data: { shortCode }, status } = action.payload;
       return {
         ...state,
-        status: 201,
+        status,
         code: shortCode
       };
     }
     case actionTypes.GET_CODE_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         message
@@ -131,17 +133,17 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.UPDATE_USER_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status: 200
+        status
       };
     }
     case actionTypes.UPDATE_USER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -183,17 +185,17 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.GET_USER_SUCCESS: {
-      const { userDetails } = action.payload;
+      const { data: { userDetails }, status } = action.payload;
       return {
         ...state,
         loaded: true,
         loading: false,
-        status: 200,
+        status,
         userDetails
       };
     }
     case actionTypes.GET_USER_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -209,17 +211,17 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.CHECK_PASSWORD_SUCCESS: {
-      const { message } = action.payload;
+      const { data: { message }, status } = action.payload;
       return {
         ...state,
         loaded: true,
         loading: false,
         message,
-        status: 200
+        status
       };
     }
     case actionTypes.CHECK_PASSWORD_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         loading: false,
@@ -243,7 +245,7 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.UPLOAD_IMAGE_FAILS: {
-      const { message } = action.payload;
+      const { message } = action.payload.data;
       return {
         ...state,
         error: message

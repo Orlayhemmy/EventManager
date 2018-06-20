@@ -66,11 +66,17 @@ export function addEventValidation(data) {
     errors.eventTitle = 'event Name cannot be blank';
   }
 
-  // // validations for bookedDate
-  // if (!validator.isEmpty(dateArray)) {
-  //   console.log('@@@@@@@@@@@@@@@@@@@@@@@@')
-  //   errors.bookedDate = 'please select a date for your event';
-  // }
+  // validations for bookedDate
+  if (dateArray) {
+    dateArray.map((date) => {
+      if (!validator.toDate(date)) {
+        errors.dateArray = 'Invalid Date';
+      }
+      return errors.dateArray;
+    });
+  } else {
+    errors.dateArray = 'Date cannot be empty';
+  }
 
   // validations for description
   if (!validator.isEmpty(description)) {

@@ -243,7 +243,7 @@ export function centerStatus(id) {
       .catch((err) => {
         dispatch({
           type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };
@@ -262,14 +262,14 @@ export function uploadImage(data, image) {
       .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
       .then((response) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-        data.imageUrl = response.data.secure_url;
+        data.imageUrl = response.secure_url;
         dispatch(addCenter(data));
       })
       .catch((err) => {
         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
         dispatch({
           type: actionTypes.ADD_IMAGE_FAILS,
-          payload: err.response.data
+          payload: err.response
         });
       });
   };

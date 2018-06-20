@@ -223,22 +223,28 @@ export default class EventController {
     const { id } = req.params;
     // find the requested event
     Events.findById(id).then((event) => {
-      return event
-        .update({
-          eventTitle: eventTitle || event.eventTitle,
-          bookedDate: dateArray || event.bookedDate,
-          description: description || event.description,
-          centerId: centerId || event.centerId
-        })
-        .then(() =>
-          res.status(202).send({
-            message: 'Changes Applied',
-            event
-          }))
-        .catch(error =>
-          res.status(500).send({
-            message: error.message
-          }));
+      if (event) {
+        return event
+          .update({
+            eventTitle: eventTitle || event.eventTitle,
+            bookedDate: dateArray || event.bookedDate,
+            description: description || event.description,
+            centerId: centerId || event.centerId
+          })
+          .then(() =>
+            res.status(202).send({
+              message: 'Changes Applied',
+              event
+            }))
+          .catch(error =>
+            res.status(500).send({
+              message: error.message
+            }));
+      }
+      return res.status(404).send({
+        message: 'Event does not exist',
+        event
+      });
     })
       .catch(error =>
         res.status(500).send({
