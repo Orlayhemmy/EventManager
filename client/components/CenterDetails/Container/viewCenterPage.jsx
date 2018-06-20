@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Navbar from '../../Navbar/Container/navbar';
 import Content from '../Template/Content/centerDetailsContent';
-import Footer from '../../Footer/Container/index';
+import Footer from '../../Footer/Container/footer';
 import { logout } from '../../../actions/userActions';
 
 /**
@@ -28,20 +28,20 @@ export class ViewCenterDetails extends React.Component {
    * @returns the HTML of ViewCenterDetails
    */
   render() {
-     //Check if user is logged in and is also an Admin
-     if (!this.props.auth.isAuth) {
-      return (<Redirect to="/" />);
+    //Check if user is logged in and is also an Admin
+    if (!this.props.auth.isAuth) {
+      return <Redirect to="/" />;
     } else if (!this.props.auth.user.isAdmin) {
-      return (<Redirect to="/dashboard" />);
+      return <Redirect to="/dashboard" />;
     }
     if (this.props.center.status === 401) {
       this.logout();
-    }  
-    const { pathname } = this.props.location
+    }
+    const { pathname } = this.props.location;
     return (
       <div className="page-wrapper">
         <Navbar />
-        <Content path={pathname}/>
+        <Content path={pathname} />
         <Footer />
       </div>
     );
@@ -58,6 +58,9 @@ const mapStateToProps = state => ({
 });
 ViewCenterDetails.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  logout
-})(ViewCenterDetails);
+export default connect(
+  mapStateToProps,
+  {
+    logout
+  }
+)(ViewCenterDetails);

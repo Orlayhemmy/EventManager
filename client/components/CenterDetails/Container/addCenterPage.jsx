@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CenterForm from '../Template/Form/addCenterForm';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/index';
+import Footer from '../../Footer/Container/footer';
 
 /**
  * @description AddCenterPage component
@@ -61,8 +61,11 @@ const propTypes = {
 const mapStateToProps = state => ({
   user: state.auth.user,
   center: state.center,
-  auth: state.auth,
+  auth: state.auth
 });
 AddCenterPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, {})(AddCenterPage);
+export default connect(
+  mapStateToProps,
+  {}
+)(AddCenterPage);

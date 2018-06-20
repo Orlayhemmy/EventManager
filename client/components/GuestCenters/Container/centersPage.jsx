@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/Container/index';
+import Footer from '../../Footer/Container/footer';
 import GuestCenter from '../Template/Content/Centers';
 
 /**
