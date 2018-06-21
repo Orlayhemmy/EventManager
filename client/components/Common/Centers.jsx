@@ -151,7 +151,7 @@ export class DisplayCenters extends React.Component {
     );
     const guestCenters = centers.map((center, index) => {
       return (
-        <div className="row" id={center.id} key={index}>
+        <div className="row bw p-4" id={center.id} key={index}>
           <div className="col-lg-4 col-md-12 col-sm-12 text-center">
             <img className="img" src={center.imageUrl} />
           </div>
@@ -186,7 +186,7 @@ export class DisplayCenters extends React.Component {
           </div> : '' 
         }
         {guestCenters}
-        {centers.length > 1 ?
+        {centers.length > 4 ?
           <div className="page-icon bounce">
             <i className="fa fa-chevron-down icon" id="next" onClick={this.props.nextCenters}></i>
           </div> : ''
