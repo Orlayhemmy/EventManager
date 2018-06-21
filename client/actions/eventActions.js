@@ -343,7 +343,7 @@ export function checkAvailableDate(info) {
     return axios
       .post('/api/v1/checkDate', info)
       .then((response) => {
-        const { status, message, isAvailable } = response;
+        const { status, data: { message, isAvailable } } = response;
         const res = {
           status,
           message,

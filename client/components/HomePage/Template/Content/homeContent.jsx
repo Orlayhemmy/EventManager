@@ -47,7 +47,7 @@ export default class HomeContent extends React.Component {
             </div>
           </div>
         </div>
-        <div className="row subcontent">
+        <div className="row subcontent pb-4">
           <div className="col-lg-4">
             <div className="row center">
               <span class="icon">
