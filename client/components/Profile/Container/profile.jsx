@@ -9,7 +9,6 @@ import { checkPassword, getUser, updateUserDetails } from '../../../actions/user
 import { eventBooked } from '../../../actions/eventActions';
 import { logout } from '../../../actions/userActions';
 import Content from '../Template/Content/profile';
-import uploadImage from '../../../actions/imageAction';
 
 
 /**
@@ -23,7 +22,6 @@ export class Profile extends React.Component {
   constructor() {
     super();
     this.showDiv = this.showDiv.bind(this);
-    this.showImage = this.showImage.bind(this);
   }
 
   /**
@@ -63,22 +61,7 @@ export class Profile extends React.Component {
       document.getElementById('showDetails').hidden = false;
     }
   }
-  /**
-   * @memberof CenterForm
-   * @method showImage
-   * @description it sets user input to state
-   * @param {object} event
-   */
-  showImage(event) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      this.state.imageData = event.target.files[0];
-      reader.onload = e => {
-        this.setState({ image: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
+
   /**
    * @memberof Profile
    * @method showDiv
@@ -129,8 +112,6 @@ export class Profile extends React.Component {
       <div id="profile-page">
         <Navbar />
         <Content 
-          // onSubmit={this.onSubmit}
-          showImage={this.showImage}
           checkPassword={this.checkPassword}
           onSubmit={this.onSubmit}
           showDiv={this.showDiv}
@@ -145,7 +126,6 @@ export class Profile extends React.Component {
 }
 const propTypes = {
   updateUserDetails: PropTypes.func.isRequired,
-  uploadImage: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   checkPassword: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
@@ -163,7 +143,6 @@ export default connect(
   mapStateToProps,
   {
     updateUserDetails,
-    uploadImage,
     checkPassword,
     getUser,
     eventBooked,

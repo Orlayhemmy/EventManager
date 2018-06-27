@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Form from '../Form/profile';
 import { checkPassword } from '../../../../actions/userActions';
 import { updateUserValidation } from '../../../../shared/userValidation';
-
+import uploadImage from '../../../../actions/imageAction';
 
 export class Content extends React.Component {
   constructor() {
@@ -26,8 +26,9 @@ export class Content extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.checkPassword = this.checkPassword.bind(this);
     this.isValid = this.isValid.bind(this);
+    this.showImage = this.showImage.bind(this);
   }
-      /**
+  /**
    * @memberof Profile
    * @method isValid
    * @description it calls validation action on user data
@@ -41,7 +42,7 @@ export class Content extends React.Component {
     }
     return isValid;
   }
-    /**
+  /**
    * @memberof Profile
    * @method checkPassword
    * @description it calls an action
@@ -51,22 +52,25 @@ export class Content extends React.Component {
     e.preventDefault();
     this.props.checkPassword(this.state);
   }
-    /**
+  /**
    * @memberof Profile
    * @method onChange
    * @description it sets user input to state
    * @param {object} event
    */
   onChange(e) {
-    this.setState({
-      [e.target.id]: e.target.value
-    }, () => {
-      this.setState({
-        errors: {}
-      });
-    });
+    this.setState(
+      {
+        [e.target.id]: e.target.value
+      },
+      () => {
+        this.setState({
+          errors: {}
+        });
+      }
+    );
   }
-    /**
+  /**
    * @memberof Profile
    * @method onSubmit
    * @description it calls an action
@@ -84,15 +88,31 @@ export class Content extends React.Component {
           fullname: this.state.fullname,
           email: this.state.email
         };
-        if(this.initialState.image === this.state.image) {
-          this.props.updateUserDetails(this.state)
+        if (this.initialState.image === this.state.image) {
+          this.props.updateUserDetails(this.state);
         } else {
           this.props.uploadImage(data, formData);
         }
       }
     }
   }
-    /**
+  /**
+   * @memberof CenterForm
+   * @method showImage
+   * @description it sets user input to state
+   * @param {object} event
+   */
+  showImage(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      this.state.imageData = event.target.files[0];
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+  /**
    * @memberof Profile
    * @method componentWillReceiveProps
    * @description it updates the state when new props are recieved
@@ -108,15 +128,18 @@ export class Content extends React.Component {
         imageUrl,
         createdAt
       } = nextProps.auth.userDetails;
-      this.setState({
-        fullname: fullname || '',
-        email: email || '',
-        id: id,
-        imageUrl: imageUrl,
-        createdAt: createdAt || ''
-      }, () => {
-        this.initialState = this.state;
-      });
+      this.setState(
+        {
+          fullname: fullname || '',
+          email: email || '',
+          id: id,
+          imageUrl: imageUrl,
+          createdAt: createdAt || ''
+        },
+        () => {
+          this.initialState = this.state;
+        }
+      );
     }
   }
   render() {
@@ -143,7 +166,10 @@ export class Content extends React.Component {
               <div>
                 {!imageUrl ? (
                   <div className="imageUpload">
-                    <img src="./images/imageholder.jpg" className="img-fluid dropzone" />
+                    <img
+                      src="./images/imageholder.jpg"
+                      className="img-fluid dropzone"
+                    />
                   </div>
                 ) : (
                   <div className="imageUpload">
@@ -164,7 +190,7 @@ export class Content extends React.Component {
             <Form
               profileState={this.state}
               onChange={this.onChange}
-              showImage={this.props.showImage}
+              showImage={this.showImage}
               checkPassword={this.checkPassword}
               onSubmit={this.onSubmit}
               showDiv={this.props.showDiv}
@@ -194,7 +220,8 @@ export class Content extends React.Component {
 
 const propTypes = {
   auth: PropTypes.object.isRequired,
-  checkPassword: PropTypes.func.isRequired
+  checkPassword: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -202,4 +229,10 @@ const mapStateToProps = state => ({
 });
 Content.propTypes = propTypes;
 
-export default connect(mapStateToProps, { checkPassword })(Content);
+export default connect(
+  mapStateToProps,
+  {
+    checkPassword,
+    uploadImage
+  }
+)(Content);
