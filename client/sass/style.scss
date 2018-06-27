@@ -330,10 +330,15 @@
   form input {
     text-align: center;
     margin-top: 0;
-    border: none;
   }
   h3 {
     font-size: 2rem;
+  }
+  form input:focus, form input:hover {
+    border: none
+  }
+  .mh {
+    max-height: 440px;
   }
 }
 

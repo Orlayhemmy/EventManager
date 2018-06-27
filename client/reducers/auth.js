@@ -4,6 +4,7 @@ import * as actionTypes from '../actions/types';
 const initialState = {
   isAuth: false,
   user: {},
+  userDetails: {}
 };
 export default (state = initialState, action = {}) => {
   switch (action.type) {
@@ -181,7 +182,9 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         loaded: false,
-        loading: true
+        loading: true,
+        status: '',
+        message: '',
       };
     }
     case actionTypes.GET_USER_SUCCESS: {

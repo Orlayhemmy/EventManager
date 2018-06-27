@@ -21,7 +21,7 @@ import ViewCenter from './components/CenterDetails/Container/viewCenterPage';
 import UserPanel from './components/Dashboard/Container/userPanelPage';
 import setAuthToken from './utils/setAuthorizationToken';
 import PasswordRecovery from './components/PasswordRecovery/Container/passwordRecoveryPage';
-import Profile from './components/Profile/profile';
+import Profile from './components/Profile/Container/profile';
 import { setCurrentUser } from './actions/userActions';
 import { setCurrentEvent } from './actions/eventActions';
 import { setCurrentCenter } from './actions/centerActions';

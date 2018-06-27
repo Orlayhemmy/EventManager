@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { getEvents, setCurrentEvent } from '../../../actions/eventActions';
 import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
