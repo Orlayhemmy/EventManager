@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert';
+import swal from 'sweetalert2';
 import { Redirect } from 'react-router-dom';
 import Content from '../Template/Content/eventContent';
 import Navbar from '../../Navbar/Container/navbar';

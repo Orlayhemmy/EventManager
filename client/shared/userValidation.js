@@ -145,6 +145,6 @@ export function updateUserValidation(data) {
     }
     return errors;
   });
-
+  console.log(errors)
   return { errors, isValid: isEmpty(errors) };
 }
