@@ -83,10 +83,11 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTER_FAILS: {
-      const { message } = action.payload;
+      const { message, status } = action.payload;
       return {
         ...state,
-        error: message
+        error: message,
+        status
       };
     }
     case actionTypes.GET_CENTER_SUCCESS: {

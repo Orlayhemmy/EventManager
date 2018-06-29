@@ -13,6 +13,8 @@ import AddEventForm from '../Form/addEventForm';
 import EditEventForm from '../Form/editEventForm';
 import Modal from '../../../Flash/modal';
 import { searchValidation } from '../../../../shared/centerValidations';
+import CenterSearch from '../../../Common/Search';
+
 
 
 /**
@@ -38,6 +40,9 @@ export class Event extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.isValid = this.isValid.bind(this);
     // this.checkDate = this.checkDate.bind(this);
+  }
+  searchNav = (e) => {
+    document.getElementById('search-nav').style.width = '280px';
   }
     /**
    * @memberof AdminDashMethod
@@ -106,7 +111,6 @@ export class Event extends React.Component {
     let month = date.getMonth() + 1;
     let day = date.getDate() + 1;
     let currentDate = `${year}-${month}-${day}`;
-    <script>
       $(document).ready( function() {
         $('#bookedDate').datepicker({
           format:'yyyy-mm-dd',
@@ -114,7 +118,6 @@ export class Event extends React.Component {
           startDate: currentDate,
         })
       });
-    </script>
     if (this.props.userEvent.status === 201) {
       alert(this.props.userEvent.message);
     }
@@ -198,6 +201,14 @@ export class Event extends React.Component {
     return (
       <div id="event-form">
         <div className="container">
+          <div className="search-icon" onClick={this.searchNav}>
+            <i className="fa fa-search" />
+          </div>
+          <CenterSearch 
+            criteria={this.state}
+            search={this.search}
+            onChange={this.onChange}
+          />
           <div className="row m-auto">
             <div className="col-lg-4 card mr-2 text-center bb">
               {centerInfo}
@@ -210,10 +221,6 @@ export class Event extends React.Component {
               <hr className="mb-0"/>
               {content}
             </div>
-            <span data-toggle="modal" data-target="#event">
-              Modal
-            </span>
-            <Modal message={message} />
           </div>
         </div>
       </div>

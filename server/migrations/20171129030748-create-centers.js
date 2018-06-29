@@ -22,6 +22,10 @@ module.exports = {
     facilities: {
       type: Sequelize.ARRAY(Sequelize.STRING),
     },
+    cost: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
     imageUrl: {
       type: Sequelize.STRING,
       allowNull: true,
@@ -31,7 +35,7 @@ module.exports = {
       defaultValue: true,
     },
     description: {
-      type: Sequelize.STRING,
+      type: Sequelize.TEXT,
       allowNull: false,
     },
     userId: {

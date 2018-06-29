@@ -16,9 +16,9 @@ import { createEvent, checkAvailableDate } from '../../../actions/eventActions';
  */
 export class AddEventPage extends React.Component {
   /**
-  * @memberof EditEventForm
-  * @description it creates an instance of EditEventForm
-  */
+   * @memberof EditEventForm
+   * @description it creates an instance of EditEventForm
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -37,12 +37,15 @@ export class AddEventPage extends React.Component {
     this.checkDate = this.checkDate.bind(this);
     this.removeDate = this.removeDate.bind(this);
   }
+  searchNav = e => {
+    document.getElementById('search-nav').style.width = '280px';
+  };
   /**
-  * @memberof AddEventForm
-  * @method onChange
-  * @description it sets user input to state
-  * @param {object} event
-  */
+   * @memberof AddEventForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
   onChange(e) {
     this.setState({
       [e.target.id]: e.target.value
@@ -59,10 +62,10 @@ export class AddEventPage extends React.Component {
     if (dataIndex !== -1) dateArray.splice(dataIndex, 1);
   }
   /**
-  * @memberof AddEventForm
-  * @method checkDate
-  * @param {object} event
-  */
+   * @memberof AddEventForm
+   * @method checkDate
+   * @param {object} event
+   */
   checkDate(e) {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
@@ -84,8 +87,8 @@ export class AddEventPage extends React.Component {
       centerName: this.props.center.centerName,
       reason: '',
       suggestion: '',
-      text: '',
-    }
+      text: ''
+    };
     let id = document.getElementById('bookedDate');
     this.state.bookedDate = id.value;
     if (this.isValid()) {
@@ -103,7 +106,7 @@ export class AddEventPage extends React.Component {
     const { errors, isValid } = addEventValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
-    }  
+    }
     return isValid;
   }
   /**
@@ -123,18 +126,27 @@ export class AddEventPage extends React.Component {
    * @returns the HTML of AddEventPage
    */
   render() {
+    const {
+      userEvent,
+      center,
+      auth,
+      location: { pathname }
+    } = this.props;
     //Check if user is logged in
-    if (!this.props.auth.isAuth) {
+    if (!auth.isAuth) {
       return <Redirect to="/" />;
     }
-    if (this.props.center.status === 401 || this.props.userEvent.status === 498) {
+    if (
+      center.status === 498 ||
+      center.status === 401 ||
+      userEvent.status === 498
+    ) {
       this.logout();
     }
-    if(this.props.userEvent.status === 201) {
-      swal(this.props.userEvent.message);
+    if (this.props.userEvent.status === 201) {
+      swal(userEvent.message);
       return <Redirect to="/dashboard" />;
     }
-    const { pathname } = this.props.location;
 
     return (
       <div>
@@ -167,9 +179,12 @@ const mapStateToProps = state => ({
 });
 AddEventPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  logout,
-  getCenterSelected,
-  createEvent,
-  checkAvailableDate
-})(AddEventPage);
+export default connect(
+  mapStateToProps,
+  {
+    logout,
+    getCenterSelected,
+    createEvent,
+    checkAvailableDate
+  }
+)(AddEventPage);

@@ -20,7 +20,9 @@ export default class Validation {
       facilities,
       description,
       location,
-      capacity
+      capacity,
+      cost,
+      imageUrl
     } = req.body;
     const errors = {};
     if (
@@ -28,7 +30,9 @@ export default class Validation {
       facilities === undefined ||
       description === undefined ||
       location === undefined ||
-      capacity === undefined
+      capacity === undefined ||
+      cost === undefined ||
+      imageUrl === undefined
     ) {
       return res.status(400).send({
         message: 'All or Some Fields are Undefined'
@@ -58,6 +62,16 @@ export default class Validation {
       errors.capacity = 'Center capacity cannot be blank';
     }
 
+    // validations for capacity
+
+    if (!validator.isEmpty(cost)) {
+      if (!/^[0-9]+$/.test(cost)) {
+        errors.cost = 'Center cost can only contain numbers';
+      }
+    } else {
+      errors.cost = 'Center must have cost';
+    }
+
     // validations for facilities
 
     if (!validator.isEmpty(facilities)) {
@@ -71,6 +85,15 @@ export default class Validation {
       }
     } else {
       errors.facilities = 'Center should have at least one facility';
+    }
+
+    // validations for url
+    if (!validator.isEmpty(imageUrl)) {
+      if (!validator.isURL(imageUrl)) {
+        errors.imageUrl = 'The url is not valid';
+      }
+    } else {
+      errors.imageUrl = 'The center must have an image';
     }
 
     // validations for description
@@ -121,7 +144,8 @@ export default class Validation {
       description,
       location,
       capacity,
-      imageUrl
+      imageUrl,
+      cost
     } = req.body;
     const errors = {};
     Object.entries(req.body).forEach((entry) => {
@@ -137,8 +161,16 @@ export default class Validation {
         }
       }
 
+      if (entry[0] === 'cost') {
+        if (entry[1] !== null) {
+          if (!/^[0-9]+$/.test(cost)) {
+            errors.cost = 'Center cost can only contain number';
+          }
+        }
+      }
+
       // validations for url
-      if (entry[0] === 'capacity') {
+      if (entry[0] === 'imageUrl') {
         if (entry[1] !== null) {
           if (!validator.isURL(imageUrl)) {
             errors.imageUrl = 'The url is not valid';

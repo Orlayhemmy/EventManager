@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import { uploadImage } from '../../../../actions/centerActions';
+import uploadImage from '../../../../actions/imageAction';
 import { addCenterValidation } from '../../../../shared/centerValidations';
 import TextField from '../../../../common/textField2';
 import { logout } from '../../../../actions/userActions';
@@ -28,7 +28,6 @@ export class CenterForm extends React.Component {
       errors: {},
       image: '',
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
@@ -82,7 +81,7 @@ export class CenterForm extends React.Component {
         facilities: this.state.facilities,
         capacity: this.state.capacity,
       }
-      this.props.uploadImage(data, formData);
+      this.props.uploadImage(data, formData, 'center');
     }
   }
   /**
@@ -189,6 +188,15 @@ export class CenterForm extends React.Component {
           placeholder={capacityHolder}
           type="text"
           error={errors.capacity}
+          onChange={this.onChange}
+        />
+
+        <TextField
+          id="cost"
+          value={this.state.cost}
+          placeholder="3000"
+          type="text"
+          error={errors.cost}
           onChange={this.onChange}
         />
 

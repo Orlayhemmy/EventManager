@@ -113,10 +113,14 @@ export function getCenterSelected(centerInfo) {
         });
       })
       .catch((err) => {
-        const { data } = err.response;
+        const { data, status } = err.response;
+        const res = {
+          data,
+          status
+        };
         dispatch({
           type: actionTypes.GET_CENTER_FAILS,
-          payload: data
+          payload: res
         });
       });
   };

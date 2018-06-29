@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Centers from '../../../Common/Centers';
 import Search from '../../../Common/Search';
 import { getCenters } from '../../../../actions/centerActions';
+import { searchValidation } from '../../../../shared/centerValidations';
+
 /**
  * @description CenterPage component
  */
@@ -31,7 +33,9 @@ export class CenterPage extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.isValid = this.isValid.bind(this);
   }
-
+  searchNav = (e) => {
+    document.getElementById('search-nav').style.width = '280px';
+  }
    /**
    * @memberof CenterPage
    * @method search
@@ -59,12 +63,6 @@ export class CenterPage extends React.Component {
     this.setState({
       [e.target.id]: e.target.value
     });
-    let div = document.getElementById('btwValue');
-    if (e.target.value === 'between' || e.target.id === 'btwValue') {
-      div.hidden = false;
-    } else {
-      div.hidden = true;
-    }
   }
   /**
    * @memberof CenterPage
@@ -106,8 +104,14 @@ export class CenterPage extends React.Component {
   render() {
     return (
       <div className="container">
-        <Search criteria={this.state}/>
+        <Search 
+        criteria={this.state}
+        searchNav={this.searchNav}
+        search={this.search}
+        onChange={this.onChange}
+        />
         <Centers
+        searchNav={this.searchNav}
         searchState={this.state}
         counter={this.state.counter}
         showCenter={this.showCenter}

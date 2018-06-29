@@ -31,7 +31,7 @@ export default class Navbar extends React.Component {
         <li className="nav-item">
           <div className="dropdown">
             <button
-              class="btn btn-success dropdown-toggle main-color-bg"
+              className="btn btn-success dropdown-toggle main-color-bg"
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="false"
@@ -41,7 +41,7 @@ export default class Navbar extends React.Component {
               Sign In
             </button>
             <div
-              class="dropdown-menu dropdown-menu-right"
+              class="dropdown-menu dropdown-menu-right mt-3"
               aria-labelledby="signIn"
             >
               <SignIn navbarProps={navbarProps}/>

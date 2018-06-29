@@ -15,10 +15,10 @@ export default class SignIn extends React.Component {
     } = this.props.navbarProps;
     return (
       <form class="px-4 py-3" onSubmit={signinSubmit}>
+        <span className="help-block">
+          {errorEmail || auth.signinError}
+        </span>
         <div className="form-group">
-          <span className="help-block">
-            {errorEmail || auth.signinError}
-          </span>
           <label for="email">Email Address</label>
           <input
             id="loginEmail"
