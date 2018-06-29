@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CenterSearch from '../../../Common/Search';
 import { clearEventState } from '../../../../actions/eventActions';
 
 /**
@@ -57,11 +56,6 @@ export class AddEventForm extends React.Component {
       <div>        
         <form id="add-event-form" onSubmit={this.props.onFormSubmit}>
           <span className="help-block">{this.props.userEvent.error}</span>
-          <CenterSearch 
-            criteria={this.props.criteria}
-            search={this.props.search}
-            onChange={this.props.onChange}
-          />
           <p className="subtitle">select your preferred event center</p>
           <div class="input-group mb-2">
             <div class="input-group-prepend">

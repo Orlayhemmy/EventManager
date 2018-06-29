@@ -17,7 +17,7 @@ export class DisplayCenters extends React.Component {
    * @description it gets the necessary object before component is mounted
    */
   componentWillMount() {
-    const {searchState} = this.props;
+    const { searchState } = this.props;
     this.props.getCenters(searchState, searchState.counter);
     this.props.getAdminActivity();
   }
@@ -55,17 +55,17 @@ export class DisplayCenters extends React.Component {
         .slice(0, 16);
       return (
         <div key={index} className="main-color-bg p-2 mb-1">
-            <Link to="/view-center-event">
-              <p
-                className="activity-font mb-0 p-1 fw"
-                onClick={this.showCenter}
-                id={activity.centerId}
-              >
-                {activity.description}
-                <br />
-                {creationDate}
-              </p>
-            </Link>
+          <Link to="/view-center-event">
+            <p
+              className="activity-font mb-0 p-1 fw"
+              onClick={this.showCenter}
+              id={activity.centerId}
+            >
+              {activity.description}
+              <br />
+              {creationDate}
+            </p>
+          </Link>
         </div>
       );
     });
@@ -106,6 +106,10 @@ export class DisplayCenters extends React.Component {
               </h3>
 
               <h3>
+                <span>cost: </span> {center.cost}
+              </h3>
+
+              <h3>
                 <span>description: </span> {center.description}
               </h3>
             </div>
@@ -125,22 +129,31 @@ export class DisplayCenters extends React.Component {
 
     const adminCenterPage = (
       <div className="section">
-        <div className="row title">
-          <h1>List Of Centers</h1>
-        </div>
         <div className="row wc">
           <div className="col-lg-8 mr-3">
-            {this.props.counter > 0 ? 
+            {this.props.counter > 0 ? (
               <div className="page-icon bounce">
-                <i className="fa fa-chevron-up icon" id="previous" onClick={this.props.nextCenters}></i>
-              </div> : '' 
-            }
+                <i
+                  className="fa fa-chevron-up icon"
+                  id="previous"
+                  onClick={this.props.nextCenters}
+                />
+              </div>
+            ) : (
+              ''
+            )}
             {adminCenter}
-            {centers.length > 4 ?
+            {centers.length > 4 ? (
               <div className="page-icon bounce">
-                <i className="fa fa-chevron-down icon" id="next" onClick={this.props.nextCenters}></i>
-              </div> : ''
-            }
+                <i
+                  className="fa fa-chevron-down icon"
+                  id="next"
+                  onClick={this.props.nextCenters}
+                />
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div className="col-lg-3 bw p-2 ho">
             <h2>Notifications</h2>
@@ -171,6 +184,10 @@ export class DisplayCenters extends React.Component {
             </h3>
 
             <h3>
+              <span>Cost: </span> {center.cost}
+            </h3>
+
+            <h3>
               <span>description: </span> {center.description}
             </h3>
           </div>
@@ -180,21 +197,36 @@ export class DisplayCenters extends React.Component {
 
     const guestCenterPage = (
       <div>
-        {this.props.counter > 0 ? 
+        {this.props.counter > 0 ? (
           <div className="page-icon bounce">
-            <i className="fa fa-chevron-up icon" id="previous" onClick={this.props.nextCenters}></i>
-          </div> : '' 
-        }
+            <i
+              className="fa fa-chevron-up icon"
+              id="previous"
+              onClick={this.props.nextCenters}
+            />
+          </div>
+        ) : (
+          ''
+        )}
         {guestCenters}
-        {centers.length > 4 ?
+        {centers.length > 4 ? (
           <div className="page-icon bounce">
-            <i className="fa fa-chevron-down icon" id="next" onClick={this.props.nextCenters}></i>
-          </div> : ''
-        }
+            <i
+              className="fa fa-chevron-down icon"
+              id="next"
+              onClick={this.props.nextCenters}
+            />
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     );
     return (
       <div>
+        <div className="search-icon" onClick={this.props.searchNav}>
+          <i className="fa fa-search" />
+        </div>
         {this.props.auth.user.isAdmin ? adminCenterPage : guestCenterPage}
         <DeleteModal path={path} />
       </div>
@@ -217,7 +249,10 @@ const mapStateToProps = state => ({
 
 DisplayCenters.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  getAdminActivity,
-  getCenters
-})(DisplayCenters);
+export default connect(
+  mapStateToProps,
+  {
+    getAdminActivity,
+    getCenters
+  }
+)(DisplayCenters);

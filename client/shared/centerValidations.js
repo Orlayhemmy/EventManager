@@ -12,7 +12,8 @@ export function modifyCenterValidation(data) {
     description,
     location,
     capacity,
-    imageUrl
+    imageUrl,
+    cost
   } = data;
   const errors = {};
 
@@ -20,6 +21,13 @@ export function modifyCenterValidation(data) {
   if (!validator.isEmpty(imageUrl)) {
     if (!validator.isURL(imageUrl)) {
       errors.imageUrl = 'Wrong image path';
+    }
+  }
+
+  // validations for cost
+  if (!validator.isEmpty(cost)) {
+    if (!/^[0-9]+$/.test(cost)) {
+      errors.cost = 'Center cost can only contain numbers';
     }
   }
 
@@ -90,6 +98,7 @@ export function addCenterValidation(data) {
     description,
     location,
     capacity,
+    cost
   } = data;
 
   const errors = {};
@@ -116,6 +125,16 @@ export function addCenterValidation(data) {
     }
   } else {
     errors.capacity = 'Center capacity cannot be blank';
+  }
+
+  // validations for cost
+
+  if (!validator.isEmpty(cost)) {
+    if (!/^[0-9]+$/.test(cost)) {
+      errors.cost = 'Center cost can only contain numbers';
+    }
+  } else {
+    errors.cost = 'Center cost cannot be blank';
   }
 
   // validations for facilities

@@ -30,13 +30,11 @@
         $('nav.navbar').removeClass('black-nav')
       }
     });
-    const button = document.getElementById("chosen-dates");
-    if (button) {
-      button.addEventListener("click", (e) => {
-        e.preventDefault();
-        alert('@@@@@@@@@@@@@@@@@@@@');
-      });
-    }
+    $(document).click(function(event) {
+      if (!$(event.target).closest(".search-nav").length) {
+        document.getElementById('search-nav').style.width = '0px';
+      }
+    });
     </script>
   </body>
 </html>  

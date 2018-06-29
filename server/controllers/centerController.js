@@ -121,7 +121,8 @@ export default class CenterController {
       description,
       facilities,
       capacity,
-      imageUrl
+      imageUrl,
+      cost
     } = req.body;
     const { id } = req.decoded;
     Centers.findOne({ where: { centerName } })
@@ -141,6 +142,7 @@ export default class CenterController {
           facilities: facilityArray,
           capacity,
           imageUrl,
+          cost,
           userId: id
         })
           .then((center) => {
@@ -178,7 +180,8 @@ export default class CenterController {
       description,
       facilities,
       capacity,
-      imageUrl
+      imageUrl,
+      cost
     } = req.body;
 
     const { id } = req.params;
@@ -197,7 +200,8 @@ export default class CenterController {
               description: description.toLowerCase() || center.description,
               facilities: facilityArray || center.facilities,
               capacity: capacity || center.capacity,
-              imageUrl: imageUrl || center.imageUrl
+              imageUrl: imageUrl || center.imageUrl,
+              cost: cost || center.cost
             })
             .then(() => res.status(202).send({
               message: 'Successfully updated center'

@@ -38,6 +38,10 @@ export class AdminPanelPage extends React.Component {
     this.search = this.search.bind(this);
     this.onChange = this.onChange.bind(this);
     this.isValid = this.isValid.bind(this);
+    this.searchNav = this.searchNav.bind(this);
+  }
+  searchNav(e) {
+    document.getElementById('search-nav').style.width = '280px';
   }
   /**
    * @memberof AdminDashMethod
@@ -113,12 +117,6 @@ export class AdminPanelPage extends React.Component {
     this.setState({
       [e.target.id]: e.target.value
     });
-    const div = document.getElementById('btwValue');
-    if (e.target.value === 'between' || e.target.id === 'btwValue') {
-      div.hidden = false;
-    } else {
-      div.hidden = true;
-    }
   }
   /**
    * @memberof AdminDashMethod
@@ -142,18 +140,19 @@ export class AdminPanelPage extends React.Component {
     }
     return (
       <div className="container">
-        <Search 
+        <Search
+          searchNav={this.searchNav}
           search={this.search}
           criteria={this.state}
           onChange={this.onChange}
         />
-        <Centers 
-          // path={pathname}
+        <Centers
+          searchNav={this.searchNav}
           searchState={this.state}
           counter={this.state.counter}
           showCenter={this.showCenter}
           nextCenters={this.nextCenters}
-          />
+        />
       </div>
     );
   }
@@ -167,12 +166,15 @@ const propTypes = {
   centerSelected: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
   viewCenterSelected: PropTypes.func.isRequired
-}
+};
 
 AdminPanelPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  centerSelected,
-  getCenters,
-  viewCenterSelected
-})(AdminPanelPage);
+export default connect(
+  mapStateToProps,
+  {
+    centerSelected,
+    getCenters,
+    viewCenterSelected
+  }
+)(AdminPanelPage);

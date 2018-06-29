@@ -168,6 +168,7 @@ export class ModifyEventPage extends React.Component {
     return (
       <div>
         <Navbar />
+        
         <Content
           path={pathname}
           eventState={this.state}
