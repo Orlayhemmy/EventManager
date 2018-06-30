@@ -49,7 +49,8 @@ export default (state = initialState, action) => {
         ...state,
         loading: true,
         status: '',
-        error: ''
+        error: '',
+        message: ''
       };
     }
     case actionTypes.GET_CENTERS_FAIL: {
@@ -60,12 +61,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
-      const { centers } = action.payload;
+      const { centers, message } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
-        centers
+        centers,
+        message
       };
     }
     case actionTypes.CENTER_SELECTED: {
