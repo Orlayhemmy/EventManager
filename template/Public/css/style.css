@@ -4,9 +4,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #212529;
-      background-image: url(../images/image5.png);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: #f5efe9c7;
   position: relative;
   margin: 0;
   padding-bottom: 7rem;
@@ -42,10 +40,6 @@ span {
   font-size: 1em;
 }
 
-p {
- text-transform: capitalize;
- padding: 0 15px;
-}
 
 h1,h2,h3 {
   margin-bottom: 0.5rem;
@@ -166,7 +160,7 @@ nav.navbar.black-nav {
 }
 /* Navigation bar */
 nav.navbar {
-  background: #dbd9dc3d;
+  background: #F97E04;
     padding: 0 20px;
   border-bottom: 1px outset #dbd9dc;
   transition: all 1s ease-in 0s;
@@ -274,7 +268,7 @@ text-transform: capitalize;
 /* Page and Form */
 .container {
   padding: 50px 0;
-  margin-top: 30px;
+  margin-top: 85px;
 }
 .imageUpload > input {
   display: none;
@@ -360,9 +354,6 @@ min-height: 0;
 	opacity: 0.9;
 }
 
-.media-body {
-	padding: 0 10px;
-}
 .media-heading {
   font-size: 1.3rem;
   cursor: pointer;
@@ -608,7 +599,7 @@ body {
   transition: 0.7s;
   padding: 30px 0;
   opacity: 0.95;
-  background: #d6d6d6;
+  background: #e3e8ec;
 }
 .search-field {
   margin: 5px 20px;
@@ -627,4 +618,10 @@ body {
   z-index: 2;
   position: fixed;
   right: 0;
+}
+
+.empty-center {
+  font-size: 17rem;
+  margin-top: 3rem;
+  color: #d0d0d0;
 }

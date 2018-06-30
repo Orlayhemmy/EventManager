@@ -146,8 +146,8 @@ module.exports = {
     createdAt: new Date(),
     updatedAt: new Date(),
   }, {
-    centerName: 'Aquactic Hotels & Waterparks',
-    description: `Acquatic hotels and waterparks is one of the most sought after
+    centerName: 'Aquatic Hotels & Waterparks',
+    description: `Aquatic hotels and waterparks is one of the most sought after
     event places on the mainland and reasonably so since it speaks prestige and
     status. It has its private waterpark & has one of the largest swimming pools
     for awards after-party. Located at 31/37Toyinstreet, Ikeja, Lagos, the event

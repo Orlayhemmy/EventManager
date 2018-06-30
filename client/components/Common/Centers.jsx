@@ -80,7 +80,7 @@ export class DisplayCenters extends React.Component {
     } else {
       adminCenter = centers.map((center, index) => {
         return (
-          <div className="row bw p-4" key={index}>
+          <div className="row card reverse p-4" key={index}>
             <div className="col-lg-4 col-md-12 col-sm-12 text-center">
               <img className="img-fluid" src={center.imageUrl} />
             </div>
@@ -155,7 +155,7 @@ export class DisplayCenters extends React.Component {
               ''
             )}
           </div>
-          <div className="col-lg-3 bw p-2 ho">
+          <div className="col-lg-3 card p-2 ho">
             <h2>Notifications</h2>
             {recentActivity}
           </div>
@@ -164,7 +164,7 @@ export class DisplayCenters extends React.Component {
     );
     const guestCenters = centers.map((center, index) => {
       return (
-        <div className="row bw p-4" id={center.id} key={index}>
+        <div className="row card reverse p-4" id={center.id} key={index}>
           <div className="col-lg-4 col-md-12 col-sm-12 text-center">
             <img className="img" src={center.imageUrl} />
           </div>

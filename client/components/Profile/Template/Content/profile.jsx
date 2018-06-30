@@ -198,7 +198,7 @@ export class Content extends React.Component {
               newPasswordError={this.state.errors.retypePass}
             />
           </div>
-          <div className="card col-lg-3 text-center pt-4 bb mh">
+          <div className="card col-lg-3 m-auto text-center pt-4 bb mh">
             <div className="text-primary">Activities</div>
             <hr />
             <div className="mb-4">

@@ -42,6 +42,11 @@ export class Event extends React.Component {
     // this.checkDate = this.checkDate.bind(this);
   }
   searchNav = (e) => {
+    if (e.target.parentNode.id === "submit") {
+      const div = document.getElementById('search-nav');
+      div.style.width = "0px";
+      return div
+    }
     document.getElementById('search-nav').style.width = '280px';
   }
     /**
@@ -68,6 +73,7 @@ export class Event extends React.Component {
     e.preventDefault();
     if (this.isValid()) {
       this.props.getCenters(this.state, 0);
+      this.searchNav(e);
     }
   }
 
@@ -146,35 +152,32 @@ export class Event extends React.Component {
     const message = this.props.userEvent.message;
     const { path } = this.props;
     const center = this.props.eventCenter.center;
-    let centerInfo;
-    if (isEmpty(center)) {
-      centerInfo = (
-        <div className="form-inner">
-          <div className="media largeIcon">
-            <i className="fa fa-home">
-              <h2>Select a center</h2>
-            </i>
+    const  centerInfo = ( center.centerName ?
+        (
+          <div className="form-inner">
+            <img className="img-fluid" src={center.imageUrl} />
+            <div className="media-body">
+              <h1 className="media-heading">
+                <span>{center.centerName}</span>
+              </h1>
+              <h3>Location</h3>
+              <p>{center.location}</p>
+              <h3>Facilities</h3>
+              <p>{center.facilities}</p>
+              <h3>Description</h3>
+              <p>{center.description}</p>
+            </div>
           </div>
-        </div>
-      );
-    } else {
-      centerInfo = (
-        <div className="form-inner">
-          <img className="img-fluid" src={center.imageUrl} />
-          <div className="media-body">
-            <h2 className="media-heading">
-              <span>{center.centerName}</span>
-            </h2>
-            <h3>Location</h3>
-            <p>{center.location}</p>
-            <h3>Facilities</h3>
-            <p>{center.facilities}</p>
-            <h3>Description</h3>
-            <p>{center.description}</p>
+        ) : (
+          <div>
+            <div className="empty-center">
+              <i className="fa fa-university">
+                <h2>Select a center</h2>
+              </i>
+            </div>
           </div>
-        </div>
+        )
       );
-    }
     if (this.props.path === '/modify-event') {
       content = <EditEventForm
         eventState={this.props.eventState}
@@ -209,11 +212,11 @@ export class Event extends React.Component {
             search={this.search}
             onChange={this.onChange}
           />
-          <div className="row m-auto">
-            <div className="col-lg-4 card mr-2 text-center bb">
+          <div className="row">
+            <div className="col-lg-4 card mr-2 text-center bb mxh">
               {centerInfo}
             </div>
-            <div className="col-lg-7 card text-center bb pb-3">
+            <div className="col-lg-7 card m-auto text-center bb pb-3">
               <div className="logo">
                 lets make your <strong className="text-primary">event</strong> a
                 memorable one

@@ -93,6 +93,9 @@
   .col-lg-4 {
     padding: 0;
   }
+  .reverse {
+    flex-direction: row-reverse;
+  }
 }
 
 #dashboard {
@@ -175,6 +178,14 @@
     min-height: 37px;
     border-radius: 3px;
   }
+  .mxh {
+    max-height: 500px;
+    overflow: scroll;
+  }
+  .btn-success:hover {
+    background: red;
+    border-color: red;
+  }
 }
 #center-search {
   select {
@@ -239,6 +250,9 @@
   }
   .fw {
     color: white;
+  }
+  .container {
+    transition: all 2s ease-in 0s;
   }
 }
 #homepage {

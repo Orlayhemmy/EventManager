@@ -123,8 +123,8 @@ export default class SearchForm extends React.Component {
               />
             </div>
           </div>
-          <div className="input-group pt-2">
-            <button className="btn btn-success" onClick={this.props.search}>
+          <div className="input-group pt-2" id="submit">
+            <button className="btn btn-success" id="submit" onClick={this.props.search}>
               <i className="fa fa-search"> Search</i>
             </button>
           </div>

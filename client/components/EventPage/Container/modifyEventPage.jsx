@@ -31,6 +31,7 @@ export class ModifyEventPage extends React.Component {
       isLoading: false,
       centerId: '',
       centerName: '',
+      dateArray: []
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -168,7 +169,6 @@ export class ModifyEventPage extends React.Component {
     return (
       <div>
         <Navbar />
-        
         <Content
           path={pathname}
           eventState={this.state}

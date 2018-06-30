@@ -17,6 +17,7 @@ export function clearCenterStorage() {
 /**
  * @param {object} centerInfo
  * @param {object} page
+ * @param {object} path
  * @returns {object} Get centers
  */
 export function getCenters(centerInfo, page) {
