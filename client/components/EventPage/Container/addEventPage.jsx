@@ -150,7 +150,7 @@ export class AddEventPage extends React.Component {
 
     return (
       <div>
-        <Navbar />
+        <Navbar path={pathname}/>
         <Content
           path={pathname}
           eventState={this.state}

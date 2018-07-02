@@ -105,12 +105,13 @@ export class Profile extends React.Component {
    * @returns the HTML of Profile
    */
   render() {
-    if (this.props.userEvent.status === 403 || this.props.userEvent.status === 498) {
+    const { userEvent: { status }, location: { pathname } } = this.props;
+    if (status === 403 || status === 498) {
         return <Redirect to="/" />;
     }
     return (
       <div id="profile-page">
-        <Navbar />
+        <Navbar path={pathname}/>
         <Content 
           checkPassword={this.checkPassword}
           onSubmit={this.onSubmit}

@@ -32,7 +32,7 @@ export class AddCenterPage extends React.Component {
     }
     return (
       <div id="add-center">
-        <Navbar />
+        <Navbar path={pathname}/>
         <div class="container">
           <div class="row">
             <div className="col-lg-6">

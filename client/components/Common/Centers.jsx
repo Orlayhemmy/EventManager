@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect, browserHistory } from 'react-router-dom';
+import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import DeleteModal from '../Modal/Container/deleteModal';
@@ -29,9 +30,7 @@ export class DisplayCenters extends React.Component {
    */
   componentDidUpdate() {
     if (this.props.eventCenter.status === 200) {
-      $(document).ready(function() {
-        $('#deleteModal').modal('hide');
-      });
+      swal("Center deleted successfully", "success");
     }
   }
 

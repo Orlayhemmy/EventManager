@@ -138,12 +138,11 @@ export class Dashboard extends React.Component {
     const { message } = this.props.userEvent;
     return (
       <div id="dashboard">
-        <Navbar />
+        <Navbar path={pathname}/>
         <div className="container">
           <div className="row pt-4">
-            <div className="col-lg-9 col9-bg">
+            <div className="col-lg-9">
               <div className="row event">
-                <h1>Dashboard</h1>
                 <h3 className="main-color">List of events booked</h3>
                 <hr />
               </div>

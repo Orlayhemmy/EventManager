@@ -154,7 +154,7 @@ export class DeleteModal extends React.Component {
     }
     return (
       <div className="modal hide" id="deleteModal">
-        <div className="modal-dialog">
+        <div className="modal-dialog mt-y5">
           <div className="modal-content">
             <div className="form-inner text-center">{content}</div>
           </div>

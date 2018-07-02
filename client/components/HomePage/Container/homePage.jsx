@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import swal from 'sweetalert2';
 import Navbar from '../../Navbar/Container/navbar';
 import Content from '../Template/Content/homeContent';
 import Footer from '../../Footer/footer';
@@ -120,8 +121,9 @@ export class Homepage extends React.Component {
    * @description it creates an instance of Homepage
    */
   render() {
-    if (this.props.auth.isAuth) {
-      return <Redirect to="/dashboard" />;
+    const { isAuth, message } = this.props.auth;
+    if (message === 201) {
+      swal("Successfully signed up", "success");
     }
     const {
       fullname,
@@ -135,6 +137,7 @@ export class Homepage extends React.Component {
       loginPassword,
       imageInput
     } = this.state;
+  
     const { pathname } = this.props.location;
     return (
       <div id="homepage">

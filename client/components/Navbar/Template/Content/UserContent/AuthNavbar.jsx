@@ -19,48 +19,54 @@ export default class AuthNavbar extends React.Component {
    * @returns the HTML of NavBar
    */
   render() {
+    const { path } = this.props.navbarProps;
     const navbarSecondary = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link to="/dashboard" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-dashboard" /> Dashboard
-            </span>
+          <Link
+            to="/dashboard"
+            className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Dashboard</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/admin-centers" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-home" /> centers
-            </span>
+          <Link
+            to="/admin-centers"
+            className={
+              path === '/admin-centers' ? 'nav-link active' : 'nav-link'
+            }
+          >
+            <span className="nav-link-text">centers</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/add-center" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-plus-square" /> add center
-            </span>
+          <Link
+            to="/add-center"
+            className={path === '/add-center' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">add center</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/add-event" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-plus-square" /> add event
-            </span>
+          <Link
+            to="/add-event"
+            className={path === '/add-event' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">add event</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/profile" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-user" /> profile
-            </span>
+          <Link
+            to="/profile"
+            className={path === '/profile' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">profile</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-power-off" /> logout
-            </span>
+            <span className="nav-link-text">logout</span>
           </Link>
         </li>
       </ul>
@@ -69,44 +75,36 @@ export default class AuthNavbar extends React.Component {
     const navbarMain = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link to="/" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-home" /> Home
-            </span>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/about" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-dashboard" /> about us
-            </span>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/dashboard" className="nav-link">
-            <span className="nav-link-text">
-              <i className="fa fa-dashboard" /> Dashboard
-            </span>
+          <Link
+            to="/"
+            className={path === '/' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Home</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link
-            to="/"
-            onClick={this.logout.bind(this)}
-            className="nav-link"
+            to="/about"
+            className={path === '/about' ? 'nav-link active' : 'nav-link'}
           >
-            <span className="nav-link-text">
-              <i className="fa fa-power-off" /> logout{' '}
-            </span>
+            <span className="nav-link-text">about us</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/dashboard"
+            className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Dashboard</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+            <span className="nav-link-text">logout</span>
           </Link>
         </li>
       </ul>
     );
-    return (
-      <div>
-        {this.props.path === '/' || this.props.path === '/about' ?
-          navbarMain : navbarSecondary }
-      </div>
-    );
+    return path === '/' || path === '/about' ? navbarMain : navbarSecondary;
   }
 }

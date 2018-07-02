@@ -13,8 +13,9 @@ export default class HomeContent extends React.Component {
    */
   render() {
     return (
-      <div className="container" id="homepage">
-        <div className="main-content">
+      <div id="homepage">
+        <div className="row main-content-bg">
+        <div className="main-content container">
           <div className="row">
             <div className="col-lg-6 intro">
               <h1>Book The Best Center</h1>
@@ -47,6 +48,8 @@ export default class HomeContent extends React.Component {
             </div>
           </div>
         </div>
+        </div>
+        <div className="row sub-color">
         <div className="row subcontent pb-4">
           <div className="col-lg-4">
             <div className="row center">
@@ -87,6 +90,7 @@ export default class HomeContent extends React.Component {
             experience top-notch and highly adaptable website that you are yet
             to make.
           </div>
+        </div>
         </div>
       </div>
     );

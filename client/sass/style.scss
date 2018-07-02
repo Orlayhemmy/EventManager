@@ -1,4 +1,9 @@
 /* eslint disable */
+#center-page, #profile-page, #dashboard, #event-form, #add-center {
+  background: #f5f2ef;
+  margin-top: -5px;
+  padding-bottom: 30px;
+}
 #about-page {
   .media-body {
     padding: 25px 20px;
@@ -64,7 +69,6 @@
     text-transform: capitalize;
     font-style: italic;
     font-size: 1.2rem;
-    color: #f97e04;
   }
 
   h3 {
@@ -179,7 +183,7 @@
     border-radius: 3px;
   }
   .mxh {
-    max-height: 500px;
+    max-height: 625px;
     overflow: scroll;
   }
   .btn-success:hover {
@@ -245,7 +249,6 @@
 #dashboard {
   .nav-link-text {
     font-style: normal;
-    color: #fff;
     font-size: 1.2em;
   }
   .fw {
@@ -283,12 +286,16 @@
   .main-content .form {
     background: #ffffff;
     padding: 25px;
-    opacity: 0.8;
+    opacity: 0.9;
     border-bottom: 5px solid #000000;
+  }
+  .sub-color {
+    background: #ecebe8eb;
   }
   .subcontent {
     background: #f97e04;
-    margin-top: 30px;
+    margin: 50px 0;
+    padding: 0 30px;
   }
   .subcontent .icon {
     padding: 15px 30px;
@@ -299,7 +306,7 @@
   .center {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin: 20px;
   }
   .dropdown-menu {
     width: 20rem;
