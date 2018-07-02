@@ -18,14 +18,14 @@ export class NavBar extends React.Component {
    */
   render() {
     const { isAuth } = this.props.auth;
-    return (
+      return (
       <nav
         className="navbar navbar-expand-lg navbar-dark fixed-top"
         id="mainNav"
       >
         <Link to="/" className="navbar-brand">
           <h1>
-            event <strong className="text-primary">center </strong>
+            <span className="text-lowercase fw">e</span>Center
           </h1>
         </Link>
         <button

@@ -216,7 +216,7 @@ export class Event extends React.Component {
             <div className="col-lg-4 card mr-2 text-center bb mxh">
               {centerInfo}
             </div>
-            <div className="col-lg-7 card m-auto text-center bb pb-3">
+            <div className="col-lg-7 card m-auto text-center bb pl-5 pr-5 pt-4 pb-4">
               <div className="logo">
                 lets make your <strong className="text-primary">event</strong> a
                 memorable one

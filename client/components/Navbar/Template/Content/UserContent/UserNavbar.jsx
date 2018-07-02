@@ -13,87 +13,86 @@ export default class UserNavbar extends React.Component {
     this.props.navbarProps.logout();
   }
   render() {
+    const { path } = this.props.navbarProps;
     const navbarSecondary = (
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link to="/dashboard" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-dashboard" /> Dashboard
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/add-event" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-plus-square" /> add event
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/profile" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-user" /> profile
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-power-off" /> logout
-              </span>
-            </Link>
-          </li>
-        </ul>
-      );
-
-      const navbarMain = (
-        <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link to="/" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-home" /> Home
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/view-centers" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-home" /> centers
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/about" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-dashboard" /> about us
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/dashboard" className="nav-link">
-              <span className="nav-link-text">
-                <i className="fa fa-dashboard" /> Dashboard
-              </span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link
-              to="/"
-              onClick={this.logout.bind(this)}
-              className="nav-link"
-            >
-              <span className="nav-link-text">
-                <i className="fa fa-power-off" /> logout{' '}
-              </span>
-            </Link>
-          </li>
-        </ul>
-      )
-    return (
-      <div>
-        {this.props.path === '/' || this.props.path === '/about' ?
-          navbarMain : navbarSecondary }
-      </div>
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link
+            to="/dashboard"
+            className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Dashboard</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/add-event"
+            className={path === '/add-event' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">add event</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/profile"
+            className={path === '/profile' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">profile</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+            <span className="nav-link-text">logout</span>
+          </Link>
+        </li>
+      </ul>
     );
+
+    const navbarMain = (
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link
+            to="/"
+            className={path === '/' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Home</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/view-centers"
+            className={
+              path === '/view-centers' ? 'nav-link active' : 'nav-link'
+            }
+          >
+            <span className="nav-link-text">centers</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/about"
+            className={path === '/about' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">about us</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            to="/dashboard"
+            className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
+          >
+            <span className="nav-link-text">Dashboard</span>
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+            <span className="nav-link-text">logout</span>
+          </Link>
+        </li>
+      </ul>
+    );
+    return this.props.path === '/' || this.props.path === '/about'
+      ? navbarMain
+      : navbarSecondary;
   }
 }

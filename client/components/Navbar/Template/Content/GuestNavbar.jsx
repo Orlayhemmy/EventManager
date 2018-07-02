@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SignIn from '../Form/SignIn';
 
 export default class Navbar extends React.Component {
-     /**
+  /**
    * @memberof NavBar
    * @method render
    * @description it renders the content of guestlinks
@@ -11,20 +11,32 @@ export default class Navbar extends React.Component {
    */
   render() {
     const { navbarProps } = this.props;
+    const { path } = navbarProps;
     return (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link to="/" className="nav-link">
+          <Link
+            to="/"
+            className={path === '/' ? 'nav-link active' : 'nav-link'}
+          >
             <span className="nav-link-text">Home</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/view-centers" className="nav-link">
+          <Link
+            to="/view-centers"
+            className={
+              path === '/view-centers' ? 'nav-link active' : 'nav-link'
+            }
+          >
             <span className="nav-link-text">centers</span>
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/about" className="nav-link">
+          <Link
+            to="/about"
+            className={path === '/about' ? 'nav-link active' : 'nav-link'}
+          >
             <span className="nav-link-text">about us</span>
           </Link>
         </li>
@@ -44,7 +56,7 @@ export default class Navbar extends React.Component {
               class="dropdown-menu dropdown-menu-right mt-3"
               aria-labelledby="signIn"
             >
-              <SignIn navbarProps={navbarProps}/>
+              <SignIn navbarProps={navbarProps} />
             </div>
           </div>
         </li>

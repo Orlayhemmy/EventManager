@@ -17,10 +17,11 @@ export class CenterPage extends React.Component {
     if (this.props.auth.isAuth) {
       return <Redirect to="/dashboard" />;
     }
+    const {pathname} = this.props.location;
     return (
       <div id="center-page">
-        <Navbar />
-        <GuestCenter path={this.props.location.pathname}/>
+        <Navbar path={pathname}/>
+        <GuestCenter path={pathname}/>
         <Footer />
       </div>
     );

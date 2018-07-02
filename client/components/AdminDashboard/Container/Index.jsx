@@ -11,7 +11,7 @@ export default class AdminDashMethod extends React.Component {
     const { pathname } = this.props.location;
     return (
       <div id="center-page">
-        <Navbar />
+        <Navbar path={pathname}/>
         <AdminContent pathname={pathname}/>
         <Footer />
       </div>

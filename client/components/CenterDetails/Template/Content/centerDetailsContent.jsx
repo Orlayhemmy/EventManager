@@ -346,14 +346,12 @@ export class CenterDetailsContent extends React.Component {
                     </div>
                     <h3 className="mt-2">description</h3>
                     <div>
-                      <input
-                        type="text"
+                      <textarea
                         value={description}
                         id="description"
                         onChange={this.onChange}
-                        className="text-center no-border mt-0 "
+                        className="form-control col-xs-6 mb-4"
                       />
-                      <border />
                     </div>
                     <input
                       type="button"
