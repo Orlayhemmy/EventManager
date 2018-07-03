@@ -23,7 +23,7 @@ export default class Content extends React.Component {
               Approved Booking: <i className="fa fa-thumbs-up green" />
             </span>
             <span className="legend">
-              Edit Booking: ...<i className="fa fa-pencil main-color" />
+              Edit Booking: ...<i className="fa fa-pencil-alt main-color" />
             </span>
             <span className="legend">
               Delete Booking: <i className="fa fa-trash trash" />
@@ -94,7 +94,7 @@ export default class Content extends React.Component {
                       onClick={this.props.onClick}
                       className="float-left"
                     >
-                      ...<i className="fa fa-pencil" />
+                      ...<i className="fa fa-pencil-alt" />
                     </Link>
                     <i
                       id={event.id}

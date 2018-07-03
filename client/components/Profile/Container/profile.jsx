@@ -5,25 +5,19 @@ import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
-import { checkPassword, getUser, updateUserDetails } from '../../../actions/userActions';
+import {
+  checkPassword,
+  getUser,
+  updateUserDetails
+} from '../../../actions/userActions';
 import { eventBooked } from '../../../actions/eventActions';
 import { logout } from '../../../actions/userActions';
 import Content from '../Template/Content/profile';
-
 
 /**
  * @description Profile component
  */
 export class Profile extends React.Component {
-  /**
-   * @memberof Profile
-   * @description it creates an instance of Profile
-   */
-  constructor() {
-    super();
-    this.showDiv = this.showDiv.bind(this);
-  }
-
   /**
    * @memberof Profile
    * @method componentWillMount
@@ -37,7 +31,7 @@ export class Profile extends React.Component {
     this.props.getUser();
   }
 
-      /**
+  /**
    * @memberof Profile
    * @method componentDidUpdate
    * @description it checks some conditions when component updates
@@ -53,9 +47,7 @@ export class Profile extends React.Component {
       div3.hidden = false;
     }
     if (this.props.auth.status === 202) {
-      swal(
-        'Update Successful'
-      );
+      swal('Update Successful');
       document.getElementById('newPasswordDiv').hidden = true;
       document.getElementById('editDetails').hidden = true;
       document.getElementById('showDetails').hidden = false;
@@ -68,7 +60,7 @@ export class Profile extends React.Component {
    * @description it toggles div display
    * @param {object} event
    */
-  showDiv(e) {
+  showDiv = e => {
     e.preventDefault();
     const div = document.getElementById('editDetails');
     const div2 = document.getElementById('showDetails');
@@ -86,7 +78,7 @@ export class Profile extends React.Component {
       div2.hidden = !div2.hidden;
       span.hidden = !span.hidden;
     }
-  }
+  };
 
   /**
    * @memberof Profile
@@ -95,9 +87,9 @@ export class Profile extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout(e) {
+  logout = e => {
     this.props.logout();
-  }
+  };
   /**
    * @memberof Profile
    * @method render
@@ -105,14 +97,17 @@ export class Profile extends React.Component {
    * @returns the HTML of Profile
    */
   render() {
-    const { userEvent: { status }, location: { pathname } } = this.props;
+    const {
+      userEvent: { status },
+      location: { pathname }
+    } = this.props;
     if (status === 403 || status === 498) {
-        return <Redirect to="/" />;
+      return <Redirect to="/" />;
     }
     return (
       <div id="profile-page">
-        <Navbar path={pathname}/>
-        <Content 
+        <Navbar path={pathname} />
+        <Content
           checkPassword={this.checkPassword}
           onSubmit={this.onSubmit}
           showDiv={this.showDiv}

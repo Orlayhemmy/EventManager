@@ -25,7 +25,6 @@ export default class Validation {
       imageUrl
     } = req.body;
     const errors = {};
-    console.log(req.body, '$$$$$$')
     if (
       centerName === undefined ||
       facilities === undefined ||
@@ -64,7 +63,6 @@ export default class Validation {
     }
 
     // validations for capacity
-
     if (!validator.isEmpty(cost)) {
       if (!/^[0-9]+$/.test(cost)) {
         errors.cost = 'Center cost can only contain numbers';

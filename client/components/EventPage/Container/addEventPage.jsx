@@ -15,28 +15,17 @@ import { createEvent, checkAvailableDate } from '../../../actions/eventActions';
  * @description AddEventPage component
  */
 export class AddEventPage extends React.Component {
-  /**
-   * @memberof EditEventForm
-   * @description it creates an instance of EditEventForm
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      eventTitle: '',
-      bookedDate: '',
-      description: '',
-      errors: {},
-      isLoading: false,
-      centerId: '',
-      centerName: '',
-      dateArray: []
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.checkDate = this.checkDate.bind(this);
-    this.removeDate = this.removeDate.bind(this);
-  }
+  state = {
+    eventTitle: '',
+    bookedDate: '',
+    description: '',
+    errors: {},
+    isLoading: false,
+    centerId: '',
+    centerName: '',
+    dateArray: []
+  };
+
   searchNav = e => {
     document.getElementById('search-nav').style.width = '280px';
   };
@@ -46,7 +35,7 @@ export class AddEventPage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -54,24 +43,24 @@ export class AddEventPage extends React.Component {
       this.state.centerId = e.target.value;
       this.props.getCenterSelected(e.target.value, 'tag');
     }
-  }
+  };
 
-  removeDate(data) {
+  removeDate = data => {
     const { dateArray } = this.state;
     const dataIndex = dateArray.indexOf(data);
     if (dataIndex !== -1) dateArray.splice(dataIndex, 1);
-  }
+  };
   /**
    * @memberof AddEventForm
    * @method checkDate
    * @param {object} event
    */
-  checkDate(e) {
+  checkDate = e => {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
       this.props.checkAvailableDate(this.state);
     }
-  }
+  };
   /**
    * @memberof AddEventForm
    * @method onSubmit
@@ -79,7 +68,7 @@ export class AddEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     let data = {
       eventInfo: this.state,
@@ -94,7 +83,7 @@ export class AddEventPage extends React.Component {
     if (this.isValid()) {
       this.props.createEvent(data);
     }
-  }
+  };
   /**
    * @memberof AddEventForm
    * @method isValid
@@ -102,13 +91,13 @@ export class AddEventPage extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid() {
+  isValid = () => {
     const { errors, isValid } = addEventValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
   /**
    * @memberof AddEventPage
    * @method logout
@@ -116,9 +105,9 @@ export class AddEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout(e) {
+  logout = e => {
     this.props.logout();
-  }
+  };
   /**
    * @memberof AddEventPage
    * @method render
@@ -150,7 +139,7 @@ export class AddEventPage extends React.Component {
 
     return (
       <div>
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <Content
           path={pathname}
           eventState={this.state}

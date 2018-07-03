@@ -7,27 +7,19 @@ import { updateUserValidation } from '../../../../shared/userValidation';
 import uploadImage from '../../../../actions/imageAction';
 
 export class Content extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      fullname: '',
-      email: '',
-      retypePass: '',
-      newPassword: '',
-      oldPassword: '',
-      errors: {},
-      wrongPasswordError: '',
-      imageUrl: '',
-      createdAt: '',
-      image: ''
-    };
-    this.initialState = this.state;
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.checkPassword = this.checkPassword.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.showImage = this.showImage.bind(this);
-  }
+  state = {
+    fullname: '',
+    email: '',
+    retypePass: '',
+    newPassword: '',
+    oldPassword: '',
+    errors: {},
+    wrongPasswordError: '',
+    imageUrl: '',
+    createdAt: '',
+    image: ''
+  };
+
   /**
    * @memberof Profile
    * @method isValid
@@ -35,30 +27,30 @@ export class Content extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid() {
+  isValid = () => {
     const { errors, isValid } = updateUserValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
   /**
    * @memberof Profile
    * @method checkPassword
    * @description it calls an action
    * @param {object} event
    */
-  checkPassword(e) {
+  checkPassword = e => {
     e.preventDefault();
     this.props.checkPassword(this.state);
-  }
+  };
   /**
    * @memberof Profile
    * @method onChange
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState(
       {
         [e.target.id]: e.target.value
@@ -69,7 +61,7 @@ export class Content extends React.Component {
         });
       }
     );
-  }
+  };
   /**
    * @memberof Profile
    * @method onSubmit
@@ -77,7 +69,7 @@ export class Content extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (this.initialState !== this.state) {
       if (this.isValid(this.state)) {
@@ -95,14 +87,14 @@ export class Content extends React.Component {
         }
       }
     }
-  }
+  };
   /**
    * @memberof CenterForm
    * @method showImage
    * @description it sets user input to state
    * @param {object} event
    */
-  showImage(event) {
+  showImage = event => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       this.state.imageData = event.target.files[0];
@@ -111,7 +103,7 @@ export class Content extends React.Component {
       };
       reader.readAsDataURL(event.target.files[0]);
     }
-  }
+  };
   /**
    * @memberof Profile
    * @method componentWillReceiveProps

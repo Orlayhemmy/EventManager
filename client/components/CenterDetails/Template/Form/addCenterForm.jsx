@@ -12,55 +12,43 @@ import UploadImage from '../../../ImageUpload/imageUpload';
  * @description CenterForm component
  */
 export class CenterForm extends React.Component {
-  /**
-   * @memberof CenterForm
-   * @description it creates an instance of CenterForm
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      centerName: '',
-      location: '',
-      description: '',
-      facilities: '',
-      capacity: '',
-      errors: {},
-      image: '',
-      cost: ''
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.logout = this.logout.bind(this);
-    this.showImage = this.showImage.bind(this);
-  }
+  state = {
+    centerName: '',
+    location: '',
+    description: '',
+    facilities: '',
+    capacity: '',
+    errors: {},
+    image: '',
+    cost: ''
+  };
   /**
    * @memberof CenterForm
    * @method onChange
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
-  }
-   /**
+  };
+  /**
    * @memberof CenterForm
    * @method showImage
    * @description it sets user input to state
    * @param {object} event
    */
-  showImage(event) {
+  showImage = event => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
-      this.state.imageData = event.target.files[0]
-      reader.onload = (e) => {
-          this.setState({image: e.target.result});
+      this.state.imageData = event.target.files[0];
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
       };
       reader.readAsDataURL(event.target.files[0]);
     }
-  }
+  };
   /**
    * @memberof CenterForm
    * @method onSubmit
@@ -68,7 +56,7 @@ export class CenterForm extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -81,10 +69,10 @@ export class CenterForm extends React.Component {
         facilities: this.state.facilities,
         capacity: this.state.capacity,
         cost: this.state.cost
-      }
+      };
       this.props.uploadImage(data, formData, 'center');
     }
-  }
+  };
   /**
    * @memberof CenterForm
    * @method isValid
@@ -92,7 +80,7 @@ export class CenterForm extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid() {
+  isValid = () => {
     if (this.props.path === '/add-center') {
       const { errors, isValid } = addCenterValidation(this.state);
       if (!isValid) {
@@ -100,7 +88,7 @@ export class CenterForm extends React.Component {
       }
       return isValid;
     }
-  }
+  };
   /**
    * @memberof CenterForm
    * @method logout
@@ -108,9 +96,9 @@ export class CenterForm extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout(e) {
+  logout = e => {
     this.props.logout();
-  }
+  };
 
   /**
    * @memberof CenterForm
@@ -241,7 +229,10 @@ const mapStateToProps = state => ({
 });
 CenterForm.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  uploadImage,
-  logout
-})(CenterForm);
+export default connect(
+  mapStateToProps,
+  {
+    uploadImage,
+    logout
+  }
+)(CenterForm);

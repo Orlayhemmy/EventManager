@@ -15,33 +15,18 @@ import { searchValidation } from '../../../../shared/centerValidations';
  * @description AdminPanelPage  component
  */
 export class AdminPanelPage extends React.Component {
-  /**
-   * @memberof AdminDashMethod
-   * @method render
-   * @description it renders the component
-   * @returns {void} the HTML of AdminDashMethod
-   */
-  constructor() {
-    super();
-    this.state = {
-      counter: 0,
-      location: '',
-      facilities: '',
-      capacity: '',
-      capacityType: '',
-      errors: {},
-      btwValue: ''
-    };
-    this.showCenter = this.showCenter.bind(this);
-    this.nextCenters = this.nextCenters.bind(this);
-    this.search = this.search.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.searchNav = this.searchNav.bind(this);
-  }
-  searchNav(e) {
+  state = {
+    counter: 0,
+    location: '',
+    facilities: '',
+    capacity: '',
+    capacityType: '',
+    errors: {},
+    btwValue: ''
+  };
+  searchNav = e => {
     document.getElementById('search-nav').style.width = '280px';
-  }
+  };
   /**
    * @memberof AdminDashMethod
    * @method nextCenters
@@ -49,9 +34,9 @@ export class AdminPanelPage extends React.Component {
    * @returns {void}
    * @param {object} e
    */
-  nextCenters(e) {
-    window.scroll(0,0);
-    document.body.scrollTop=0;
+  nextCenters = e => {
+    window.scroll(0, 0);
+    document.body.scrollTop = 0;
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1
@@ -63,7 +48,7 @@ export class AdminPanelPage extends React.Component {
       });
       this.props.getCenters(this.state, --this.state.counter);
     }
-  }
+  };
   /**
    * @memberof AdminDashMethod
    * @method showCenter
@@ -71,9 +56,9 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  showCenter(e) {
+  showCenter = e => {
     this.props.viewCenterSelected(e.target.id);
-  }
+  };
 
   /**
    * @memberof AdminDashMethod
@@ -82,7 +67,7 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search(e) {
+  search = e => {
     e.preventDefault();
     this.setState({
       counter: 0
@@ -90,7 +75,7 @@ export class AdminPanelPage extends React.Component {
     if (this.isValid()) {
       this.props.getCenters(this.state, this.state.counter);
     }
-  }
+  };
 
   /**
    * @memberof AdminDashMethod
@@ -99,24 +84,24 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {object} state
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
-  }
+  };
   /**
    * @memberof AdminDashMethod
    * @method isValid
    * @description it calls validation action on user data
    * @returns {void} true or false
    */
-  isValid() {
+  isValid = () => {
     const { errors, isValid } = searchValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
   render() {
     //Check if user is logged in and is also an Admin
     if (!this.props.user.isAuth) {

@@ -8,60 +8,51 @@ import {
   getCenterSelected,
   clearCenterStorage
 } from '../../../../actions/centerActions';
-import { getEventSelected, checkAvailableDate } from '../../../../actions/eventActions';
+import {
+  getEventSelected,
+  checkAvailableDate
+} from '../../../../actions/eventActions';
 import AddEventForm from '../Form/addEventForm';
 import EditEventForm from '../Form/editEventForm';
 import Modal from '../../../Flash/modal';
 import { searchValidation } from '../../../../shared/centerValidations';
 import CenterSearch from '../../../Common/Search';
 
-
-
 /**
  * @description Event component
  */
 export class Event extends React.Component {
-  /**
-  * @memberof EditEventForm
-  * @description it creates an instance of EditEventForm
-  */
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 0,
-      location: '',
-      facilities: '',
-      capacity: '',
-      capacityType: '',
-      errors: {},
-      btwValue: ''
-    };
-    this.search = this.search.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.isValid = this.isValid.bind(this);
-    // this.checkDate = this.checkDate.bind(this);
-  }
-  searchNav = (e) => {
-    if (e.target.parentNode.id === "submit") {
+  state = {
+    counter: 0,
+    location: '',
+    facilities: '',
+    capacity: '',
+    capacityType: '',
+    errors: {},
+    btwValue: ''
+  };
+
+  searchNav = e => {
+    if (e.target.parentNode.id === 'submit') {
       const div = document.getElementById('search-nav');
-      div.style.width = "0px";
-      return div
+      div.style.width = '0px';
+      return div;
     }
     document.getElementById('search-nav').style.width = '280px';
-  }
-    /**
+  };
+  /**
    * @memberof AdminDashMethod
    * @method isValid
    * @description it calls validation action on user data
    * @returns {void} true or false
    */
-  isValid() {
+  isValid = () => {
     const { errors, isValid } = searchValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
   /**
    * @memberof AdminDashMethod
    * @method search
@@ -69,13 +60,13 @@ export class Event extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search(e) {
+  search = e => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.getCenters(this.state, 0);
       this.searchNav(e);
     }
-  }
+  };
 
   /**
    * @memberof AdminDashMethod
@@ -84,7 +75,7 @@ export class Event extends React.Component {
    * @param {object} e
    * @returns {object} state
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -94,16 +85,16 @@ export class Event extends React.Component {
     } else {
       div.hidden = true;
     }
-  }
+  };
   /**
   // * @memberof AddEventForm
   // * @method checkDate
   // * @param {object} event
   // */
-  checkDate(e) {
+  checkDate = e => {
     e.preventDefault();
     this.props.checkAvailableDate(this.state);
-  }
+  };
   /**
    * @memberof EditEventForm
    * @method componentDidUpdate
@@ -117,18 +108,18 @@ export class Event extends React.Component {
     let month = date.getMonth() + 1;
     let day = date.getDate() + 1;
     let currentDate = `${year}-${month}-${day}`;
-      $(document).ready( function() {
-        $('#bookedDate').datepicker({
-          format:'yyyy-mm-dd',
-          autoclose:true,
-          startDate: currentDate,
-        })
+    $(document).ready(function() {
+      $('#bookedDate').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        startDate: currentDate
       });
+    });
     if (this.props.userEvent.status === 201) {
       alert(this.props.userEvent.message);
     }
   }
-   /**
+  /**
    * @memberof Event
    * @method componentWillMount
    * @description it calls an action
@@ -149,57 +140,57 @@ export class Event extends React.Component {
       return <Redirect to="/dashboard" />;
     }
     let content;
-    const message = this.props.userEvent.message;
-    const { path } = this.props;
     const center = this.props.eventCenter.center;
-    const  centerInfo = ( center.centerName ?
-        (
-          <div className="form-inner">
-            <img className="img-fluid" src={center.imageUrl} />
-            <div className="media-body">
-              <h1 className="media-heading">
-                <span>{center.centerName}</span>
-              </h1>
-              <h3>Location</h3>
-              <p>{center.location}</p>
-              <h3>Facilities</h3>
-              <p>{center.facilities}</p>
-              <h3>Description</h3>
-              <p>{center.description}</p>
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="empty-center">
-              <i className="fa fa-university">
-                <h2>Select a center</h2>
-              </i>
-            </div>
-          </div>
-        )
-      );
+    const centerInfo = center.centerName ? (
+      <div className="form-inner">
+        <img className="img-fluid" src={center.imageUrl} />
+        <div className="media-body">
+          <h1 className="media-heading">
+            <span>{center.centerName}</span>
+          </h1>
+          <h3>Location</h3>
+          <p>{center.location}</p>
+          <h3>Facilities</h3>
+          <p>{center.facilities}</p>
+          <h3>Description</h3>
+          <p>{center.description}</p>
+        </div>
+      </div>
+    ) : (
+      <div>
+        <div className="empty-center">
+          <i className="fa fa-university">
+            <h2>Select a center</h2>
+          </i>
+        </div>
+      </div>
+    );
     if (this.props.path === '/modify-event') {
-      content = <EditEventForm
-        eventState={this.props.eventState}
-        search={this.search}
-        onChange={this.onChange}
-        criteria={this.state}
-        onFormChange={this.props.onFormChange}
-        onFormSubmit={this.props.onFormSubmit}
-        checkDate={this.props.checkDate}
-        removeDate={this.props.removeDate}
-      />;
+      content = (
+        <EditEventForm
+          eventState={this.props.eventState}
+          search={this.search}
+          onChange={this.onChange}
+          criteria={this.state}
+          onFormChange={this.props.onFormChange}
+          onFormSubmit={this.props.onFormSubmit}
+          checkDate={this.props.checkDate}
+          removeDate={this.props.removeDate}
+        />
+      );
     } else {
-      content = <AddEventForm
-        eventState={this.props.eventState}
-        search={this.search}
-        onChange={this.onChange}
-        criteria={this.state}
-        onFormChange={this.props.onFormChange}
-        onFormSubmit={this.props.onFormSubmit}
-        checkDate={this.props.checkDate}
-        removeDate={this.props.removeDate}
-      />;
+      content = (
+        <AddEventForm
+          eventState={this.props.eventState}
+          search={this.search}
+          onChange={this.onChange}
+          criteria={this.state}
+          onFormChange={this.props.onFormChange}
+          onFormSubmit={this.props.onFormSubmit}
+          checkDate={this.props.checkDate}
+          removeDate={this.props.removeDate}
+        />
+      );
     }
     return (
       <div id="event-form">
@@ -207,7 +198,7 @@ export class Event extends React.Component {
           <div className="search-icon" onClick={this.searchNav}>
             <i className="fa fa-search" />
           </div>
-          <CenterSearch 
+          <CenterSearch
             criteria={this.state}
             search={this.search}
             onChange={this.onChange}
@@ -221,7 +212,7 @@ export class Event extends React.Component {
                 lets make your <strong className="text-primary">event</strong> a
                 memorable one
               </div>
-              <hr className="mb-0"/>
+              <hr className="mb-0" />
               {content}
             </div>
           </div>
@@ -246,10 +237,13 @@ const mapStateToProps = state => ({
 });
 Event.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  getCenters,
-  getCenterSelected,
-  clearCenterStorage,
-  getEventSelected,
-  checkAvailableDate
-})(Event);
+export default connect(
+  mapStateToProps,
+  {
+    getCenters,
+    getCenterSelected,
+    clearCenterStorage,
+    getEventSelected,
+    checkAvailableDate
+  }
+)(Event);

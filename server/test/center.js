@@ -59,6 +59,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           facilities: 'Stage light',
           location: 'Ikeja',
           capacity: '500',
+          cost: '900000',
           imageUrl: 'https://wwww.image.com/centerImage'
         })
         .expect(201)
@@ -82,6 +83,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           facilities: 'Stage light',
           location: 'Ikeja',
           capacity: '500',
+          cost: '900000',
           imageUrl: 'https://wwww.image.com/centerImage'
         })
         .expect(409)
@@ -106,7 +108,9 @@ describe('tests for post, update, delete and get center processes ', () => {
             description: 'A world class event center',
             facilities: '',
             location: '',
-            capacity: '500'
+            capacity: '500',
+            cost: '70000',
+            imageUrl: 'image.com'
           })
           .expect(400)
           .end((err, res) => {
@@ -133,7 +137,9 @@ describe('tests for post, update, delete and get center processes ', () => {
             description: 'A world class event center/Hotel',
             facilities: 'Projector & Stage Lights, ^2 Sound',
             location: 'Lekki, Lagos',
-            capacity: '500'
+            capacity: '500',
+            cost: '60000',
+            imageUrl: 'image.com'
           })
           .expect(400)
           .end((err, res) => {
@@ -219,9 +225,9 @@ describe('tests for post, update, delete and get center processes ', () => {
         });
     });
 
-    it('should return success when a center cannot be found', (done) => {
+    it('should return 400 when a center cannot be found', (done) => {
       request
-        .get('/api/v1/centers/8')
+        .get('/api/v1/centers/20')
         .set('x-access-token', userToken)
         .expect(400)
         .end((err, res) => {

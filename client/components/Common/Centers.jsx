@@ -151,7 +151,7 @@ export class DisplayCenters extends React.Component {
                   id="previous"
                   onClick={this.props.nextCenters}
                 />
-                                      <p class="tooltiptext">Previous Centers</p>
+                <p class="tooltiptext">Previous Centers</p>
               </div>
             ) : (
               ''
@@ -163,8 +163,7 @@ export class DisplayCenters extends React.Component {
                   id="next"
                   onClick={this.props.nextCenters}
                 />
-                          <p class="tooltiptext">Next Centers</p>
-
+                <p class="tooltiptext">Next Centers</p>
               </div>
             ) : (
               ''
@@ -234,8 +233,7 @@ export class DisplayCenters extends React.Component {
               id="next"
               onClick={this.props.nextCenters}
             />
-                      <p class="tooltiptext">Filter Centers</p>
-
+            <p class="tooltiptext">Filter Centers</p>
           </div>
         ) : (
           ''
@@ -245,10 +243,7 @@ export class DisplayCenters extends React.Component {
     );
     return (
       <div>
-        <div
-          className="search-icon"
-          onClick={this.props.searchNav}
-        >
+        <div className="search-icon" onClick={this.props.searchNav}>
           <i className="fa fa-search" />
           <p class="tooltiptext">Filter Centers</p>
         </div>

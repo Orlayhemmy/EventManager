@@ -5,7 +5,10 @@ import swal from 'sweetalert2';
 import Navbar from '../../Navbar/Container/navbar';
 import Content from '../Template/Content/homeContent';
 import Footer from '../../Footer/footer';
-import { userSignInRequest, userSignupRequest } from '../../../actions/userActions';
+import {
+  userSignInRequest,
+  userSignupRequest
+} from '../../../actions/userActions';
 import {
   validateSigninInput,
   validateSignupInput
@@ -15,31 +18,19 @@ import { getCenters } from '../../../actions/centerActions';
  * @description Homepage component
  */
 export class Homepage extends React.Component {
-  /**
-   * @memberof HomeContent
-   * @description it creates an instance of HomeContent
-   */
-  constructor() {
-    super();
-    this.state = {
-      fullname: '',
-      email: '',
-      password: '',
-      retypePass: '',
-      errors: {},
-      isLoading: '',
-      serverError: '',
-      image: '',
-      loginEmail: '',
-      loginPassword: '',
-      imageInput: ''
-    };
-    this.onChange = this.onChange.bind(this);
-    this.signupSubmit = this.signupSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.signinSubmit = this.signinSubmit.bind(this);
-    this.signinValid = this.signinValid.bind(this);
-  }
+  state = {
+    fullname: '',
+    email: '',
+    password: '',
+    retypePass: '',
+    errors: {},
+    isLoading: '',
+    serverError: '',
+    image: '',
+    loginEmail: '',
+    loginPassword: '',
+    imageInput: ''
+  };
 
   componentWillMount() {
     this.props.getCenters();
@@ -50,11 +41,11 @@ export class Homepage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
-  }
+  };
 
   /**
    * @memberof SignUpForm
@@ -63,13 +54,13 @@ export class Homepage extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid() {
+  isValid = () => {
     const { errors, isValid } = validateSignupInput(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
 
   /**
    * @memberof SignInForm
@@ -78,13 +69,13 @@ export class Homepage extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  signinValid() {
+  signinValid = () => {
     const { errors, isValid } = validateSigninInput(this.state);
     if (!isValid) {
       this.setState({ errors });
     }
     return isValid;
-  }
+  };
   /**
    * @memberof SignInForm
    * @method onSubmit
@@ -92,12 +83,12 @@ export class Homepage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  signinSubmit(e) {
+  signinSubmit = e => {
     e.preventDefault();
     if (this.signinValid()) {
       this.props.userSignInRequest(this.state);
     }
-  }
+  };
   /**
    * @memberof SignUpForm
    * @method onSubmit
@@ -105,7 +96,7 @@ export class Homepage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  signupSubmit(e) {
+  signupSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -117,7 +108,7 @@ export class Homepage extends React.Component {
         memorable.<br/> Click on this <a href="#">link</a> to see our event centers and get started`;
       this.props.userSignupRequest(this.state, formData);
     }
-  }
+  };
   /**
    * @memberof Homepage
    * @description it creates an instance of Homepage
@@ -125,7 +116,7 @@ export class Homepage extends React.Component {
   render() {
     const { isAuth, message } = this.props.auth;
     if (message === 201) {
-      swal("Successfully signed up", "success");
+      swal('Successfully signed up', 'success');
     }
     const {
       fullname,
@@ -184,8 +175,11 @@ const mapStateToProps = state => ({
   centerState: state.center
 });
 
-export default connect(mapStateToProps, {
-  userSignupRequest,
-  userSignInRequest,
-  getCenters
-})(Homepage);
+export default connect(
+  mapStateToProps,
+  {
+    userSignupRequest,
+    userSignInRequest,
+    getCenters
+  }
+)(Homepage);

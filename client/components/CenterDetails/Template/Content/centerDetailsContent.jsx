@@ -59,11 +59,6 @@ export class CenterDetailsContent extends React.Component {
       cost: cost || '',
       decision: ''
     };
-    this.initialState = this.state;
-    this.onClick = this.onClick.bind(this);
-    this.showHiddenDiv = this.showHiddenDiv.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
   componentWillMount() {
     this.props.getCenterSelected();
@@ -75,11 +70,11 @@ export class CenterDetailsContent extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
-  }
+  };
   /**
    * @memberof CenterForm
    * @method showImage
@@ -117,7 +112,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -141,7 +136,7 @@ export class CenterDetailsContent extends React.Component {
         this.showHiddenDiv(e);
       }
     }
-  }
+  };
   /**
    * @memberof CenterDetailsContent
    * @method componentWillReceiveProps
@@ -206,12 +201,12 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onClick(e) {
+  onClick = e => {
     this.state.eventId = e.target.id;
     this.setState({
       decision: e.target.parentNode.id
     });
-  }
+  };
 
   /**
    * @memberof CenterDetailsContent
@@ -248,7 +243,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  showHiddenDiv(e) {
+  showHiddenDiv = e => {
     let id = e.target.dataset.toggleId;
     if (!id) return;
     const div = document.getElementById(id);
@@ -260,8 +255,8 @@ export class CenterDetailsContent extends React.Component {
       }
       return (div2.style.display = '');
     }
-  }
-  
+  };
+
   /**
    * @memberof CenterDetailsContent
    * @method render
