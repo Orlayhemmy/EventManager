@@ -669,7 +669,7 @@ body {
   } 
 }
 
-.search-icon .tooltiptext, .pagination-icon .tooltiptext {
+.search-icon .tooltiptext, .pagination-icon .tooltiptext, .tooltip .tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -688,7 +688,7 @@ body {
   left: 105%; 
 }
 
-.search-icon:hover .tooltiptext, .pagination-icon:hover .tooltiptext {
+.search-icon:hover .tooltiptext, .pagination-icon:hover .tooltiptext, .tooltip:hover .tooltiptext {
   visibility: visible;
   font-size: 0.8rem;
 }

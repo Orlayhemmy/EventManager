@@ -9,43 +9,33 @@ import Footer from '../../Footer/footer';
 import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { modifyEventValidation } from '../../../shared/eventValidations';
-import { modifyEvent, getEventSelected, checkAvailableDate } from '../../../actions/eventActions';
-
-
+import {
+  modifyEvent,
+  getEventSelected,
+  checkAvailableDate
+} from '../../../actions/eventActions';
 
 /**
  * @description ModifyEventPage component
  */
 export class ModifyEventPage extends React.Component {
+  state = {
+    eventTitle: '',
+    bookedDate: '',
+    description: '',
+    errors: {},
+    isLoading: false,
+    centerId: '',
+    centerName: '',
+    dateArray: []
+  };
   /**
-  * @memberof EditEventForm
-  * @description it creates an instance of EditEventForm
-  */
-  constructor(props) {
-    super(props);
-    this.state = {
-      eventTitle: '',
-      bookedDate: '',
-      description: '',
-      errors: {},
-      isLoading: false,
-      centerId: '',
-      centerName: '',
-      dateArray: []
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.checkDate = this.checkDate.bind(this);
-    this.removeDate = this.removeDate.bind(this);
-  }
-  /**
-  * @memberof AddEventForm
-  * @method onChange
-  * @description it sets user input to state
-  * @param {object} event
-  */
-  onChange(e) {
+   * @memberof AddEventForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} event
+   */
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -53,58 +43,58 @@ export class ModifyEventPage extends React.Component {
       this.state.centerId = e.target.value;
       this.props.getCenterSelected(e.target.value, 'tag');
     }
-  }
+  };
 
-  removeDate(data) {
+  removeDate = data => {
     const { dateArray } = this.state;
     const dataIndex = dateArray.indexOf(data);
     dateArray.splice(dataIndex, 1);
-  }
+  };
   /**
-    * @memberof AddEventForm
-    * @method checkDate
-    * @param {object} event
-    */
-  checkDate(e) {
+   * @memberof AddEventForm
+   * @method checkDate
+   * @param {object} event
+   */
+  checkDate = e => {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
       this.props.checkAvailableDate(this.state);
     }
-  }
+  };
 
- /**
-  * @memberof EditEventForm
-  * @method componentWillReceiveProps
-  * @description it updates the state when new props are recieved
-  * @param {object} nextProps
-  * @returns {void}
-  */
+  /**
+   * @memberof EditEventForm
+   * @method componentWillReceiveProps
+   * @description it updates the state when new props are recieved
+   * @param {object} nextProps
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
-   if (nextProps.userEvent.event) {
-     const {
-       description,
-       eventTitle,
-       bookedDate,
-       dateArray,
-       centerId,
-       centerName
-     } = nextProps.userEvent.event;
+    if (nextProps.userEvent.event) {
+      const {
+        description,
+        eventTitle,
+        bookedDate,
+        dateArray,
+        centerId,
+        centerName
+      } = nextProps.userEvent.event;
 
-     this.setState({
-       eventTitle: eventTitle || '',
-       dateArray: bookedDate || '',
-       description: description || '',
-       centerName: centerName || '',
-       centerId: centerId || '',
-     });
-   }
+      this.setState({
+        eventTitle: eventTitle || '',
+        dateArray: bookedDate || '',
+        description: description || '',
+        centerName: centerName || '',
+        centerId: centerId || ''
+      });
+    }
   }
 
   /**
-  * @memberof EditEventForm
-  * @method componentWillMount
-  * @returns {void}
-  */
+   * @memberof EditEventForm
+   * @method componentWillMount
+   * @returns {void}
+   */
   componentWillMount() {
     this.props.getCenterSelected();
     this.props.getEventSelected();
@@ -130,18 +120,18 @@ export class ModifyEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.modifyEvent(this.props.userEvent.event.id, this.state);
     }
-  }
+  };
 
-  removeDate(data) {
+  removeDate = data => {
     const { dateArray } = this.state;
     const dataIndex = dateArray.indexOf(data);
     if (dataIndex !== -1) dateArray.splice(dataIndex, 1);
-  }
+  };
   /**
    * @memberof ModifyEventPage
    * @method logout
@@ -149,9 +139,9 @@ export class ModifyEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout(e) {
+  logout = e => {
     this.props.logout();
-  }
+  };
   /**
    * @memberof ModifyEventPage
    * @method render
@@ -166,14 +156,14 @@ export class ModifyEventPage extends React.Component {
     if (this.props.center.status === 401) {
       this.logout();
     }
-    if(this.props.userEvent.status === 202) {
+    if (this.props.userEvent.status === 202) {
       swal(this.props.userEvent.message);
       return <Redirect to="/dashboard" />;
     }
     const { pathname } = this.props.location;
     return (
       <div>
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <Content
           path={pathname}
           eventState={this.state}
@@ -203,10 +193,13 @@ const mapStateToProps = state => ({
 });
 ModifyEventPage.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  logout,
-  getCenterSelected,
-  modifyEvent,
-  getEventSelected,
-  checkAvailableDate
-})(ModifyEventPage);
+export default connect(
+  mapStateToProps,
+  {
+    logout,
+    getCenterSelected,
+    modifyEvent,
+    getEventSelected,
+    checkAvailableDate
+  }
+)(ModifyEventPage);

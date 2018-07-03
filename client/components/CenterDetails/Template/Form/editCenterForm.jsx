@@ -1,9 +1,7 @@
 import React from 'react';
 import UploadImage from '../../../ImageUpload/imageUpload';
 
-
 export default class EditCenter extends React.Component {
-
   render() {
     const {
       centerName,

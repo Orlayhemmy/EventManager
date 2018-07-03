@@ -19,9 +19,7 @@ export default class ProfileForm extends React.Component {
 
     const passwordForm = (
       <div id="passwordUpdate" hidden>
-        <span className="help-block">
-          {this.props.passwordError}
-        </span>
+        <span className="help-block">{this.props.passwordError}</span>
         <br />
         <span className="subtitle">Password</span>
         <div className="form-check-inline">
@@ -55,9 +53,7 @@ export default class ProfileForm extends React.Component {
     );
     const newPasswordForm = (
       <div id="newPasswordDiv" hidden>
-        <span className="help-block">
-          {this.props.newPasswordError}
-        </span>
+        <span className="help-block">{this.props.newPasswordError}</span>
         <span className="subtitle">New password</span>
         <div className="form-check-inline">
           <div class="col-12 no-padding">
@@ -90,17 +86,20 @@ export default class ProfileForm extends React.Component {
     );
     return (
       <form id="editDetails" hidden>
-        <UploadImage uploadedImage={image || imageUrl} showImage={this.props.showImage} />
+        <UploadImage
+          uploadedImage={image || imageUrl}
+          showImage={this.props.showImage}
+        />
 
-          <TextField
-            id="fullname"
-            value={fullname.toUpperCase()}
-            placeholder="Fullname"
-            type="text"
-            error={errors.fullname}
-            onChange={this.props.onChange}
-            className="no-border pt-1"
-          />
+        <TextField
+          id="fullname"
+          value={fullname.toUpperCase()}
+          placeholder="Fullname"
+          type="text"
+          error={errors.fullname}
+          onChange={this.props.onChange}
+          className="no-border pt-1"
+        />
 
         <TextField
           id="email"
@@ -110,7 +109,7 @@ export default class ProfileForm extends React.Component {
           error={errors.email}
           onChange={this.props.onChange}
         />
-        <border></border>
+        <border />
 
         <span
           className="subtitle"

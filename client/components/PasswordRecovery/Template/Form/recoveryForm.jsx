@@ -16,36 +16,26 @@ import TextField from '../../../../common/textField3';
  * @description PasswordRecoveryForm component
  */
 export class PasswordRecoveryForm extends React.Component {
-  /**
-   * @memberof PasswordRecoveryForm
-   * @description it creates an instance of AddEventForm
-   */
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      error: '',
-      code: '',
-      password: '',
-      retypePass: '',
-      wrongCode: ''
-    };
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.isValid = this.isValid.bind(this);
-    this.swap = this.swap.bind(this);
-  }
+  state = {
+    email: '',
+    error: '',
+    code: '',
+    password: '',
+    retypePass: '',
+    wrongCode: ''
+  };
+
   /**
    * @memberof PasswordRecoveryForm
    * @method onChange
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange(e) {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method isValid
@@ -53,7 +43,7 @@ export class PasswordRecoveryForm extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid(id) {
+  isValid = id => {
     if (id === 'insertEmail') {
       const { error, isValid } = recoverPassword(this.state);
       if (!isValid) {
@@ -67,7 +57,7 @@ export class PasswordRecoveryForm extends React.Component {
       }
       return isValid;
     }
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method onSubmit
@@ -75,7 +65,7 @@ export class PasswordRecoveryForm extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit(e) {
+  onSubmit = e => {
     e.preventDefault();
     if (e.target.id === 'insertEmail') {
       if (this.isValid(e.target.id)) {
@@ -100,7 +90,7 @@ export class PasswordRecoveryForm extends React.Component {
         this.props.updateUserDetails(this.state);
       }
     }
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method showDiv
@@ -109,10 +99,10 @@ export class PasswordRecoveryForm extends React.Component {
    * @param {*} id2
    * @returns {void}
    */
-  showDiv(id1, id2) {
+  showDiv = (id1, id2) => {
     document.getElementById(id1).hidden = true;
     document.getElementById(id2).hidden = false;
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method componentDidUpdate
@@ -145,7 +135,7 @@ export class PasswordRecoveryForm extends React.Component {
    * @description it counts down available time to short code
    * @returns {void}
    */
-  countDown() {
+  countDown = () => {
     setTimeout(() => {
       let div = document.getElementById('verifyCode');
       if (!div.hidden) {
@@ -153,16 +143,16 @@ export class PasswordRecoveryForm extends React.Component {
         document.getElementById('code').disabled = true;
       }
     }, 20000);
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method countDown
    * @description it swaps div
    * @returns {void}
    */
-  swap() {
+  swap = () => {
     this.showDiv('verifyEmail', 'insertEmail');
-  }
+  };
   /**
    * @memberof PasswordRecoveryForm
    * @method render
@@ -315,10 +305,13 @@ const mapStateToProps = state => ({
 });
 PasswordRecoveryForm.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  generateCode,
-  confirmEmail,
-  updateUserDetails,
-  sendMail,
-  wrongCode
-})(PasswordRecoveryForm);
+export default connect(
+  mapStateToProps,
+  {
+    generateCode,
+    confirmEmail,
+    updateUserDetails,
+    sendMail,
+    wrongCode
+  }
+)(PasswordRecoveryForm);

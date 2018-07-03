@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert2';
-import { getEvents, setCurrentEvent, clearEventState } from '../../../actions/eventActions';
+import {
+  getEvents,
+  setCurrentEvent,
+  clearEventState
+} from '../../../actions/eventActions';
 import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
@@ -20,15 +24,9 @@ import DashboardNotifications from '../Template/Content/UserNotifications';
  * @description Dashboard component
  */
 export class Dashboard extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      counter: 0
-    };
-    this.onClick = this.onClick.bind(this);
-    this.onDelete = this.onDelete.bind(this);
-    this.nextEvents = this.nextEvents.bind(this);
-  }
+  state = {
+    counter: 0
+  };
   /**
    * @memberof Dashboard
    * @method componentWillMount
@@ -49,9 +47,9 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onClick(e) {
+  onClick = e => {
     this.props.setCurrentEvent(e.target.id, e.target.parentNode.id);
-  }
+  };
   /**
    * @memberof Dashboard
    * @method componentDidUpdate
@@ -73,24 +71,24 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onDelete(e) {
+  onDelete = e => {
     const eventData = {
       eventId: e.target.id,
       eventName: e.target.parentNode.id
     };
     this.props.eventSelected(eventData);
-  }
+  };
   /**
    * @memberof Dashboard
    * @method showDiv
    * @description it toggles div display
    * @param {object} event
    */
-  showHiddenDiv(e) {
+  showHiddenDiv = e => {
     const targetDiv = e.target.id;
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
-  }
+  };
   /**
    * @memberof Dashboard
    * @method logout
@@ -98,16 +96,16 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout(e) {
+  logout = e => {
     this.props.logout();
-  }
+  };
   /**
    * @memberof Dashboard
    * @method nextEvents
    * @description it fetches the next centers
    * @returns {void}
    */
-  nextEvents(e) {
+  nextEvents = e => {
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1
@@ -119,7 +117,7 @@ export class Dashboard extends React.Component {
       });
       this.props.getEvents(--this.state.counter);
     }
-  }
+  };
   /**
    * @memberof Dashboard
    * @method render
@@ -139,7 +137,7 @@ export class Dashboard extends React.Component {
     const { message } = this.props.userEvent;
     return (
       <div id="dashboard">
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <div className="container">
           <div className="row pt-4">
             <div className="col-lg-9">
