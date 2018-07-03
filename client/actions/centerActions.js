@@ -171,11 +171,11 @@ export function addCenter(centerInfo) {
  * @param {object} centerId
  * @returns {object} success or failure
  */
-export function modifyCenter(centerInfo, centerId) {
+export function modifyCenter(centerInfo) {
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER });
     return axios
-      .put(`/api/v1/centers/${centerId}`, centerInfo)
+      .put(`/api/v1/centers/${centerInfo.id}`, centerInfo)
       .then((response) => {
         const { data: { message }, status } = response;
         const res = {
@@ -186,7 +186,7 @@ export function modifyCenter(centerInfo, centerId) {
           type: actionTypes.MODIFY_CENTER_SUCCESS,
           payload: res
         });
-        dispatch(getCenterSelected(centerId));
+        dispatch(getCenterSelected());
       })
       .catch((err) => {
         const { data } = err.response;

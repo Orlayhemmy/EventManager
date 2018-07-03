@@ -67,7 +67,8 @@ export function getEvents(data) {
  * @param {object} id
  * @returns {object} center events
  */
-export function getCenterEvents(id) {
+export function getCenterEvents() {
+  const id = localStorage.getItem('centerId');
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_CENTER_EVENTS });
     return axios

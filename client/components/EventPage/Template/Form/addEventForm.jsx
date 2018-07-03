@@ -58,7 +58,7 @@ export class AddEventForm extends React.Component {
     const { centers } = eventCenter;
     const { eventTitle, bookedDate, errors, centerId, dateArray } = eventState;
 
-    const showCenters = _.map(centers, center => {
+    const showCenters = centers.map(center => {
       return (
         <option key={center.id} value={center.id}>
           {center.centerName}
