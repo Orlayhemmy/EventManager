@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
 import Navbar from '../../Navbar/Container/navbar';
 import Content from '../Template/Content/homeContent';
@@ -11,7 +10,7 @@ import {
   validateSigninInput,
   validateSignupInput
 } from '../../../shared/userValidation';
-
+import { getCenters } from '../../../actions/centerActions';
 /**
  * @description Homepage component
  */
@@ -42,6 +41,9 @@ export class Homepage extends React.Component {
     this.signinValid = this.signinValid.bind(this);
   }
 
+  componentWillMount() {
+    this.props.getCenters();
+  }
   /**
    * @memberof SignUpForm
    * @method onChange
@@ -137,7 +139,6 @@ export class Homepage extends React.Component {
       loginPassword,
       imageInput
     } = this.state;
-  
     const { pathname } = this.props.location;
     return (
       <div id="homepage">
@@ -164,6 +165,8 @@ export class Homepage extends React.Component {
           errorPass={errors.password}
           signupSubmit={this.signupSubmit}
           message={this.props.auth.message}
+          isAuth={isAuth}
+          centerState={this.props.centerState}
         />
         <Footer />
       </div>
@@ -173,13 +176,16 @@ export class Homepage extends React.Component {
 const propTypes = {
   auth: PropTypes.object.isRequired,
   userSignInRequest: PropTypes.func.isRequired,
-  userSignupRequest: PropTypes.func.isRequired
+  userSignupRequest: PropTypes.func.isRequired,
+  getCenters: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  centerState: state.center
 });
 
 export default connect(mapStateToProps, {
   userSignupRequest,
-  userSignInRequest
+  userSignInRequest,
+  getCenters
 })(Homepage);

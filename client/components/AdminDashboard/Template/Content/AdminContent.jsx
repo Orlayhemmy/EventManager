@@ -34,7 +34,6 @@ export class AdminPanelPage extends React.Component {
     };
     this.showCenter = this.showCenter.bind(this);
     this.nextCenters = this.nextCenters.bind(this);
-    this.onDelete = this.onDelete.bind(this);
     this.search = this.search.bind(this);
     this.onChange = this.onChange.bind(this);
     this.isValid = this.isValid.bind(this);
@@ -51,6 +50,8 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    */
   nextCenters(e) {
+    window.scroll(0,0);
+    document.body.scrollTop=0;
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1
@@ -72,21 +73,6 @@ export class AdminPanelPage extends React.Component {
    */
   showCenter(e) {
     this.props.viewCenterSelected(e.target.id);
-  }
-
-  /**
-   * @memberof AdminDashMethod
-   * @method onDelete
-   * @description it fetches the details of the center to be deleted
-   * @param {object} e
-   * @returns {void}
-   */
-  onDelete(e) {
-    const center = {
-      centerId: e.target.id,
-      centerName: e.target.parentNode.id
-    };
-    this.props.centerSelected(center);
   }
 
   /**
@@ -147,6 +133,7 @@ export class AdminPanelPage extends React.Component {
           onChange={this.onChange}
         />
         <Centers
+          path={this.props.pathname}
           searchNav={this.searchNav}
           searchState={this.state}
           counter={this.state.counter}

@@ -25,6 +25,7 @@ export default class Validation {
       imageUrl
     } = req.body;
     const errors = {};
+    console.log(req.body, '$$$$$$')
     if (
       centerName === undefined ||
       facilities === undefined ||

@@ -1,7 +1,4 @@
 import React from 'react';
-import Dropzone from 'react-dropzone';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 /**
  * @description imageUpload component
@@ -20,7 +17,7 @@ export default class ImageUpload extends React.Component {
             <div className="imageUpload">
               <label for="imageInput">
                 <div className="imageUpload">
-                  <img src="./images/imageholder.jpg" className="img-fluid dropzone" />
+                  <img src={this.props.path === "/add-center" ? "./images/centerholder.jpg" : "./images/imageholder.jpg"} className="img-fluid dropzone" />
                 </div>
               </label>
               <input

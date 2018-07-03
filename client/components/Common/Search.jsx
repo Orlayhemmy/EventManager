@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCenters } from '../../actions/centerActions';
 
 /**
  * @description SearchForm  component
  */
-export default class SearchForm extends React.Component {
+export class SearchForm extends React.Component {
 
   onChange = (e) => {
     this.props.onChange(e);
@@ -15,6 +18,9 @@ export default class SearchForm extends React.Component {
         div.hidden = true;
       }
     }
+  }
+  resetSearch = (e) => {
+    this.props.getCenters('', 0);
   }
   /**
    * @memberof SearchForm
@@ -42,7 +48,7 @@ export default class SearchForm extends React.Component {
             <i className="fa fa-filter green" /> filter centers by
           </p>
 
-          <div className="input-group pb-2">
+          <div className="input-group pb-2 pt-3">
             <div className="help-block">{errors.location}</div>
             <div class="input-group-prepend">
               <span class="input-group-text">
@@ -127,6 +133,9 @@ export default class SearchForm extends React.Component {
             <button className="btn btn-success" id="submit" onClick={this.props.search}>
               <i className="fa fa-search"> Search</i>
             </button>
+            <button className="btn btn-danger fr" onClick={this.resetSearch}>
+              <i className="fa fa-sync-alt"> Reset</i>
+            </button>
           </div>
         </div>
       </div>
@@ -137,3 +146,11 @@ export default class SearchForm extends React.Component {
 const mapStateToProps = state => ({
   center: state.center
 });
+
+const propTypes = {
+  getCenters: PropTypes.func.isRequired,
+};
+
+SearchForm.propTypes = propTypes;
+
+export default connect(mapStateToProps, { getCenters })(SearchForm);

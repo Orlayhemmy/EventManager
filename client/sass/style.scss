@@ -296,6 +296,8 @@
     background: #f97e04;
     margin: 50px 0;
     padding: 0 30px;
+    display: flex;
+    justify-content: center;
   }
   .subcontent .icon {
     padding: 15px 30px;
@@ -306,7 +308,7 @@
   .center {
     display: flex;
     justify-content: center;
-    margin: 20px;
+    margin: 25px;
   }
   .dropdown-menu {
     width: 20rem;
@@ -392,4 +394,17 @@
 .ho {
   max-height: 1000px;
   overflow: scroll;
+}
+
+.fr {
+  right: 0;
+  position: absolute;
+}
+
+.w-85 {
+  width: 85%;
+}
+
+.justify-text {
+  text-align: justify;
 }

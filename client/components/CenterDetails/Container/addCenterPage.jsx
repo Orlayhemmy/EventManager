@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import swal from 'sweetalert2';
 import CenterForm from '../Template/Form/addCenterForm';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
@@ -28,6 +29,7 @@ export class AddCenterPage extends React.Component {
     const { pathname } = this.props.location;
 
     if (status === 201) {
+      swal(message)
       return <Redirect to="/admin-centers" />;
     }
     return (
