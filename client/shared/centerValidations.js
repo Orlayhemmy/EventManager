@@ -24,11 +24,8 @@ export function modifyCenterValidation(data) {
     }
   }
 
-  // validations for cost
-  if (!validator.isEmpty(cost)) {
-    if (!/^[0-9]+$/.test(cost)) {
-      errors.cost = 'Center cost can only contain numbers';
-    }
+  if (!/^[0-9]+$/.test(cost)) {
+    errors.cost = 'Center cost can only contain numbers';
   }
 
   // validations for capacity
@@ -83,7 +80,7 @@ export function modifyCenterValidation(data) {
       errors.location = 'location can not include symbols except comma';
     }
   }
-
+  
   return { errors, isValid: isEmpty(errors) };
 }
 

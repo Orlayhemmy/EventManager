@@ -232,7 +232,8 @@ export default (state = initialState, action) => {
         ...state,
         status: '',
         message: '',
-        isAvailable: ''
+        isAvailable: '',
+        events: []
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT: {

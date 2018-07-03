@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
 import swal from 'sweetalert2';
-import { getEvents, setCurrentEvent } from '../../../actions/eventActions';
+import { getEvents, setCurrentEvent, clearEventState } from '../../../actions/eventActions';
 import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
@@ -38,6 +38,7 @@ export class Dashboard extends React.Component {
    */
   componentWillMount() {
     this.props.clearCenterStorage();
+    this.props.clearEventState();
     this.props.getEvents(0);
     this.props.getActivity(this.props.auth.user.id);
   }
@@ -182,7 +183,8 @@ const propTypes = {
   clearCenterStorage: PropTypes.func.isRequired,
   setCurrentEvent: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired
+  getActivity: PropTypes.func.isRequired,
+  clearEventState: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -198,6 +200,7 @@ export default connect(
     logout,
     getEvents,
     getActivity,
-    clearCenterStorage
+    clearCenterStorage,
+    clearEventState
   }
 )(Dashboard);

@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import isEmpty from 'lodash/isEmpty';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -30,12 +31,9 @@ export default class Content extends React.Component {
           </div>
         );
         const eventsArray = this.props.userEvent.events;
-        content = eventsArray.map((bookedEvent, index) => {
+        console.log(eventsArray)
+        content = _.map(eventsArray, (bookedEvent, index) => {
           const {
-            centerName,
-            capacity,
-            location,
-            facilities,
             imageUrl
           } = bookedEvent.Center;
           let eStatus;

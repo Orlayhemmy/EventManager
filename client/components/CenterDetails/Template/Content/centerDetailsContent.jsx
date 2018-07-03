@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import swal from 'sweetalert2';
 import {
   getCenterSelected,
   modifyCenter
@@ -10,13 +10,19 @@ import {
   getEventSelected,
   modifyCenterEvent,
   deleteCenterEvent,
-  getCenterEvents
+  getCenterEvents,
+  clearEventState
 } from '../../../../actions/eventActions';
 import ModalContent from '../../../Modal/Container/modalContent';
-import CenterForm from '../Form/addCenterForm';
 import DeleteModal from '../../../Modal/Container/deleteModal';
 import Modal from '../../../Flash/modal';
-import UploadImage from '../../../ImageUpload/imageUpload';
+import EditCenterForm from '../Form/editCenterForm';
+import CenterDetails from './viewCenterDetails';
+import { modifyCenterValidation } from '../../../../shared/centerValidations';
+import uploadImage from '../../../../actions/imageAction';
+import ApproveEvent from './approveEvent';
+import BookedEvents from './bookedEvents';
+import DeleteEvent from './deleteEvent';
 
 /**
  * @description CenterDetailsContent form component
@@ -35,7 +41,9 @@ export class CenterDetailsContent extends React.Component {
       capacity,
       imageUrl,
       facilities,
-      id
+      id,
+      image,
+      cost
     } = props.centerData.center;
 
     this.state = {
@@ -47,17 +55,19 @@ export class CenterDetailsContent extends React.Component {
       errors: '',
       event: '',
       imageUrl: imageUrl || '',
-      id: id || ''
+      id: id || '',
+      cost: cost || '',
+      decision: ''
     };
     this.initialState = this.state;
     this.onClick = this.onClick.bind(this);
-    this.onAttend = this.onAttend.bind(this);
     this.showHiddenDiv = this.showHiddenDiv.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentWillMount() {
     this.props.getCenterSelected();
+    this.props.getCenterEvents();
   }
   /**
    * @memberof CenterDetailsContent
@@ -71,6 +81,36 @@ export class CenterDetailsContent extends React.Component {
     });
   }
   /**
+   * @memberof CenterForm
+   * @method showImage
+   * @description it sets user input to state
+   * @param {object} event
+   */
+  showImage = event => {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      this.state.imageData = event.target.files[0];
+      reader.onload = e => {
+        this.setState({ image: e.target.result });
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  };
+  /**
+   * @memberof Profile
+   * @method isValid
+   * @description it calls validation action on user data
+   * @param {void}
+   * @returns true or false
+   */
+  isValid() {
+    const { errors, isValid } = modifyCenterValidation(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+    }
+    return isValid;
+  }
+  /**
    * @memberof CenterDetailsContent
    * @method onSubmit
    * @description it calls the user signin action
@@ -78,10 +118,29 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   onSubmit(e) {
-    if (this.state !== this.initialState) {
-      this.props.modifyCenter(this.state, this.state.id);
+    e.preventDefault();
+    if (this.isValid()) {
+      const formData = new FormData();
+      formData.append('file', this.state.imageData);
+      formData.append('upload_preset', 'u8asaoka');
+      const data = {
+        centerName: this.state.centerName,
+        location: this.state.location,
+        description: this.state.description,
+        facilities: this.state.facilities,
+        capacity: this.state.capacity,
+        cost: this.state.cost,
+        id: this.state.id
+      };
+      if (this.initialState !== this.state) {
+        if (this.initialState.image === this.state.image) {
+          this.props.modifyCenter(this.state);
+        } else {
+          this.props.uploadImage(data, formData, 'modify-center');
+        }
+        this.showHiddenDiv(e);
+      }
     }
-    this.showHiddenDiv(e);
   }
   /**
    * @memberof CenterDetailsContent
@@ -99,17 +158,25 @@ export class CenterDetailsContent extends React.Component {
         description,
         capacity,
         imageUrl,
-        id
+        id,
+        cost,
+        image
       } = nextProps.centerData.center;
-      this.setState({
-        centerName: centerName || '',
-        location: location || '',
-        facilities: facilities.join() || '',
-        description: description || '',
-        imageUrl: imageUrl || nextProps.centerData.url,
-        capacity: capacity || '',
-        id: id || ''
-      });
+      this.setState(
+        {
+          centerName: centerName || '',
+          location: location || '',
+          facilities: facilities.join() || '',
+          description: description || '',
+          imageUrl: imageUrl || nextProps.centerData.url,
+          capacity: capacity || '',
+          id: id || '',
+          cost: cost || ''
+        },
+        () => {
+          this.initialState = this.state;
+        }
+      );
     }
   }
   /**
@@ -119,15 +186,17 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   componentDidUpdate() {
-    if (
-      this.props.event.status === 201 ||
-      this.props.event.status === 200 ||
-      this.props.centerData.status === 200
-    ) {
+    const { status } = this.props.eventState;
+    if (status === 201 || status === 202 || status === 200) {
+      swal('Changes Applied');
       $(document).ready(function() {
         $('#eventStatus').modal('hide');
         $('#deleteModal').modal('hide');
       });
+      this.props.clearEventState();
+    }
+    if (this.props.centerData.status === 202) {
+      swal('Changes Applied');
     }
   }
   /**
@@ -138,41 +207,40 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   onClick(e) {
-    this.props.getEventSelected(e.target.id, 'tag');
+    this.state.eventId = e.target.id;
+    this.setState({
+      decision: e.target.parentNode.id
+    });
   }
 
   /**
    * @memberof CenterDetailsContent
-   * @method onAttend
+   * @method onApprove
    * @description it calls an action when changes is made to events
    * @param {object} event
    * @returns {void}
    */
-  onAttend(e) {
-    const { id, eventTitle, userId } = this.props.event.event;
+  onApprove = e => {
+    const { id, eventTitle, userId } = this.props.eventState.event;
+    const { eventId } = this.state;
     const centerId = this.props.centerData.center.id;
     if (e.target.id === 'approve') {
       const data = {
-        eventTitle: eventTitle,
         centerId,
         isApproved: true,
-        id,
-        userId,
-        text: 'approved',
-        reason: '',
-        suggestion: ''
+        id: eventId
       };
       this.props.modifyCenterEvent(data);
     } else {
       const data = {
         eventTitle: event.eventTitle,
         centerId: event.centerId,
-        id: event.id,
+        id: eventId,
         text: 'disapproved'
       };
       this.props.deleteCenterEvent(data);
     }
-  }
+  };
   /**
    * @memberof CenterDetailsContent
    * @method showHiddenDiv
@@ -193,6 +261,7 @@ export class CenterDetailsContent extends React.Component {
       return (div2.style.display = '');
     }
   }
+  
   /**
    * @memberof CenterDetailsContent
    * @method render
@@ -200,280 +269,51 @@ export class CenterDetailsContent extends React.Component {
    * @returns the HTML of centerdetails
    */
   render() {
-    const { center } = this.props.centerData;
-    const {
-      centerName,
-      location,
-      facilities,
-      description,
-      imageUrl,
-      capacity,
-      errors
-    } = this.state;
+    const { image, imageUrl, decision } = this.state;
     const { path } = this.props;
-    const { Events } = this.props.centerData.center;
-    const events = _.map(Events, event => {
-      let eStatus;
-      if (event.isApproved) {
-        eStatus = <i id={event.id} className="fa fa-thumbs-up green" />;
-      } else {
-        eStatus = (
-          <span
-            onClick={this.onClick}
-            data-toggle="modal"
-            data-target="#eventStatus"
-            id={event.eventTitle}
-          >
-            <i id={event.id} className="fa fa-spinner main-color" />
-          </span>
-        );
-      }
-      return (
-        <tr id={event.id} key={event.id}>
-          <td>
-            <span
-              id={event.id}
-              onClick={this.onClick}
-              data-toggle="modal"
-              data-target="#eventStatus"
-            >
-              {event.eventTitle}
-            </span>
-          </td>
-          <td>{event.bookedDate}</td>
-          <td>{eStatus}</td>
-          <td>
-            <span
-              onClick={this.onClick}
-              data-toggle="modal"
-              data-target="#deleteModal"
-            >
-              <i id={event.id} className="fa fa-trash trash" />
-            </span>
-          </td>
-        </tr>
+    const { events } = this.props.eventState;
+    let info;
+    const { status } = this.props.eventState;
+    const content =
+      decision != undefined && this.state.decision === 'approve' ? (
+        <ApproveEvent
+          showHiddenDiv={this.showHiddenDiv}
+          onChange={this.onChange}
+          onApprove={this.onApprove}
+          onClick={this.onClick}
+          state={this.state}
+        />
+      ) : (
+        <DeleteEvent
+          state={this.state}
+          showHiddenDiv={this.showHiddenDiv}
+          onChange={this.onChange}
+          onApprove={this.onApprove}
+          onClick={this.onClick}
+        />
       );
-    });
-    let message;
-    if (this.props.event.status === 201) {
-      message = 'Approved';
-    } else if (this.props.event.status === 200) {
-      message = this.props.event.message;
-    } else if (this.props.centerData.status === 200) {
-      message = this.props.centerData.message;
-    }
+
     return (
       <div id="center-event">
         <div className="container">
           <div className="row">
             <div className="col-lg-6 card bb text-center pt-4 pb-4">
-              <div id="centerDetails">
-                <div className="imageUpload">
-                  <img className="img-fluid dropzone" src={imageUrl} />
-                </div>
-                <div className="media-body text-center mb-4 mt-4">
-                  <strong className="logo text-primary mb-2">
-                    {centerName}
-                  </strong>
-                  <h3 className="mt-2">location</h3>
-                  <p>{location}</p>
-                  <h3 className="mt-2">capacity</h3>
-                  <p>{capacity}</p>
-                  <h3 className="mt-2">facilities</h3>
-                  <p>{facilities}</p>
-                  <h3 className="mt-2">description</h3>
-                  <p>{description}</p>
-                </div>
-                ...{' '}
-                <i
-                  data-toggle-id="editCenterDetails"
-                  className="fa fa-pencil main-color"
-                  onClick={this.showHiddenDiv}
-                >
-                  {' '}
-                  edit
-                </i>
-              </div>
-              <div id="editCenterDetails" hidden>
-                <UploadImage
-                  path={this.props.path}
-                  uploadedImage={imageUrl || this.props.centerData.url}
-                />
-                <div className="media-body text-center mb-4">
-                  <form id="edit-center-form">
-                    <div>
-                      <input
-                        type="text"
-                        value={centerName}
-                        id="centerName"
-                        onChange={this.onChange}
-                        className="logo text-primary text-center no-border"
-                      />
-                      <border />
-                    </div>
-                    <h3 className="mt-2">location</h3>
-                    <div>
-                      <input
-                        type="text"
-                        value={location}
-                        id="location"
-                        onChange={this.onChange}
-                        className="text-center no-border mt-0 "
-                      />
-                      <border />
-                    </div>
-                    <h3 className="mt-2">capacity</h3>
-                    <div>
-                      <input
-                        type="text"
-                        value={capacity}
-                        id="capacity"
-                        onChange={this.onChange}
-                        className="text-center no-border mt-0 "
-                      />
-                      <border />
-                    </div>
-                    <h3 className="mt-2">facilities</h3>
-                    <div>
-                      <input
-                        type="text"
-                        value={facilities}
-                        id="facilities"
-                        onChange={this.onChange}
-                        className="text-center no-border mt-0 "
-                      />
-                      <border />
-                    </div>
-                    <h3 className="mt-2">description</h3>
-                    <div>
-                      <textarea
-                        value={description}
-                        id="description"
-                        onChange={this.onChange}
-                        className="form-control col-xs-6 mb-4"
-                      />
-                    </div>
-                    <input
-                      type="button"
-                      data-toggle-id="editCenterDetails"
-                      className="btn btn-sm btn-success p-1 mr-1"
-                      onClick={this.onSubmit}
-                      value="save"
-                    />
-                    <input
-                      type="button"
-                      data-toggle-id="editCenterDetails"
-                      className="btn btn-sm btn-danger p-1 ml-1"
-                      onClick={this.showHiddenDiv}
-                      value="cancel"
-                    />
-                  </form>
-                </div>
-              </div>
+              <CenterDetails
+                centerState={this.state}
+                showHiddenDiv={this.showHiddenDiv}
+              />
+              <EditCenterForm
+                path={this.props.path}
+                imageUrl={image || imageUrl}
+                centerState={this.state}
+                showImage={this.showImage}
+                onSubmit={this.onSubmit}
+                showHiddenDiv={this.showHiddenDiv}
+                onChange={this.onChange}
+              />
             </div>
-            <div className="col-lg-5">
-              <div className="form-outer text-center d-flex align-items-center">
-                <div className="form-inner">
-                  <strong className="logo text-primary">
-                    events scheduled
-                  </strong>
-                  <div>
-                    <table
-                      cellPadding="0"
-                      className="table table-responsive table-hover text-center"
-                    >
-                      <thead>
-                        <tr>
-                          <th>title</th>
-                          <th>date</th>
-                          <th>status</th>
-                          <th />
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {events}
-                        <tr>
-                          <td>
-                            <i className="fa fa-spinner main-color" />
-                            <br />
-                            <span>Pending</span>
-                          </td>
-                          <td />
-                          <td />
-                          <td>
-                            <i className="fa fa-thumbs-up green" />
-                            <br />
-                            <span>Approved</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="modal hide" id="eventStatus">
-              <div className="modal-dialog">
-                <div className="modal-content">
-                  <div className="form-inner text-center">
-                    <div className="form-inner">
-                      <i
-                        id="approve"
-                        className="fa fa-thumbs-up green"
-                        onClick={this.onAttend}
-                      />
-                      <i
-                        data-toggle-id="disapprove"
-                        className="fa fa-thumbs-down trash"
-                        onClick={this.showHiddenDiv}
-                      />
-                      <br />
-                      <span>
-                        <br />Approve
-                      </span>
-                      <span>
-                        <br />Disapprove
-                      </span>
-                      <div id="disapprove" hidden>
-                        <p>
-                          {' '}
-                          Disapproved event will be deleted. Are you sure you
-                          want to disapprove event?
-                        </p>
-                        <div class="form-group">
-                          <textarea
-                            class="form-control"
-                            id="comment"
-                            onChange={this.onChange}
-                            placeholder="Give reasons for disapproving this event"
-                            value={this.state.comment}
-                          />
-                        </div>
-                        <i
-                          id="disapprove"
-                          className="fa fa-trash trash"
-                          onClick={this.onAttend}
-                        />
-                        <i
-                          data-toggle-id="disapprove"
-                          className="fa fa-close"
-                          onClick={this.showHiddenDiv}
-                        />
-                        <br />
-                        <span>
-                          <br />delete
-                        </span>
-                        <span>
-                          <br />cancel
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <DeleteModal path={path} />
-            <Modal message={message} />
+            <BookedEvents onClick={this.onClick} eventState={events} />
+            <DeleteModal path={path} content={content} />
           </div>
         </div>
       </div>
@@ -482,22 +322,20 @@ export class CenterDetailsContent extends React.Component {
 }
 const propTypes = {
   centerData: PropTypes.object.isRequired,
-  event: PropTypes.object.isRequired,
-  events: PropTypes.array.isRequired,
-  message: PropTypes.string.isRequired,
+  eventState: PropTypes.object.isRequired,
   getEventSelected: PropTypes.func.isRequired,
   modifyCenterEvent: PropTypes.func.isRequired,
   deleteCenterEvent: PropTypes.func.isRequired,
   getCenterEvents: PropTypes.func.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
-  modifyCenter: PropTypes.func.isRequired
+  modifyCenter: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
+  clearEventState: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   centerData: state.center,
-  event: state.event,
-  events: state.event.events,
-  message: state.event.message
+  eventState: state.event
 });
 
 CenterDetailsContent.propTypes = propTypes;
@@ -510,6 +348,8 @@ export default connect(
     deleteCenterEvent,
     getCenterEvents,
     getCenterSelected,
-    modifyCenter
+    modifyCenter,
+    uploadImage,
+    clearEventState
   }
 )(CenterDetailsContent);

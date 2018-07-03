@@ -12,67 +12,7 @@ import { getUserEmail } from '../../../actions/userActions';
 /**
  * @description DeleteModal component
  */
-export class DeleteModal extends React.Component {
-  /**
-   * @memberof DeleteModal
-   * @description it creates an instance of DeleteModal
-   */
-  constructor() {
-    super();
-    this.state = {
-      reason: '',
-      suggestion: ''
-    };
-    this.onChange = this.onChange.bind(this);
-  }
-  /**
-   * @memberof DeleteModal
-   * @method onAttend
-   * @description it calls the needed actions
-   * @param {object} event
-   */
-  onAttend(e) {
-    if (this.props.path === '/dashboard') {
-      this.props.deleteEvent(this.props.event.eventId);
-    } else if (this.props.path === '/admin-centers') {
-      this.props.deleteCenter(this.props.centerProps.centerId);
-    } else {
-      const { event } = this.props.event;
-      const data = {
-        eventTitle: event.eventTitle,
-        centerId: event.centerId,
-        id: event.id,
-        text: 'deleted',
-        userId: event.userId,
-        reason: this.state.reason,
-        suggestion: this.state.suggestion
-      };
-      this.props.getUserEmail(event.userId);
-      this.props.deleteCenterEvent(data);
-    }
-  }
-  /**
-   * @memberof DeleteModal
-   * @method onCancel
-   * @description it hides modal
-   * @param {void}
-   */
-  onCancel() {
-    $(document).ready(function() {
-      $('#deleteModal').modal('hide');
-    });
-  }
-  /**
-   * @memberof DeleteModal
-   * @method onChange
-   * @description it sets user input to state
-   * @param {object} event
-   */
-  onChange(e) {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
-  }
+export default class DeleteModal extends React.Component {
   /**
    * @memberof DeleteModal
    * @method render
@@ -80,112 +20,89 @@ export class DeleteModal extends React.Component {
    * @returns the HTML of DeleteModal
    */
   render() {
-    let content;
-    let title;
-    if (this.props.path === '/dashboard') {
-      title = this.props.event.eventName;
-    } else if (this.props.path === '/admin-centers') {
-      title = this.props.centerProps.centerName;
-    } else {
-      title = this.props.centerState.centerName;
-    }
-    if (this.props.path === '/view-center-event') {
-      content = (
-        <div className="form-inner">
-          <span className="help-block">
-            Are sure you want to delete event{' '}
-            {this.props.event.event.eventTitle}?
-          </span>
-          <br />
-          <br />
-          <div class="form-group">
-            <textarea
-              class="form-control"
-              id="reason"
-              onChange={this.onChange}
-              placeholder="Give reasons for disapproving this event"
-              value={this.state.reason}
-            />
-          </div>
-          <div class="form-group">
-            <textarea
-              class="form-control"
-              id="suggestion"
-              onChange={this.onChange}
-              placeholder="Suggestions"
-              value={this.state.suggestion}
-            />
-          </div>
-          <i
-            className="fa fa-trash red"
-            id="disapprove"
-            onClick={this.onAttend.bind(this)}
-          />
-          <i className="fa fa-save green" onClick={this.onCancel.bind(this)} />
-          <br />
-          <span>
-            <br />Yes
-          </span>
-          <span>
-            <br />No
-          </span>
-        </div>
-      );
-    } else {
-      content = (
-        <div className="form-inner">
-          <span className="help-block">
-            Are sure you want to delete {title}?
-          </span>
-          <br />
-          <i
-            className="fa fa-trash red"
-            id="disapprove"
-            onClick={this.onAttend.bind(this)}
-          />
-          <i className="fa fa-save green" onClick={this.onCancel.bind(this)} />
-          <br />
-          <span>
-            <br />Yes
-          </span>
-          <span>
-            <br />No
-          </span>
-        </div>
-      );
-    }
+    // let content;
+    // let title;
+    // if (this.props.path === '/dashboard') {
+    //   title = this.props.event.eventName;
+    // } else if (this.props.path === '/admin-centers') {
+    //   title = this.props.centerProps.centerName;
+    // } else {
+    //   title = this.props.centerState.centerName;
+    // }
+    // if (this.props.path === '/view-center-event') {
+    //   content = (
+    //     <div className="form-inner">
+    //       <span className="help-block">
+    //         Are sure you want to delete event{' '}
+    //         {this.props.event.event.eventTitle}?
+    //       </span>
+    //       <br />
+    //       <br />
+    //       <div class="form-group">
+    //         <textarea
+    //           class="form-control"
+    //           id="reason"
+    //           onChange={this.onChange}
+    //           placeholder="Give reasons for disapproving this event"
+    //           value={this.state.reason}
+    //         />
+    //       </div>
+    //       <div class="form-group">
+    //         <textarea
+    //           class="form-control"
+    //           id="suggestion"
+    //           onChange={this.onChange}
+    //           placeholder="Suggestions"
+    //           value={this.state.suggestion}
+    //         />
+    //       </div>
+    //       <i
+    //         className="fa fa-trash red"
+    //         id="disapprove"
+    //         onClick={this.onApprove.bind(this)}
+    //       />
+    //       <i className="fa fa-save green" onClick={this.onCancel.bind(this)} />
+    //       <br />
+    //       <span>
+    //         <br />Yes
+    //       </span>
+    //       <span>
+    //         <br />No
+    //       </span>
+    //     </div>
+    //   );
+    // } else {
+    //   content = (
+    //     <div className="form-inner">
+    //       <span className="help-block">
+    //         Are sure you want to delete {title}?
+    //       </span>
+    //       <br />
+    //       <i
+    //         className="fa fa-trash red"
+    //         id="disapprove"
+    //         onClick={this.onApprove.bind(this)}
+    //       />
+    //       <i className="fa fa-save green" onClick={this.onCancel.bind(this)} />
+    //       <br />
+    //       <span>
+    //         <br />Yes
+    //       </span>
+    //       <span>
+    //         <br />No
+    //       </span>
+    //     </div>
+    //   );
+    // }
     return (
       <div className="modal hide" id="deleteModal">
-        <div className="modal-dialog mt-y5">
+        <div className="modal-dialog mt-y4">
           <div className="modal-content">
-            <div className="form-inner text-center">{content}</div>
+            <div className="form-inner text-center">{this.props.content}</div>
           </div>
         </div>
       </div>
     );
   }
 }
-const propTypes = {
-  deleteCenterEvent: PropTypes.func.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
-  clearEventState: PropTypes.func.isRequired,
-  deleteCenter: PropTypes.func.isRequired,
-  getUserEmail: PropTypes.func.isRequired,
-  centerState: PropTypes.object.isRequired,
-  event: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-};
-const mapStateToProps = state => ({
-  centerState: state.center,
-  event: state.event,
-  auth: state.auth
-});
-DeleteModal.propTypes = propTypes;
 
-export default connect(mapStateToProps, {
-  deleteCenterEvent,
-  deleteEvent,
-  clearEventState,
-  getUserEmail,
-  deleteCenter
-})(DeleteModal);

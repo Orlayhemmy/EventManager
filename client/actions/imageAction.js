@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './types';
-import { addCenter } from './centerActions';
+import { addCenter, modifyCenter } from './centerActions';
 import { updateUserDetails } from './userActions';
 
 /**
@@ -21,6 +21,8 @@ export default function uploadImage(info, image, type) {
         dispatch({ type: actionTypes.ADD_IMAGE_SUCCESS });
         if (type === 'center') {
           dispatch(addCenter(info));
+        } else if (type === 'modify-center') {
+          dispatch(modifyCenter(info));
         } else {
           dispatch(updateUserDetails(info));
         }

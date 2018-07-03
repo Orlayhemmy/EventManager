@@ -17,7 +17,7 @@ export default class modalContent extends React.Component {
           <i
             id="disapprove"
             className="fa fa-trash red"
-            onClick={this.onAttend}
+            onClick={this.onApprove}
           />
           <i
             data-toggle-id="disapprove"
