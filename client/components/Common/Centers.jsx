@@ -12,6 +12,17 @@ import { getCenters } from '../../actions/centerActions';
  * @description DisplayCenters form component
  */
 export class DisplayCenters extends React.Component {
+  state = {
+    centerId: '',
+    centerName: ''
+  };
+
+  onSelect = e => {
+    this.setState({
+      centerId: e.target.id,
+      centerName: e.target.parentNode.id
+    });
+  };
   /**
    * @memberof DisplayCenters
    * @method componentWillMount
@@ -30,7 +41,10 @@ export class DisplayCenters extends React.Component {
    */
   componentDidUpdate() {
     if (this.props.eventCenter.status === 200) {
-      swal("Center deleted successfully", "success");
+      swal('Center deleted successfully');
+      $(document).ready(function() {
+        $('#deleteModal').modal('hide');
+      });
     }
   }
 
@@ -42,7 +56,7 @@ export class DisplayCenters extends React.Component {
    */
 
   render() {
-    const path = this.props.path;
+    const { path } = this.props;
     const { centers } = this.props.eventCenter;
     const { activities } = this.props.adminActivity;
     let adminCenter;
@@ -113,11 +127,11 @@ export class DisplayCenters extends React.Component {
               </h3>
             </div>
             <span
-              onClick={this.props.onDelete}
               className="trash p-2"
               data-toggle="modal"
               data-target="#deleteModal"
               id={center.centerName}
+              onClick={this.onSelect}
             >
               <i id={center.id} className="fa fa-trash trash" />
             </span>
@@ -131,28 +145,31 @@ export class DisplayCenters extends React.Component {
         <div className="row wc">
           <div className="col-lg-8 mr-3">
             {this.props.counter > 0 ? (
-              <div className="page-icon bounce">
+              <div className="pagination-icon">
                 <i
                   className="fa fa-chevron-up icon"
                   id="previous"
                   onClick={this.props.nextCenters}
                 />
+                                      <p class="tooltiptext">Previous Centers</p>
               </div>
             ) : (
               ''
             )}
-            {adminCenter}
-            {centers.length > 4 ? (
-              <div className="page-icon bounce">
+            {this.props.eventCenter.isNext ? (
+              <div className="pagination-icon mt-y1-5">
                 <i
                   className="fa fa-chevron-down icon"
                   id="next"
                   onClick={this.props.nextCenters}
                 />
+                          <p class="tooltiptext">Next Centers</p>
+
               </div>
             ) : (
               ''
             )}
+            {adminCenter}
           </div>
           <div className="col-lg-3 card p-2 ho">
             <h2>Notifications</h2>
@@ -197,37 +214,46 @@ export class DisplayCenters extends React.Component {
     const guestCenterPage = (
       <div>
         {this.props.counter > 0 ? (
-          <div className="page-icon bounce">
+          <div className="pagination-icon">
             <i
               className="fa fa-chevron-up icon"
               id="previous"
               onClick={this.props.nextCenters}
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Previous Centers"
             />
           </div>
         ) : (
           ''
         )}
-        {guestCenters}
         {centers.length > 4 ? (
-          <div className="page-icon bounce">
+          <div className="pagination-icon mt-y1-5">
             <i
               className="fa fa-chevron-down icon"
               id="next"
               onClick={this.props.nextCenters}
             />
+                      <p class="tooltiptext">Filter Centers</p>
+
           </div>
         ) : (
           ''
         )}
+        {guestCenters}
       </div>
     );
     return (
       <div>
-        <div className="search-icon" onClick={this.props.searchNav}>
+        <div
+          className="search-icon"
+          onClick={this.props.searchNav}
+        >
           <i className="fa fa-search" />
+          <p class="tooltiptext">Filter Centers</p>
         </div>
         {this.props.auth.user.isAdmin ? adminCenterPage : guestCenterPage}
-        <DeleteModal path={path} />
+        <DeleteModal path={path} centerProps={this.state} />
       </div>
     );
   }

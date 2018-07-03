@@ -35,7 +35,7 @@ export class DeleteModal extends React.Component {
     if (this.props.path === '/dashboard') {
       this.props.deleteEvent(this.props.event.eventId);
     } else if (this.props.path === '/admin-centers') {
-      this.props.deleteCenter(this.props.center.centerId);
+      this.props.deleteCenter(this.props.centerProps.centerId);
     } else {
       const { event } = this.props.event;
       const data = {
@@ -84,8 +84,10 @@ export class DeleteModal extends React.Component {
     let title;
     if (this.props.path === '/dashboard') {
       title = this.props.event.eventName;
+    } else if (this.props.path === '/admin-centers') {
+      title = this.props.centerProps.centerName;
     } else {
-      title = this.props.center.centerName;
+      title = this.props.centerState.centerName;
     }
     if (this.props.path === '/view-center-event') {
       content = (
@@ -169,12 +171,12 @@ const propTypes = {
   clearEventState: PropTypes.func.isRequired,
   deleteCenter: PropTypes.func.isRequired,
   getUserEmail: PropTypes.func.isRequired,
-  center: PropTypes.object.isRequired,
+  centerState: PropTypes.object.isRequired,
   event: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = state => ({
-  center: state.center,
+  centerState: state.center,
   event: state.event,
   auth: state.auth
 });

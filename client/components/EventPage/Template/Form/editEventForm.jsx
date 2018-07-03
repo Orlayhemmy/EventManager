@@ -24,6 +24,7 @@ export class EditEventForm extends React.Component {
   }
   clickDate = (e) => {
     e.preventDefault();
+    this.props.clearEventState();
     const button = document.getElementById(e.target.parentNode.id);
     button.parentNode.removeChild(button);
     this.props.removeDate(e.target.parentNode.id);
@@ -43,7 +44,6 @@ export class EditEventForm extends React.Component {
       eventState,
       checkDate
     } = this.props;
-    console.log(eventState)
     const {
       eventTitle,
       description,
@@ -60,15 +60,15 @@ export class EditEventForm extends React.Component {
       );
     });
     if (dateArray) {
-      eventDate = dateArray.map((date, index) => {
+      eventDate = dateArray.map((eventDate, index) => {
         return (
-          <button id={date} class="btn btn-success ml-2 mb-2" key={index}  onClick={this.clickDate}>
-            {date} <i class="fa fa-times"/>
-          </button>
+          <span id={eventDate} class="btn btn-success ml-2 mb-2" key={index}>
+            {eventDate} <i class="fa fa-times" onClick={this.clickDate}/>
+          </span>
         );
       });
     }
-
+    
     return (
       <form id="edit-event-form" onSubmit={this.props.onFormSubmit}>
         <span className="help-block">{this.props.userEvent.error}</span>
@@ -89,6 +89,7 @@ export class EditEventForm extends React.Component {
             defaultValue={centerId}
             id="centerId"
             onChange={this.props.onFormChange}
+            disabled={dateArray.length > 0 ? true : ''}
           >
             <option value="">Select Center</option>
             {showCenters}

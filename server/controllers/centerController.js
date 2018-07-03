@@ -30,7 +30,7 @@ export default class CenterController {
       page,
     } = req.query;
     const skip = page ? page * 5 : 0;
-    const centerLimit = !page ? null : 5;
+    const centerLimit = !page ? null : 6;
     // get centers
     Centers.findAll({
       where: {
@@ -45,9 +45,14 @@ export default class CenterController {
       .then((centers) => {
         // if centers are available
         if (centers) {
-          // show centers
+          let isNext = false;
+          if (centers.length > 5) {
+            isNext = true;
+            centers.splice(5, 1);
+          }
           return res.status(200).send({
             centers,
+            isNext,
             message: 'Centers found'
           });
         }

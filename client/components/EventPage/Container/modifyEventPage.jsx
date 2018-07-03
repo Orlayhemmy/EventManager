@@ -137,6 +137,11 @@ export class ModifyEventPage extends React.Component {
     }
   }
 
+  removeDate(data) {
+    const { dateArray } = this.state;
+    const dataIndex = dateArray.indexOf(data);
+    if (dataIndex !== -1) dateArray.splice(dataIndex, 1);
+  }
   /**
    * @memberof ModifyEventPage
    * @method logout

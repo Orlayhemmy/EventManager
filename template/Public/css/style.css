@@ -121,11 +121,16 @@ nav.navbar.black-nav {
   }
 }
 
-.page-icon {
-  border-radius: 50%;
+.pagination-icon {
+  border-radius: 5px;
   width: fit-content;
   padding: 10px;
   margin-top: 30px;
+  background: #28a745;
+  color: #FFFFFF;
+  z-index: 1;
+  left: 0;
+  position: fixed;
 }
 .chosen-date-div {
   max-width: 600px;
@@ -137,20 +142,17 @@ nav.navbar.black-nav {
   border-radius: 50px;
   margin-left: 5px;
 }
-.page-icon .icon {
+.pagination .icon {
   font-size: 1.5rem;
-  color: #fff;
-}
-
-.bounce {
-  animation: bounce 0.8s infinite;
 }
 
 .emptyCenter, .emptyEvent {
   width: 100%;
   min-height: 600px;
   line-height: 600px;
-  background-image: url(../images/emptycatalog.png);
+  background-image: url(../images/centerholder.jpg);
+  background-repeat: no-repeat;
+  background-size: cover
 }
 .emptyEvent {
   background-image: url(../images/emptybookings.png);
@@ -483,9 +485,8 @@ form input[type='submit'], form input[type='button'] {
 .search {
   padding: 10px 20px 30px 20px;
 }
-.trash, .edit {
-    font-size: 0.5em;
-	  color: red;
+.trash {
+	color: red;
 }
 .edit {
   float: left;
@@ -643,4 +644,51 @@ body {
 .mt-y5 {
   margin-top: 250px;
 }
+.mt-y1-5 {
+  margin-top: 80px;
+}
 
+.h-350 {
+  height: 400px;
+}
+
+.modal {
+  border-radius: 5px;
+  display: none;
+  position: fixed;
+  animation-name: animatetop;
+  animation-duration: 0.4s; }
+
+@keyframes animatetop {
+  from {
+    top: -100px;
+    opacity: 0; }
+  to {
+    top: 0;
+    opacity: 1; 
+  } 
+}
+
+.search-icon .tooltiptext, .pagination-icon .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 1px;
+  border-radius: 6px;
+  top: -5px;
+  right: 105%; 
+  position: absolute;
+  z-index: 1;
+}
+
+.pagination-icon .tooltiptext {
+  top: -5px;
+  left: 105%; 
+}
+
+.search-icon:hover .tooltiptext, .pagination-icon:hover .tooltiptext {
+  visibility: visible;
+  font-size: 0.8rem;
+}

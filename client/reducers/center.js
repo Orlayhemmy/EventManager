@@ -61,12 +61,13 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
-      const { centers, message } = action.payload;
+      const { centers, message, isNext } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         centers,
+        isNext,
         message
       };
     }
