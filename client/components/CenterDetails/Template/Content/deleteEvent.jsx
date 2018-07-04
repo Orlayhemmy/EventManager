@@ -11,9 +11,7 @@ export default class DeleteContent extends React.Component {
     } = this.props;
     return (
       <div className="form-inner">
-        <span className="help-block">
-          Are sure you want to delete event?
-        </span>
+        <span className="help-block">Are sure you want to delete event?</span>
         <br />
         <br />
         <div class="form-group">
@@ -34,11 +32,7 @@ export default class DeleteContent extends React.Component {
             value={suggestion}
           />
         </div>
-        <i
-          className="fa fa-trash red"
-          id="disapprove"
-          onClick={onApprove}
-        />
+        <i className="fa fa-trash red" id="disapprove" onClick={onApprove} />
         <i className="fa fa-save green" />
         <br />
         <span>

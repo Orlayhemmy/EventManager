@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class SignIn extends React.Component {
   render() {
@@ -15,9 +16,7 @@ export default class SignIn extends React.Component {
     } = this.props.navbarProps;
     return (
       <form class="px-4 py-3" onSubmit={signinSubmit}>
-        <span className="help-block">
-          {errorEmail || auth.signinError}
-        </span>
+        <span className="help-block">{errorEmail || auth.signinError}</span>
         <div className="form-group">
           <label for="email">Email Address</label>
           <input
@@ -45,10 +44,14 @@ export default class SignIn extends React.Component {
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary mb-3">
           Sign in
         </button>
+        <br />
+        <span>
+          <Link to="/recover-password">Forgot Password? Click Here</Link>
+        </span>
       </form>
-    )
+    );
   }
-} 
+}

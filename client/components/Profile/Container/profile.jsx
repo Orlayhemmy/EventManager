@@ -60,7 +60,7 @@ export class Profile extends React.Component {
    * @description it toggles div display
    * @param {object} event
    */
-  showDiv = e => {
+  showDiv = (e) => {
     e.preventDefault();
     const div = document.getElementById('editDetails');
     const div2 = document.getElementById('showDetails');
@@ -87,7 +87,7 @@ export class Profile extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = (e) => {
     this.props.logout();
   };
   /**

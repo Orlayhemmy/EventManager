@@ -113,7 +113,7 @@ module.exports = {
     location: 'Victoria Island',
     facilities: ['car park', 'dinning area'],
     imageUrl: 'https://res.cloudinary.com/emmabaye/image/upload/v1530166517/reaction-commerce/center4_mi9l3y.jpg',
-    capacity: 160,
+    capacity: 1000,
     cost: 2000000,
     createdAt: new Date(),
     updatedAt: new Date(),

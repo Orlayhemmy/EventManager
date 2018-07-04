@@ -42,7 +42,7 @@ export default class HomeContent extends React.Component {
                 </p>
               </div>
               {this.props.isAuth ? (
-                <CentersCarousel centerState={this.props.centerState}/>
+                <CentersCarousel centerState={this.props.centerState} />
               ) : (
                 <div className="col-lg-6 form">
                   <h1>Get started</h1>
@@ -54,48 +54,50 @@ export default class HomeContent extends React.Component {
         </div>
         <div className="row sub-color">
           <div className="row subcontent">
-          <div className="row pb-4 w-85">
-            <div className="col-lg-4 pb-3 justify-text">
-              <div className="row center">
-                <span class="icon">
-                  <i className="fa fa-dollar-sign" />
-                </span>
+            <div className="row pb-4 w-85">
+              <div className="col-lg-4 pb-3 justify-text">
+                <div className="row center">
+                  <span class="icon">
+                    <i className="fa fa-dollar-sign" />
+                  </span>
+                </div>
+                <p>
+                  Hotel icons, booking and reservation ready and thirteen HTML
+                  pages, that is roughly said what Colina delivers. Of course,
+                  there is more. Due to the popularity of mobile users, Colina
+                  has a mobile-first approach to its web design. But in general,
+                  all users will experience top-notch and highly adaptable
+                  website that you are yet to make.
+                </p>
               </div>
-              <p>Hotel icons, booking and reservation ready and thirteen HTML
-              pages, that is roughly said what Colina delivers. Of course, there
-              is more. Due to the popularity of mobile users, Colina has a
-              mobile-first approach to its web design. But in general, all users
-              will experience top-notch and highly adaptable website that you
-              are yet to make.</p>
-            </div>
-            <div className="col-lg-4 pb-3 justify-text">
-              <div className="row center">
-                <span class="icon">
-                  <i className="fa fa-lock" />
-                </span>
+              <div className="col-lg-4 pb-3 justify-text">
+                <div className="row center">
+                  <span class="icon">
+                    <i className="fa fa-lock" />
+                  </span>
+                </div>
+                Hotel icons, booking and reservation ready and thirteen HTML
+                pages, that is roughly said what Colina delivers. Of course,
+                there is more. Due to the popularity of mobile users, Colina has
+                a mobile-first approach to its web design. But in general, all
+                users will experience top-notch and highly adaptable website
+                that you are yet to make.
               </div>
-              Hotel icons, booking and reservation ready and thirteen HTML
-              pages, that is roughly said what Colina delivers. Of course, there
-              is more. Due to the popularity of mobile users, Colina has a
-              mobile-first approach to its web design. But in general, all users
-              will experience top-notch and highly adaptable website that you
-              are yet to make.
-            </div>
-            <div className="col-lg-4 pb-3 justify-text">
-              <div className="row center">
-                <span class="icon">
-                  <i className="fa fa-thumbs-up" />
-                </span>
+              <div className="col-lg-4 pb-3 justify-text">
+                <div className="row center">
+                  <span class="icon">
+                    <i className="fa fa-thumbs-up" />
+                  </span>
+                </div>
+                Hotel icons, booking and reservation ready and thirteen HTML
+                pages, that is roughly said what Colina delivers. Of course,
+                there is more. Due to the popularity of mobile users, Colina has
+                a mobile-first approach to its web design. But in general, all
+                users will experience top-notch and highly adaptable website
+                that you are yet to make.
               </div>
-              Hotel icons, booking and reservation ready and thirteen HTML
-              pages, that is roughly said what Colina delivers. Of course, there
-              is more. Due to the popularity of mobile users, Colina has a
-              mobile-first approach to its web design. But in general, all users
-              will experience top-notch and highly adaptable website that you
-              are yet to make.
             </div>
           </div>
-        </div>
         </div>
       </div>
     );

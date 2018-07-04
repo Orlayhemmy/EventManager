@@ -191,7 +191,7 @@ export default class UserController {
     } = req.body;
     Users.findOne({
       where: {
-        id: req.decoded.id
+        email
       }
     })
       .then((user) => {

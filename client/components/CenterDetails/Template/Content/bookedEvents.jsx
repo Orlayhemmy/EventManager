@@ -32,7 +32,7 @@ export default class EventsList extends React.Component {
               {eventTitle}
             </span>
           </td>
-          <td>{bookedDate.join(", ")}</td>
+          <td>{bookedDate.join(', ')}</td>
           <td>{eStatus}</td>
           <td>
             <span

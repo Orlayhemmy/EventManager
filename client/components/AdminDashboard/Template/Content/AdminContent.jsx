@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Centers from '../../../Common/Centers';
 import Search from '../../../Common/Search';
 import {
@@ -24,9 +24,20 @@ export class AdminPanelPage extends React.Component {
     errors: {},
     btwValue: ''
   };
-  searchNav = e => {
-    document.getElementById('search-nav').style.width = '280px';
+
+  /**
+   * @memberof AdminDashMethod
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} e
+   * @returns {object} state
+   */
+  onChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
   };
+
   /**
    * @memberof AdminDashMethod
    * @method nextCenters
@@ -34,21 +45,24 @@ export class AdminPanelPage extends React.Component {
    * @returns {void}
    * @param {object} e
    */
-  nextCenters = e => {
+  nextCenters = (e) => {
+    const { getCenters } = this.props; // eslint-disable-line
+    const { counter } = this.state;
     window.scroll(0, 0);
     document.body.scrollTop = 0;
     if (e.target.id === 'next') {
       this.setState({
-        counter: this.state.counter + 1
+        counter: counter + 1
       });
-      this.props.getCenters(this.state, ++this.state.counter);
+      getCenters(this.state, counter + 1);
     } else {
       this.setState({
-        counter: this.state.counter - 1
+        counter: counter - 1
       });
-      this.props.getCenters(this.state, --this.state.counter);
+      getCenters(this.state, counter - 1);
     }
-  };
+  }
+
   /**
    * @memberof AdminDashMethod
    * @method showCenter
@@ -56,8 +70,8 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  showCenter = e => {
-    this.props.viewCenterSelected(e.target.id);
+  showCenter = (e) => {
+    this.props.viewCenterSelected(e.target.id); // eslint-disable-line
   };
 
   /**
@@ -67,28 +81,20 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search = e => {
+  search = (e) => {
     e.preventDefault();
     this.setState({
       counter: 0
     });
     if (this.isValid()) {
-      this.props.getCenters(this.state, this.state.counter);
+      this.props.getCenters(this.state, this.state.counter); // eslint-disable-line
     }
   };
 
-  /**
-   * @memberof AdminDashMethod
-   * @method onChange
-   * @description it sets user input to state
-   * @param {object} e
-   * @returns {object} state
-   */
-  onChange = e => {
-    this.setState({
-      [e.target.id]: e.target.value
-    });
+  searchNav = () => {
+    document.getElementById('search-nav').style.width = '280px';
   };
+
   /**
    * @memberof AdminDashMethod
    * @method isValid
@@ -102,11 +108,25 @@ export class AdminPanelPage extends React.Component {
     }
     return isValid;
   };
+
+  /**
+   * @memberof AdminDashMethod
+   * @method render
+   * @description it renders the component
+   * @returns the HTML of AddCenterPage
+   */
   render() {
-    //Check if user is logged in and is also an Admin
-    if (!this.props.user.isAuth) {
+    // Check if user is logged in and is also an Admin
+    const {
+      userState: {
+        user: { isAdmin }, isAuth
+      },
+      path
+    } = this.props;
+    const { counter } = this.state;
+    if (!isAuth) {
       return <Redirect to="/" />;
-    } else if (!this.props.user.user.isAdmin) {
+    } if (!isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     return (
@@ -118,10 +138,10 @@ export class AdminPanelPage extends React.Component {
           onChange={this.onChange}
         />
         <Centers
-          path={this.props.pathname}
+          path={path}
           searchNav={this.searchNav}
           searchState={this.state}
-          counter={this.state.counter}
+          counter={counter}
           showCenter={this.showCenter}
           nextCenters={this.nextCenters}
         />
@@ -131,13 +151,14 @@ export class AdminPanelPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth
+  userState: state.auth
 });
 
 const propTypes = {
-  centerSelected: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
-  viewCenterSelected: PropTypes.func.isRequired
+  viewCenterSelected: PropTypes.func.isRequired,
+  userState: PropTypes.object.isRequired,
+  path: PropTypes.string.isRequired
 };
 
 AdminPanelPage.propTypes = propTypes;

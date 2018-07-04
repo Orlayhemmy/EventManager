@@ -16,7 +16,13 @@
     opacity: 0.9;
   }
 }
-
+#homepage {
+  #homepage {
+    background-image: url('/images/image4.jpg');
+    background-attachment: fixed;
+    overflow: hidden;
+  }
+}
 #about {
   p {
     font-size: 1.2rem;
@@ -329,23 +335,33 @@
   form-input {
     text-transform: none;
     text-align: center;
+    font-size: 2rem;
   }
   form-input:focus,
   input:focus {
     border-bottom: none;
     transition: 1s all;
   }
+  form input[type=submit] {
+    font-size: 1.5rem
+  }
+
+  form input[type=text] {
+    font-size: 2rem
+  }
+
   .fa {
     font-size: 4rem;
   }
   .text-primary {
     font-style: normal;
+    font-size: 2.5rem;
   }
-  p {
+  .subtitle {
     color: #007bff;
     font-style: italic;
     margin-top: 0.5rem;
-    font-size: 0.8rem;
+    font-size: 1.3rem;
   }
 }
 

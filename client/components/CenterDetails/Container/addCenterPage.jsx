@@ -10,14 +10,7 @@ import Footer from '../../Footer/footer';
 /**
  * @description AddCenterPage component
  */
-export class AddCenterPage extends React.Component {
-  /**
-   * @memberof AddCenterPage
-   * @method render
-   * @description it renders the component
-   * @returns the HTML of AddCenterPage
-   */
-  render() {
+const AddCenterPage = (props) => {
     // Check if user is logged in and is also an Admin
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
@@ -29,12 +22,12 @@ export class AddCenterPage extends React.Component {
     const { pathname } = this.props.location;
 
     if (status === 201) {
-      swal(message)
+      swal(message);
       return <Redirect to="/admin-centers" />;
     }
     return (
       <div id="add-center">
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <div class="container">
           <div class="row">
             <div className="col-lg-6">
@@ -54,16 +47,13 @@ export class AddCenterPage extends React.Component {
       </div>
     );
   }
-}
 const propTypes = {
   user: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  user: state.auth,
   center: state.center,
-  auth: state.auth
 });
 AddCenterPage.propTypes = propTypes;
 
