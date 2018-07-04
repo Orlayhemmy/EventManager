@@ -9,7 +9,7 @@ import authAdminToken from '../middleware/authAdminToken';
 import userValidate from '../middleware/userValidate';
 import centerValidate from '../middleware/centerValidate';
 import eventValidate from '../middleware/eventValidate';
-import shortCode from '../helper/generateCode';
+import sendMail from '../helper/sendMail';
 
 const router = express.Router();
 // Routes
@@ -18,6 +18,8 @@ router
   .post(userValidate.signup, userController.signup)
   .put(authToken, userValidate.updateUser, userController.updateUser)
   .get(authToken, userController.getUser);
+
+router.route('/newpassword').put(userValidate.updateUser, userController.updateUser)
 
 router.route('/users/login').post(userValidate.signin, userController.signin);
 
@@ -86,7 +88,7 @@ router
   .route('/eventsbookedcount/:id')
   .get(authToken, eventController.getEventBookedCount);
 
-router.route('/shortcode').get(shortCode);
+router.route('/sendmail').post(sendMail);
 router
   .route('/checkDate')
   .post(authToken, eventController.checkEventDate);

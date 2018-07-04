@@ -176,11 +176,14 @@ export function confirmEmail(info) {
 /**
  * @returns {object} generated code
  */
-export function generateCode() {
+export function sendMail(email) {
+  const data = {
+    email
+  }
   return (dispatch) => {
-    dispatch({ type: actionTypes.GET_CODE });
+    dispatch({ type: actionTypes.SEND_MAIL });
     return axios
-      .get('/api/v1/shortcode')
+      .post('/api/v1/sendmail', data)
       .then((response) => {
         const { status, data: { shortCode } } = response;
         const res = {
@@ -188,14 +191,14 @@ export function generateCode() {
           shortCode
         };
         dispatch({
-          type: actionTypes.GET_CODE_SUCCESS,
+          type: actionTypes.SEND_MAIL_SUCCESS,
           payload: res
         });
       })
       .catch((err) => {
         const { data } = err.response;
         dispatch({
-          type: actionTypes.GET_CODE_FAILS,
+          type: actionTypes.SEND_MAIL_FAILS,
           payload: data
         });
       });
@@ -260,6 +263,34 @@ export function updateUserDetails(info) {
       });
   };
 }
+/**
+* @param {object} info
+* @returns {object} success or failure
+*/
+export function updatePassword(info) {
+ return (dispatch) => {
+   dispatch({ type: actionTypes.UPDATE_PASSWORD });
+   return axios
+     .put('/api/v1/newpassword', info)
+     .then((response) => {
+       const { status, data: { message } } = response;
+       const res = {
+         status,
+         message
+       };
+       dispatch({
+         type: actionTypes.UPDATE_PASSWORD_SUCCESS,
+         payload: res
+       });
+     })
+     .catch((err) => {
+       dispatch({
+         type: actionTypes.UPDATE_PASSWORD_FAILS,
+         payload: err.response.data
+       });
+     });
+ };
+}
 
 /**
  * @param {object} id
@@ -303,3 +334,32 @@ export function checkPassword(info) {
   };
 }
 
+/**
+ * @param {object} info
+ * @returns {object} success or failure
+ */
+export function confirmCode(info) {
+  return (dispatch) => {
+    let status;
+    (info === 'wrong code') ? status= 400 : 202;
+    const data = {
+      message: info,
+      status
+    }
+    dispatch({ 
+      type: actionTypes.CHECK_CODE,
+      payload: data
+    });
+  };
+}
+
+/**
+ * @param {object} data
+ * @param {object} centerId
+ * @returns {object} event state
+ */
+export function clearUserState() {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CLEAR_USER_STATE });
+  };
+}
