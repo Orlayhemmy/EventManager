@@ -11,9 +11,7 @@ export default class ProfileForm extends React.Component {
       newPassword,
       oldPassword,
       errors,
-      wrongPasswordError,
       imageUrl,
-      createdAt,
       image
     } = this.props.profileState;
 

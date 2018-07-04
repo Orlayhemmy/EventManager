@@ -24,9 +24,12 @@ export function modifyCenterValidation(data) {
     }
   }
 
-  if (!/^[0-9]+$/.test(cost)) {
-    errors.cost = 'Center cost can only contain numbers';
+  if (cost) {
+    if (!/^[0-9]+$/.test(cost)) {
+      errors.cost = 'Center cost can only contain numbers';
+    }
   }
+
 
   // validations for capacity
   if (!validator.isEmpty(capacity)) {

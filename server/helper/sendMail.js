@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import generateShortCode from './generateCode';
 
 /**
  * @param  {object} req
@@ -6,25 +7,29 @@ import nodemailer from 'nodemailer';
  * @returns {object} success or failure message
  */
 export default function sendMail(req, res) {
-  const {
-    email,
-    message,
-    title,
-  } = req.body;
+  const { email, message, title } = req.body;
+  let shortCode;
+  let codeTitle;
+  let codeMessage;
+  if (!message) {
+    shortCode = generateShortCode();
+    codeMessage = `This code expires in 5 minutes <br/> code:
+    <b> ${shortCode} </b>`;
+    codeTitle = 'Password Reset Code';
+  }
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'daminomics@gmail.com',
-      pass: 'profyem001',
-    },
+      user: 'ecenter.2017.andela@gmail.com',
+      pass: 'qwerty001?'
+    }
   });
-
   const mailOptions = {
-    from: 'daminomics@gmail.com',
+    from: 'ecenter.2017.andela@gmail.com',
     to: email,
-    subject: title,
+    subject: title || codeTitle,
 
-    html: message,
+    html: message || codeMessage
   };
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
@@ -32,6 +37,7 @@ export default function sendMail(req, res) {
     }
     return res.status(201).send({
       message: 'Mail sent',
+      shortCode
     });
   });
 }

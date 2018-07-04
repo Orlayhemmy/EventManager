@@ -28,7 +28,7 @@ export class EditEventForm extends React.Component {
     const button = document.getElementById(e.target.parentNode.id);
     button.parentNode.removeChild(button);
     this.props.removeDate(e.target.parentNode.id);
-  }
+  };
   /**
    * @memberof EditEventForm
    * @method render
@@ -44,13 +44,7 @@ export class EditEventForm extends React.Component {
       eventState,
       checkDate
     } = this.props;
-    const {
-      eventTitle,
-      description,
-      errors,
-      centerId,
-      dateArray
-    } = eventState;
+    const { eventTitle, description, errors, centerId, dateArray } = eventState;
     let eventDate;
     const showCenters = this.props.eventCenter.centers.map(center => {
       return (
@@ -63,12 +57,12 @@ export class EditEventForm extends React.Component {
       eventDate = dateArray.map((eventDate, index) => {
         return (
           <span id={eventDate} class="btn btn-success ml-2 mb-2" key={index}>
-            {eventDate} <i class="fa fa-times" onClick={this.clickDate}/>
+            {eventDate} <i class="fa fa-times" onClick={this.clickDate} />
           </span>
         );
       });
     }
-    
+
     return (
       <form id="edit-event-form" onSubmit={this.props.onFormSubmit}>
         <span className="help-block">{this.props.userEvent.error}</span>

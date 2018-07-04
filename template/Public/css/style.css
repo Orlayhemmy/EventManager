@@ -4,8 +4,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #212529;
-  background-image: url('../images/image4.jpg');
-  background-attachment: fixed;
+  background: #f5f2ef;
   position: relative;
   margin: 0;
   padding-bottom: 7rem;
@@ -187,7 +186,6 @@ nav.navbar .navbar-holder {
 
 nav.navbar a {
   font-size: 0.8em;
-  color: #fff;
   position: relative;
 }
 
@@ -602,6 +600,7 @@ body {
   margin: 0;
   padding-bottom: 3.5rem;
   min-height: 100%;
+  background: #f5f2ef;
 }
 
 .search-nav {

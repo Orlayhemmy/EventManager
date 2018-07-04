@@ -13,7 +13,7 @@ import allReducers from './reducers/reducersIndex';
 import HomePage from './components/HomePage/Container/homePage';
 import CentersPage from './components/GuestCenters/Container/centersPage';
 import AboutPage from './components/AboutPage/Container/aboutPage';
-import AdminPanelPage from './components/AdminDashboard/Container/Index';
+import AdminDashboardPage from './components/AdminDashboard/Container/AdminDashboardPage';
 import AddCenterPage from './components/CenterDetails/Container/addCenterPage';
 import AddEvent from './components/EventPage/Container/addEventPage';
 import ModifyEvent from './components/EventPage/Container/modifyEventPage';
@@ -42,7 +42,7 @@ ReactDOM.render(
         <Route exact path="/view-centers" component={CentersPage} />
         <Route exact path="/add-center" component={AddCenterPage} />
         <Route exact path="/about" component={AboutPage} />
-        <Route exact path="/admin-centers" component={AdminPanelPage} />
+        <Route exact path="/admin-centers" component={AdminDashboardPage} />
         <Route exact path="/dashboard" component={UserPanel} />
         <Route exact path="/add-event" component={AddEvent} />
         <Route exact path="/modify-event" component={ModifyEvent} />

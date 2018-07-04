@@ -67,7 +67,7 @@ export function addEventValidation(data) {
   }
 
   // validations for bookedDate
-  if (dateArray) {
+  if (dateArray.length < 0) {
     dateArray.map((date) => {
       if (!validator.toDate(date)) {
         errors.dateArray = 'Invalid Date';
@@ -100,6 +100,5 @@ export function addEventValidation(data) {
   } else {
     errors.centerId = 'Please select a Center';
   }
-
   return { errors, isValid: isEmpty(errors) };
 }

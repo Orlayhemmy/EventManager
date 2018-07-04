@@ -83,7 +83,8 @@ export default (state = initialState, action = {}) => {
         ...state,
         loading: false,
         loaded: true,
-        status
+        status,
+        message: ''
       };
     }
     case actionTypes.VERIFY_EMAIL_FAILS: {
@@ -152,32 +153,63 @@ export default (state = initialState, action = {}) => {
         message
       };
     }
-    // case actionTypes.SEND_MAIL: {
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //     loaded: false,
-    //     status: '',
-    //     message: ''
-    //   };
-    // }
-    // case actionTypes.SEND_MAIL_SUCCESS: {
-    //   const { status } = action.payload;
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     loaded: true,
-    //     status
-    //   };
-    // }
-    // case actionTypes.SEND_MAIL_FAIL: {
-    //   return {
-    //     ...state,
-    //     loading: false,
-    //     loaded: true,
-    //     message: action.payload
-    //   };
-    // }
+    case actionTypes.UPDATE_PASSWORD: {
+      return {
+        ...state,
+        status: '',
+        message: '',
+        code: '',
+        loading: true,
+        loaded: false
+      };
+    }
+    case actionTypes.UPDATE_PASSWORD_SUCCESS: {
+      const { message, status } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message,
+        status
+      };
+    }
+    case actionTypes.UPDATE_PASSWORD_FAILS: {
+      const { message } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message
+      };
+    }
+    case actionTypes.SEND_MAIL: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false,
+        status: '',
+        message: ''
+      };
+    }
+    case actionTypes.SEND_MAIL_SUCCESS: {
+      const { status, shortCode } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        status,
+        shortCode
+      };
+    }
+    case actionTypes.SEND_MAIL_FAILS: {
+      const { message } = action.payload;
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        message
+      };
+    }
     case actionTypes.GET_USER: {
       return {
         ...state,
@@ -259,6 +291,23 @@ export default (state = initialState, action = {}) => {
         ...state,
         status: '',
         message: ''
+      };
+    }
+    case actionTypes.CHECK_CODE: {
+      const { message, status } = action.payload;
+      return {
+        ...state,
+        status,
+        message
+      };
+    }
+    case actionTypes.CLEAR_USER_STATE: {
+      return {
+        ...state,
+        status: '',
+        message: '',
+        user: {},
+        shortCode: ''
       };
     }
     default:

@@ -9,7 +9,7 @@ import authAdminToken from '../middleware/authAdminToken';
 import userValidate from '../middleware/userValidate';
 import centerValidate from '../middleware/centerValidate';
 import eventValidate from '../middleware/eventValidate';
-import shortCode from '../helper/generateCode';
+import sendMail from '../helper/sendMail';
 
 const router = express.Router();
 // Routes
@@ -19,15 +19,24 @@ router
   .put(authToken, userValidate.updateUser, userController.updateUser)
   .get(authToken, userController.getUser);
 
-router.route('/users/login').post(userValidate.signin, userController.signin);
+router
+  .route('/newpassword')
+  .put(userValidate.updateUser, userController.updateUser);
+
+router.route('/users/login')
+  .post(userValidate.signin, userController.signin);
 
 router
   .route('/passrecovery')
-  .post(userValidate.recoverPassword, userController.recoverPassword);
+  .post(
+    userValidate.recoverPassword,
+    userController.recoverPassword);
 
 router
   .route('/centers')
-  .post(authAdminToken, centerValidate.postCenter, centerController.postCenter)
+  .post(authAdminToken,
+    centerValidate.postCenter,
+    centerController.postCenter)
   .get(centerController.getAllCenters);
 
 router
@@ -42,7 +51,10 @@ router
 
 router
   .route('/events')
-  .post(authToken, eventValidate.postEvent, eventController.postEvent)
+  .post(
+    authToken,
+    eventValidate.postEvent,
+    eventController.postEvent)
   .get(authToken, eventController.getAllEvents);
 
 router
@@ -59,12 +71,18 @@ router.route('/userEvents/:id')
 router
   .route('/events/:id')
   .get(authToken, eventController.getSingleEvent)
-  .put(authToken, eventValidate.updateEvent, eventController.updateEvent)
+  .put(
+    authToken,
+    eventValidate.updateEvent,
+    eventController.updateEvent)
   .delete(authToken, eventController.deleteEvent);
 
-router.route('/userEmail/:id').get(authToken, userController.getUserEmail);
+router.route('/userEmail/:id')
+  .get(authToken,
+    userController.getUserEmail);
 
-router.route('/centerStatus/:id').put(centerController.centerStatus);
+router.route('/centerStatus/:id')
+  .put(centerController.centerStatus);
 
 router
   .route('/activity')
@@ -80,15 +98,15 @@ router
   .route('/activity/:id')
   .delete(authToken, activityController.deleteActivity);
 
-router.route('/passwordcheck').post(authToken, userController.PasswordCheck);
+router.route('/passwordcheck')
+  .post(authToken, userController.PasswordCheck);
 
 router
   .route('/eventsbookedcount/:id')
   .get(authToken, eventController.getEventBookedCount);
 
-router.route('/shortcode').get(shortCode);
-router
-  .route('/checkDate')
+router.route('/sendmail').post(sendMail);
+router.route('/checkDate')
   .post(authToken, eventController.checkEventDate);
 // Return router
 export default router;
