@@ -1,9 +1,15 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class Content extends React.Component {
+  static propTypes = {
+    counter: PropTypes.string.isRequired,
+    nextEvents: PropTypes.func.isRequired,
+  };
+
   render() {
     const { status, events } = this.props.userEvent;
     let eventId, editEventId, eventBody, form, content, legend;
@@ -30,7 +36,6 @@ export default class Content extends React.Component {
         </div>
       );
       const eventsArray = this.props.userEvent.events;
-      console.log(eventsArray);
       content = _.map(eventsArray, (bookedEvent, index) => {
         const { imageUrl } = bookedEvent.Center;
         let eStatus;
@@ -137,3 +142,4 @@ export default class Content extends React.Component {
     );
   }
 }
+Content.propTypes = PropTypes;

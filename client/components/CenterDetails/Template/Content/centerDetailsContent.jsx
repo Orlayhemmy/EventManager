@@ -70,7 +70,7 @@ export class CenterDetailsContent extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -85,7 +85,7 @@ export class CenterDetailsContent extends React.Component {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       this.state.imageData = event.target.files[0];
-      reader.onload = e => {
+      reader.onload = (e) => {
         this.setState({ image: e.target.result });
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -112,7 +112,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -201,7 +201,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onClick = e => {
+  onClick = (e) => {
     this.state.eventId = e.target.id;
     this.setState({
       decision: e.target.parentNode.id
@@ -215,7 +215,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onApprove = e => {
+  onApprove = (e) => {
     const { id, eventTitle, userId } = this.props.eventState.event;
     const { eventId } = this.state;
     const centerId = this.props.centerData.center.id;
@@ -243,7 +243,7 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  showHiddenDiv = e => {
+  showHiddenDiv = (e) => {
     let id = e.target.dataset.toggleId;
     if (!id) return;
     const div = document.getElementById(id);

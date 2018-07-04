@@ -20,7 +20,7 @@ export class CenterPage extends React.Component {
     btwValue: ''
   };
 
-  searchNav = e => {
+  searchNav = (e) => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
@@ -30,7 +30,7 @@ export class CenterPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  search = e => {
+  search = (e) => {
     e.preventDefault();
     this.setState({
       counter: 0
@@ -46,7 +46,7 @@ export class CenterPage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -71,7 +71,7 @@ export class CenterPage extends React.Component {
    * @description it fetches the next centers
    * @returns {void}
    */
-  nextCenters = e => {
+  nextCenters = (e) => {
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1

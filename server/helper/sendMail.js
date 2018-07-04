@@ -32,9 +32,8 @@ export default function sendMail(req, res) {
     html: message || codeMessage
   };
   transporter.sendMail(mailOptions, (error, info) => {
-    console.log(shortCode);
     if (error) {
-      return error, info;
+      return (error, info);
     }
     return res.status(201).send({
       message: 'Mail sent',

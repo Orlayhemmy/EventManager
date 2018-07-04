@@ -3,6 +3,5 @@ eslint:
   config_file: .eslintrc
 scss:
   enabled: false
-
 exclude:
-  -"client/sass"
+  - "client/sass"

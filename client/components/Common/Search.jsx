@@ -7,7 +7,7 @@ import { getCenters } from '../../actions/centerActions';
  * @description SearchForm  component
  */
 export class SearchForm extends React.Component {
-  onChange = e => {
+  onChange = (e) => {
     this.props.onChange(e);
     const div = document.getElementById('btwValue');
     if (e.target.id === 'capacityType') {
@@ -18,7 +18,7 @@ export class SearchForm extends React.Component {
       }
     }
   };
-  resetSearch = e => {
+  resetSearch = (e) => {
     this.props.getCenters('', 0);
   };
   /**
@@ -36,7 +36,6 @@ export class SearchForm extends React.Component {
       location,
       facilities,
       capacity,
-      capacityType,
       btwValue,
       errors
     } = this.props.criteria;
@@ -151,7 +150,9 @@ const mapStateToProps = state => ({
 });
 
 const propTypes = {
-  getCenters: PropTypes.func.isRequired
+  getCenters: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  search: PropTypes.func.isRequired
 };
 
 SearchForm.propTypes = propTypes;

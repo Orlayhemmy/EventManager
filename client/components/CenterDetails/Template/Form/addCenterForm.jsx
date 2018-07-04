@@ -28,7 +28,7 @@ export class CenterForm extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -43,7 +43,7 @@ export class CenterForm extends React.Component {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       this.state.imageData = event.target.files[0];
-      reader.onload = e => {
+      reader.onload = (e) => {
         this.setState({ image: e.target.result });
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -56,7 +56,7 @@ export class CenterForm extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -96,7 +96,7 @@ export class CenterForm extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = (e) => {
     this.props.logout();
   };
 

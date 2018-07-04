@@ -24,7 +24,7 @@ export class AdminPanelPage extends React.Component {
     errors: {},
     btwValue: ''
   };
-  searchNav = e => {
+  searchNav = (e) => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
@@ -34,7 +34,7 @@ export class AdminPanelPage extends React.Component {
    * @returns {void}
    * @param {object} e
    */
-  nextCenters = e => {
+  nextCenters = (e) => {
     window.scroll(0, 0);
     document.body.scrollTop = 0;
     if (e.target.id === 'next') {
@@ -56,7 +56,7 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  showCenter = e => {
+  showCenter = (e) => {
     this.props.viewCenterSelected(e.target.id);
   };
 
@@ -67,7 +67,7 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search = e => {
+  search = (e) => {
     e.preventDefault();
     this.setState({
       counter: 0
@@ -84,7 +84,7 @@ export class AdminPanelPage extends React.Component {
    * @param {object} e
    * @returns {object} state
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });

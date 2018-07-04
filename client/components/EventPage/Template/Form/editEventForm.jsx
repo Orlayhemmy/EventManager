@@ -22,7 +22,7 @@ export class EditEventForm extends React.Component {
       this.props.clearEventState();
     }
   }
-  clickDate = e => {
+  clickDate = (e) => {
     e.preventDefault();
     this.props.clearEventState();
     const button = document.getElementById(e.target.parentNode.id);

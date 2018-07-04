@@ -37,7 +37,7 @@ export class PasswordRecovery extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -71,7 +71,7 @@ export class PasswordRecovery extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     if (e.target.id === 'insertEmail') {
       if (this.isValid(e.target.id)) {
