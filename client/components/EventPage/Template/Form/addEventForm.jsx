@@ -36,9 +36,6 @@ export class AddEventForm extends React.Component {
         button.parentNode.removeChild(button);
       });
     }
-    // if (bookedDate.length > 0) {
-    //   document.getElementById('capacityType').
-    // }
   }
   /**
    * @memberof AddEventForm
@@ -88,7 +85,8 @@ export class AddEventForm extends React.Component {
             </select>
           </div>
 
-          <span className="help-block">{errors.bookedDate}</span>
+          <span className="help-block">{errors.dateArray}</span>
+          <p className="help-block">you can select multiple date</p>
           <div class="form-row">
             <div className="input-group col-10 pr-0 mb-3">
               <span class="input-group-prepend">

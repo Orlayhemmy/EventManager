@@ -70,7 +70,7 @@ export class DisplayCenters extends React.Component {
         <div key={index} className="main-color-bg p-2 mb-1">
           <Link to="/view-center-event">
             <p
-              className="activity-font mb-0 p-1 fw"
+              className="activity-font mb-0 p-1"
               onClick={this.showCenter}
               id={activity.centerId}
             >
@@ -218,22 +218,20 @@ export class DisplayCenters extends React.Component {
               className="fa fa-chevron-up icon"
               id="previous"
               onClick={this.props.nextCenters}
-              data-toggle="tooltip"
-              data-placement="right"
-              title="Previous Centers"
             />
+            <p class="tooltiptext">Previous Centers</p>
           </div>
         ) : (
           ''
         )}
-        {centers.length > 4 ? (
+        {this.props.eventCenter.isNext ? (
           <div className="pagination-icon mt-y1-5">
             <i
               className="fa fa-chevron-down icon"
               id="next"
               onClick={this.props.nextCenters}
             />
-            <p class="tooltiptext">Filter Centers</p>
+            <p class="tooltiptext">Next Centers</p>
           </div>
         ) : (
           ''

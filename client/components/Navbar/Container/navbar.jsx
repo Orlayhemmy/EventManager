@@ -18,7 +18,7 @@ export class NavBar extends React.Component {
    */
   render() {
     const { isAuth } = this.props.auth;
-    return (
+      return (
       <nav
         className="navbar navbar-expand-lg navbar-dark fixed-top"
         id="mainNav"
@@ -40,11 +40,9 @@ export class NavBar extends React.Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarResponsive">
-          {isAuth ? (
-            <UserNavbar navbarProps={this.props} />
-          ) : (
-            <GuestNavbar navbarProps={this.props} />
-          )}
+          {isAuth ? 
+            <UserNavbar navbarProps={this.props} /> :
+            <GuestNavbar navbarProps={this.props} />}
         </div>
       </nav>
     );
@@ -62,7 +60,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  { logout }
-)(NavBar);
+export default connect(mapStateToProps, { logout })(NavBar);
