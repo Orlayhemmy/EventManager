@@ -6,15 +6,14 @@ import Footer from '../../Footer/footer';
  * @memberof AdminDashMethod
  * @method render
  */
-export default class AdminDashMethod extends React.Component {
-  render() {
-    const { pathname } = this.props.location;
-    return (
-      <div id="center-page">
-        <Navbar path={pathname} />
-        <AdminContent pathname={pathname} />
-        <Footer />
-      </div>
-    );
-  }
-}
+const AdminDashMethod = (location) => {
+  const { pathname } = location;
+  return (
+    <div id="center-page">
+      <Navbar path={pathname} />
+      <AdminContent path={pathname} />
+      <Footer />
+    </div>
+  );
+};
+export default AdminDashMethod;

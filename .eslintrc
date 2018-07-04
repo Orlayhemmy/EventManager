@@ -54,7 +54,6 @@
     "comma-dangle": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
-    "import/extensions": ["off", "never"],
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }]
   },
   "parserOptions": {
