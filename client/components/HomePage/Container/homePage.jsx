@@ -41,7 +41,7 @@ export class Homepage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -83,7 +83,7 @@ export class Homepage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  signinSubmit = e => {
+  signinSubmit = (e) => {
     e.preventDefault();
     if (this.signinValid()) {
       this.props.userSignInRequest(this.state);
@@ -96,7 +96,7 @@ export class Homepage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  signupSubmit = e => {
+  signupSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();

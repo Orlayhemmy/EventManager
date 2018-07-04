@@ -35,7 +35,7 @@ export class ModifyEventPage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -55,7 +55,7 @@ export class ModifyEventPage extends React.Component {
    * @method checkDate
    * @param {object} event
    */
-  checkDate = e => {
+  checkDate = (e) => {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
       this.props.checkAvailableDate(this.state);
@@ -120,7 +120,7 @@ export class ModifyEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.modifyEvent(this.props.userEvent.event.id, this.state);
@@ -139,7 +139,7 @@ export class ModifyEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = (e) => {
     this.props.logout();
   };
   /**

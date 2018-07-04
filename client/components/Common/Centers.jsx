@@ -17,7 +17,7 @@ export class DisplayCenters extends React.Component {
     centerName: ''
   };
 
-  onSelect = e => {
+  onSelect = (e) => {
     this.setState({
       centerId: e.target.id,
       centerName: e.target.parentNode.id

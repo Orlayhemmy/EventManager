@@ -47,7 +47,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onClick = e => {
+  onClick = (e) => {
     this.props.setCurrentEvent(e.target.id, e.target.parentNode.id);
   };
   /**
@@ -71,7 +71,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onDelete = e => {
+  onDelete = (e) => {
     const eventData = {
       eventId: e.target.id,
       eventName: e.target.parentNode.id
@@ -84,7 +84,7 @@ export class Dashboard extends React.Component {
    * @description it toggles div display
    * @param {object} event
    */
-  showHiddenDiv = e => {
+  showHiddenDiv = (e) => {
     const targetDiv = e.target.id;
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
@@ -96,7 +96,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = (e) => {
     this.props.logout();
   };
   /**
@@ -105,7 +105,7 @@ export class Dashboard extends React.Component {
    * @description it fetches the next centers
    * @returns {void}
    */
-  nextEvents = e => {
+  nextEvents = (e) => {
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1

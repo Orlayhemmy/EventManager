@@ -26,7 +26,7 @@ export class AddEventPage extends React.Component {
     dateArray: []
   };
 
-  searchNav = e => {
+  searchNav = (e) => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
@@ -35,7 +35,7 @@ export class AddEventPage extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -55,7 +55,7 @@ export class AddEventPage extends React.Component {
    * @method checkDate
    * @param {object} event
    */
-  checkDate = e => {
+  checkDate = (e) => {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
       this.props.checkAvailableDate(this.state);
@@ -68,7 +68,7 @@ export class AddEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     let data = {
       eventInfo: this.state,
@@ -105,7 +105,7 @@ export class AddEventPage extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = (e) => {
     this.props.logout();
   };
   /**

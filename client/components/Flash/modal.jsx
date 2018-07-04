@@ -9,7 +9,7 @@ export default class ModalContent extends React.Component {
           <div className="modal-content">
             <div className="form-inner text-center">
               <div className="form-inner">
-                <span className="media-heading main-color">{message}</span>   
+                <span className="media-heading main-color">{message}</span>
               </div>
             </div>
           </div>

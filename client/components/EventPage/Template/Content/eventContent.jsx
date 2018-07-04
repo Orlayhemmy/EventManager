@@ -32,7 +32,7 @@ export class Event extends React.Component {
     btwValue: ''
   };
 
-  searchNav = e => {
+  searchNav = (e) => {
     if (e.target.parentNode.id === 'submit') {
       const div = document.getElementById('search-nav');
       div.style.width = '0px';
@@ -60,7 +60,7 @@ export class Event extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search = e => {
+  search = (e) => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.getCenters(this.state, 0);
@@ -75,7 +75,7 @@ export class Event extends React.Component {
    * @param {object} e
    * @returns {object} state
    */
-  onChange = e => {
+  onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -91,7 +91,7 @@ export class Event extends React.Component {
   // * @method checkDate
   // * @param {object} event
   // */
-  checkDate = e => {
+  checkDate = (e) => {
     e.preventDefault();
     this.props.checkAvailableDate(this.state);
   };
