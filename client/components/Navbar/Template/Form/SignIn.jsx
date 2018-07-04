@@ -47,7 +47,7 @@ export default class SignIn extends React.Component {
         <button type="submit" class="btn btn-primary mb-3">
           Sign in
         </button>
-        <br/>
+        <br />
         <span>
           <Link to="/recover-password">Forgot Password? Click Here</Link>
         </span>

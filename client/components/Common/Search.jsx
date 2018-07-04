@@ -7,21 +7,20 @@ import { getCenters } from '../../actions/centerActions';
  * @description SearchForm  component
  */
 export class SearchForm extends React.Component {
-
-  onChange = (e) => {
+  onChange = e => {
     this.props.onChange(e);
     const div = document.getElementById('btwValue');
-    if (e.target.id === "capacityType" ) {
+    if (e.target.id === 'capacityType') {
       if (e.target.value === 'between' || e.target.id === 'btwValue') {
         div.hidden = false;
       } else {
         div.hidden = true;
       }
     }
-  }
-  resetSearch = (e) => {
+  };
+  resetSearch = e => {
     this.props.getCenters('', 0);
-  }
+  };
   /**
    * @memberof SearchForm
    * @method render
@@ -130,7 +129,11 @@ export class SearchForm extends React.Component {
             </div>
           </div>
           <div className="input-group pt-2" id="submit">
-            <button className="btn btn-success" id="submit" onClick={this.props.search}>
+            <button
+              className="btn btn-success"
+              id="submit"
+              onClick={this.props.search}
+            >
               <i className="fa fa-search"> Search</i>
             </button>
             <button className="btn btn-danger fr" onClick={this.resetSearch}>
@@ -148,9 +151,12 @@ const mapStateToProps = state => ({
 });
 
 const propTypes = {
-  getCenters: PropTypes.func.isRequired,
+  getCenters: PropTypes.func.isRequired
 };
 
 SearchForm.propTypes = propTypes;
 
-export default connect(mapStateToProps, { getCenters })(SearchForm);
+export default connect(
+  mapStateToProps,
+  { getCenters }
+)(SearchForm);

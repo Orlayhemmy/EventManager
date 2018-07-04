@@ -8,14 +8,14 @@ export default class CodeContent extends React.Component {
       formState: { code },
       onChange,
       onSubmit,
-      message,
+      message
     } = this.props;
     return (
       <div>
-      <div id="resendCode" hidden>
+        <div id="resendCode" hidden>
           <form id="resendCode" onSubmit={onSubmit}>
             {heading}
-            <span className="help-block"></span>
+            <span className="help-block" />
             <p>Code has expired. Click the button below to get another </p>
             <TextField
               id="code"
@@ -53,7 +53,7 @@ export default class CodeContent extends React.Component {
             />
           </form>
         </div>
-        </div>
-    )
+      </div>
+    );
   }
 }

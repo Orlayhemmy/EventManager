@@ -24,10 +24,6 @@ export default class Notifications extends React.Component {
         </div>
       );
     });
-    return (
-      <div>
-        { recentActivity}
-      </div>
-    )
+    return <div>{recentActivity}</div>;
   }
 }

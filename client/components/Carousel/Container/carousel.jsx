@@ -26,7 +26,7 @@ export default class Carousel extends React.Component {
           <li
             data-target="#carouselExampleIndicators"
             data-slide-to={index}
-            class={index === 0 ? "active": ""}
+            class={index === 0 ? 'active' : ''}
             key={index}
           />
         );
@@ -40,9 +40,7 @@ export default class Carousel extends React.Component {
           class="carousel slide"
           data-ride="carousel"
         >
-          <ol class="carousel-indicators">
-           {carouselIndicator}
-          </ol>
+          <ol class="carousel-indicators">{carouselIndicator}</ol>
           <div class="carousel-inner">{centerList}</div>
           <a
             class="carousel-control-prev"

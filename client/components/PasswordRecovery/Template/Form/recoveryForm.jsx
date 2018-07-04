@@ -7,7 +7,6 @@ import NewPassword from './newPassword';
  * @description PasswordRecoveryForm component
  */
 export default class PasswordRecoveryForm extends React.Component {
-
   /**
    * @memberof PasswordRecoveryForm
    * @method render

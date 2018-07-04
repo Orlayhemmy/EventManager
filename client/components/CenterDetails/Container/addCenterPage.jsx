@@ -29,12 +29,12 @@ export class AddCenterPage extends React.Component {
     const { pathname } = this.props.location;
 
     if (status === 201) {
-      swal(message)
+      swal(message);
       return <Redirect to="/admin-centers" />;
     }
     return (
       <div id="add-center">
-        <Navbar path={pathname}/>
+        <Navbar path={pathname} />
         <div class="container">
           <div class="row">
             <div className="col-lg-6">
