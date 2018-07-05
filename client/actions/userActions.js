@@ -367,8 +367,8 @@ export function checkPassword(info) {
  */
 export function confirmCode(info) {
   return (dispatch) => {
-    let status;
-    info === 'wrong code' ? (status = 400) : 202;
+    let status = 202;
+    if (info === 'wrong code') status = 400;
     const data = {
       message: info,
       status
