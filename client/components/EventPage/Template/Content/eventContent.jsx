@@ -108,13 +108,13 @@ export class Event extends React.Component {
     let month = date.getMonth() + 1;
     let day = date.getDate() + 1;
     let currentDate = `${year}-${month}-${day}`;
-    $(document).ready(function() {
-      $('#bookedDate').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true,
-        startDate: currentDate
-      });
-    });
+    // $(document).ready(function() {
+    //   $('#bookedDate').datepicker({
+    //     format: 'yyyy-mm-dd',
+    //     autoclose: true,
+    //     startDate: currentDate
+    //   });
+    // });
     if (this.props.userEvent.status === 201) {
       alert(this.props.userEvent.message);
     }
