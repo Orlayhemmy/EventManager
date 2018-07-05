@@ -96,7 +96,6 @@ export class AddEventPage extends React.Component {
     if (!isValid) {
       this.setState({ errors });
     }
-    console.log('@@@@@@@@@@@@rrrrrr@')
     return isValid;
   };
   /**

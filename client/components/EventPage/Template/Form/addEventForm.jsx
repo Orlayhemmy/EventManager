@@ -95,9 +95,9 @@ export class AddEventForm extends React.Component {
                 </span>
               </span>
               <input
-                type="text"
+                type="date"
                 id="bookedDate"
-                onBlur={onFormChange}
+                onChange={onFormChange}
                 class="form-control"
                 value={bookedDate}
                 placeholder="Select preferred date"
