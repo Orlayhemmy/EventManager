@@ -56,16 +56,7 @@ export default class CenterController {
             message: 'Centers found'
           });
         }
-        // No center found
-        return res.status(404).send({
-          err: 'Error',
-          message: 'There are no available Centers'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -98,11 +89,7 @@ export default class CenterController {
           err: 'Error',
           message: 'No Center Found'
         });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -150,16 +137,8 @@ export default class CenterController {
               center,
               message: 'Successfully created a center'
             });
-          })
-          .catch(error => res.status(500).send({
-            err: 'Error',
-            message: error.message
-          }));
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+          });
+      });
   }
 
   /**
@@ -203,20 +182,13 @@ export default class CenterController {
             .then(newCenter => res.status(202).send({
               message: 'Successfully updated center',
               center: newCenter
-            }))
-            .catch(error => res.status(500).send({
-              err: 'Error',
-              message: error.message
             }));
         }
         return res.status(404).send({
           err: 'Error',
           message: 'Center not Found'
         });
-      })
-      .catch(err => res.status(500).send({
-        message: err.message
-      }));
+      });
   }
 
   /**
@@ -241,11 +213,7 @@ export default class CenterController {
           err: 'Error',
           message: 'Center does not exist'
         });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -269,14 +237,6 @@ export default class CenterController {
               message: 'ok'
             }));
         }
-        return res.status(404).send({
-          err: 'Error',
-          message: 'not found'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 }

@@ -15,8 +15,7 @@ const authToken = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
       if (err) {
-        res.status(498);
-        res.send({
+        res.status(498).send({
           message: 'Token is Invalid or Expired'
         });
       } else {
@@ -25,8 +24,7 @@ const authToken = (req, res, next) => {
       }
     });
   } else {
-    res.status(403);
-    res.send({
+    res.status(403).send({
       message: 'Access denied. You are not logged in'
     });
   }

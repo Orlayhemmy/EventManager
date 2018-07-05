@@ -145,9 +145,9 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
-      const { message, status } = action.payload;
+      const { message, status, id } = action.payload;
       centerList.splice(
-        centerList.findIndex(center => center.id === action.id),
+        centerList.findIndex(center => center.id === id),
         1
       );
       return {

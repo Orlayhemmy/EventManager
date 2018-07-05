@@ -8,17 +8,17 @@ const request = supertest(app);
 let userToken;
 let invalidToken;
 
-
 describe('tests for user', () => {
   describe('tests for Signup processes', () => {
     describe('test for valid signup', () => {
-      it('should create a new user', (done) => {
-        request.post('/api/v1/users')
+      it('should create a new user', done => {
+        request
+          .post('/api/v1/users')
           .set('Accept', 'application/json')
           .send({
             fullname: 'Olayemi Lawal',
             email: `ola${Math.random()}@test.com`,
-            password: 'good password',
+            password: 'good password'
           })
           .expect(201)
           .end((err, res) => {
@@ -32,30 +32,158 @@ describe('tests for user', () => {
     });
 
     describe('test for invalid signup', () => {
-      it('should return error message when all or some fields are undefined', (done) => {
-        request.post('/api/v1/users')
+      it('should return error message when all or some fields are undefined', done => {
+        request
+          .post('/api/v1/users')
           .set('Accept', 'application/json')
           .send({
             email: 'ola@test.com',
-            password: 'good password',
+            password: 'good password'
           })
           .expect(400)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
-            expect(res.body).deep.equal({ message: 'All or some fields are not defined' });
+            expect(res.body).deep.equal({
+              message: 'All or some fields are not defined'
+            });
+            if (err) throw err;
+            done();
+          });
+      });
+      it('fullname length error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: 'ola@test.com',
+            password: 'good password',
+            fullname: 'John'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('fullname');
+            expect(res.body.fullname).to.not.equal(null);
+            expect(res.body.fullname).deep.equal(
+              'Fullname must be more than 5 characters but less than 20'
+            );
             if (err) throw err;
             done();
           });
       });
 
-      it('should return error message invalid input characters are entered', (done) => {
-        request.post('/api/v1/users')
+      it('fullname length error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: 'ola@test.com',
+            password: 'good password',
+            fullname: '5555hjbsg'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('fullname');
+            expect(res.body.fullname).to.not.equal(null);
+            expect(res.body.fullname).deep.equal(
+              'Fullname can only contain numbers and letters'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      it('fullname error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: 'ola@test.com',
+            password: 'good password',
+            fullname: ''
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('fullname');
+            expect(res.body.fullname).to.not.equal(null);
+            expect(res.body.fullname).deep.equal(
+              'Fullname cannot be blank'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+      it('email error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: '',
+            password: 'good password',
+            fullname: 'Hohn doe'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('email');
+            expect(res.body.email).to.not.equal(null);
+            expect(res.body.email).deep.equal(
+              'Email is required'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      it('email error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: 'wew@wdef.com',
+            password: 'ord',
+            fullname: 'Hohn doe'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('password');
+            expect(res.body.password).to.not.equal(null);
+            expect(res.body.password).deep.equal(
+              'Password length must be between 5 and 20'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      it('email error', done => {
+        request
+          .post('/api/v1/users')
+          .set('Accept', 'application/json')
+          .send({
+            email: 'wew@wdef.com',
+            password: '',
+            fullname: 'Hohn doe'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('password');
+            expect(res.body.password).to.not.equal(null);
+            expect(res.body.password).deep.equal(
+              'Password is required'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      it('should return error message invalid input characters are entered', done => {
+        request
+          .post('/api/v1/users')
           .set('Accept', 'application/json')
           .send({
             fullname: 'Olayemi Lawal',
             email: 'ola#test.com',
-            password: 'very good',
+            password: 'very good'
           })
           .expect(400)
           .end((err, res) => {
@@ -67,13 +195,14 @@ describe('tests for user', () => {
           });
       });
 
-      it('should return error message user already exist', (done) => {
-        request.post('/api/v1/users')
+      it('should return error message user already exist', done => {
+        request
+          .post('/api/v1/users')
           .set('Accept', 'application/json')
           .send({
             fullname: 'Olayemi Lawal',
             email: 'admin@test.com',
-            password: '1234567890',
+            password: '1234567890'
           })
           .expect(409)
           .end((err, res) => {
@@ -89,28 +218,93 @@ describe('tests for user', () => {
 
   describe('tests for Signin processes', () => {
     describe('test for invalid signin', () => {
-      it('should return error message when all or some fields are undefined', (done) => {
-        request.post('/api/v1/users/login')
+      it('should return error message when all or some fields are undefined', done => {
+        request
+          .post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
-            loginPassword: 'verygood',
+            loginPassword: 'verygood'
           })
           .expect(400)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
-            expect(res.body).deep.equal({ message: 'Email or Password is undefined' });
+            expect(res.body).deep.equal({
+              message: 'Email or Password is undefined'
+            });
             if (err) throw err;
             done();
           });
       });
 
-      it('should return error message invalid input characters are entered', (done) => {
-        request.post('/api/v1/users/login')
+      it('loginEmail is invalid', done => {
+        request
+          .post('/api/v1/users/login')
+          .set('Accept', 'application/json')
+          .send({
+            loginPassword: 'verygood',
+            loginEmail: 'badasss'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('loginEmail');
+            expect(res.body.loginEmail).to.not.equal(null);
+            expect(res.body.loginEmail).deep.equal(
+              'Type a valid email'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      // it('loginEmail is empty', done => {
+      //   request
+      //     .post('/api/v1/users/login')
+      //     .set('Accept', 'application/json')
+      //     .send({
+      //       loginPassword: 'verygood',
+      //       loginEmail: ''
+      //     })
+      //     .expect(400)
+      //     .end((err, res) => {
+      //       expect(res.body).to.have.property('loginEmail');
+      //       expect(res.body.loginEmail).to.not.equal(null);
+      //       expect(res.body.loginEmail).deep.equal(
+      //         'email is required'
+      //       );
+      //       if (err) throw err;
+      //       done();
+      //     });
+      // });
+
+
+      it('loginPassword is empty', done => {
+        request
+          .post('/api/v1/users/login')
+          .set('Accept', 'application/json')
+          .send({
+            loginPassword: '',
+            loginEmail: 'badassguy@test.com'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.have.property('loginPassword');
+            expect(res.body.loginPassword).to.not.equal(null);
+            expect(res.body.loginPassword).deep.equal(
+              'Password is required'
+            );
+            if (err) throw err;
+            done();
+          });
+      });
+
+      it('should return error message invalid input characters are entered', done => {
+        request
+          .post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
             loginEmail: 'ola#test.com',
-            loginPassword: 'very good',
+            loginPassword: 'very good'
           })
           .expect(400)
           .end((err, res) => {
@@ -122,28 +316,32 @@ describe('tests for user', () => {
           });
       });
 
-      it('should return error message for new email', (done) => {
-        request.post('/api/v1/users/login')
+      it('should return error message for new email', done => {
+        request
+          .post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
             loginEmail: 'absent@test.com',
-            loginPassword: 'very good',
+            loginPassword: 'very good'
           })
           .expect(404)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
-            expect(res.body.message).deep.equal('User not found, Please sign up if you are a new user');
+            expect(res.body.message).deep.equal(
+              'User not found, Please sign up if you are a new user'
+            );
             done();
           });
       });
 
-      it('should return error message for incorrect email or password', (done) => {
-        request.post('/api/v1/users/login')
+      it('should return error message for incorrect email or password', done => {
+        request
+          .post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
             loginEmail: 'admin@test.com',
-            loginPassword: 'bad password',
+            loginPassword: 'bad password'
           })
           .expect(400)
           .end((err, res) => {
@@ -156,12 +354,13 @@ describe('tests for user', () => {
     });
 
     describe('test for valid signin', () => {
-      it('should return a success message', (done) => {
-        request.post('/api/v1/users/login')
+      it('should return a success message', done => {
+        request
+          .post('/api/v1/users/login')
           .set('Accept', 'application/json')
           .send({
             loginEmail: 'admin@test.com',
-            loginPassword: '1234567890',
+            loginPassword: '1234567890'
           })
           .expect(200)
           .end((err, res) => {
@@ -176,35 +375,41 @@ describe('tests for user', () => {
     });
 
     describe('test for undefined or invalid token', () => {
-      it('should return error when token is undefined', (done) => {
-        request.post('/api/v1/centers')
+      it('should return error when token is undefined', done => {
+        request
+          .post('/api/v1/centers')
           .send({
             centerName: 'Five Points',
-            description: 'A world class event center',
+            description: 'A world class event center'
           })
           .expect(403)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
-            expect(res.body).deep.equal({ message: 'Access denied. You are not logged in' });
+            expect(res.body).deep.equal({
+              message: 'Access denied. You are not logged in'
+            });
             if (err) throw err;
             done();
           });
       });
 
-      it('should return error when token is invalid', (done) => {
+      it('should return error when token is invalid', done => {
         invalidToken = userToken.slice(10);
-        request.post('/api/v1/centers')
+        request
+          .post('/api/v1/centers')
           .set('x-access-token', invalidToken)
           .send({
             centerName: 'Five Points',
-            description: 'A world class event center',
+            description: 'A world class event center'
           })
           .expect(498)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
-            expect(res.body).deep.equal({ message: 'Token is Invalid or Expired' });
+            expect(res.body).deep.equal({
+              message: 'Token is Invalid or Expired'
+            });
             if (err) throw err;
             done();
           });
@@ -213,8 +418,9 @@ describe('tests for user', () => {
   });
 
   describe('test for GET', () => {
-    it('should return success when user details found', (done) => {
-      request.get('/api/v1/users')
+    it('should return success when user details found', done => {
+      request
+        .get('/api/v1/users')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {
@@ -226,8 +432,9 @@ describe('tests for user', () => {
         });
     });
 
-    it('should return success when user email found', (done) => {
-      request.get('/api/v1/userEmail/2')
+    it('should return success when user email found', done => {
+      request
+        .get('/api/v1/userEmail/2')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {
@@ -238,6 +445,165 @@ describe('tests for user', () => {
           done();
         });
     });
+
+    it('should return success when user email found', done => {
+      request
+        .get('/api/v1/userEmail/99')
+        .set('x-access-token', userToken)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('No user Found');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+
+  describe('test for recover password', () => {
+    it('recover password', done => {
+      request
+        .post('/api/v1/passrecovery')
+        .send({ email: 'admin@test.com' })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('User found!');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return failure when user email is not found', done => {
+      request
+        .post('/api/v1/passrecovery')
+        .send({ email: 'admin@teest.com' })
+        .expect(404)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal(
+            'Email is incorrect or not registered'
+          );
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+
+  describe('test for updating user', () => {
+    it('successful update', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          email: 'admin@test.com',
+          newPassword: '1234567890',
+          fullname: 'John doe'
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Changes Applied Successfully');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('failed update', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          email: 'admin@tesst.com',
+          password: '1234567890',
+          fullname: 'John doe'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('User not found');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+
+  describe('test for updating password', () => {
+    it('successful update', done => {
+      request
+        .put('/api/v1/newpassword')
+        .send({
+          email: 'admin@test.com',
+          newPassword: '1234567890'
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Changes Applied Successfully');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('failed update', done => {
+      request
+        .put('/api/v1/newpassword')
+        .send({
+          email: 'admin@tesst.com',
+          newPassword: '1234567890'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('User not found');
+          if (err) throw err;
+          done();
+        });
+    });
+  });
+
+  describe('test for checking password', () => {
+    it('successful', done => {
+      request
+        .post('/api/v1/passwordcheck')
+        .set('x-access-token', userToken)
+        .send({
+          id: '1',
+          oldPassword: '1234567890'
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Password Match');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('failure', done => {
+      request
+        .post('/api/v1/passwordcheck')
+        .set('x-access-token', userToken)
+        .send({
+          id: '1',
+          oldPassword: '12347890'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Wrong Password');
+          if (err) throw err;
+          done();
+        });
+    });
   });
 });
-

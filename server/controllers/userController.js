@@ -51,18 +51,8 @@ export default class UserController {
               message: 'You are now Signed Up',
               token
             });
-          })
-          .catch(err =>
-            res.status(500).send({
-              err: 'Error',
-              message: err.message
-            }));
-      })
-      .catch(err =>
-        res.status(500).send({
-          err: 'Error',
-          message: err.message
-        }));
+          });
+      });
   }
   /**
    * User details are captured and authenticated against database data
@@ -101,12 +91,7 @@ export default class UserController {
           err: 'Error',
           message: 'User not found, Please sign up if you are a new user'
         });
-      })
-      .catch(error =>
-        res.status(500).send({
-          status: 'Failed',
-          message: error.message
-        }));
+      });
   }
   /**
    * Check user email for validity
@@ -134,12 +119,7 @@ export default class UserController {
           err: 'Error',
           message: 'Email is incorrect or not registered'
         });
-      })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      });
   }
 
   /**
@@ -151,10 +131,10 @@ export default class UserController {
    * @memberof UserController
    */
   static PasswordCheck(req, res) {
-    const { id, oldPassword } = req.body;
+    const { oldPassword } = req.body;
     Users.findOne({
       where: {
-        id
+        id: req.decoded.id
       }
     })
       .then((user) => {
@@ -170,11 +150,7 @@ export default class UserController {
             message: 'Wrong Password'
           });
         }
-      })
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      });
   }
 
   /**
@@ -207,16 +183,10 @@ export default class UserController {
               email: email || user.email,
               imageUrl: imageUrl || user.imageUrl
             })
-            .then((updatedUser) => {
-              return res.status(202).send({
+            .then(updatedUser =>
+              res.status(202).send({
                 user: updatedUser,
                 message: 'Changes Applied Successfully'
-              });
-            })
-            .catch(err =>
-              res.status(500).send({
-                err: 'Error',
-                message: err.message
               }));
         } else {
           return res.status(400).send({
@@ -224,12 +194,7 @@ export default class UserController {
             message: 'User not found'
           });
         }
-      })
-      .catch(err =>
-        res.status(500).send({
-          err: 'Error',
-          message: err.message
-        }));
+      });
   }
 
   /**
@@ -257,12 +222,7 @@ export default class UserController {
           err: 'Error',
           message: 'No user Found'
         });
-      })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      });
   }
 
   /**
@@ -286,15 +246,6 @@ export default class UserController {
             userDetails
           });
         }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'No user Found'
-        });
-      })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      });
   }
 }
