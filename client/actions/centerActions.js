@@ -126,14 +126,6 @@ export function getCenterSelected(centerInfo) {
       });
   };
 }
-/**
- * @returns {void}
- */
-// export function clearCenterStorage() {
-//   if (localStorage.getItem('center')) {
-//     localStorage.removeItem('center');
-//   }
-// }
 
 /**
  * @param {object} centerInfo
@@ -177,16 +169,16 @@ export function modifyCenter(centerInfo) {
     return axios
       .put(`/api/v1/centers/${centerInfo.id}`, centerInfo)
       .then((response) => {
-        const { data: { message }, status } = response;
+        const { data: { message, center }, status } = response;
         const res = {
           message,
-          status
+          status,
+          center
         };
         dispatch({
           type: actionTypes.MODIFY_CENTER_SUCCESS,
           payload: res
         });
-        dispatch(getCenterSelected());
       })
       .catch((err) => {
         const { data } = err.response;
@@ -194,6 +186,7 @@ export function modifyCenter(centerInfo) {
           type: actionTypes.MODIFY_CENTER_FAILS,
           payload: data
         });
+        dispatch(clearCenterStorage());
       });
   };
 }
@@ -215,9 +208,10 @@ export function deleteCenter(id) {
         };
         dispatch({
           type: actionTypes.DELETE_CENTER_SUCCESS,
-          payload: res
+          payload: res,
+          id: Number(id)
         });
-        dispatch(getCenters());
+        dispatch(clearCenterStorage());
       })
       .catch((err) => {
         const { data } = err.response;

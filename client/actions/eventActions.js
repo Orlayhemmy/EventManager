@@ -1,6 +1,18 @@
 import axios from 'axios';
 import * as actionTypes from './types';
 
+
+/**
+ * @param {object} data
+ * @param {object} centerId
+ * @returns {object} event state
+ */
+export function clearEventState() {
+  return (dispatch) => {
+    dispatch({ type: actionTypes.CLEAR_EVENT_STATE });
+  };
+}
+
 /**
  * @param {object} info
  * @returns {object} new event details
@@ -140,23 +152,22 @@ export function getEventSelected() {
  * @returns {object} success or failure
  */
 export function modifyCenterEvent(info) {
-  const { id, centerId } = info;
+  const { id } = info;
   return (dispatch) => {
     dispatch({ type: actionTypes.MODIFY_CENTER_EVENT });
     return axios
       .put(`/api/v1/approveEvent/${id}`, info)
       .then((response) => {
-        const { status, data: { message } } = response;
+        const { status, data: { message, event } } = response;
         const res = {
           message,
-          status
+          status,
+          event
         };
         dispatch({
           type: actionTypes.MODIFY_CENTER_EVENT_SUCCESS,
           payload: res
         });
-        // dispatch(setActivity(data));
-        dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
         const { data } = err.response;
@@ -179,15 +190,17 @@ export function modifyEvent(id, eventData) {
     return axios
       .put(`/api/v1/events/${id}`, eventData)
       .then((response) => {
-        const { status, data: { message } } = response;
+        const { status, data: { message, event } } = response;
         const res = {
           message,
-          status
+          status,
+          event
         };
         dispatch({
           type: actionTypes.MODIFY_EVENT_SUCCESS,
           payload: res
         });
+        dispatch(clearEventState());
       })
       .catch((err) => {
         const { data } = err.response;
@@ -213,7 +226,8 @@ export function deleteCenterEvent(info) {
         const { status, data: { message } } = response;
         const res = {
           status,
-          message
+          message,
+          id
         };
         dispatch({
           type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
@@ -244,13 +258,13 @@ export function deleteEvent(id) {
         const { status, data: { message } } = response;
         const res = {
           status,
-          message
+          message,
+          id
         };
         dispatch({
           type: actionTypes.DELETE_EVENT_SUCCESS,
           payload: res
         });
-        dispatch(getEvents());
       })
       .catch((err) => {
         const { data } = err.response;
@@ -259,17 +273,6 @@ export function deleteEvent(id) {
           payload: data
         });
       });
-  };
-}
-
-/**
- * @param {object} data
- * @param {object} centerId
- * @returns {object} event state
- */
-export function clearEventState() {
-  return (dispatch) => {
-    dispatch({ type: actionTypes.CLEAR_EVENT_STATE });
   };
 }
 

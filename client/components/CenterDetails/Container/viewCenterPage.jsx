@@ -38,7 +38,7 @@ export class ViewCenterDetails extends React.Component {
     } else if (!this.props.auth.user.isAdmin) {
       return <Redirect to="/dashboard" />;
     }
-    if (status === 401) {
+    if (status === (401 || 498)) {
       this.logout();
     } else if (status === 202) {
       swal('Center updated successfully');

@@ -4,9 +4,10 @@ import { Link, Redirect, browserHistory } from 'react-router-dom';
 import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
+import DeleteContent from './Delete';
 import DeleteModal from '../Modal/Container/deleteModal';
 import { getAdminActivity } from '../../actions/adminActivityActions';
-import { getCenters } from '../../actions/centerActions';
+import { getCenters, deleteCenter } from '../../actions/centerActions';
 
 /**
  * @description DisplayCenters form component
@@ -48,6 +49,15 @@ export class DisplayCenters extends React.Component {
     }
   }
 
+  onDelete = () => {
+    this.props.deleteCenter(this.state.centerId);
+    $('#deleteModal').modal('hide');
+  }
+
+  onCancel = () => {
+    $('#deleteModal').modal('hide');
+  }
+
   /**
    * @memberof DisplayCenters
    * @method render
@@ -56,7 +66,6 @@ export class DisplayCenters extends React.Component {
    */
 
   render() {
-    const { path } = this.props;
     const { centers } = this.props.eventCenter;
     const { activities } = this.props.adminActivity;
     let adminCenter;
@@ -246,7 +255,15 @@ export class DisplayCenters extends React.Component {
           <p class="tooltiptext">Filter Centers</p>
         </div>
         {this.props.auth.user.isAdmin ? adminCenterPage : guestCenterPage}
-        <DeleteModal path={path} centerProps={this.state} />
+        <DeleteModal
+          content={
+            <DeleteContent
+              onDelete={this.onDelete}
+              title={this.state.centerName}
+              onCancel={this.onCancel}
+            />
+          }
+        />
       </div>
     );
   }
@@ -256,7 +273,8 @@ const propTypes = {
   eventCenter: PropTypes.object.isRequired,
   adminActivity: PropTypes.object.isRequired,
   getAdminActivity: PropTypes.func.isRequired,
-  getCenters: PropTypes.func.isRequired
+  getCenters: PropTypes.func.isRequired,
+  deleteCenter: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -271,6 +289,7 @@ export default connect(
   mapStateToProps,
   {
     getAdminActivity,
-    getCenters
+    getCenters,
+    deleteCenter
   }
 )(DisplayCenters);

@@ -42,11 +42,10 @@ export default class EventController {
           message: 'There are no booked Events'
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -80,11 +79,10 @@ export default class EventController {
           message: 'There are no booked Events'
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -127,11 +125,10 @@ export default class EventController {
           message: 'There are no booked Events'
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -165,11 +162,10 @@ export default class EventController {
           message: 'No Event Found'
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -201,11 +197,10 @@ export default class EventController {
           bookedEvent
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -231,26 +226,23 @@ export default class EventController {
             description: description || event.description,
             centerId: centerId || event.centerId
           })
-          .then(() =>
-            res.status(202).send({
-              message: 'Changes Applied',
-              event
-            }))
-          .catch(error =>
-            res.status(500).send({
-              message: error.message
-            }));
+          .then(() => res.status(202).send({
+            message: 'Changes Applied',
+            event
+          }))
+          .catch(error => res.status(500).send({
+            message: error.message
+          }));
       }
       return res.status(404).send({
         message: 'Event does not exist',
         event
       });
     })
-      .catch(error =>
-        res.status(500).send({
-          err: 'Error',
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        err: 'Error',
+        message: error.message
+      }));
   }
 
   /**
@@ -270,27 +262,26 @@ export default class EventController {
             .update({
               isApproved: true
             })
-            .then(() => {
+            .then((newEvent) => {
               notifyUser(req, res, event.userId);
               res.status(202).send({
-                message: 'Event Approved'
+                message: 'Event Approved',
+                event: newEvent
               });
             })
-            .catch(err =>
-              res.status(500).send({
-                message: err.message
-              }));
+            .catch(err => res.status(500).send({
+              message: err.message
+            }));
         }
         return res.status(404).send({
           err: 'Error',
           message: 'Event no found'
         });
       })
-      .catch(err =>
-        res.status(500).send({
-          err: 'Error',
-          message: err.message
-        }));
+      .catch(err => res.status(500).send({
+        err: 'Error',
+        message: err.message
+      }));
   }
 
   /**
@@ -309,10 +300,9 @@ export default class EventController {
       .then((event) => {
         if (event) {
           if (event.userId === id || isAdmin) {
-            return event.destroy().then(() =>
-              res.status(200).send({
-                message: 'Event Deleted'
-              }));
+            return event.destroy().then(() => res.status(200).send({
+              message: 'Event Deleted'
+            }));
           }
           return res.status(403).send({
             err: 'Error',
@@ -324,10 +314,9 @@ export default class EventController {
           message: 'Event does not exist'
         });
       })
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      .catch(error => res.status(500).send({
+        message: error.message
+      }));
   }
 
   /**
@@ -351,12 +340,12 @@ export default class EventController {
           eventBookedCount
         });
       })
-      .catch(err =>
-        res.status(500).send({
-          err: 'Error',
-          message: err.message
-        }));
+      .catch(err => res.status(500).send({
+        err: 'Error',
+        message: err.message
+      }));
   }
+
   /**
    * @param  {object} req
    * @param  {object} res
@@ -387,10 +376,9 @@ export default class EventController {
           message: 'Date is available'
         });
       })
-      .catch(err =>
-        res.status(500).send({
-          err: 'Error',
-          message: err.message
-        }));
+      .catch(err => res.status(500).send({
+        err: 'Error',
+        message: err.message
+      }));
   }
 }

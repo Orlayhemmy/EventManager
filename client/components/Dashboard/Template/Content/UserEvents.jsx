@@ -28,18 +28,19 @@ export default class Content extends React.Component {
             Approved Booking: <i className="fa fa-thumbs-up green" />
           </span>
           <span className="legend">
-            Edit Booking: ...<i className="fa fa-pencil-alt main-color" />
+            Delete Booking: <i className="fa fa-trash trash" />
           </span>
           <span className="legend">
-            Delete Booking: <i className="fa fa-trash trash" />
+            Awaiting Response: <i className="fa fa-spinner main-color" />
           </span>
         </div>
       );
       const eventsArray = this.props.userEvent.events;
       content = _.map(eventsArray, (bookedEvent, index) => {
+        const { description, bookedDate, isApproved } = bookedEvent;
         const { imageUrl } = bookedEvent.Center;
         let eStatus;
-        if (bookedEvent.isApproved) {
+        if (isApproved) {
           eStatus = <i className="fa fa-thumbs-up green float-left" />;
         } else {
           eStatus = <i className="fa fa-spinner main-color float-left" />;
@@ -48,12 +49,13 @@ export default class Content extends React.Component {
         editEventId = `eventDetails${index}`;
         form = `form${index}`;
         let dateBooked = `date${index}`;
+        const eventDate = `Date: ${bookedDate}`;
         return (
-          <div className="center" key={index}>
+          <div>
+          <div className="tooltips center" key={index}>
             <div key={eventId} className="text-center">
               <div className="card p-1 mb-3 mw">
                 <div id={index} className="grid-view">
-                  <span>{eStatus}</span>
                   <img className="img m-auto" src={imageUrl} />
                   <h2>
                     <span className="media-heading" id={bookedEvent.centerId}>
@@ -89,25 +91,20 @@ export default class Content extends React.Component {
                       </h3>
                     </div>
                   </div> */}
-                <span>
-                  <Link
-                    to="/modify-event"
-                    id={bookedEvent.id}
-                    onClick={this.props.onClick}
-                    className="float-left"
-                  >
-                    ...<i className="fa fa-pencil-alt" />
-                  </Link>
+                <span id={bookedEvent.eventTitle}>
+                  {eStatus}
                   <i
-                    id={event.id}
+                    id={bookedEvent.id}
                     className="fa fa-trash trash float-right"
-                    onClick={this.props.onDelete}
+                    onClick={this.props.onSelect}
                     data-toggle="modal"
                     data-target="#deleteModal"
                   />
                 </span>
               </div>
             </div>
+            <p class="tooltiptext">{eventDate}</p>
+          </div>
           </div>
         );
       });

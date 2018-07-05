@@ -9,6 +9,7 @@ const initialState = {
   isEvent: false
 };
 export default (state = initialState, action) => {
+  const eventList = state.events;
   switch (action.type) {
     case actionTypes.SET_CURRENT_EVENT: {
       const event = action.payload;
@@ -120,13 +121,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_EVENT_SUCCESS: {
-      const { status, message } = action.payload;
+      const { status, message, event } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
         status,
+        event
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT: {
@@ -145,13 +147,16 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_EVENT_SUCCESS: {
-      const { message, status } = action.payload;
+      const { message, status, event } = action.payload;
+      const index = eventList.findIndex(oldEvent => oldEvent.id === event.id);
+      eventList[index] = event;
       return {
         ...state,
         loading: false,
         loaded: true,
         status,
-        message
+        message,
+        events: [...state.events]
       };
     }
     case actionTypes.DELETE_CENTER_EVENT: {
@@ -169,12 +174,14 @@ export default (state = initialState, action) => {
     }
     case actionTypes.DELETE_CENTER_EVENT_SUCCESS: {
       const { message, status } = action.payload;
+      eventList.splice(eventList.findIndex(event => event.id === action.id), 1);
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status
+        status,
+        events: [...state.events]
       };
     }
     case actionTypes.ADD_EVENT: {
@@ -219,12 +226,14 @@ export default (state = initialState, action) => {
     }
     case actionTypes.DELETE_EVENT_SUCCESS: {
       const { message, status } = action.payload;
+      eventList.splice(eventList.findIndex(event => event.id === action.id), 1);
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status
+        status,
+        events: [...state.events]
       };
     }
     case actionTypes.CLEAR_EVENT_STATE: {
@@ -232,8 +241,7 @@ export default (state = initialState, action) => {
         ...state,
         status: '',
         message: '',
-        isAvailable: '',
-        events: []
+        isAvailable: ''
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT: {

@@ -65,9 +65,8 @@ export function addEventValidation(data) {
   } else {
     errors.eventTitle = 'event Name cannot be blank';
   }
-
   // validations for bookedDate
-  if (dateArray.length < 0) {
+  if (dateArray.length > 0) {
     dateArray.map((date) => {
       if (!validator.toDate(date)) {
         errors.dateArray = 'Invalid Date';
