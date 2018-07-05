@@ -207,7 +207,6 @@ export default class Validation {
 
       // validations for description
       if (entry[0] === 'description') {
-        console.log('#####################')
         if (entry[1] !== null) {
           if (!validator.isLength(description, { min: 5, max: 1000 })) {
             errors.description =

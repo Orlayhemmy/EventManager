@@ -83,7 +83,6 @@ describe('tests for user', () => {
           })
           .expect(400)
           .end((err, res) => {
-            console.log(res.body, err)
             expect(res.body).to.have.property('fullname');
             expect(res.body.fullname).to.not.equal(null);
             expect(res.body.fullname).deep.equal(

@@ -42,7 +42,6 @@ describe('tests for post, update, delete and get center processes ', () => {
         })
         .expect(498)
         .end((err, res) => {
-          console.log(res.status)
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.status).to.equal(498);
