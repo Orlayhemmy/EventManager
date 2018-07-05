@@ -1,34 +1,10 @@
 /* eslint-disable */
 import supertest from 'supertest';
 import { expect } from 'chai';
-import models from '../models';
 import app from '../app';
 
 let userToken;
 const request = supertest(app);
-
-const { Events, Users, Centers } = models;
-
-const doAfterTest = () => {
-  after((done) => {
-    Users.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    Centers.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    Events.destroy({
-      cascade: true,
-      truncate: true,
-      restartIdentity: true
-    });
-    done();
-  });
-};
 
 describe('test for post, update, get and delete event processes', () => {
   describe('test for valid signin', () => {
@@ -89,7 +65,7 @@ describe('test for post, update, get and delete event processes', () => {
             expect(res.body.message)
               .to.deep.equal('Event Name cannot be blank');
           });
-      });
+      });   
 
       it(
         'should return an error when eventTitle has less than 5 characters',
@@ -550,6 +526,4 @@ describe('test for post, update, get and delete event processes', () => {
         });
     });
   });
-
-  doAfterTest();
 });

@@ -3,6 +3,7 @@
  * @returns {object} location search criteria
  */
 export function searchLocation(location) {
+  console.log(location, '@@@@@@@@@@@@@@@@@@@@@@')
   let locationSearch;
   if (location) {
     locationSearch = {

@@ -173,7 +173,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_EVENT_SUCCESS: {
-      const { message, status } = action.payload;
+      const { message, status, id } = action.payload;
       eventList.splice(eventList.findIndex(event => event.id === action.id), 1);
       return {
         ...state,

@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import models from '../models';
 import ActivityController from './activityContoller';
 
@@ -36,16 +35,7 @@ export default class EventController {
             message: 'Event found'
           });
         }
-        // No Event found
-        return res.status(404).send({
-          err: 'Error',
-          message: 'There are no booked Events'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -73,16 +63,7 @@ export default class EventController {
             message: 'Center events found'
           });
         }
-        // No Event found
-        return res.status(404).send({
-          err: 'Error',
-          message: 'There are no booked Events'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -119,16 +100,7 @@ export default class EventController {
             message: 'User events found'
           });
         }
-        // No Event found
-        return res.status(404).send({
-          err: 'Error',
-          message: 'There are no booked Events'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -157,15 +129,7 @@ export default class EventController {
             event
           });
         }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'No Event Found'
-        });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -196,11 +160,7 @@ export default class EventController {
           message: 'Event booked Successfully',
           bookedEvent
         });
-      })
-      .catch(error => res.status(500).send({
-        err: 'Error',
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -229,20 +189,13 @@ export default class EventController {
           .then(() => res.status(202).send({
             message: 'Changes Applied',
             event
-          }))
-          .catch(error => res.status(500).send({
-            message: error.message
           }));
       }
       return res.status(404).send({
-        message: 'Event does not exist',
-        event
-      });
-    })
-      .catch(error => res.status(500).send({
         err: 'Error',
-        message: error.message
-      }));
+        message: 'Event does not exist'
+      });
+    });
   }
 
   /**
@@ -273,15 +226,7 @@ export default class EventController {
               message: err.message
             }));
         }
-        return res.status(404).send({
-          err: 'Error',
-          message: 'Event no found'
-        });
-      })
-      .catch(err => res.status(500).send({
-        err: 'Error',
-        message: err.message
-      }));
+      });
   }
 
   /**
@@ -309,14 +254,7 @@ export default class EventController {
             message: 'You cannot delete an event not booked by you'
           });
         }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'Event does not exist'
-        });
-      })
-      .catch(error => res.status(500).send({
-        message: error.message
-      }));
+      });
   }
 
   /**
@@ -339,11 +277,7 @@ export default class EventController {
           message: 'Events found',
           eventBookedCount
         });
-      })
-      .catch(err => res.status(500).send({
-        err: 'Error',
-        message: err.message
-      }));
+      });
   }
 
   /**
@@ -375,10 +309,6 @@ export default class EventController {
           isAvailable: true,
           message: 'Date is available'
         });
-      })
-      .catch(err => res.status(500).send({
-        err: 'Error',
-        message: err.message
-      }));
+      });
   }
 }

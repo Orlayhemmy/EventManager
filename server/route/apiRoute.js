@@ -23,20 +23,15 @@ router
   .route('/newpassword')
   .put(userValidate.updateUser, userController.updateUser);
 
-router.route('/users/login')
-  .post(userValidate.signin, userController.signin);
+router.route('/users/login').post(userValidate.signin, userController.signin);
 
 router
   .route('/passrecovery')
-  .post(
-    userValidate.recoverPassword,
-    userController.recoverPassword);
+  .post(userValidate.recoverPassword, userController.recoverPassword);
 
 router
   .route('/centers')
-  .post(authAdminToken,
-    centerValidate.postCenter,
-    centerController.postCenter)
+  .post(authAdminToken, centerValidate.postCenter, centerController.postCenter)
   .get(centerController.getAllCenters);
 
 router
@@ -51,10 +46,7 @@ router
 
 router
   .route('/events')
-  .post(
-    authToken,
-    eventValidate.postEvent,
-    eventController.postEvent)
+  .post(authToken, eventValidate.postEvent, eventController.postEvent)
   .get(authToken, eventController.getAllEvents);
 
 router
@@ -65,24 +57,17 @@ router
   .route('/approveEvent/:id')
   .put(authAdminToken, eventController.approveEvent);
 
-router.route('/userEvents/:id')
-  .get(authToken, eventController.getUserEvents);
+router.route('/userEvents/:id').get(authToken, eventController.getUserEvents);
 
 router
   .route('/events/:id')
   .get(authToken, eventController.getSingleEvent)
-  .put(
-    authToken,
-    eventValidate.updateEvent,
-    eventController.updateEvent)
+  .put(authToken, eventValidate.updateEvent, eventController.updateEvent)
   .delete(authToken, eventController.deleteEvent);
 
-router.route('/userEmail/:id')
-  .get(authToken,
-    userController.getUserEmail);
+router.route('/userEmail/:id').get(authToken, userController.getUserEmail);
 
-router.route('/centerStatus/:id')
-  .put(centerController.centerStatus);
+router.route('/centerStatus/:id').put(centerController.centerStatus);
 
 router
   .route('/activity')

@@ -17,10 +17,13 @@ export default class Validation {
    */
   static signup(req, res, next) {
     const { fullname, email, password } = req.body;
-
     const errors = {};
 
-    if (!fullname || !email || !password) {
+    if (
+      fullname === undefined ||
+      email === undefined ||
+      password === undefined
+    ) {
       return res.status(400).send({
         message: 'All or some fields are not defined'
       });
@@ -31,11 +34,11 @@ export default class Validation {
         errors.fullname =
           'Fullname must be more than 5 characters but less than 20';
       }
+      if (!/^[a-zA-Z ]+$/.test(fullname)) {
+        errors.fullname = 'Fullname can only contain numbers and letters';
+      }
     } else {
       errors.fullname = 'Fullname cannot be blank';
-    }
-    if (!/^[a-zA-Z0-9 ]+$/.test(fullname)) {
-      errors.fullname = 'Fullname can only contain numbers and letters';
     }
 
     if (!validator.isEmpty(email)) {
@@ -76,7 +79,7 @@ export default class Validation {
     const { loginEmail, loginPassword } = req.body;
 
     const errors = {};
-    if (!loginEmail || !loginPassword) {
+    if (loginEmail === undefined || loginPassword === undefined) {
       return res.status(400).send({
         message: 'Email or Password is undefined'
       });
@@ -154,7 +157,7 @@ export default class Validation {
 
       if (entry[0] === 'fullname') {
         if (entry[1] !== null) {
-          if (!/^[a-zA-Z0-9 ]+$/.test(fullname)) {
+          if (!/^[a-zA-Z ]+$/.test(fullname)) {
             error.fullname = 'Fullname can only contain numbers and letters';
           }
           if (!validator.isLength(fullname, { min: 5, max: 20 })) {

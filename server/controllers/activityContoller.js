@@ -29,18 +29,11 @@ export default class ActivityController {
         if (activities) {
           // show activities
           return res.status(200).send({
-            activities
+            activities,
+            message: 'success'
           });
         }
-        // No activity found
-        return res.status(404).send({
-          message: 'There is no new activity'
-        });
-      })
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      });
   }
 
   /**
@@ -65,18 +58,11 @@ export default class ActivityController {
         if (activities) {
           // show activities
           return res.status(200).send({
-            activities
+            activities,
+            message: 'success'
           });
         }
-        // No activity found
-        return res.status(404).send({
-          message: 'There is no new activity'
-        });
-      })
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
-        }));
+      });
   }
 
   /**
@@ -93,10 +79,7 @@ export default class ActivityController {
     Activities.create({
       description: `A new center "${centerName}" has been added`,
       centerId: id,
-    }).then(() => 'Activity added successfully')
-      .catch(error => res.status(500).send({
-        message: error.message,
-      }));
+    }).then(() => 'Activity added successfully');
   }
   /**
    * @param  {object} req
@@ -115,10 +98,7 @@ export default class ActivityController {
           description: `${user.fullname} booked a center`,
           centerId,
         })
-          .then(() => 'Activity added successfully')
-          .catch(error => res.status(500).send({
-            message: error.message,
-          }));
+          .then(() => 'Activity added successfully');
       });
   }
 
@@ -135,10 +115,7 @@ export default class ActivityController {
     Activities.create({
       description: `${eventTitle} is added and awaiting approval`,
       userId: req.decoded.id,
-    }).then(() => 'Activity added successfully')
-      .catch(error => res.status(500).send({
-        message: error.message,
-      }));
+    }).then(() => 'Activity added successfully');
   }
 
   /**
@@ -160,10 +137,7 @@ export default class ActivityController {
         description: info,
         userId,
       })
-        .then(() => 'Activity added successfully')
-        .catch(error => res.status(500).send({
-          message: error.message,
-        }));
+        .then(() => 'Activity added successfully');
     }
   }
 
@@ -182,10 +156,6 @@ export default class ActivityController {
         .then(() =>
           res.status(200).send({
             message: 'Activity added successfully'
-          }))
-        .catch(error =>
-          res.status(500).send({
-            message: error.message
           }));
     });
   }
@@ -207,10 +177,6 @@ export default class ActivityController {
       .then(() =>
         res.status(200).send({
           message: 'Activity Deleted'
-        }))
-      .catch(error =>
-        res.status(500).send({
-          message: error.message
         }));
   }
 }
