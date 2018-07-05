@@ -184,7 +184,7 @@ export class CenterDetailsContent extends React.Component {
       swal('Changes Applied');
       $(document).ready(function() {
         $('#eventStatus').modal('hide');
-        $('#Modal').modal('hide');
+        $('#deleteModal').modal('hide');
       });
       this.props.clearEventState();
     }

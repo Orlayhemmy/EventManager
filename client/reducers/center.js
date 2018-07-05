@@ -127,7 +127,7 @@ export default (state = initialState, action) => {
         loaded: true,
         message,
         status,
-        center,
+        center
       };
     }
     case actionTypes.DELETE_CENTER: {
@@ -146,7 +146,10 @@ export default (state = initialState, action) => {
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
       const { message, status } = action.payload;
-      centerList.splice(centerList.findIndex(center => center.id === action.id), 1);
+      centerList.splice(
+        centerList.findIndex(center => center.id === action.id),
+        1
+      );
       return {
         ...state,
         loading: false,

@@ -262,10 +262,7 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL: {
-      const {
-        status,
-        message
-      } = action.payload;
+      const { status, message } = action.payload;
       return {
         ...state,
         error: message,
@@ -279,7 +276,7 @@ export default (state = initialState, action) => {
         message: '',
         status: '',
         isAvailable: '',
-        error: '',
+        error: ''
       };
     }
     case actionTypes.CHECK_DATE_FAILS: {
@@ -299,7 +296,7 @@ export default (state = initialState, action) => {
         loaded: true,
         message,
         isAvailable,
-        status,
+        status
       };
     }
     default:

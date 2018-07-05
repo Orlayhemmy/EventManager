@@ -135,13 +135,14 @@ export default (state = initialState, action = {}) => {
       };
     }
     case actionTypes.UPDATE_USER_SUCCESS: {
-      const { message, status } = action.payload;
+      const { message, status, user } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
-        status
+        status,
+        userDetails: user
       };
     }
     case actionTypes.UPDATE_USER_FAILS: {
