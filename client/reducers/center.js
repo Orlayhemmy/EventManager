@@ -8,6 +8,7 @@ const initialState = {
   }
 };
 export default (state = initialState, action) => {
+  const centerList = state.centers;
   switch (action.type) {
     case actionTypes.CLEAR_CENTER_STATE: {
       return {
@@ -119,13 +120,14 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.MODIFY_CENTER_SUCCESS: {
-      const { message, status } = action.payload;
+      const { message, status, center } = action.payload;
       return {
         ...state,
         loading: false,
         loaded: true,
         message,
         status,
+        center
       };
     }
     case actionTypes.DELETE_CENTER: {
@@ -144,12 +146,17 @@ export default (state = initialState, action) => {
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
       const { message, status } = action.payload;
+      centerList.splice(
+        centerList.findIndex(center => center.id === action.id),
+        1
+      );
       return {
         ...state,
         loading: false,
         loaded: true,
         status,
-        message
+        message,
+        centers: [...state.centers]
       };
     }
     case actionTypes.ADD_CENTER: {

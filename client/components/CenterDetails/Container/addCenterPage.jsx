@@ -10,15 +10,17 @@ import Footer from '../../Footer/footer';
 /**
  * @description AddCenterPage component
  */
-const AddCenterPage = (props) => {
+export class AddCenterPage extends React.Component {
+  render() {
+    const { user: { isAdmin }, isAuth } = this.props.userState;
     // Check if user is logged in and is also an Admin
-    if (!this.props.auth.isAuth) {
+    if (!isAuth) {
       return <Redirect to="/" />;
-    } else if (!this.props.user.isAdmin) {
+    } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     let content;
-    const { center, status, message } = this.props.center;
+    const { status, message } = this.props.center;
     const { pathname } = this.props.location;
 
     if (status === 201) {
@@ -47,13 +49,15 @@ const AddCenterPage = (props) => {
       </div>
     );
   }
+}
+
 const propTypes = {
-  user: PropTypes.object.isRequired,
+  userState: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  user: state.auth,
-  center: state.center,
+  userState: state.auth,
+  center: state.center
 });
 AddCenterPage.propTypes = propTypes;
 

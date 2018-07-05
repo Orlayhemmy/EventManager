@@ -75,7 +75,10 @@ export function userSignupRequest(user) {
     return axios
       .post('/api/v1/users', user)
       .then((response) => {
-        const { data: { token }, status } = response;
+        const {
+          data: { token },
+          status
+        } = response;
         const res = {
           status
         };
@@ -88,7 +91,10 @@ export function userSignupRequest(user) {
         dispatch(setCurrentUser(jwt.decode(token), token));
       })
       .catch((err) => {
-        const { status, data: { message } } = err.response;
+        const {
+          status,
+          data: { message }
+        } = err.response;
         const res = {
           status,
           message
@@ -133,7 +139,10 @@ export function userSignInRequest(user) {
         dispatch(setCurrentUser(jwt.decode(token), token));
       })
       .catch((err) => {
-        const { data: { message }, status } = err.response;
+        const {
+          data: { message },
+          status
+        } = err.response;
         const res = {
           message,
           status
@@ -156,7 +165,10 @@ export function confirmEmail(info) {
     return axios
       .post('/api/v1/passrecovery', info)
       .then((response) => {
-        const { data: { message }, status } = response;
+        const {
+          data: { message },
+          status
+        } = response;
         const res = { message, status };
         dispatch({
           type: actionTypes.VERIFY_EMAIL_SUCCESS,
@@ -179,13 +191,16 @@ export function confirmEmail(info) {
 export function sendMail(email) {
   const data = {
     email
-  }
+  };
   return (dispatch) => {
     dispatch({ type: actionTypes.SEND_MAIL });
     return axios
       .post('/api/v1/sendmail', data)
       .then((response) => {
-        const { status, data: { shortCode } } = response;
+        const {
+          status,
+          data: { shortCode }
+        } = response;
         const res = {
           status,
           shortCode
@@ -214,7 +229,10 @@ export function getUser() {
     return axios
       .get('/api/v1/users')
       .then((response) => {
-        const { status, data: { userDetails } } = response;
+        const {
+          status,
+          data: { userDetails }
+        } = response;
         const res = {
           status,
           userDetails
@@ -244,16 +262,19 @@ export function updateUserDetails(info) {
     return axios
       .put('/api/v1/users', info)
       .then((response) => {
-        const { status, data: { message } } = response;
+        const {
+          status,
+          data: { message, user }
+        } = response;
         const res = {
           status,
-          message
+          message,
+          user
         };
         dispatch({
           type: actionTypes.UPDATE_USER_SUCCESS,
           payload: res
         });
-        dispatch(getUser());
       })
       .catch((err) => {
         dispatch({
@@ -264,32 +285,35 @@ export function updateUserDetails(info) {
   };
 }
 /**
-* @param {object} info
-* @returns {object} success or failure
-*/
+ * @param {object} info
+ * @returns {object} success or failure
+ */
 export function updatePassword(info) {
- return (dispatch) => {
-   dispatch({ type: actionTypes.UPDATE_PASSWORD });
-   return axios
-     .put('/api/v1/newpassword', info)
-     .then((response) => {
-       const { status, data: { message } } = response;
-       const res = {
-         status,
-         message
-       };
-       dispatch({
-         type: actionTypes.UPDATE_PASSWORD_SUCCESS,
-         payload: res
-       });
-     })
-     .catch((err) => {
-       dispatch({
-         type: actionTypes.UPDATE_PASSWORD_FAILS,
-         payload: err.response.data
-       });
-     });
- };
+  return (dispatch) => {
+    dispatch({ type: actionTypes.UPDATE_PASSWORD });
+    return axios
+      .put('/api/v1/newpassword', info)
+      .then((response) => {
+        const {
+          status,
+          data: { message }
+        } = response;
+        const res = {
+          status,
+          message
+        };
+        dispatch({
+          type: actionTypes.UPDATE_PASSWORD_SUCCESS,
+          payload: res
+        });
+      })
+      .catch((err) => {
+        dispatch({
+          type: actionTypes.UPDATE_PASSWORD_FAILS,
+          payload: err.response.data
+        });
+      });
+  };
 }
 
 /**
@@ -313,7 +337,10 @@ export function checkPassword(info) {
     return axios
       .post('/api/v1/passwordcheck', info)
       .then((response) => {
-        const { status, data: { message } } = response;
+        const {
+          status,
+          data: { message }
+        } = response;
         const res = {
           status,
           message
@@ -340,13 +367,13 @@ export function checkPassword(info) {
  */
 export function confirmCode(info) {
   return (dispatch) => {
-    let status;
-    (info === 'wrong code') ? status= 400 : 202;
+    let status = 202;
+    if (info === 'wrong code') status = 400;
     const data = {
       message: info,
       status
-    }
-    dispatch({ 
+    };
+    dispatch({
       type: actionTypes.CHECK_CODE,
       payload: data
     });

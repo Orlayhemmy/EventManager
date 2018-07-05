@@ -8,7 +8,8 @@ import {
   updatePassword,
   sendMail,
   confirmCode,
-  clearUserState
+  clearUserState,
+  logout
 } from '../../../actions/userActions';
 import {
   recoverPassword,
@@ -154,7 +155,11 @@ export class PasswordRecovery extends React.Component {
    * @returns the HTML of PasswordRecovery
    */
   render() {
-    if (this.props.auth.message === 'Changes Applied Successfully') {
+    const { message, isAuth } = this.props.auth;
+    if (isAuth) {
+      this.props.logout();
+    }
+    if (message === 'Changes Applied Successfully') {
       swal({
         title: '<h1>Password Changed</h1>',
         html: '<i class="fa fa-check-circle largeIcon" />'
@@ -190,6 +195,7 @@ export class PasswordRecovery extends React.Component {
   }
 }
 const propTypes = {
+  logout: PropTypes.func.isRequired,
   clearUserState: PropTypes.func.isRequired,
   confirmCode: PropTypes.func.isRequired,
   updateUserValidation: PropTypes.func.isRequired,
@@ -211,6 +217,7 @@ export default connect(
     confirmEmail,
     updatePassword,
     sendMail,
-    updateUserValidation
+    updateUserValidation,
+    logout
   }
 )(PasswordRecovery);

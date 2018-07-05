@@ -208,10 +208,8 @@ export default class UserController {
               imageUrl: imageUrl || user.imageUrl
             })
             .then((updatedUser) => {
-              const token = generateToken(updatedUser);
-              req.body.token = token;
               return res.status(202).send({
-                token,
+                user: updatedUser,
                 message: 'Changes Applied Successfully'
               });
             })

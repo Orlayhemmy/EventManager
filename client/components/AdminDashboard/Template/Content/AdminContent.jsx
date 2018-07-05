@@ -36,7 +36,6 @@ export class AdminPanelPage extends React.Component {
    */
   nextCenters = e => {
     window.scroll(0, 0);
-    document.body.scrollTop = 0;
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1

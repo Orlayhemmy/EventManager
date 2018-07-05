@@ -81,7 +81,7 @@ export class AddEventPage extends React.Component {
     let id = document.getElementById('bookedDate');
     this.state.bookedDate = id.value;
     if (this.isValid()) {
-      //this.props.createEvent(data);
+      this.props.createEvent(data);
     }
   };
   /**
@@ -96,6 +96,7 @@ export class AddEventPage extends React.Component {
     if (!isValid) {
       this.setState({ errors });
     }
+    console.log('@@@@@@@@@@@@rrrrrr@')
     return isValid;
   };
   /**

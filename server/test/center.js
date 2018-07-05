@@ -205,9 +205,7 @@ describe('tests for post, update, delete and get center processes ', () => {
         .expect(202)
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
-          expect(res.body).deep.equal({
-            message: 'Successfully updated center'
-          });
+          expect(res.body.message).deep.equal('Successfully updated center');
           if (err) throw err;
           done();
         });

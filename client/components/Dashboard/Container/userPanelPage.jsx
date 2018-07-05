@@ -7,14 +7,14 @@ import swal from 'sweetalert2';
 import {
   getEvents,
   setCurrentEvent,
-  clearEventState
+  clearEventState,
+  deleteEvent
 } from '../../../actions/eventActions';
-import EventForm from '../../EventPage/Template/Form/editEventForm';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
 import DeleteModal from '../../Modal/Container/deleteModal';
+import DeleteContent from '../../Common/Delete';
 import { clearCenterStorage } from '../../../actions/centerActions';
-import Modal from '../../Flash/modal';
 import { logout } from '../../../actions/userActions';
 import { getActivity } from '../../../actions/activityActions';
 import DashboardContent from '../Template/Content/UserEvents';
@@ -26,6 +26,12 @@ import DashboardNotifications from '../Template/Content/UserNotifications';
 export class Dashboard extends React.Component {
   state = {
     counter: 0
+  };
+  onSelect = e => {
+    this.setState({
+      eventId: e.target.id,
+      eventName: e.target.parentNode.id
+    });
   };
   /**
    * @memberof Dashboard
@@ -47,7 +53,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onClick = (e) => {
+  onClick = e => {
     this.props.setCurrentEvent(e.target.id, e.target.parentNode.id);
   };
   /**
@@ -71,12 +77,12 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  onDelete = (e) => {
-    const eventData = {
-      eventId: e.target.id,
-      eventName: e.target.parentNode.id
-    };
-    this.props.eventSelected(eventData);
+  onDelete = e => {
+    this.props.deleteEvent(this.state.eventId);
+  };
+
+  onCancel = () => {
+    $('#deleteModal').modal('hide');
   };
   /**
    * @memberof Dashboard
@@ -84,7 +90,7 @@ export class Dashboard extends React.Component {
    * @description it toggles div display
    * @param {object} event
    */
-  showHiddenDiv = (e) => {
+  showHiddenDiv = e => {
     const targetDiv = e.target.id;
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
@@ -96,7 +102,7 @@ export class Dashboard extends React.Component {
    * @param {object} event
    * @returns {void}
    */
-  logout = (e) => {
+  logout = e => {
     this.props.logout();
   };
   /**
@@ -105,7 +111,7 @@ export class Dashboard extends React.Component {
    * @description it fetches the next centers
    * @returns {void}
    */
-  nextEvents = (e) => {
+  nextEvents = e => {
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1
@@ -134,7 +140,6 @@ export class Dashboard extends React.Component {
     }
     const { pathname } = this.props.location;
     const { activities } = this.props.activity;
-    const { message } = this.props.userEvent;
     return (
       <div id="dashboard">
         <Navbar path={pathname} />
@@ -150,11 +155,18 @@ export class Dashboard extends React.Component {
                   userEvent={this.props.userEvent}
                   counter={this.state.counter}
                   onClick={this.onClick}
-                  onDelete={this.onDelete}
+                  onSelect={this.onSelect}
                   nextEvents={this.nextEvents}
                 />
-                <DeleteModal path={pathname} />
-                <Modal message={this.props.userEvent.message} />
+                <DeleteModal
+                  content={
+                    <DeleteContent
+                      onDelete={this.onDelete}
+                      title={this.state.eventName}
+                      onCancel={this.onCancel}
+                    />
+                  }
+                />
               </div>
             </div>
             <div className="col-lg-3 col3-bg">
@@ -182,7 +194,8 @@ const propTypes = {
   setCurrentEvent: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
-  clearEventState: PropTypes.func.isRequired
+  clearEventState: PropTypes.func.isRequired,
+  deleteEvent: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -199,6 +212,7 @@ export default connect(
     getEvents,
     getActivity,
     clearCenterStorage,
-    clearEventState
+    clearEventState,
+    deleteEvent
   }
 )(Dashboard);

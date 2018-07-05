@@ -13,9 +13,7 @@ import {
   getCenterEvents,
   clearEventState
 } from '../../../../actions/eventActions';
-import ModalContent from '../../../Modal/Container/modalContent';
-import DeleteModal from '../../../Modal/Container/deleteModal';
-import Modal from '../../../Flash/modal';
+import Modal from '../../../Modal/Container/deleteModal';
 import EditCenterForm from '../Form/editCenterForm';
 import CenterDetails from './viewCenterDetails';
 import { modifyCenterValidation } from '../../../../shared/centerValidations';
@@ -234,6 +232,7 @@ export class CenterDetailsContent extends React.Component {
         text: 'disapproved'
       };
       this.props.deleteCenterEvent(data);
+      $('#deleteModal').modal('hide');
     }
   };
   /**
@@ -308,7 +307,7 @@ export class CenterDetailsContent extends React.Component {
               />
             </div>
             <BookedEvents onClick={this.onClick} eventState={events} />
-            <DeleteModal path={path} content={content} />
+            <Modal path={path} content={content} />
           </div>
         </div>
       </div>

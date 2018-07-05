@@ -668,7 +668,8 @@ body {
   } 
 }
 
-.search-icon .tooltiptext, .pagination-icon .tooltiptext, .tooltip .tooltiptext {
+.search-icon .tooltiptext, 
+.pagination-icon .tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: black;
@@ -687,7 +688,19 @@ body {
   left: 105%; 
 }
 
-.search-icon:hover .tooltiptext, .pagination-icon:hover .tooltiptext, .tooltip:hover .tooltiptext {
+.tooltips .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 1px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+
+.search-icon:hover .tooltiptext, .pagination-icon:hover .tooltiptext, .tooltips:hover .tooltiptext {
   visibility: visible;
   font-size: 0.8rem;
 }

@@ -3,11 +3,11 @@ import AdminContent from '../Template/Content/AdminContent';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
 /**
- * @memberof AdminDashMethod
+ * @memberof AdminDashboarPage
  * @method render
  */
-const AdminDashMethod = (location) => {
-  const { pathname } = location;
+const AdminDashboarPage = (props) => {
+  const { location: { pathname } } = props;
   return (
     <div id="center-page">
       <Navbar path={pathname} />
@@ -16,4 +16,4 @@ const AdminDashMethod = (location) => {
     </div>
   );
 };
-export default AdminDashMethod;
+export default AdminDashboarPage;
