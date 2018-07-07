@@ -58,7 +58,7 @@ export class CenterDetailsContent extends React.Component {
       decision: ''
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCenterSelected();
     this.props.getCenterEvents();
   }

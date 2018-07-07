@@ -105,14 +105,9 @@ export function getCenterEvents() {
 /**
  * @param {object} eventId
  * @param {object} centerId
- * @returns {object} current event
  */
-export function setCurrentEvent(eventId, centerId) {
-  return (dispatch) => {
-    localStorage.setItem('event', eventId);
-    localStorage.setItem('centerId', centerId);
-    dispatch({ type: actionTypes.SET_CURRENT_EVENT, payload: eventId });
-  };
+export function setCurrentEvent(eventId) {
+  localStorage.setItem('event', eventId);
 }
 
 /**

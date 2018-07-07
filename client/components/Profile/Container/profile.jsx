@@ -20,12 +20,12 @@ import Content from '../Template/Content/profile';
 export class Profile extends React.Component {
   /**
    * @memberof Profile
-   * @method componentWillMount
+   * @method componentDidMount
    * @description it calls an action
    * @param {void}
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     const { id } = this.props.auth.user;
     this.props.eventBooked(id);
     this.props.getUser();

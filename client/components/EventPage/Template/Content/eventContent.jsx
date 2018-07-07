@@ -126,12 +126,12 @@ export class Event extends React.Component {
   }
   /**
    * @memberof Event
-   * @method componentWillMount
+   * @method componentDidMount
    * @description it calls an action
    * @param {void} event
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCenters();
   }
   /**

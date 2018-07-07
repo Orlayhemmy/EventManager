@@ -32,7 +32,7 @@ export class Homepage extends React.Component {
     imageInput: ''
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCenters();
   }
   /**

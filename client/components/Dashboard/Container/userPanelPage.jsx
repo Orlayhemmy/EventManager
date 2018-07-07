@@ -30,7 +30,7 @@ export class Dashboard extends React.Component {
 
   /**
    * @memberof Dashboard
-   * @method componentWillMount
+   * @method componentDidMount
    * @description it calls an action
    * @param {object} e
    * @returns {void}
@@ -44,11 +44,11 @@ export class Dashboard extends React.Component {
 
   /**
    * @memberof Dashboard
-   * @method componentWillMount
+   * @method componentDidMount
    * @description it calls an action
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     const { auth: { user: { id } } } = this.props;
     this.props.clearCenterStorage();
     this.props.clearEventState();
