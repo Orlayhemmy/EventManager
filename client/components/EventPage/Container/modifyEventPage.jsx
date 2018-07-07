@@ -33,9 +33,9 @@ export class ModifyEventPage extends React.Component {
    * @memberof AddEventForm
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -44,18 +44,12 @@ export class ModifyEventPage extends React.Component {
       this.props.getCenterSelected(e.target.value, 'tag');
     }
   };
-
-  removeDate = data => {
-    const { dateArray } = this.state;
-    const dataIndex = dateArray.indexOf(data);
-    dateArray.splice(dataIndex, 1);
-  };
   /**
    * @memberof AddEventForm
    * @method checkDate
-   * @param {object} event
+   * @param {object} e
    */
-  checkDate = (e) => {
+  checkDate = e => {
     e.preventDefault();
     if (this.state.bookedDate && this.state.centerId) {
       this.props.checkAvailableDate(this.state);
@@ -75,9 +69,8 @@ export class ModifyEventPage extends React.Component {
         description,
         eventTitle,
         bookedDate,
-        dateArray,
         centerId,
-        centerName
+        Center: { centerName }
       } = nextProps.userEvent.event;
 
       this.setState({
@@ -103,7 +96,6 @@ export class ModifyEventPage extends React.Component {
    * @memberof AddEventForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   isValid() {
@@ -114,34 +106,33 @@ export class ModifyEventPage extends React.Component {
     return isValid;
   }
   /**
-   * @memberof AddEventForm
+   * @memberof ModifyEventPage
    * @method onSubmit
    * @description it calls the user signin action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  onSubmit = (e) => {
+  onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.modifyEvent(this.props.userEvent.event.id, this.state);
     }
   };
 
+  /**
+   * @memberof ModifyEventPage
+   * @method removeDate
+   * @description it sets user input to state
+   * @param {string} data
+   * @returns {Array} datearray
+   */
   removeDate = data => {
     const { dateArray } = this.state;
     const dataIndex = dateArray.indexOf(data);
-    if (dataIndex !== -1) dateArray.splice(dataIndex, 1);
+    dateArray.splice(dataIndex, 1);
+    return dateArray;
   };
-  /**
-   * @memberof ModifyEventPage
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout = (e) => {
-    this.props.logout();
-  };
+
   /**
    * @memberof ModifyEventPage
    * @method render
@@ -149,12 +140,11 @@ export class ModifyEventPage extends React.Component {
    * @returns the HTML of ModifyEventPage
    */
   render() {
-    //Check if user is logged in
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
     if (this.props.center.status === 401) {
-      this.logout();
+      this.props.logout();
     }
     if (this.props.userEvent.status === 202) {
       swal(this.props.userEvent.message);

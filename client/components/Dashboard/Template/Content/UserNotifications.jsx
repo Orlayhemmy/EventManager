@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * @description Notifications  component
+ */
 export default class Notifications extends React.Component {
   render() {
     const recentActivity = this.props.activities.map((activity, index) => {

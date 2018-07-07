@@ -1,14 +1,14 @@
-/* eslint disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
 import {
   getEvents,
   setCurrentEvent,
   clearEventState,
-  deleteEvent
+  deleteEvent,
+  eventBooked
 } from '../../../actions/eventActions';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
@@ -27,30 +27,40 @@ export class Dashboard extends React.Component {
   state = {
     counter: 0
   };
+
+  /**
+   * @memberof Dashboard
+   * @method componentWillMount
+   * @description it calls an action
+   * @param {object} e
+   * @returns {void}
+   */
   onSelect = e => {
     this.setState({
       eventId: e.target.id,
       eventName: e.target.parentNode.id
     });
   };
+
   /**
    * @memberof Dashboard
    * @method componentWillMount
    * @description it calls an action
-   * @param {void}
    * @returns {void}
    */
   componentWillMount() {
+    const { auth: { user: { id } } } = this.props;
     this.props.clearCenterStorage();
     this.props.clearEventState();
     this.props.getEvents(0);
-    this.props.getActivity(this.props.auth.user.id);
+    this.props.getActivity(id);
+    this.props.eventBooked(id);
   }
   /**
    * @memberof Dashboard
    * @method onClick
    * @description it calls an action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
   onClick = e => {
@@ -64,9 +74,7 @@ export class Dashboard extends React.Component {
    */
   componentDidUpdate() {
     if (this.props.userEvent.status === 200) {
-      $(document).ready(function() {
-        $('#deleteModal').modal('hide');
-      });
+      $('#deleteModal').modal('hide');
       swal(this.props.userEvent.message);
     }
   }
@@ -74,10 +82,9 @@ export class Dashboard extends React.Component {
    * @memberof Dashboard
    * @method onDelete
    * @description it calls an action
-   * @param {object} event
    * @returns {void}
    */
-  onDelete = e => {
+  onDelete = () => {
     this.props.deleteEvent(this.state.eventId);
   };
 
@@ -88,7 +95,7 @@ export class Dashboard extends React.Component {
    * @memberof Dashboard
    * @method showDiv
    * @description it toggles div display
-   * @param {object} event
+   * @param {object} e
    */
   showHiddenDiv = e => {
     const targetDiv = e.target.id;
@@ -99,29 +106,32 @@ export class Dashboard extends React.Component {
    * @memberof Dashboard
    * @method logout
    * @description it calls a logout action
-   * @param {object} event
    * @returns {void}
    */
-  logout = e => {
+  logout = () => {
     this.props.logout();
   };
   /**
    * @memberof Dashboard
    * @method nextEvents
    * @description it fetches the next centers
+   * @param {object} e
    * @returns {void}
    */
   nextEvents = e => {
+    const { counter } = this.state;
     if (e.target.id === 'next') {
       this.setState({
-        counter: this.state.counter + 1
+        counter: counter + 1
+      }, () => {
+        this.props.getEvents(counter);
       });
-      this.props.getEvents(++this.state.counter);
     } else {
       this.setState({
-        counter: this.state.counter - 1
+        counter: counter - 1
+      }, () => {
+        this.props.getEvents(counter);
       });
-      this.props.getEvents(--this.state.counter);
     }
   };
   /**
@@ -195,7 +205,8 @@ const propTypes = {
   logout: PropTypes.func.isRequired,
   getActivity: PropTypes.func.isRequired,
   clearEventState: PropTypes.func.isRequired,
-  deleteEvent: PropTypes.func.isRequired
+  deleteEvent: PropTypes.func.isRequired,
+  eventBooked: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -213,6 +224,7 @@ export default connect(
     getActivity,
     clearCenterStorage,
     clearEventState,
-    deleteEvent
+    deleteEvent,
+    eventBooked
   }
 )(Dashboard);

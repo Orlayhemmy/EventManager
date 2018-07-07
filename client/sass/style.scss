@@ -72,9 +72,7 @@
   }
 
   span {
-    text-transform: capitalize;
-    font-style: italic;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   h3 {
@@ -133,6 +131,7 @@
   .media-heading {
     cursor: pointer;
   }
+ 
   .row {
     padding: 5px;
   }
@@ -423,4 +422,10 @@
 
 .justify-text {
   text-align: justify;
+}
+
+#center-page {
+  .media-heading span {
+    font-size: 2rem
+  }
 }

@@ -29,6 +29,7 @@ export class CenterDetailsContent extends React.Component {
   /**
    * @memberof CenterDetailsContent
    * @description it creates an instance of centerdetailscontent
+   * @param {object} props
    */
   constructor(props) {
     super(props);
@@ -40,7 +41,6 @@ export class CenterDetailsContent extends React.Component {
       imageUrl,
       facilities,
       id,
-      image,
       cost
     } = props.centerData.center;
 
@@ -66,9 +66,9 @@ export class CenterDetailsContent extends React.Component {
    * @memberof CenterDetailsContent
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -81,9 +81,9 @@ export class CenterDetailsContent extends React.Component {
    */
   showImage = event => {
     if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      this.state.imageData = event.target.files[0];
-      reader.onload = (e) => {
+      const reader = new FileReader();
+      this.state.imageData = event.target.files[0]; // eslint-disable-line
+      reader.onload = e => {
         this.setState({ image: e.target.result });
       };
       reader.readAsDataURL(event.target.files[0]);
@@ -93,7 +93,6 @@ export class CenterDetailsContent extends React.Component {
    * @memberof Profile
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   isValid() {
@@ -107,26 +106,29 @@ export class CenterDetailsContent extends React.Component {
    * @memberof CenterDetailsContent
    * @method onSubmit
    * @description it calls the user signin action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  onSubmit = (e) => {
+  onSubmit = e => {
+    const {
+      location, centerName, facilities, capacity, cost, id, image, description
+    } = this.state;
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
       formData.append('file', this.state.imageData);
       formData.append('upload_preset', 'u8asaoka');
       const data = {
-        centerName: this.state.centerName,
-        location: this.state.location,
-        description: this.state.description,
-        facilities: this.state.facilities,
-        capacity: this.state.capacity,
-        cost: this.state.cost,
-        id: this.state.id
+        centerName,
+        location,
+        description,
+        facilities,
+        capacity,
+        cost,
+        id
       };
       if (this.initialState !== this.state) {
-        if (this.initialState.image === this.state.image) {
+        if (this.initialState.image === image) {
           this.props.modifyCenter(this.state);
         } else {
           this.props.uploadImage(data, formData, 'modify-center');
@@ -152,8 +154,7 @@ export class CenterDetailsContent extends React.Component {
         capacity,
         imageUrl,
         id,
-        cost,
-        image
+        cost
       } = nextProps.centerData.center;
       this.setState(
         {
@@ -182,10 +183,8 @@ export class CenterDetailsContent extends React.Component {
     const { status } = this.props.eventState;
     if (status === 201 || status === 202 || status === 200) {
       swal('Changes Applied');
-      $(document).ready(function() {
-        $('#eventStatus').modal('hide');
-        $('#deleteModal').modal('hide');
-      });
+      $('#eventStatus').modal('hide');
+      $('#deleteModal').modal('hide');
       this.props.clearEventState();
     }
     if (this.props.centerData.status === 202) {
@@ -196,10 +195,10 @@ export class CenterDetailsContent extends React.Component {
    * @memberof CenterDetailsContent
    * @method onClick
    * @description it calls the get event action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  onClick = (e) => {
+  onClick = e => {
     this.state.eventId = e.target.id;
     this.setState({
       decision: e.target.parentNode.id
@@ -210,11 +209,11 @@ export class CenterDetailsContent extends React.Component {
    * @memberof CenterDetailsContent
    * @method onApprove
    * @description it calls an action when changes is made to events
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  onApprove = (e) => {
-    const { id, eventTitle, userId } = this.props.eventState.event;
+  onApprove = e => {
+    const { eventTitle } = this.props.eventState.event;
     const { eventId } = this.state;
     const centerId = this.props.centerData.center.id;
     if (e.target.id === 'approve') {
@@ -226,8 +225,8 @@ export class CenterDetailsContent extends React.Component {
       this.props.modifyCenterEvent(data);
     } else {
       const data = {
-        eventTitle: event.eventTitle,
-        centerId: event.centerId,
+        eventTitle,
+        centerId,
         id: eventId,
         text: 'disapproved'
       };
@@ -239,20 +238,21 @@ export class CenterDetailsContent extends React.Component {
    * @memberof CenterDetailsContent
    * @method showHiddenDiv
    * @description it toggle's divs display
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  showHiddenDiv = (e) => {
-    let id = e.target.dataset.toggleId;
+  showHiddenDiv = e => {
+    const id = e.target.dataset.toggleId;
     if (!id) return;
     const div = document.getElementById(id);
     div.hidden = !div.hidden;
     if (id === 'editCenterDetails') {
       const div2 = document.getElementById('centerDetails');
       if (!div.hidden) {
-        return (div2.style.display = 'none');
+        div2.style.display = 'none';
+        return;
       }
-      return (div2.style.display = '');
+      div2.style.display = '';
     }
   };
 
@@ -266,10 +266,8 @@ export class CenterDetailsContent extends React.Component {
     const { image, imageUrl, decision } = this.state;
     const { path } = this.props;
     const { events } = this.props.eventState;
-    let info;
-    const { status } = this.props.eventState;
     const content =
-      decision != undefined && this.state.decision === 'approve' ? (
+      decision !== undefined && this.state.decision === 'approve' ? (
         <ApproveEvent
           showHiddenDiv={this.showHiddenDiv}
           onChange={this.onChange}

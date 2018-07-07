@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CenterSearch from '../../../Common/Search';
@@ -22,10 +21,16 @@ export class EditEventForm extends React.Component {
       this.props.clearEventState();
     }
   }
-  clickDate = (e) => {
+  /**
+   * @memberof ModifyEventPage
+   * @method removeDate
+   * @description it sets user input to state
+   * @param {object} e
+   */
+  clickDate = e => {
     e.preventDefault();
     this.props.clearEventState();
-    const button = document.getElementById(e.target.parentNode.id);
+    const button = document.getElementById(e.target.id);
     button.parentNode.removeChild(button);
     this.props.removeDate(e.target.parentNode.id);
   };
@@ -37,40 +42,39 @@ export class EditEventForm extends React.Component {
    */
   render() {
     const {
-      userEvent,
-      onFormChange,
+      eventState,
+      onChange,
       onFormSubmit,
       eventCenter,
-      eventState,
-      checkDate
+      checkDate,
+      search,
+      onFormChange,
+      criteria,
+      userEvent
     } = this.props;
-    const { eventTitle, description, errors, centerId, dateArray } = eventState;
+    const {
+      eventTitle, description, errors, centerId, dateArray, centerName
+    } = eventState;
     let eventDate;
-    const showCenters = this.props.eventCenter.centers.map(center => {
-      return (
-        <option key={center.id} value={center.id}>
-          {center.centerName}
-        </option>
-      );
-    });
-    if (dateArray) {
-      eventDate = dateArray.map((eventDate, index) => {
-        return (
-          <span id={eventDate} class="btn btn-success ml-2 mb-2" key={index}>
-            {eventDate} <i class="fa fa-times" onClick={this.clickDate} />
-          </span>
-        );
-      });
+    const showCenters = eventCenter.centers.map((center, index) => (
+      <option key={index} value={center.id}>
+        {center.centerName}
+      </option>
+    ));
+    if (dateArray.length > 0) {
+      eventDate = dateArray.map((eachEvent, index) => (
+        <span id={index}>
+        <p class="btn btn-success ml-2 mb-2" id={eachEvent} key={index}>
+          {eachEvent}{' '}
+          <i className="fa fa-times" id={eachEvent} onClick={this.clickDate} />
+        </p>
+        </span>
+      ));
     }
-
     return (
-      <form id="edit-event-form" onSubmit={this.props.onFormSubmit}>
-        <span className="help-block">{this.props.userEvent.error}</span>
-        <CenterSearch
-          criteria={this.props.criteria}
-          search={this.props.search}
-          onChange={this.props.onChange}
-        />
+      <form id="edit-event-form" onSubmit={onFormSubmit}>
+        <span className="help-block">{userEvent.error}</span>
+        <CenterSearch criteria={criteria} search={search} onChange={onChange} />
         <p className="subtitle">select your preferred event center</p>
         <div class="input-group mb-2">
           <div class="input-group-prepend">
@@ -82,10 +86,10 @@ export class EditEventForm extends React.Component {
             className="form-control"
             defaultValue={centerId}
             id="centerId"
-            onChange={this.props.onFormChange}
-            disabled={dateArray.length > 0 ? true : ''}
+            onChange={onFormChange}
+            disabled={dateArray.length !== 0 ? true : ''}
           >
-            <option value="">Select Center</option>
+            <option value="">{centerName}</option>
             {showCenters}
           </select>
         </div>
@@ -99,9 +103,9 @@ export class EditEventForm extends React.Component {
               </span>
             </span>
             <input
-              type="text"
+              type="date"
               id="bookedDate"
-              onBlur={this.props.onFormChange}
+              onBlur={onFormChange}
               class="form-control"
               placeholder="Select preferred date"
             />
@@ -111,7 +115,7 @@ export class EditEventForm extends React.Component {
               id="add-event"
               type="button"
               value="Select"
-              onClick={this.props.checkDate}
+              onClick={checkDate}
               className="btn btn-primary date-button"
             />
           </div>
@@ -130,7 +134,7 @@ export class EditEventForm extends React.Component {
           <input
             type="text"
             id="eventTitle"
-            onChange={this.props.onFormChange}
+            onChange={onFormChange}
             class="form-control"
             value={eventTitle}
             placeholder="give your event a title"
@@ -143,7 +147,7 @@ export class EditEventForm extends React.Component {
           <textarea
             className="form-control"
             id="description"
-            onChange={this.props.onFormChange}
+            onChange={onFormChange}
             value={description}
           />
         </div>
@@ -161,7 +165,6 @@ export class EditEventForm extends React.Component {
 const propTypes = {
   user: PropTypes.object.isRequired,
   eventCenter: PropTypes.object.isRequired,
-  userEvent: PropTypes.object.isRequired,
   userEvent: PropTypes.object.isRequired,
   clearEventState: PropTypes.func.isRequired
 };

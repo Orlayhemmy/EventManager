@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Centers from '../../../Common/Centers';
 import Search from '../../../Common/Search';
-import { getCenters } from '../../../../actions/centerActions';
+import { getCenters, getNextCenters } from '../../../../actions/centerActions';
 import { searchValidation } from '../../../../shared/centerValidations';
 
 /**
@@ -20,14 +20,14 @@ export class CenterPage extends React.Component {
     btwValue: ''
   };
 
-  searchNav = (e) => {
+  searchNav = () => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
    * @memberof CenterPage
    * @method search
    * @description it calls a search action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
   search = (e) => {
@@ -44,7 +44,7 @@ export class CenterPage extends React.Component {
    * @memberof CenterPage
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
   onChange = (e) => {
     this.setState({
@@ -55,7 +55,6 @@ export class CenterPage extends React.Component {
    * @memberof CenterPage
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   isValid = () => {
@@ -65,29 +64,38 @@ export class CenterPage extends React.Component {
     }
     return isValid;
   };
+
   /**
-   * @memberof DisplayCenters
+   * @memberof AdminDashMethod
    * @method nextCenters
    * @description it fetches the next centers
    * @returns {void}
+   * @param {object} e
+   * @param {string} page
    */
-  nextCenters = (e) => {
+  nextCenters = (e, page) => {
+    const { counter } = this.state;
+    window.scroll(0, 0);
+    if (page !== undefined) {
+      return this.setState({
+        counter: page - 1
+      }, () => {
+        this.props.getNextCenters(counter);
+      });
+    }
     if (e.target.id === 'next') {
       this.setState({
-        counter: this.state.counter + 1
+        counter: counter + 1
       });
-      this.props.getCenters(this.state, ++this.state.counter);
+      this.props.getNextCenters(counter + 1);
     } else {
       this.setState({
-        counter: this.state.counter - 1
+        counter: counter - 1
       });
-      this.props.getCenters(this.state, --this.state.counter);
+      this.props.getNextCenters(counter - 1);
     }
   };
-  /**
-   * @memberof CenterPage
-   * @description it creates an instance of CenterPage
-   */
+
   render() {
     return (
       <div className="container">
@@ -108,10 +116,11 @@ export class CenterPage extends React.Component {
     );
   }
 }
-const mapStateToProps = state => ({});
+const mapStateToProps = () => ({});
 
 const propTypes = {
-  getCenters: PropTypes.func.isRequired
+  getCenters: PropTypes.func.isRequired,
+  getNextCenters: PropTypes.func.isRequired
 };
 
 CenterPage.propTypes = propTypes;
@@ -119,6 +128,7 @@ CenterPage.propTypes = propTypes;
 export default connect(
   mapStateToProps,
   {
-    getCenters
+    getCenters,
+    getNextCenters
   }
 )(CenterPage);

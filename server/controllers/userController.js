@@ -21,7 +21,7 @@ export default class UserController {
   static signup(req, res) {
     const { fullname, email, password } = req.body;
 
-    Users.findOne({
+    return Users.findOne({
       where: {
         email
       }
@@ -43,7 +43,7 @@ export default class UserController {
           password: userPassword
         })
           .then((user) => {
-            const payload = { userId: user.id };
+            const payload = { userId: user.id, eventBookedCount: 0 };
             const token = generateToken(payload);
             req.body.token = token;
             sendMail(req);
@@ -65,7 +65,7 @@ export default class UserController {
   static signin(req, res) {
     const { loginEmail, loginPassword } = req.body;
     const userEmail = loginEmail.toLowerCase();
-    Users.findOne({
+    return Users.findOne({
       where: {
         email: userEmail
       }
@@ -104,7 +104,7 @@ export default class UserController {
   static recoverPassword(req, res) {
     const { email } = req.body;
 
-    Users.findOne({
+    return Users.findOne({
       where: {
         email
       }
@@ -132,7 +132,7 @@ export default class UserController {
    */
   static PasswordCheck(req, res) {
     const { oldPassword } = req.body;
-    Users.findOne({
+    return Users.findOne({
       where: {
         id: req.decoded.id
       }
@@ -165,7 +165,7 @@ export default class UserController {
     const {
       email, newPassword, fullname, imageUrl
     } = req.body;
-    Users.findOne({
+    return Users.findOne({
       where: {
         email
       }
@@ -206,7 +206,7 @@ export default class UserController {
    * @memberof UserController
    */
   static getUserEmail(req, res) {
-    Users.findOne({
+    return Users.findOne({
       where: {
         id: req.params.id
       }
@@ -234,7 +234,7 @@ export default class UserController {
    * @memberof UserController
    */
   static getUser(req, res) {
-    Users.findOne({
+    return Users.findOne({
       where: {
         id: req.decoded.id
       }

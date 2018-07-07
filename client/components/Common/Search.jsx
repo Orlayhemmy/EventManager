@@ -2,11 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+
 /**
  * @description SearchForm  component
  */
 export class SearchForm extends React.Component {
-  onChange = (e) => {
+  /**
+   * @memberof searchForm
+   * @method onChange
+   * @description it calls a search action
+   * @param {object} e
+   * @returns {void}
+   */
+  onChange = e => {
     const { onChange } = this.props;
     onChange(e);
     const div = document.getElementById('btwValue');
@@ -37,11 +45,7 @@ export class SearchForm extends React.Component {
     const between = 'between <>';
     const {
       criteria: {
-        location,
-        facilities,
-        capacity,
-        btwValue,
-        errors
+        location, facilities, capacity, btwValue, errors
       },
       search
     } = this.props;
@@ -49,15 +53,11 @@ export class SearchForm extends React.Component {
       <div id="search-nav" className="search-nav">
         <div className="search-field">
           <p className="subtitle">
-            <i className="fa fa-filter green" />
-            {' '}
-            filter centers by
+            <i className="fa fa-filter green" /> filter centers by
           </p>
 
           <div className="input-group pb-2 pt-3">
-            <div className="help-block">
-              {errors.location}
-            </div>
+            <div className="help-block">{errors.location}</div>
             <div className="input-group-prepend">
               <span className="input-group-text">
                 <i className="fa fa-map-marker" />
@@ -73,9 +73,7 @@ export class SearchForm extends React.Component {
             />
           </div>
           <div className="input-group pb-2">
-            <div className="help-block">
-              {errors.facilities}
-            </div>
+            <div className="help-block">{errors.facilities}</div>
             <div className="input-group-prepend">
               <span className="input-group-text">
                 <i className="fa fa-cog" />
@@ -97,28 +95,16 @@ export class SearchForm extends React.Component {
               id="capacityType"
               className="form-control"
             >
-              <option>
-                capacity conditions
-              </option>
-              <option value="greater">
-                {greater}
-              </option>
-              <option value="lesser">
-                {lesser}
-              </option>
-              <option value="equal">
-                {equal}
-              </option>
-              <option value="between">
-                {between}
-              </option>
+              <option>capacity conditions</option>
+              <option value="greater">{greater}</option>
+              <option value="lesser">{lesser}</option>
+              <option value="equal">{equal}</option>
+              <option value="between">{between}</option>
             </select>
           </div>
 
           <div className="input-group pb-2" id="otherConditions">
-            <div className="help-block">
-              {errors.facilities}
-            </div>
+            <div className="help-block">{errors.facilities}</div>
             <div className="input-group-prepend">
               <span className="input-group-text">
                 <i className="fa fa-users" />
@@ -135,9 +121,7 @@ export class SearchForm extends React.Component {
           </div>
           <div className="pb-2" id="btwValue" hidden>
             <div className="input-group">
-              <div className="help-block">
-                {errors.facilities}
-              </div>
+              <div className="help-block">{errors.facilities}</div>
               <div className="input-group-prepend">
                 <span className="input-group-text">
                   <i className="fa fa-users" />
@@ -160,20 +144,14 @@ export class SearchForm extends React.Component {
               id="submit"
               onClick={search}
             >
-              <i className="fa fa-search">
-                {' '}
-                Search
-              </i>
+              <i className="fa fa-search"> Search</i>
             </button>
             <button
               type="button"
               className="btn btn-danger fr"
               onClick={this.resetSearch}
             >
-              <i className="fa fa-sync-alt">
-                {' '}
-                Reset
-              </i>
+              <i className="fa fa-sync-alt"> Reset</i>
             </button>
           </div>
         </div>
@@ -187,7 +165,6 @@ const mapStateToProps = state => ({
 });
 
 const propTypes = {
-  getCenters: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
   criteria: PropTypes.object.isRequired
@@ -195,4 +172,7 @@ const propTypes = {
 
 SearchForm.propTypes = propTypes;
 
-export default connect(mapStateToProps, {})(SearchForm);
+export default connect(
+  mapStateToProps,
+  {}
+)(SearchForm);

@@ -5,7 +5,9 @@ const initialState = {
   events: [],
   disableDates: [],
   error: null,
-  event: {},
+  event: {
+    Center: {}
+  },
   isEvent: false
 };
 export default (state = initialState, action) => {
@@ -253,11 +255,10 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS: {
-      const { message, eventBookedCount, status } = action.payload;
+      const { message, eventBookedCount } = action.payload;
       return {
         ...state,
         message,
-        status,
         eventBookedCount
       };
     }

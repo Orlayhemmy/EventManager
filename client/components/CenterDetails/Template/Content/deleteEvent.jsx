@@ -1,12 +1,13 @@
 import React from 'react';
 
+/**
+ * @description Delete component
+ */
 export default class DeleteContent extends React.Component {
   render() {
     const {
       onApprove,
       onChange,
-      showHiddenDiv,
-      onClick,
       state: { reason, suggestion }
     } = this.props;
     return (
