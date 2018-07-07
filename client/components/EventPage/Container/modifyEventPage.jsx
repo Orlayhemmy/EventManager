@@ -140,7 +140,6 @@ export class ModifyEventPage extends React.Component {
    * @returns the HTML of ModifyEventPage
    */
   render() {
-    console.log(this.state);
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
