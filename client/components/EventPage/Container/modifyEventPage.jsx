@@ -85,10 +85,10 @@ export class ModifyEventPage extends React.Component {
 
   /**
    * @memberof EditEventForm
-   * @method componentWillMount
+   * @method componentDidMount
    * @returns {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCenterSelected();
     this.props.getEventSelected();
   }

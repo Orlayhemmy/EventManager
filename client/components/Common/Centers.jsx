@@ -23,7 +23,8 @@ export class DisplayCenters extends React.Component {
   state = {
     centerId: '',
     centerName: '',
-    goto: ''
+    goto: '',
+    error: {}
   };
 
   goTo = () => {
@@ -56,6 +57,7 @@ export class DisplayCenters extends React.Component {
       this.state,
       this.props.eventCenter.pages
     );
+    if (error) swal(error.goto);
     if (!isValid) {
       this.setState({ error });
     }
@@ -80,7 +82,7 @@ export class DisplayCenters extends React.Component {
   };
   /**
    * @memberof DisplayCenters
-   * @method componentWillMount
+   * @method componentDidMount
    * @description it gets the necessary object before component is mounted
    */
   componentDidMount() {
@@ -232,6 +234,7 @@ export class DisplayCenters extends React.Component {
       counter,
       eventCenter: { pages }
     } = this.props;
+
     return (
       <div>
         <div
