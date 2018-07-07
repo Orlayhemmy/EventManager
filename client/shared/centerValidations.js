@@ -30,7 +30,6 @@ export function modifyCenterValidation(data) {
     }
   }
 
-
   // validations for capacity
   if (!validator.isEmpty(capacity)) {
     if (!/^[0-9]+$/.test(capacity)) {
@@ -83,7 +82,7 @@ export function modifyCenterValidation(data) {
       errors.location = 'location can not include symbols except comma';
     }
   }
-  
+
   return { errors, isValid: isEmpty(errors) };
 }
 
@@ -189,7 +188,7 @@ export function addCenterValidation(data) {
 export function searchValidation(data) {
   const { facilities, location, capacity } = data;
   const errors = {};
-  Object.entries(data).forEach((entry) => {
+  Object.entries(data).forEach(entry => {
     if (isEmpty(entry[1])) {
       entry[1] = null;
     }
@@ -220,4 +219,22 @@ export function searchValidation(data) {
   });
 
   return { errors, isValid: isEmpty(errors) };
+}
+
+/**
+ * @param  {object} data
+ * @param  {string} page
+ * @returns {object} errors
+ */
+export function checkPaginationValue(data, page) {
+  const error = {};
+  const { goto } = data;
+
+  if (!/^[1-9]+$/.test(goto)) {
+    error.goto = 'Please type a number within the pages range';
+  }
+  if (goto > page) {
+    error.goto = 'Page number is not valid';
+  }
+  return { error, isValid: isEmpty(error) };
 }

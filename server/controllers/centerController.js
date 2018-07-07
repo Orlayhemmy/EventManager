@@ -27,32 +27,30 @@ export default class CenterController {
       capacity,
       capacityType,
       btwValue,
-      page,
     } = req.query;
-    const skip = page ? page * 5 : 0;
-    const centerLimit = !page ? null : 6;
+    // const skip = page ? page * 5 : 0;
+    // const centerLimit = !page ? null : 6;
     // get centers
-    Centers.findAll({
+    return Centers.findAll({
       where: {
         location: searchLocation(location),
         capacity: searchCapacity(capacityType, btwValue, capacity),
         facilities: searchFacilities(facilities)
       },
-      offset: `${skip}`,
-      limit: centerLimit,
+      // offset: `${skip}`,
+      // limit: centerLimit,
       order: [['centerName', 'ASC']]
     })
       .then((centers) => {
         // if centers are available
         if (centers) {
-          let isNext = false;
-          if (centers.length > 5) {
-            isNext = true;
-            centers.splice(5, 1);
-          }
+          // let isNext = false;
+          // if (centers.length > 5) {
+          //   isNext = true;
+          //   centers.splice(5, 1);
+          // }
           return res.status(200).send({
             centers,
-            isNext,
             message: 'Centers found'
           });
         }
@@ -68,7 +66,7 @@ export default class CenterController {
    * @memberof CenterController
    */
   static getSingleCenter(req, res) {
-    Centers.findOne({
+    return Centers.findOne({
       where: {
         id: req.params.id
       },
@@ -111,7 +109,7 @@ export default class CenterController {
       cost
     } = req.body;
     const { id } = req.decoded;
-    Centers.findOne({ where: { centerName } })
+    return Centers.findOne({ where: { centerName } })
       .then((foundCenter) => {
         if (foundCenter) {
           return res.status(409).send({

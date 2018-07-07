@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Centers from '../../../Common/Centers';
 import Search from '../../../Common/Search';
 import {
   getCenters,
   centerSelected,
-  viewCenterSelected
+  viewCenterSelected,
+  getNextCenters
 } from '../../../../actions/centerActions';
 import { searchValidation } from '../../../../shared/centerValidations';
 
@@ -24,7 +25,7 @@ export class AdminPanelPage extends React.Component {
     errors: {},
     btwValue: ''
   };
-  searchNav = e => {
+  searchNav = () => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
@@ -33,19 +34,27 @@ export class AdminPanelPage extends React.Component {
    * @description it fetches the next centers
    * @returns {void}
    * @param {object} e
+   * @param {string} page
    */
-  nextCenters = e => {
+  nextCenters = (e, page) => {
     window.scroll(0, 0);
+    if (page !== undefined) {
+      return this.setState({
+        counter: page - 1
+      }, () => {
+        this.props.getNextCenters(this.state.counter);
+      });
+    }
     if (e.target.id === 'next') {
       this.setState({
         counter: this.state.counter + 1
       });
-      this.props.getCenters(this.state, ++this.state.counter);
+      this.props.getNextCenters(this.state.counter + 1);
     } else {
       this.setState({
         counter: this.state.counter - 1
       });
-      this.props.getCenters(this.state, --this.state.counter);
+      this.props.getNextCenters(this.state.counter - 1);
     }
   };
   /**
@@ -81,7 +90,6 @@ export class AdminPanelPage extends React.Component {
    * @method onChange
    * @description it sets user input to state
    * @param {object} e
-   * @returns {object} state
    */
   onChange = e => {
     this.setState({
@@ -102,7 +110,6 @@ export class AdminPanelPage extends React.Component {
     return isValid;
   };
   render() {
-    //Check if user is logged in and is also an Admin
     if (!this.props.user.isAuth) {
       return <Redirect to="/" />;
     } else if (!this.props.user.user.isAdmin) {
@@ -115,6 +122,7 @@ export class AdminPanelPage extends React.Component {
           search={this.search}
           criteria={this.state}
           onChange={this.onChange}
+          getCenters={this.props.getCenters}
         />
         <Centers
           path={this.props.pathname}
@@ -136,7 +144,8 @@ const mapStateToProps = state => ({
 const propTypes = {
   centerSelected: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
-  viewCenterSelected: PropTypes.func.isRequired
+  viewCenterSelected: PropTypes.func.isRequired,
+  getNextCenters: PropTypes.func.isRequired
 };
 
 AdminPanelPage.propTypes = propTypes;
@@ -146,6 +155,7 @@ export default connect(
   {
     centerSelected,
     getCenters,
-    viewCenterSelected
+    viewCenterSelected,
+    getNextCenters
   }
 )(AdminPanelPage);

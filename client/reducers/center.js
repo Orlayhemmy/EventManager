@@ -1,11 +1,13 @@
 import isEmpty from 'lodash/isEmpty';
 import * as actionTypes from '../actions/types';
+import paginate from './centersPagination';
 
 const initialState = {
   centers: [],
   center: {
     facilities: []
-  }
+  },
+  paginatedCenters: []
 };
 export default (state = initialState, action) => {
   const centerList = state.centers;
@@ -62,14 +64,31 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.GET_CENTERS_SUCCESS: {
-      const { centers, message, isNext } = action.payload;
+      const { centers, message } = action.payload;
+      const { pages, isNext, showCenters } = paginate(centers, action.pageId);
       return {
         ...state,
         loading: false,
         loaded: true,
         centers,
+        paginatedCenters: showCenters,
         isNext,
-        message
+        message,
+        pages
+      };
+    }
+    case actionTypes.GET_NEXT_CENTERS: {
+      const { pages, isNext, showCenters } = paginate(
+        centerList,
+        action.payload
+      );
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        paginatedCenters: showCenters,
+        isNext,
+        pages
       };
     }
     case actionTypes.CENTER_SELECTED: {
@@ -145,18 +164,21 @@ export default (state = initialState, action) => {
       };
     }
     case actionTypes.DELETE_CENTER_SUCCESS: {
-      const { message, status, id } = action.payload;
+      const { message, status } = action.payload;
       centerList.splice(
-        centerList.findIndex(center => center.id === id),
+        centerList.findIndex(center => center.id === action.id),
         1
       );
+      const { pages, isNext, showCenters } = paginate(centerList);
       return {
         ...state,
         loading: false,
         loaded: true,
         status,
         message,
-        centers: [...state.centers]
+        paginatedCenters: showCenters,
+        isNext,
+        pages
       };
     }
     case actionTypes.ADD_CENTER: {

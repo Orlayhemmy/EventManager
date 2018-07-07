@@ -1,13 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import {
-  deleteCenterEvent,
-  deleteEvent,
-  clearEventState
-} from '../../../actions/eventActions';
-import { deleteCenter } from '../../../actions/centerActions';
-import { getUserEmail } from '../../../actions/userActions';
 
 /**
  * @description DeleteModal component

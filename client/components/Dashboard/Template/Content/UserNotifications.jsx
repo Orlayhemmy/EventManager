@@ -1,8 +1,12 @@
 import React from 'react';
 
+/**
+ * @description Notifications  component
+ */
 export default class Notifications extends React.Component {
   render() {
     const recentActivity = this.props.activities.map((activity, index) => {
+      console.log(activity.createdAt);
       const creationDate = activity.createdAt
         .replace(/-/g, '/')
         .replace('Z', '')

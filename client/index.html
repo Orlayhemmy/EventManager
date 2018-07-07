@@ -10,6 +10,8 @@
        <link rel="stylesheet" href="/css/style.css">
        <!-- <link rel="stylesheet" href="/css/bootstrap-datepicker3.css"> -->
        <!-- <script src="/js/jquery.min.js"></script> -->
+       <link href="https://cdn.jsdelivr.net/intro.js/2.3.0/introjs.min.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/intro.js/2.3.0/intro.min.js"></script>
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
@@ -33,6 +35,9 @@
     $(document).click(function(event) {
       if (!$(event.target).closest(".search-nav").length) {
         document.getElementById('search-nav').style.width = '0px';
+      }
+      if (!$(event.target).closest(".inner-item-div").length) {
+        document.getElementById('inner-item-div').style.width = '0px';
       }
     });
     </script>

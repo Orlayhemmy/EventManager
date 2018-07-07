@@ -9,10 +9,7 @@ import GuestCenter from '../Template/Content/Centers';
  * @description CenterPage component
  */
 export class CenterPage extends React.Component {
-  /**
-   * @memberof CenterPage
-   * @description it creates an instance of CenterPage
-   */
+
   render() {
     if (this.props.auth.isAuth) {
       return <Redirect to="/dashboard" />;
@@ -30,9 +27,12 @@ export class CenterPage extends React.Component {
 const propTypes = {
   auth: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   auth: state.auth
 });
+
+CenterPage.propTypes = propTypes;
 
 export default connect(
   mapStateToProps,

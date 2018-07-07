@@ -1,10 +1,15 @@
 import React from 'react';
 
+/**
+ * @description ViewCenterDetails component
+ */
 export default class EventsList extends React.Component {
   render() {
     const { onClick } = this.props;
     const bookedEvents = this.props.eventState.map(event => {
-      const { isApproved, bookedDate, id, eventTitle } = event;
+      const {
+        isApproved, bookedDate, id, eventTitle
+      } = event;
       let eStatus;
       if (isApproved) {
         eStatus = <i id={id} className="fa fa-thumbs-up green" />;

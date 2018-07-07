@@ -16,7 +16,7 @@ export class AddEventForm extends React.Component {
     const { dateArray, bookedDate } = this.props.eventState;
     if (this.props.userEvent.isAvailable) {
       dateArray.push(bookedDate);
-      let div = document.getElementById('chosenDates');
+      const div = document.getElementById('chosenDates');
       div.insertAdjacentHTML(
         'afterbegin',
         `<button id="chosen-dates" class="btn btn-success ml-2 mb-3">
@@ -53,15 +53,15 @@ export class AddEventForm extends React.Component {
       checkDate
     } = this.props;
     const { centers } = eventCenter;
-    const { eventTitle, bookedDate, errors, centerId, dateArray } = eventState;
+    const {
+      eventTitle, bookedDate, errors, centerId, dateArray
+    } = eventState;
 
-    const showCenters = centers.map(center => {
-      return (
+    const showCenters = centers.map(center => (
         <option key={center.id} value={center.id}>
           {center.centerName}
         </option>
-      );
-    });
+    ));
     return (
       <div>
         <form id="add-event-form" onSubmit={onFormSubmit}>
@@ -86,7 +86,6 @@ export class AddEventForm extends React.Component {
           </div>
 
           <span className="help-block">{errors.dateArray}</span>
-          <p className="help-block">you can select multiple date</p>
           <div class="form-row">
             <div className="input-group col-10 pr-0 mb-3">
               <span class="input-group-prepend">
@@ -143,7 +142,7 @@ export class AddEventForm extends React.Component {
             />
           </div>
           <input
-            id="add-event"
+            id="submit-event"
             type="submit"
             value="Add Event"
             className="btn btn-primary"

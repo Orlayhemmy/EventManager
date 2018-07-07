@@ -10,7 +10,7 @@ import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { addEventValidation } from '../../../shared/eventValidations';
 import { createEvent, checkAvailableDate } from '../../../actions/eventActions';
-
+import { addEventIntro } from '../../Common/intro';
 /**
  * @description AddEventPage component
  */
@@ -26,14 +26,14 @@ export class AddEventPage extends React.Component {
     dateArray: []
   };
 
-  searchNav = (e) => {
+  searchNav = () => {
     document.getElementById('search-nav').style.width = '280px';
   };
   /**
    * @memberof AddEventForm
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
   onChange = (e) => {
     this.setState({
@@ -45,6 +45,12 @@ export class AddEventPage extends React.Component {
     }
   };
 
+  /**
+   * @memberof AddEventForm
+   * @method onChange
+   * @description it sets user input to state
+   * @param {object} data
+   */
   removeDate = data => {
     const { dateArray } = this.state;
     const dataIndex = dateArray.indexOf(data);
@@ -53,7 +59,7 @@ export class AddEventPage extends React.Component {
   /**
    * @memberof AddEventForm
    * @method checkDate
-   * @param {object} event
+   * @param {object} e
    */
   checkDate = (e) => {
     e.preventDefault();
@@ -65,12 +71,12 @@ export class AddEventPage extends React.Component {
    * @memberof AddEventForm
    * @method onSubmit
    * @description it calls the user signin action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
   onSubmit = (e) => {
     e.preventDefault();
-    let data = {
+    const data = {
       eventInfo: this.state,
       user: this.props.auth.user.fullname,
       centerName: this.props.center.centerName,
@@ -78,7 +84,7 @@ export class AddEventPage extends React.Component {
       suggestion: '',
       text: ''
     };
-    let id = document.getElementById('bookedDate');
+    const id = document.getElementById('bookedDate');
     this.state.bookedDate = id.value;
     if (this.isValid()) {
       this.props.createEvent(data);
@@ -88,7 +94,6 @@ export class AddEventPage extends React.Component {
    * @memberof AddEventForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   isValid = () => {
@@ -98,16 +103,13 @@ export class AddEventPage extends React.Component {
     }
     return isValid;
   };
-  /**
-   * @memberof AddEventPage
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout = (e) => {
-    this.props.logout();
-  };
+  componentDidMount() {
+    if (this.props.userEvent.eventBookedCount === 0) {
+      addEventIntro();
+    }
+  }
+
+
   /**
    * @memberof AddEventPage
    * @method render
@@ -116,24 +118,26 @@ export class AddEventPage extends React.Component {
    */
   render() {
     const {
-      userEvent,
+      userEvent: {
+        status,
+        message
+      },
       center,
       auth,
       location: { pathname }
     } = this.props;
-    //Check if user is logged in
     if (!auth.isAuth) {
       return <Redirect to="/" />;
     }
     if (
       center.status === 498 ||
       center.status === 401 ||
-      userEvent.status === 498
+      status === 498
     ) {
-      this.logout();
+      this.props.logout();
     }
     if (this.props.userEvent.status === 201) {
-      swal(userEvent.message);
+      swal(message);
       return <Redirect to="/dashboard" />;
     }
 
@@ -147,6 +151,7 @@ export class AddEventPage extends React.Component {
           onFormSubmit={this.onSubmit}
           checkDate={this.checkDate}
           removeDate={this.removeDate}
+          tour={addEventIntro}
         />
         <Footer />
       </div>
@@ -159,7 +164,7 @@ const propTypes = {
   userEvent: PropTypes.object.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
   createEvent: PropTypes.func.isRequired,
-  checkAvailableDate: PropTypes.func.isRequired
+  checkAvailableDate: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   auth: state.auth,

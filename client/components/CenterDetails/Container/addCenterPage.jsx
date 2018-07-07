@@ -19,7 +19,6 @@ export class AddCenterPage extends React.Component {
     } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
     }
-    let content;
     const { status, message } = this.props.center;
     const { pathname } = this.props.location;
 

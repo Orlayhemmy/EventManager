@@ -14,32 +14,28 @@ import { logout } from '../../../actions/userActions';
 export class ViewCenterDetails extends React.Component {
   /**
    * @memberof ViewCenterDetails
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout(e) {
-    this.props.logout();
-  }
-  /**
-   * @memberof ViewCenterDetails
    * @method render
    * @description it renders the component
    * @returns the HTML of ViewCenterDetails
    */
   render() {
     const {
-      center: { status }
+      center: { status },
+      auth: {
+        isAuth,
+        user: {
+          isAdmin
+        }
+      }
     } = this.props;
-    //Check if user is logged in and is also an Admin
-    if (!this.props.auth.isAuth) {
+
+    if (!isAuth) {
       return <Redirect to="/" />;
-    } else if (!this.props.auth.user.isAdmin) {
+    } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     if (status === (401 || 498)) {
-      this.logout();
+      this.props.logout();
     } else if (status === 202) {
       swal('Center updated successfully');
     }

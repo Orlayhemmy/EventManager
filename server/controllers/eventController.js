@@ -19,7 +19,7 @@ export default class EventController {
    */
   static getAllEvents(req, res) {
     // get events
-    Events.all({
+    return Events.all({
       include: [
         {
           model: Centers
@@ -48,7 +48,7 @@ export default class EventController {
    */
   static getCenterEvents(req, res) {
     // get events
-    Events.all({
+    return Events.all({
       where: {
         centerId: req.params.id
       },
@@ -78,7 +78,7 @@ export default class EventController {
     const { id } = req.decoded;
     const skip = req.params.id * 9;
     // get events
-    Events.all({
+    return Events.all({
       where: {
         userId: id
       },
@@ -112,7 +112,7 @@ export default class EventController {
    * @memberof EventController
    */
   static getSingleEvent(req, res) {
-    Events.findOne({
+    return Events.findOne({
       where: {
         id: req.params.id
       },
@@ -177,7 +177,7 @@ export default class EventController {
     } = req.body;
     const { id } = req.params;
     // find the requested event
-    Events.findById(id).then((event) => {
+    return Events.findById(id).then((event) => {
       if (event) {
         return event
           .update({
@@ -208,7 +208,7 @@ export default class EventController {
    */
   static approveEvent(req, res) {
     const { id } = req.params;
-    Events.findById(id)
+    return Events.findById(id)
       .then((event) => {
         if (event) {
           return event
@@ -266,14 +266,14 @@ export default class EventController {
    * @memberof EventController
    */
   static getEventBookedCount(req, res) {
-    Events.findAndCountAll({
+    return Events.findAndCountAll({
       where: {
-        userId: req.params.id
+        userId: req.decoded.id
       }
     })
       .then((event) => {
         const eventBookedCount = event.count;
-        res.status(200).send({
+        return res.status(200).send({
           message: 'Events found',
           eventBookedCount
         });
@@ -289,7 +289,7 @@ export default class EventController {
   static checkEventDate(req, res) {
     const { bookedDate, centerId } = req.body;
     // query db
-    Events.findOne({
+    return Events.findOne({
       where: {
         bookedDate: {
           $contains: [bookedDate]

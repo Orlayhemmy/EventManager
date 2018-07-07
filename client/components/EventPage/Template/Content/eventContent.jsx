@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 import {
   getCenters,
   getCenterSelected,
@@ -14,9 +13,9 @@ import {
 } from '../../../../actions/eventActions';
 import AddEventForm from '../Form/addEventForm';
 import EditEventForm from '../Form/editEventForm';
-import Modal from '../../../Flash/modal';
 import { searchValidation } from '../../../../shared/centerValidations';
 import CenterSearch from '../../../Common/Search';
+import Tour from '../../../Common/Tour';
 
 /**
  * @description Event component
@@ -31,8 +30,14 @@ export class Event extends React.Component {
     errors: {},
     btwValue: ''
   };
-
-  searchNav = (e) => {
+  /**
+   * @memberof Event
+   * @method searchNav
+   * @description it calls a search action
+   * @param {object} e
+   * @returns {void}
+   */
+  searchNav = e => {
     if (e.target.parentNode.id === 'submit') {
       const div = document.getElementById('search-nav');
       div.style.width = '0px';
@@ -60,7 +65,7 @@ export class Event extends React.Component {
    * @param {object} e
    * @returns {void}
    */
-  search = (e) => {
+  search = e => {
     e.preventDefault();
     if (this.isValid()) {
       this.props.getCenters(this.state, 0);
@@ -73,9 +78,9 @@ export class Event extends React.Component {
    * @method onChange
    * @description it sets user input to state
    * @param {object} e
-   * @returns {object} state
+   * @returns {void}
    */
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -87,11 +92,11 @@ export class Event extends React.Component {
     }
   };
   /**
-  // * @memberof AddEventForm
-  // * @method checkDate
-  // * @param {object} event
-  // */
-  checkDate = (e) => {
+   * @memberof AddEventForm
+   * @method checkDate
+   * @param {object} e
+   */
+  checkDate = e => {
     e.preventDefault();
     this.props.checkAvailableDate(this.state);
   };
@@ -102,12 +107,12 @@ export class Event extends React.Component {
    * @returns {void}
    */
   componentDidUpdate() {
-    let dateCounter;
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate() + 1;
-    let currentDate = `${year}-${month}-${day}`;
+    // let dateCounter;
+    // let date = new Date();
+    // let year = date.getFullYear();
+    // let month = date.getMonth() + 1;
+    // let day = date.getDate() + 1;
+    // let currentDate = `${year}-${month}-${day}`;
     // $(document).ready(function() {
     //   $('#bookedDate').datepicker({
     //     format: 'yyyy-mm-dd',
@@ -140,7 +145,7 @@ export class Event extends React.Component {
       return <Redirect to="/dashboard" />;
     }
     let content;
-    const center = this.props.eventCenter.center;
+    const { center } = this.props.eventCenter;
     const centerInfo = center.centerName ? (
       <div className="form-inner">
         <img className="img-fluid" src={center.imageUrl} />
@@ -195,7 +200,7 @@ export class Event extends React.Component {
     return (
       <div id="event-form">
         <div className="container">
-          <div className="search-icon" onClick={this.searchNav}>
+          <div className="search-icon" id="step1" onClick={this.searchNav}>
             <i className="fa fa-search" />
           </div>
           <CenterSearch
@@ -204,10 +209,12 @@ export class Event extends React.Component {
             onChange={this.onChange}
           />
           <div className="row">
-            <div className="col-lg-4 card mr-2 text-center bb mxh">
+            <div className="col-lg-4 card mr-2 text-center bb mxh" id="step3">
               {centerInfo}
             </div>
-            <div className="col-lg-7 card m-auto text-center bb pl-5 pr-5 pt-4 pb-4">
+            <div
+              className="col-lg-7 card m-auto text-center
+                bb pl-5 pr-5 pt-4 pb-4">
               <div className="logo">
                 lets make your <strong className="text-primary">event</strong> a
                 memorable one
@@ -216,6 +223,7 @@ export class Event extends React.Component {
               {content}
             </div>
           </div>
+          <Tour tour={this.props.tour} />
         </div>
       </div>
     );
