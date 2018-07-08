@@ -6,7 +6,7 @@ import app from '../app';
 const request = supertest(app);
 
 let userToken;
-let invalidToken;
+let userToken2;
 
 describe('tests for user', () => {
   describe('tests for Signup processes', () => {
@@ -25,7 +25,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
             expect(res.body.message).deep.equal('You are now Signed Up');
-            if (err) throw err;
+            userToken2 = res.body.token;
             done();
           });
       });
@@ -47,7 +47,7 @@ describe('tests for user', () => {
             expect(res.body).deep.equal({
               message: 'All or some fields are not defined'
             });
-            if (err) throw err;
+            
             done();
           });
       });
@@ -67,7 +67,7 @@ describe('tests for user', () => {
             expect(res.body.fullname).deep.equal(
               'Fullname must be more than 5 characters but less than 20'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -88,7 +88,7 @@ describe('tests for user', () => {
             expect(res.body.fullname).deep.equal(
               'Fullname can only contain numbers and letters'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -109,7 +109,7 @@ describe('tests for user', () => {
             expect(res.body.fullname).deep.equal(
               'Fullname cannot be blank'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -129,7 +129,7 @@ describe('tests for user', () => {
             expect(res.body.email).deep.equal(
               'Email is required'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -150,7 +150,7 @@ describe('tests for user', () => {
             expect(res.body.password).deep.equal(
               'Password length must be between 5 and 20'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -171,7 +171,7 @@ describe('tests for user', () => {
             expect(res.body.password).deep.equal(
               'Password is required'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -189,7 +189,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('email');
             expect(res.body.email).to.not.equal(null);
             expect(res.body).deep.equal({ email: 'Email is invalid' });
-            if (err) throw err;
+            
             done();
           });
       });
@@ -208,7 +208,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
             expect(res.body.message).deep.equal('admin@test.com already exist');
-            if (err) throw err;
+            
             done();
           });
       });
@@ -231,7 +231,7 @@ describe('tests for user', () => {
             expect(res.body).deep.equal({
               message: 'Email or Password is undefined'
             });
-            if (err) throw err;
+            
             done();
           });
       });
@@ -251,7 +251,7 @@ describe('tests for user', () => {
             expect(res.body.loginEmail).deep.equal(
               'Type a valid email'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -271,7 +271,7 @@ describe('tests for user', () => {
             expect(res.body.loginPassword).deep.equal(
               'Password is required'
             );
-            if (err) throw err;
+            
             done();
           });
       });
@@ -289,7 +289,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('loginEmail');
             expect(res.body.loginEmail).to.not.equal(null);
             expect(res.body).deep.equal({ loginEmail: 'Type a valid email' });
-            if (err) throw err;
+            
             done();
           });
       });
@@ -346,7 +346,7 @@ describe('tests for user', () => {
             expect(res.body.message).to.not.equal(null);
             expect(res.body.message).equal('You are now logged In');
             userToken = res.body.token;
-            if (err) throw err;
+            
             done();
           });
       });
@@ -356,6 +356,7 @@ describe('tests for user', () => {
       it('should return error when token is undefined', done => {
         request
           .post('/api/v1/centers')
+          .set('x-access-token', userToken2)
           .send({
             centerName: 'Five Points',
             description: 'A world class event center'
@@ -365,19 +366,35 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.not.equal(null);
             expect(res.body).deep.equal({
-              message: 'Access denied. You are not logged in'
+              message: 'You are not permitted to view this page'
             });
-            if (err) throw err;
+            
+            done();
+          });
+      });
+
+      it('should return error when token is undefined', done => {
+        request
+          .post('/api/v1/events')
+          .send({
+            eventTitle: 'Five Points',
+            description: 'A world class event center'
+          })
+          .expect(403)
+          .end((err, res) => {
+            expect(res.body).to.have.property('message');
+            expect(res.body.message).to.not.equal(null);
+            expect(res.body.message).equal('Access denied. You are not logged in');     
             done();
           });
       });
 
       it('should return error when token is invalid', done => {
         request
-          .post('/api/v1/centers')
-          .set('x-access-token', 'undefined')
+          .post('/api/v1/events')
+          .set('x-access-token', 'userToken')
           .send({
-            centerName: 'Five Points',
+            eventTitle: 'Five Points',
             description: 'A world class event center'
           })
           .expect(498)
@@ -385,10 +402,7 @@ describe('tests for user', () => {
             expect(res.body).to.have.property('message');
             expect(res.status).equal(498);
             expect(res.body.message).to.not.equal(null);
-            expect(res.body).deep.equal({
-              message: 'Token is Invalid or Expired'
-            });
-            if (err) throw err;
+            expect(res.body.message).deep.equal('Token is Invalid or Expired');          
             done();
           });
       });
@@ -405,7 +419,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('User Details Found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -419,7 +433,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Email Found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -433,7 +447,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('No user Found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -449,7 +463,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('User found!');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -465,7 +479,7 @@ describe('tests for user', () => {
           expect(res.body.message).deep.equal(
             'Email is incorrect or not registered'
           );
-          if (err) throw err;
+          
           done();
         });
     });
@@ -486,26 +500,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Changes Applied Successfully');
-          if (err) throw err;
-          done();
-        });
-    });
-
-    it('failed update', done => {
-      request
-        .put('/api/v1/users')
-        .set('x-access-token', userToken)
-        .send({
-          email: 'admin@tesst.com',
-          password: '1234567890',
-          fullname: 'John doe'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('User not found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -524,7 +519,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Changes Applied Successfully');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -546,7 +541,7 @@ describe('tests for user', () => {
           expect(res.body.newPassword).equal('Password length must be between 5 and 20')
           expect(res.body.retypePass).equal('Password must match')
           expect(res.body.fullname).equal('Fullname must be more than 5 characters but less than 20');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -563,26 +558,24 @@ describe('tests for user', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.fullname).equal('Fullname can only contain numbers and letters');
-          if (err) throw err;
           done();
         });
     });
 
-    // it('fullname update error', done => {
-    //   request
-    //     .put('/api/v1/users')
-    //     .set('x-access-token', userToken)
-    //     .send({
-    //       fullname: 'Ho56576hn*&&'
-    //     })
-    //     .expect(400)
-    //     .end((err, res) => {
-    //       expect(res.body).to.not.equal(null);
-    //       expect(res.body.fullname).equal('Fullname can only contain numbers and letters');
-    //       if (err) throw err;
-    //       done();
-    //     });
-    // });
+    it('fullname update success', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          fullname: 'John Doe'
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).equal('Changes Applied Successfully');
+          done();
+        });
+    });
     
 
     it('failed update', done => {
@@ -597,9 +590,6 @@ describe('tests for user', () => {
         .expect(400)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('User not found');
-          if (err) throw err;
           done();
         });
     });
@@ -619,7 +609,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Password Match');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -637,7 +627,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Wrong Password');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -652,7 +642,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('email');
           expect(res.body.email).to.not.equal(null);
           expect(res.body.email).deep.equal('Type a valid email');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -664,7 +654,7 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Email is required');
-          if (err) throw err;
+          
           done();
         });
     });

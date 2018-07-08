@@ -39,10 +39,11 @@ export default class CenterController {
       // offset: `${skip}`,
       // limit: centerLimit,
       order: [['centerName', 'ASC']]
-    }).then(centers => res.status(200).send({
-      centers,
-      message: 'Centers found'
-    }));
+    }).then(centers =>
+      res.status(200).send({
+        centers,
+        message: 'Centers found'
+      }));
   }
 
   /**
@@ -116,7 +117,7 @@ export default class CenterController {
         userId: id
       }).then(center => {
         req.body.id = center.id;
-        setCenterActivity(req, res);
+        setCenterActivity(req);
         return res.status(201).send({
           center,
           message: 'Successfully created a center'
@@ -146,17 +147,27 @@ export default class CenterController {
 
     const { id } = req.params;
     return Centers.findById(id).then(center => {
+      let name, place, descript;
       if (center) {
         let facilityArray;
         if (facilities) {
           const fac = facilities.toLowerCase();
           facilityArray = fac.split(',');
         }
+        if (centerName) {
+          name = centerName.toLowerCase();
+        }
+        if (location) {
+          place = location.toLowerCase();
+        }
+        if (description) {
+          descript = description.toLowerCase();
+        }
         return center
           .update({
-            centerName: centerName.toLowerCase() || center.centerName,
-            location: location.toLowerCase() || center.location,
-            description: description.toLowerCase() || center.description,
+            centerName: name || center.centerName,
+            location: place || center.location,
+            description: descript || center.description,
             facilities: facilityArray || center.facilities,
             capacity: capacity || center.capacity,
             imageUrl: imageUrl || center.imageUrl,
@@ -210,13 +221,14 @@ export default class CenterController {
    */
   static centerStatus(req, res) {
     const { id } = req.params;
-    return Centers.findById(id).then(center => center
-      .update({
-        status: false
-      })
-      .then(() =>
-        res.status(202).send({
-          message: 'ok'
-        })));
+    return Centers.findById(id).then(center =>
+      center
+        .update({
+          status: false
+        })
+        .then(() =>
+          res.status(202).send({
+            message: 'ok'
+          })));
   }
 }

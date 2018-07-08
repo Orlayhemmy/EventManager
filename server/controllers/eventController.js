@@ -132,8 +132,8 @@ export default class EventController {
       centerId,
       userId: id
     }).then(bookedEvent => {
-      setEventActivity(req, res);
-      notifyAdmin(req, res);
+      setEventActivity(req);
+      notifyAdmin(req);
       res.status(201).send({
         message: 'Event booked Successfully',
         bookedEvent
@@ -194,7 +194,7 @@ export default class EventController {
         })
         .then(newEvent => {
           req.body.userId = newEvent.userId;
-          notifyUser(req, res);
+          notifyUser(req);
           res.status(202).send({
             message: 'Event Approved',
             event: newEvent

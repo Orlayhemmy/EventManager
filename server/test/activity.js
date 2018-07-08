@@ -44,7 +44,7 @@ describe('test for valid signin', () => {
         expect(res.body.message).to.not.equal(null);
         expect(res.body.message).equal('You are now logged In');
         userToken = res.body.token;
-        if (err) throw err;
+        
         done();
       });
   });
@@ -60,7 +60,7 @@ describe('tests for activities', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('success');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -73,60 +73,7 @@ describe('tests for activities', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('success');
-          if (err) throw err;
-          done();
-        });
-    });
-    it('set center activities', done => {
-      request
-        .post('/api/v1/adminactivity')
-        .set('x-access-token', userToken)
-        .send({centerName: "Andela"})
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('success');
-          if (err) throw err;
-          done();
-        });
-    });
-    it('set event activities', done => {
-      request
-        .post('/api/v1/activity')
-        .set('x-access-token', userToken)
-        .expect(201)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('Activity added successfully');
-          if (err) throw err;
-          done();
-        });
-    });
-    it('notifies admin', done => {
-      request
-        .post('/api/v1/notifyadmin')
-        .set('x-access-token', userToken)
-        .send({centerName: 1})
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('success');          
-          if (err) throw err;
-          done();
-        });
-    });
-
-    it('notifies user', done => {
-      request
-        .post('/api/v1/notifyuser')
-        .set('x-access-token', userToken)
-        .send({eventTitle: 'Planning', isApproved: true, userId: 1 })
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('success');          
-          if (err) throw err;
+          
           done();
         });
     });
@@ -139,7 +86,7 @@ describe('tests for activities', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Activity Deleted');
-          if (err) throw err;
+          
           done();
         });
     });
