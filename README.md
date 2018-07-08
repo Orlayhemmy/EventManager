@@ -7,23 +7,24 @@
 Events Manager is a web app that helps to manage event centers. 
 
 # Table of Contents
-* Relevant stacks and technologies
-* Installation
-* Running Test
-* Features
-* Limitations
-* API Endpoints
-* How to Contribute
-* Contact the Author
+* [Relevant stacks and technologies](#stacks)
+* [Installation](#install)
+* [Running Test](#test)
+* [Features](#feature)
+* [Limitations]((#limitation)
+* [API Endpoints](#api)
+* [How to Contribute](#contribute)
+* [Licensce](#licensce)
+* [Contact the Author](#author)
 
-##  Relevant Stacks and Technologies
+## [](#stacks)Relevant Stacks and Technologies
 Node.js
 PostgreSQL
 Sequelize
 ReactJS
 Redux
 
-## Installation
+## [](#install)Installation
 To get this project up and running on your local machinne, simply follow the steps written below
 
 1. Install node
@@ -72,7 +73,7 @@ $ npm start
 
 11. In a browser, navigate to localhost:3000
 
-## Running the tests
+## [](#test)Running the tests
 To run the tests written for this application.
 
 ```
@@ -80,7 +81,7 @@ $ npm test       // backend tests
 $ npm run client:test       //frontend tests
 ```
 
-## Features
+## [](#feature)Features
 Features made for admins are
 + Adding centers
 + Editing centers
@@ -102,17 +103,17 @@ General Features
 + In app and email notifications for users and admin when an event is booked cancelled.
 + About us page
 
-## Limitation
+## [](#limit)Limitation
 The limitation of this application is that it does not include a payment system yet.
 
-## API documentation
+## [](#api)API documentation
 See documentation here https://ecenter-eventmanager.herokuapp.com/api-docs
 
-## How to contribute
+## [](#contribute)How to contribute
 NB: contributions are very much welcome, please see the contibuting.md file on how to contribute
 
-## Licensce
-This project is licensed under the MIT License - see the [`LICENSE.md`] (https://github.com/Orlayhemmy/EventManager/blob/develop/LICENSCE.md) file for details
+## [](#licensce)Licensce
+This project is licensed under the MIT License - see the [`LICENSE.md`](https://github.com/Orlayhemmy/EventManager/blob/develop/LICENSCE.md) file for details
 
-## Contact the Author
+## [](#author)Contact the Author
 [`Olayemi Lawal`](https://github.com/Orlayhemmy)
