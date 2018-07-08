@@ -504,6 +504,25 @@ describe('tests for user', () => {
           done();
         });
     });
+
+    it('failed update', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          email: 'admin@tesst.com',
+          password: '1234567890',
+          fullname: 'John doe'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('User not found');
+          
+          done();
+        });
+    });
   });
 
   describe('test for updating password', () => {
@@ -558,21 +577,6 @@ describe('tests for user', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.fullname).equal('Fullname can only contain numbers and letters');
-          done();
-        });
-    });
-
-    it('fullname update success', done => {
-      request
-        .put('/api/v1/users')
-        .set('x-access-token', userToken)
-        .send({
-          fullname: 'John Doe'
-        })
-        .expect(202)
-        .end((err, res) => {
-          expect(res.body).to.not.equal(null);
-          expect(res.body.message).equal('Changes Applied Successfully');
           done();
         });
     });
