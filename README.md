@@ -11,7 +11,7 @@ Events Manager is a web app that helps to manage event centers.
 * [Installation](#install)
 * [Running Test](#test)
 * [Features](#feature)
-* [Limitations]((#limitation)
+* [Limitations](#limitation)
 * [API Endpoints](#api)
 * [How to Contribute](#contribute)
 * [Licensce](#licensce)
