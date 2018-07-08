@@ -22,7 +22,6 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('You are now logged In');
           userToken = res.body.token;
-          if (err) throw err;
           done();
         });
     });
@@ -48,203 +47,77 @@ describe('test for post, update, get and delete event processes', () => {
           });
       });
 
-      it('should return an error when eventTitle is empty', () => {
+      it('should return an error when fields are enpty', (done) => {
         request
           .post('/api/v1/events')
           .set('x-access-token', userToken)
           .send({
             eventTitle: '',
-            centerId: '1',
-            description: 'Come have fun',
-            dateArray: '12/12/2012'
+            centerId: '',
+            description: '',
+            dateArray: []
           })
           .expect(400)
           .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message)
-              .to.deep.equal('Event Name cannot be blank');
+            expect(res.body.eventTitle)
+            .to.deep.equal('Event Name cannot be blank');
+          expect(res.body.centerId).equal('Please select a Center');
+          expect(res.body.dateArray).equal('Date cannot be empty');
+          expect(res.body.description).equal('Event should have a description');
+            
+                done();
           });
       });   
 
       it(
-        'should return an error when eventTitle has less than 5 characters',
-        () => {
+        'should return an error',
+        (done) => {
           request
             .post('/api/v1/events')
             .set('x-access-token', userToken)
             .send({
               eventTitle: 'Fun',
-              centerId: '1',
-              description: 'Come have fun',
-              dateArray: '12/12/2012'
+              centerId: 'A',
+              description: 'Come',
+              dateArray: ['12-2012']
             })
             .expect(400)
             .end((err, res) => {
-              expect(res.body).to.have.property('message');
-              expect(res.body.message).to.not.equal(null);
-              expect(res.body.message)
-                .to.deep.equal('The event Name must be more than 5 characters but less than 20'); //eslint-disable-line
-            });
+              expect(res.body).to.not.equal(null);
+              expect(res.body.eventTitle)
+                .to.deep.equal('The event Name must be more than 5 characters but less than 20');
+              expect(res.body.centerId).equal('centerId must be a number');
+              expect(res.body.dateArray).equal('Invalid Date');
+              expect(res.body.description).equal('description must be greater than 5 but less than 1000 words');
+                
+                done();
+              });
         }
       );
 
       it(
-        'should return an error when eventTitle contains unacceptable characters', //eslint-disable-line
-        () => {
+        'should return an error when fields contains unacceptable characters', //eslint-disable-line
+        (done) => {
           request
             .post('/api/v1/events')
             .set('x-access-token', userToken)
             .send({
               eventTitle: 'Fun$%dfg',
               centerId: '1',
-              description: 'Come have fun',
-              dateArray: '12/12/2012'
+              description: 'Come have fun***',
+              dateArray: ['12/12/2012']
             })
             .expect(400)
             .end((err, res) => {
-              expect(res.body).to.have.property('message');
-              expect(res.body.message).to.not.equal(null);
-              expect(res.body.message)
-                .to.deep.equal('Event Name can only contain numbers and letters'); //eslint-disable-line
-            });
+              expect(res.body.eventTitle)
+              .to.deep.equal('Event Name can only contain numbers and letters');
+            expect(res.body.description).equal('description can not include symbols except comma and full stop');
+             
+            done();   
+          });
         }
       );
 
-      it('should return an error when description is empty', () => {
-        request
-          .post('/api/v1/events')
-          .set('x-access-token', userToken)
-          .send({
-            eventTitle: 'Birthday Party',
-            centerId: '1',
-            description: '',
-            dateArray: '12/12/2012'
-          })
-          .expect(400)
-          .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message)
-              .to.deep.equal('Event should have a description');
-          });
-      });
-
-      it(
-        'should return an error when description has less than 5 characters',
-        () => {
-          request
-            .post('/api/v1/events')
-            .set('x-access-token', userToken)
-            .send({
-              eventTitle: 'Funny Day',
-              centerId: '1',
-              description: 'Come',
-              dateArray: '12/12/2012'
-            })
-            .expect(400)
-            .end((err, res) => {
-              expect(res.body).to.have.property('message');
-              expect(res.body.message).to.not.equal(null);
-              expect(res.body.message)
-                .to.deep.equal('description must be greater than 5 but less than 1000 words'); //eslint-disable-line
-            });
-        }
-      );
-
-      it(
-        'should return an error when description contains unacceptable characters', //eslint-disable-line
-        () => {
-          request
-            .post('/api/v1/events')
-            .set('x-access-token', userToken)
-            .send({
-              eventTitle: 'Fun Day',
-              centerId: '1',
-              description: 'Come have fun$##',
-              dateArray: '12/12/2012'
-            })
-            .expect(400)
-            .end((err, res) => {
-              expect(res.body).to.have.property('message');
-              expect(res.body.message).to.not.equal(null);
-              expect(res.body.message)
-                .to.deep.equal('description can not include symbols except comma and full stop'); //eslint-disable-line
-            });
-        }
-      );
-
-      it('should return an error when bookedDate is empty', () => {
-        request
-          .post('/api/v1/events')
-          .set('x-access-token', userToken)
-          .send({
-            eventTitle: 'Birthday Party',
-            centerId: '1',
-            description: 'Come and have fun',
-            dateArray: ''
-          })
-          .expect(400)
-          .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message).to.deep.equal('Date cannot be empty');
-          });
-      });
-
-      it('should return an error when bookedDate is invalid', () => {
-        request
-          .post('/api/v1/events')
-          .set('x-access-token', userToken)
-          .send({
-            eventTitle: 'Birthday Party',
-            centerId: '1',
-            description: 'Come and have fun',
-            dateArray: '230/34/13243'
-          })
-          .expect(400)
-          .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message).to.deep.equal('Invalid Date');
-          });
-      });
-
-      it('should return an error when center is empty', () => {
-        request
-          .post('/api/v1/events')
-          .set('x-access-token', userToken)
-          .send({
-            eventTitle: 'Birthday Party',
-            centerId: '',
-            description: 'Come and have fun',
-            dateArray: '23/12/2012'
-          })
-          .expect(400)
-          .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message).to.deep.equal('Please select a Center');
-          });
-      });
-
-      it('should return an error when centerId is invalid', () => {
-        request
-          .post('/api/v1/events')
-          .set('x-access-token', userToken)
-          .send({
-            eventTitle: 'Birthday Party',
-            centerId: 'a',
-            description: 'Come and have fun',
-            dateArray: '23/12/2012'
-          })
-          .expect(400)
-          .end((err, res) => {
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.not.equal(null);
-            expect(res.body.message).to.deep.equal('centerId must be a number');
-          });
-      });
     });
 
   describe('test for successful event creation', () => {
@@ -263,7 +136,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).to.deep.equal('Event booked Successfully');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -285,102 +158,80 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).to.deep.equal('The date chosen is booked, Please select another day or center');
-          if (err) throw err;
+          
           done();
         });
     });
   });
 
-  describe('test for invalid inputs on event modification', () => {
-    it('should return an error when eventTitle has less than 5 characters', () => {
-      request
-        .put('/api/v1/events/1')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun',
-          centerId: '1',
-          description: 'Come have fun',
-          dateArray: ['12/12/2012']
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('The event Name must be more than 5 characters but less than 20');
-        });
-    });
+  describe('test for invalid inputs on event modification', (done) => {
+    it(
+      'should return an error',
+      (done) => {
+        request
+          .put('/api/v1/events/1')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Fun',
+            description: 'Come',
+            bookedDate: ['12-2012'],
+            centerId: 'a'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body).to.not.equal(null);
+            expect(res.body.eventTitle)
+              .to.deep.equal('The event Name must be more than 5 characters but less than 20');
+            expect(res.body.bookedDate).equal('Invalid Date');
+            expect(res.body.centerId).equal('centerId must be a number');
+            expect(res.body.description).equal('description must be greater than 5 but less than 1000 words');
+              
+              done();
+            });
+      }
+    );
 
-    it('should return an error when eventTitle contains unacceptable characters', () => {
-      request
-        .put('/api/v1/events/1')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun$%dfg',
-          centerId: '1',
-          description: 'Come have fun',
-          dateArray: '12/12/2012'
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('Event Name can only contain numbers and letters');
+    it(
+      'should return an error when fields contains unacceptable characters', //eslint-disable-line
+      (done) => {
+        request
+          .put('/api/v1/events/1')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: 'Fun$%dfg',
+            centerId: '1',
+            description: 'Come have fun***',
+            bookedDate: ['12/12/2012']
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body.eventTitle)
+            .to.deep.equal('Event Name can only contain numbers and letters');
+          expect(res.body.description).equal('description can not include symbols except comma and full stop');
+           
+          done();   
         });
-    });
+      }
+    );
 
-    it('should return an error when description has less than 5 characters', () => {
-      request
-        .put('/api/v1/events/1')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Funny Day',
-          centerId: '1',
-          description: 'Come',
-          dateArray: ['12/12/2012']
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('description must be greater than 5 but less than 1000 words');
+    it(
+      'check for null value',
+      (done) => {
+        request
+          .put('/api/v1/events/1')
+          .set('x-access-token', userToken)
+          .send({
+            eventTitle: '',
+            centerId: 'a'
+          })
+          .expect(400)
+          .end((err, res) => {
+            expect(res.body.centerId).equal('centerId must be a number');
+           
+          done();   
         });
-    });
-
-    it('should return an error when description contains unacceptable characters', () => {
-      request
-        .put('/api/v1/events/1')
-        .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Fun Day',
-          centerId: '1',
-          description: 'Come have fun$##',
-          dateArray: ['12/12/2012']
-        })
-        .expect(400)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).to.deep.equal('description can not include symbols except comma and full stop');
-        });
-    });
-
-    // it('should return an error when bookedDate is invalid', () => {
-    //   request
-    //     .put('/api/v1/events/1')
-    //     .set('x-access-token', userToken)
-    //     .send({
-    //       eventTitle: 'Birthday Party',
-    //       centerId: '1',
-    //       description: 'Come and have fun',
-    //       dateArray: ['230']
-    //     })
-    //     .expect(400)
-    //     .end((err, res) => {
-    //       expect(res.body).to.have.property('message');
-    //       expect(res.body.message).to.not.equal(null);
-    //       expect(res.body.message).to.deep.equal('Invalid Date');
-    //     });
-    // });
+      }
+    );
   });
 
   describe('test for result on event modification', () => {
@@ -399,7 +250,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).to.deep.equal('Event does not exist');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -408,18 +259,13 @@ describe('test for post, update, get and delete event processes', () => {
       request
         .put('/api/v1/events/1')
         .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Funny Day',
-          centerId: '1',
-          description: 'Come and have fun',
-          dateArray: ['2018-04-15']
-        })
+        .send({})
         .expect(202)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).to.deep.equal('Changes Applied');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -435,7 +281,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Event found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -449,7 +295,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Center events found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -463,7 +309,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('User events found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -477,7 +323,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Event Found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -491,7 +337,22 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Event Approved');
-          if (err) throw err;
+          
+          done();
+        });
+    });
+
+    it('should return a success when event is approved', (done) => {
+      request
+        .put('/api/v1/approveEvent/1')
+        .set('x-access-token', userToken)
+        .send({eventTitle: 'Planning', isApproved: true, userId: 1 })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).equal('Event Approved');
+          
           done();
         });
     });
@@ -505,7 +366,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Events found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -521,7 +382,7 @@ describe('test for post, update, get and delete event processes', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('Event Deleted');
-          if (err) throw err;
+          
           done();
         });
     });

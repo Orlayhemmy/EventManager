@@ -23,17 +23,11 @@ export default class ActivityController {
         }
       },
       order: [['createdAt', 'DESC']]
-    })
-      .then((activities) => {
-        // if activities are available
-        if (activities) {
-          // show activities
-          return res.status(200).send({
-            activities,
-            message: 'success'
-          });
-        }
-      });
+    }).then(activities =>
+      res.status(200).send({
+        activities,
+        message: 'success'
+      }));
   }
 
   /**
@@ -45,24 +39,20 @@ export default class ActivityController {
    * @memberof ActivityController
    */
   static getAdminActivity(req, res) {
-    Activities.findAll({
+    return Activities.findAll({
       where: {
         centerId: {
           $ne: null
         }
       },
       order: [['createdAt', 'DESC']]
-    })
-      .then((activities) => {
-        // if activities are available
-        if (activities) {
-          // show activities
-          return res.status(200).send({
-            activities,
-            message: 'success'
-          });
-        }
-      });
+    }).then(activities =>
+      // if activities are available
+      // show activities
+      res.status(200).send({
+        activities,
+        message: 'success'
+      }));
   }
 
   /**
@@ -74,32 +64,30 @@ export default class ActivityController {
    * @returns {object} Failure message or Success message
    * @memberof ActivityController
    */
-  static setCenterActivity(req, res, id) {
-    const { centerName } = req.body;
-    Activities.create({
+  static setCenterActivity(req) {
+    const { centerName, id } = req.body;
+    return Activities.create({
       description: `A new center "${centerName}" has been added`,
-      centerId: id,
-    }).then(() => 'Activity added successfully');
+      centerId: id
+    }).then(() => 'Success');
   }
   /**
    * @param  {object} req
    * @param  {object} res
    * @returns {object} message
    */
-  static notifyAdmin(req, res) {
+  static notifyAdmin(req) {
     const { centerId } = req.body;
-    Users.findOne({
+    return Users.findOne({
       where: {
         id: req.decoded.id
       }
-    })
-      .then((user) => {
-        Activities.create({
-          description: `${user.fullname} booked a center`,
-          centerId,
-        })
-          .then(() => 'Activity added successfully');
-      });
+    }).then(user => {
+      Activities.create({
+        description: `${user.fullname} booked a center`,
+        centerId
+      }).then(() => 'success');
+    });
   }
 
   /**
@@ -110,12 +98,12 @@ export default class ActivityController {
    * @returns {object} Failure message or Success message
    * @memberof ActivityController
    */
-  static setEventActivity(req, res) {
+  static setEventActivity(req) {
     const { eventTitle } = req.body;
-    Activities.create({
+    return Activities.create({
       description: `${eventTitle} is added and awaiting approval`,
-      userId: req.decoded.id,
-    }).then(() => 'Activity added successfully');
+      userId: req.decoded.id
+    }).then(() => 'success');
   }
 
   /**
@@ -124,40 +112,18 @@ export default class ActivityController {
    * @param  {string} userId
    * @returns {object} message
    */
-  static notifyUser(req, res, userId) {
-    const {
-      eventTitle, isApproved
-    } = req.body;
+  static notifyUser(req) {
+    const { eventTitle, isApproved, userId } = req.body;
     let info;
     if (isApproved) {
       info = `${eventTitle} has been approved`;
     } else {
       info = `Your center booking for ${eventTitle} is declined`;
-      Activities.create({
-        description: info,
-        userId,
-      })
-        .then(() => 'Activity added successfully');
     }
-  }
-
-  /**
-   * @param  {object} req
-   * @param  {object} res
-   * @returns {object} message
-   */
-  static approveEvent(req, res) {
-    const { eventTitle } = req.body;
-    Activities.findById(req.params.id).then((activity) => {
-      Activities.create({
-        description: `${eventTitle} has been approved`,
-        userId: activity.userId
-      })
-        .then(() =>
-          res.status(200).send({
-            message: 'Activity added successfully'
-          }));
-    });
+    return Activities.create({
+      description: info,
+      userId
+    }).then(() => 'success');
   }
 
   /**
@@ -173,10 +139,9 @@ export default class ActivityController {
       where: {
         eventId: req.params.id
       }
-    })
-      .then(() =>
-        res.status(200).send({
-          message: 'Activity Deleted'
-        }));
+    }).then(() =>
+      res.status(200).send({
+        message: 'Activity Deleted'
+      }));
   }
 }

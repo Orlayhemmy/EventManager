@@ -22,7 +22,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).equal('You are now logged In');
           userToken = res.body.token;
-          if (err) throw err;
+          
           done();
         });
     });
@@ -48,7 +48,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).deep.equal({
             message: 'Token is Invalid or Expired'
           });
-          if (err) throw err;
+          
           done();
         });
     });
@@ -72,7 +72,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).deep.equal({
             message: 'Access denied. You are not logged in'
           });
-          if (err) throw err;
+          
           done();
         });
     });
@@ -91,7 +91,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).deep.equal({
             message: 'All or Some Fields are Undefined'
           });
-          if (err) throw err;
+          
           done();
         });
     });
@@ -115,7 +115,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).to.have.property('center');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Successfully created a center');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -138,7 +138,7 @@ describe('tests for post, update, delete and get center processes ', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body).deep.equal({ message: 'Five Points already exist' });
-          if (err) throw err;
+          
           done();
         });
     });
@@ -164,7 +164,7 @@ describe('tests for post, update, delete and get center processes ', () => {
             facilities: 'Center should have at least one facility',
             location: 'Center should have an Address'
           });
-          if (err) throw err;
+          
           done();
         });
     });
@@ -1165,7 +1165,7 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('Center not Found');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -1178,7 +1178,7 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('Center does not exist');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -1199,7 +1199,44 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('Successfully updated center');
-          if (err) throw err;
+          
+          done();
+        });
+    });
+
+
+    it('should return success when center updates', (done) => {
+      request
+        .put('/api/v1/centers/1')
+        .set('x-access-token', userToken)
+        .send({
+          centerName: 'Five Points',
+          description: 'A world class event center',
+          location: 'Ikeja',
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Successfully updated center');
+          
+          done();
+        });
+    });
+
+    it('should return success when center updates', (done) => {
+      request
+        .put('/api/v1/centers/1')
+        .set('x-access-token', userToken)
+        .send({
+          facilities: 'Five Points',
+          capacity: 300,
+          cost: 300,
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Successfully updated center');
+          
           done();
         });
     });
@@ -1212,7 +1249,7 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('ok');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -1224,27 +1261,81 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('Centers found');
-          if (err) throw err;
+          
           done();
         });
     });
 
     it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '200',
+        capacityType: 'greater',
+        facilities: 'car park'
+      };
       request
         .get('/api/v1/centers')
-        .send({
-          facilities: 'Stage light',
-          location: 'Ikeja',
-          capacity: 500,
-          capacityType: 'greater',
-          btwValue: 2000,
-          page: 0
-        })
+        .send(query)
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('Centers found');
-          if (err) throw err;
+          
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'lesser',
+        facilities: 'car park'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'equal',
+        facilities: 'car park'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'between',
+        facilities: 'car park',
+        btwValue: '5000'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          
           done();
         });
     });
@@ -1257,7 +1348,20 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('No Center Found');
-          if (err) throw err;
+          
+          done();
+        });
+    });
+
+    it('should return 200 when a center is found', (done) => {
+      request
+        .get('/api/v1/centers/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Center found');
+          
           done();
         });
     });
@@ -1270,7 +1374,7 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body).deep.equal({ message: 'Center Deleted' });
-          if (err) throw err;
+          
           done();
         });
     });

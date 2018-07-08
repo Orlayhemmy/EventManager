@@ -44,7 +44,7 @@ describe('test for valid signin', () => {
         expect(res.body.message).to.not.equal(null);
         expect(res.body.message).equal('You are now logged In');
         userToken = res.body.token;
-        if (err) throw err;
+        
         done();
       });
   });
@@ -60,7 +60,7 @@ describe('tests for activities', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('success');
-          if (err) throw err;
+          
           done();
         });
     });
@@ -73,23 +73,25 @@ describe('tests for activities', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('success');
-          if (err) throw err;
+          
           done();
         });
     });
-    it('approve event activities', done => {
+    it('delete event activities', done => {
       request
-        .get('/api/v1/adminactivity')
+        .delete('/api/v1/activity/1')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('success');
-          if (err) throw err;
+          expect(res.body.message).deep.equal('Activity Deleted');
+          
           done();
         });
     });
+
+    
 
   doAfterTest();
 });

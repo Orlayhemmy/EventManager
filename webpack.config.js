@@ -14,7 +14,7 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx']
   },
   module: {
     loaders: [
@@ -42,13 +42,13 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(), // enable HMR globally
-    new webpack.NamedModulesPlugin() // prints readable module names console
+    new webpack.NamedModulesPlugin(), // prints readable module names console
+    new webpack.DefinePlugin({
+      UPLOAD_PRESET: process.env.UPLOAD_PRESET
+    })
   ],
   node: {
     dns: 'empty',
     net: 'empty'
-  },
-  resolve: {
-    extensions: ['.jsx', '.js']
   }
 };

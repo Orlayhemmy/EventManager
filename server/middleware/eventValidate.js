@@ -1,5 +1,6 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
+import _ from 'lodash';
 
 /**
  * Validates all requests for events route
@@ -12,7 +13,7 @@ export default class Validation {
    * @param {object} res
    * @param {object} next
    * @class postEvent
-   * @returns {object} Validation error messages or content of req.body passed to controller
+   * @returns {object} Validatio error
    * @memberof eventsValidation
    */
   static postEvent(req, res, next) {
@@ -45,8 +46,8 @@ export default class Validation {
     }
 
     // validations for bookedDate
-    if (dateArray) {
-      dateArray.map((date) => {
+    if (dateArray.length > 0) {
+      _.map(dateArray, date => {
         if (!validator.toDate(date)) {
           errors.dateArray = 'Invalid Date';
         }
@@ -68,7 +69,6 @@ export default class Validation {
     } else {
       errors.description = 'Event should have a description';
     }
-
     // validations for centerId
     if (!validator.isEmpty(centerId)) {
       if (!validator.isInt(centerId)) {
@@ -94,10 +94,11 @@ export default class Validation {
    * @memberof eventsValidation
    */
   static updateEvent(req, res, next) {
-    const { eventTitle, bookedDate, description } = req.body;
+    const {
+      eventTitle, bookedDate, description, centerId
+    } = req.body;
     const errors = {};
-
-    Object.entries(req.body).forEach((entry) => {
+    Object.entries(req.body).forEach(entry => {
       if (isEmpty(entry[1])) {
         entry[1] = null;
       }
@@ -118,23 +119,27 @@ export default class Validation {
 
       // validations for bookedDate
       if (entry[0] === 'bookedDate') {
-        if (entry[1] !== null) {
-          if (!validator.toDate(bookedDate)) {
+        _.map(bookedDate, date => {
+          if (!validator.toDate(date)) {
             errors.bookedDate = 'Invalid Date';
           }
-        }
+          return errors.bookedDate;
+        });
       }
       // validations for description
       if (entry[0] === 'description') {
-        if (entry[1] !== null) {
-          if (!validator.isLength(description, { min: 5, max: 1000 })) {
-            errors.description =
-              'description must be greater than 5 but less than 1000 words';
-          }
-          if (!/^[a-zA-Z0-9,. ]+$/.test(description)) {
-            errors.description =
-              'description can not include symbols except comma and full stop';
-          }
+        if (!validator.isLength(description, { min: 5, max: 1000 })) {
+          errors.description =
+            'description must be greater than 5 but less than 1000 words';
+        }
+        if (!/^[a-zA-Z0-9,. ]+$/.test(description)) {
+          errors.description =
+            'description can not include symbols except comma and full stop';
+        }
+      }
+      if (entry[0] === 'centerId') {
+        if (!validator.isInt(centerId)) {
+          errors.centerId = 'centerId must be a number';
         }
       }
       return errors;

@@ -7,7 +7,6 @@ env.config();
  * @param {obj} req
  * @param {obj} res
  * @param {obj} next
- * @returns {obj} Error on
  */
 const authAdminToken = (req, res, next) => {
   const token = req.body.token || req.headers['x-access-token'];
@@ -23,7 +22,8 @@ const authAdminToken = (req, res, next) => {
       if (isAdmin) {
         return next();
       }
-      return res.status(403).send({
+      res.status(403);
+      res.send({
         message: 'You are not permitted to view this page'
       });
     });
