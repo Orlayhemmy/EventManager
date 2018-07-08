@@ -12,7 +12,7 @@ export default class Validation {
    * @param {object} res
    * @param {object} next
    * @class postEvent
-   * @returns {object} Validation error messages or content of req.body passed to controller
+   * @returns {object} Validatio error
    * @memberof eventsValidation
    */
   static postEvent(req, res, next) {
@@ -77,7 +77,6 @@ export default class Validation {
     } else {
       errors.centerId = 'Please select a Center';
     }
-
     if (Object.keys(errors).length !== 0) {
       return res.status(400).send(errors);
     }

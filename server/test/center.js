@@ -1204,6 +1204,25 @@ describe('tests for post, update, delete and get center processes ', () => {
         });
     });
 
+
+    it('should return success when center updates', (done) => {
+      request
+        .put('/api/v1/centers/1')
+        .set('x-access-token', userToken)
+        .send({
+          centerName: 'Five Points',
+          description: 'A world class event center',
+          location: 'Ikeja',
+        })
+        .expect(202)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Successfully updated center');
+          if (err) throw err;
+          done();
+        });
+    });
+
     it('should update center status', (done) => {
       request
         .put('/api/v1/centerStatus/1')
@@ -1230,16 +1249,70 @@ describe('tests for post, update, delete and get center processes ', () => {
     });
 
     it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '200',
+        capacityType: 'greater',
+        facilities: 'car park'
+      };
       request
         .get('/api/v1/centers')
-        .send({
-          facilities: 'Stage light',
-          location: 'Ikeja',
-          capacity: 500,
-          capacityType: 'greater',
-          btwValue: 2000,
-          page: 0
-        })
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'lesser',
+        facilities: 'car park'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'equal',
+        facilities: 'car park'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Centers found');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('search center', (done) => {
+      const query = {
+        location: 'Ikeja',
+        capacity: '2000',
+        capacityType: 'between',
+        facilities: 'car park',
+        btwValue: '5000'
+      };
+      request
+        .get('/api/v1/centers')
+        .send(query)
         .expect(200)
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
@@ -1257,6 +1330,19 @@ describe('tests for post, update, delete and get center processes ', () => {
         .end((err, res) => {
           expect(res.body).to.not.equal(null);
           expect(res.body.message).deep.equal('No Center Found');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    it('should return 200 when a center is found', (done) => {
+      request
+        .get('/api/v1/centers/1')
+        .set('x-access-token', userToken)
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.message).deep.equal('Center found');
           if (err) throw err;
           done();
         });

@@ -25,17 +25,11 @@ export default class EventController {
           model: Centers
         }
       ]
-    })
-      .then((events) => {
-        // if events are available
-        if (events) {
-          // show events
-          return res.status(200).send({
-            events,
-            message: 'Event found'
-          });
-        }
-      });
+    }).then(events =>
+      res.status(200).send({
+        events,
+        message: 'Event found'
+      }));
   }
 
   /**
@@ -53,17 +47,11 @@ export default class EventController {
         centerId: req.params.id
       },
       order: [['bookedDate', 'DESC']]
-    })
-      .then((events) => {
-        // if events are available
-        if (events) {
-          // show events
-          return res.status(200).send({
-            events,
-            message: 'Center events found'
-          });
-        }
-      });
+    }).then(events =>
+      res.status(200).send({
+        events,
+        message: 'Center events found'
+      }));
   }
 
   /**
@@ -90,17 +78,12 @@ export default class EventController {
       offset: `${skip}`,
       limit: 9,
       order: [['createdAt', 'DESC']]
-    })
-      .then((events) => {
-        // if events are available
-        if (events) {
-          // show events
-          return res.status(200).send({
-            events,
-            message: 'User events found'
-          });
-        }
-      });
+    }).then(events =>
+      // show events
+      res.status(200).send({
+        events,
+        message: 'User events found'
+      }));
   }
 
   /**
@@ -121,15 +104,11 @@ export default class EventController {
           model: Centers
         }
       ]
-    })
-      .then((event) => {
-        if (event) {
-          return res.status(200).send({
-            message: 'Event Found',
-            event
-          });
-        }
-      });
+    }).then(event =>
+      res.status(200).send({
+        message: 'Event Found',
+        event
+      }));
   }
 
   /**
@@ -152,15 +131,14 @@ export default class EventController {
       bookedDate: dateArray,
       centerId,
       userId: id
-    })
-      .then((bookedEvent) => {
-        setEventActivity(req, res);
-        notifyAdmin(req, res);
-        res.status(201).send({
-          message: 'Event booked Successfully',
-          bookedEvent
-        });
+    }).then(bookedEvent => {
+      setEventActivity(req, res);
+      notifyAdmin(req, res);
+      res.status(201).send({
+        message: 'Event booked Successfully',
+        bookedEvent
       });
+    });
   }
 
   /**
@@ -177,7 +155,7 @@ export default class EventController {
     } = req.body;
     const { id } = req.params;
     // find the requested event
-    return Events.findById(id).then((event) => {
+    return Events.findById(id).then(event => {
       if (event) {
         return event
           .update({
@@ -186,10 +164,11 @@ export default class EventController {
             description: description || event.description,
             centerId: centerId || event.centerId
           })
-          .then(() => res.status(202).send({
-            message: 'Changes Applied',
-            event
-          }));
+          .then(() =>
+            res.status(202).send({
+              message: 'Changes Applied',
+              event
+            }));
       }
       return res.status(404).send({
         err: 'Error',
@@ -208,25 +187,19 @@ export default class EventController {
    */
   static approveEvent(req, res) {
     const { id } = req.params;
-    return Events.findById(id)
-      .then((event) => {
-        if (event) {
-          return event
-            .update({
-              isApproved: true
-            })
-            .then((newEvent) => {
-              notifyUser(req, res, event.userId);
-              res.status(202).send({
-                message: 'Event Approved',
-                event: newEvent
-              });
-            })
-            .catch(err => res.status(500).send({
-              message: err.message
-            }));
-        }
-      });
+    return Events.findById(id).then(event =>
+      event
+        .update({
+          isApproved: true
+        })
+        .then(newEvent => {
+          req.body.userId = newEvent.userId;
+          notifyUser(req, res);
+          res.status(202).send({
+            message: 'Event Approved',
+            event: newEvent
+          });
+        }));
   }
 
   /**
@@ -239,22 +212,10 @@ export default class EventController {
    */
   static deleteEvent(req, res) {
     const eventId = req.params.id;
-    const { id, isAdmin } = req.decoded;
-
-    return Events.findById(eventId)
-      .then((event) => {
-        if (event) {
-          if (event.userId === id || isAdmin) {
-            return event.destroy().then(() => res.status(200).send({
-              message: 'Event Deleted'
-            }));
-          }
-          return res.status(403).send({
-            err: 'Error',
-            message: 'You cannot delete an event not booked by you'
-          });
-        }
-      });
+    return Events.findById(eventId).then(event => event.destroy().then(() =>
+      res.status(200).send({
+        message: 'Event Deleted'
+      })));
   }
 
   /**
@@ -270,14 +231,13 @@ export default class EventController {
       where: {
         userId: req.decoded.id
       }
-    })
-      .then((event) => {
-        const eventBookedCount = event.count;
-        return res.status(200).send({
-          message: 'Events found',
-          eventBookedCount
-        });
+    }).then(event => {
+      const eventBookedCount = event.count;
+      return res.status(200).send({
+        message: 'Events found',
+        eventBookedCount
       });
+    });
   }
 
   /**
@@ -296,19 +256,11 @@ export default class EventController {
         },
         centerId
       }
-    })
-      .then((event) => {
-        if (event) {
-          return res.status(409).send({
-            isAvailable: false,
-            message:
-            'The date chosen is booked, Please select another day or center'
-          });
-        }
-        return res.status(200).send({
-          isAvailable: true,
-          message: 'Date is available'
-        });
-      });
+    }).then(() =>
+      res.status(409).send({
+        isAvailable: false,
+        message:
+          'The date chosen is booked, Please select another day or center'
+      }));
   }
 }

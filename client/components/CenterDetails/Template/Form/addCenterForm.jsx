@@ -1,11 +1,9 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import uploadImage from '../../../../actions/imageAction';
 import { addCenterValidation } from '../../../../shared/centerValidations';
 import TextField from '../../../../common/textField2';
-import { logout } from '../../../../actions/userActions';
 import UploadImage from '../../../ImageUpload/imageUpload';
 
 /**
@@ -89,16 +87,6 @@ export class CenterForm extends React.Component {
       return isValid;
     }
   };
-  /**
-   * @memberof CenterForm
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout = (e) => {
-    this.props.logout();
-  };
 
   /**
    * @memberof CenterForm
@@ -114,7 +102,6 @@ export class CenterForm extends React.Component {
       description,
       capacity,
       errors,
-      serverError,
       image,
       cost
     } = this.state;
@@ -219,7 +206,6 @@ export class CenterForm extends React.Component {
 }
 const propTypes = {
   uploadImage: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   center: PropTypes.object.isRequired
 };
@@ -233,6 +219,5 @@ export default connect(
   mapStateToProps,
   {
     uploadImage,
-    logout
   }
 )(CenterForm);

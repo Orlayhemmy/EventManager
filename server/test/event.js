@@ -217,7 +217,7 @@ describe('test for post, update, get and delete event processes', () => {
           .send({
             eventTitle: 'Birthday Party',
             centerId: '',
-            description: 'Come and have fun',
+            description: '',
             dateArray: '23/12/2012'
           })
           .expect(400)
@@ -408,12 +408,7 @@ describe('test for post, update, get and delete event processes', () => {
       request
         .put('/api/v1/events/1')
         .set('x-access-token', userToken)
-        .send({
-          eventTitle: 'Funny Day',
-          centerId: '1',
-          description: 'Come and have fun',
-          dateArray: ['2018-04-15']
-        })
+        .send({})
         .expect(202)
         .end((err, res) => {
           expect(res.body).to.have.property('message');

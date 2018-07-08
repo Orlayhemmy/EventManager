@@ -175,7 +175,6 @@ describe('tests for user', () => {
             done();
           });
       });
-
       it('should return error message invalid input characters are entered', done => {
         request
           .post('/api/v1/users')
@@ -256,27 +255,6 @@ describe('tests for user', () => {
             done();
           });
       });
-
-      // it('loginEmail is empty', done => {
-      //   request
-      //     .post('/api/v1/users/login')
-      //     .set('Accept', 'application/json')
-      //     .send({
-      //       loginPassword: 'verygood',
-      //       loginEmail: ''
-      //     })
-      //     .expect(400)
-      //     .end((err, res) => {
-      //       expect(res.body).to.have.property('loginEmail');
-      //       expect(res.body.loginEmail).to.not.equal(null);
-      //       expect(res.body.loginEmail).deep.equal(
-      //         'email is required'
-      //       );
-      //       if (err) throw err;
-      //       done();
-      //     });
-      // });
-
 
       it('loginPassword is empty', done => {
         request
@@ -395,10 +373,9 @@ describe('tests for user', () => {
       });
 
       it('should return error when token is invalid', done => {
-        invalidToken = userToken.slice(10);
         request
           .post('/api/v1/centers')
-          .set('x-access-token', invalidToken)
+          .set('x-access-token', 'undefined')
           .send({
             centerName: 'Five Points',
             description: 'A world class event center'
@@ -406,6 +383,7 @@ describe('tests for user', () => {
           .expect(498)
           .end((err, res) => {
             expect(res.body).to.have.property('message');
+            expect(res.status).equal(498);
             expect(res.body.message).to.not.equal(null);
             expect(res.body).deep.equal({
               message: 'Token is Invalid or Expired'
@@ -551,12 +529,70 @@ describe('tests for user', () => {
         });
     });
 
+    it('email and fullname update error', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          email: 'wewdef.com',
+          newPassword: 'hhj',
+          retypePass: '3343543636',
+          fullname: 'Hohn'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.email).equal('Email is invalid')
+          expect(res.body.newPassword).equal('Password length must be between 5 and 20')
+          expect(res.body.retypePass).equal('Password must match')
+          expect(res.body.fullname).equal('Fullname must be more than 5 characters but less than 20');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('fullname update error', done => {
+      request
+        .put('/api/v1/users')
+        .set('x-access-token', userToken)
+        .send({
+          fullname: 'Ho56576hn*&&',
+          email: '',
+          newPassword: '34242424'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.not.equal(null);
+          expect(res.body.fullname).equal('Fullname can only contain numbers and letters');
+          if (err) throw err;
+          done();
+        });
+    });
+
+    // it('fullname update error', done => {
+    //   request
+    //     .put('/api/v1/users')
+    //     .set('x-access-token', userToken)
+    //     .send({
+    //       fullname: 'Ho56576hn*&&'
+    //     })
+    //     .expect(400)
+    //     .end((err, res) => {
+    //       expect(res.body).to.not.equal(null);
+    //       expect(res.body.fullname).equal('Fullname can only contain numbers and letters');
+    //       if (err) throw err;
+    //       done();
+    //     });
+    // });
+    
+
     it('failed update', done => {
       request
         .put('/api/v1/newpassword')
         .send({
           email: 'admin@tesst.com',
-          newPassword: '1234567890'
+          fullname: '',
+          newPassword: '',
+          retypePass: ''
         })
         .expect(400)
         .end((err, res) => {
@@ -601,6 +637,33 @@ describe('tests for user', () => {
           expect(res.body).to.have.property('message');
           expect(res.body.message).to.not.equal(null);
           expect(res.body.message).deep.equal('Wrong Password');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('empty email on recovery', done => {
+      request
+        .post('/api/v1/passrecovery')
+        .send({
+          email: 'efwe.fdfd'
+        })
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('email');
+          expect(res.body.email).to.not.equal(null);
+          expect(res.body.email).deep.equal('Type a valid email');
+          if (err) throw err;
+          done();
+        });
+    });
+    it('email undefined on recovery', done => {
+      request
+        .post('/api/v1/passrecovery')
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).deep.equal('Email is required');
           if (err) throw err;
           done();
         });

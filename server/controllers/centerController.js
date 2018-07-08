@@ -21,13 +21,12 @@ export default class CenterController {
    * @memberof CenterController
    */
   static getAllCenters(req, res) {
-    const {
-      location,
-      facilities,
-      capacity,
-      capacityType,
-      btwValue,
-    } = req.query;
+    const location = req.body.location || req.query.location;
+    const facilities = req.body.facilities || req.query.facilities;
+    const capacity = req.body.capacity || req.query.capacity;
+    const btwValue = req.body.btwValue || req.query.btwValue;
+    const capacityType = req.body.capacityType || req.query.capacityType;
+
     // const skip = page ? page * 5 : 0;
     // const centerLimit = !page ? null : 6;
     // get centers
@@ -40,21 +39,10 @@ export default class CenterController {
       // offset: `${skip}`,
       // limit: centerLimit,
       order: [['centerName', 'ASC']]
-    })
-      .then((centers) => {
-        // if centers are available
-        if (centers) {
-          // let isNext = false;
-          // if (centers.length > 5) {
-          //   isNext = true;
-          //   centers.splice(5, 1);
-          // }
-          return res.status(200).send({
-            centers,
-            message: 'Centers found'
-          });
-        }
-      });
+    }).then(centers => res.status(200).send({
+      centers,
+      message: 'Centers found'
+    }));
   }
 
   /**
@@ -75,19 +63,18 @@ export default class CenterController {
           model: Events
         }
       ]
-    })
-      .then((center) => {
-        if (center) {
-          return res.status(200).send({
-            center,
-            message: 'Center found'
-          });
-        }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'No Center Found'
+    }).then(center => {
+      if (center) {
+        return res.status(200).send({
+          center,
+          message: 'Center found'
         });
+      }
+      return res.status(400).send({
+        err: 'Error',
+        message: 'No Center Found'
       });
+    });
   }
 
   /**
@@ -109,34 +96,33 @@ export default class CenterController {
       cost
     } = req.body;
     const { id } = req.decoded;
-    return Centers.findOne({ where: { centerName } })
-      .then((foundCenter) => {
-        if (foundCenter) {
-          return res.status(409).send({
-            message: `${centerName} already exist`
-          });
-        }
-        const place = location.toLowerCase();
-        const fac = facilities.toLowerCase();
-        const facilityArray = fac.split(',');
-        Centers.create({
-          centerName,
-          location: place,
-          description,
-          facilities: facilityArray,
-          capacity,
-          imageUrl,
-          cost,
-          userId: id
-        })
-          .then((center) => {
-            setCenterActivity(req, res, center.id);
-            return res.status(201).send({
-              center,
-              message: 'Successfully created a center'
-            });
-          });
+    return Centers.findOne({ where: { centerName } }).then(foundCenter => {
+      if (foundCenter) {
+        return res.status(409).send({
+          message: `${centerName} already exist`
+        });
+      }
+      const place = location.toLowerCase();
+      const fac = facilities.toLowerCase();
+      const facilityArray = fac.split(',');
+      Centers.create({
+        centerName,
+        location: place,
+        description,
+        facilities: facilityArray,
+        capacity,
+        imageUrl,
+        cost,
+        userId: id
+      }).then(center => {
+        req.body.id = center.id;
+        setCenterActivity(req, res);
+        return res.status(201).send({
+          center,
+          message: 'Successfully created a center'
+        });
       });
+    });
   }
 
   /**
@@ -159,34 +145,34 @@ export default class CenterController {
     } = req.body;
 
     const { id } = req.params;
-    return Centers.findById(id)
-      .then((center) => {
-        if (center) {
-          let facilityArray;
-          if (facilities) {
-            const fac = facilities.toLowerCase();
-            facilityArray = fac.split(',');
-          }
-          return center
-            .update({
-              centerName: centerName.toLowerCase() || center.centerName,
-              location: location.toLowerCase() || center.location,
-              description: description.toLowerCase() || center.description,
-              facilities: facilityArray || center.facilities,
-              capacity: capacity || center.capacity,
-              imageUrl: imageUrl || center.imageUrl,
-              cost: cost || center.cost
-            })
-            .then(newCenter => res.status(202).send({
+    return Centers.findById(id).then(center => {
+      if (center) {
+        let facilityArray;
+        if (facilities) {
+          const fac = facilities.toLowerCase();
+          facilityArray = fac.split(',');
+        }
+        return center
+          .update({
+            centerName: centerName.toLowerCase() || center.centerName,
+            location: location.toLowerCase() || center.location,
+            description: description.toLowerCase() || center.description,
+            facilities: facilityArray || center.facilities,
+            capacity: capacity || center.capacity,
+            imageUrl: imageUrl || center.imageUrl,
+            cost: cost || center.cost
+          })
+          .then(newCenter =>
+            res.status(202).send({
               message: 'Successfully updated center',
               center: newCenter
             }));
-        }
-        return res.status(404).send({
-          err: 'Error',
-          message: 'Center not Found'
-        });
+      }
+      return res.status(404).send({
+        err: 'Error',
+        message: 'Center not Found'
       });
+    });
   }
 
   /**
@@ -200,18 +186,18 @@ export default class CenterController {
   static deleteCenter(req, res) {
     const centerId = req.params.id;
 
-    return Centers.findById(centerId)
-      .then((center) => {
-        if (center) {
-          return center.destroy().then(() => res.status(200).send({
+    return Centers.findById(centerId).then(center => {
+      if (center) {
+        return center.destroy().then(() =>
+          res.status(200).send({
             message: 'Center Deleted'
           }));
-        }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'Center does not exist'
-        });
+      }
+      return res.status(400).send({
+        err: 'Error',
+        message: 'Center does not exist'
       });
+    });
   }
 
   /**
@@ -224,17 +210,13 @@ export default class CenterController {
    */
   static centerStatus(req, res) {
     const { id } = req.params;
-    return Centers.findById(id)
-      .then((center) => {
-        if (center) {
-          return center
-            .update({
-              status: false
-            })
-            .then(() => res.status(202).send({
-              message: 'ok'
-            }));
-        }
-      });
+    return Centers.findById(id).then(center => center
+      .update({
+        status: false
+      })
+      .then(() =>
+        res.status(202).send({
+          message: 'ok'
+        })));
   }
 }

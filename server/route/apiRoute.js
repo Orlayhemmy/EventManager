@@ -36,7 +36,7 @@ router
 
 router
   .route('/centers/:id')
-  .get(authToken, centerController.getSingleCenter)
+  .get(centerController.getSingleCenter)
   .put(
     authAdminToken,
     centerValidate.updateCenter,
@@ -78,6 +78,14 @@ router
   .route('/adminactivity')
   .post(authToken, activityController.setCenterActivity)
   .get(authToken, activityController.getAdminActivity);
+
+router
+  .route('/notifyadmin')
+  .post(authToken, activityController.notifyAdmin);
+
+router
+  .route('/notifyuser')
+  .post(authToken, activityController.notifyUser);
 
 router
   .route('/activity/:id')

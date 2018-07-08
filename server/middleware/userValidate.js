@@ -85,10 +85,6 @@ export default class Validation {
       });
     }
 
-    if (validator.isEmpty(loginEmail)) {
-      errors.loginEmail = 'email is required';
-    }
-
     if (!validator.isEmail(loginEmail)) {
       errors.loginEmail = 'Type a valid email';
     }
@@ -118,14 +114,15 @@ export default class Validation {
     const { email } = req.body;
     const error = {};
 
-    if (email === undefined || validator.isEmpty(email)) {
-      error.email = 'email is required';
+    if (email === undefined) {
+      return res.status(400).send({
+        message: 'Email is required'
+      });
     }
 
     if (!validator.isEmail(email)) {
       error.email = 'Type a valid email';
     }
-
     const isValid = Object.keys(error).length === 0;
 
     if (!isValid) {
@@ -150,11 +147,10 @@ export default class Validation {
 
     const error = {};
 
-    Object.entries(req.body).forEach((entry) => {
+    Object.entries(req.body).forEach(entry => {
       if (isEmpty(entry[1])) {
         entry[1] = null;
       }
-
       if (entry[0] === 'fullname') {
         if (entry[1] !== null) {
           if (!/^[a-zA-Z ]+$/.test(fullname)) {
@@ -193,7 +189,6 @@ export default class Validation {
       return error;
     });
     const isValid = Object.keys(error).length === 0;
-
     if (!isValid) {
       return res.status(400).send(error);
     }
