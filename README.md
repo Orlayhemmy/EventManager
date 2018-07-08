@@ -32,7 +32,9 @@ To get this project up and running on your local machinne, simply follow the ste
 
 3. Open a terminal window and clone this repository
 
-* $ git clone https://github.com/Orlayhemmy/EventManager.git
+```
+$ git clone https://github.com/Orlayhemmy/EventManager.git
+```
 
 4. Type cd EventManager to navigate into the cloned repository
 
@@ -103,7 +105,6 @@ General Features
 ## Limitation
 The limitation of this application is that it does not include a payment system yet.
 
-
 ## API documentation
 See documentation here https://ecenter-eventmanager.herokuapp.com/api-docs
 
@@ -111,8 +112,7 @@ See documentation here https://ecenter-eventmanager.herokuapp.com/api-docs
 NB: contributions are very much welcome, please see the contibuting.md file on how to contribute
 
 ## Licensce
-This project is licensed under the MIT License - see the [`LICENSE.md`] https://github.com/Orlayhemmy/EventManager/blob/develop/LICENSCE.md file for details
+This project is licensed under the MIT License - see the [`LICENSE.md`] (https://github.com/Orlayhemmy/EventManager/blob/develop/LICENSCE.md) file for details
 
 ## Contact the Author
-Google
-LinkedIn
+[`Olayemi Lawal`](https://github.com/Orlayhemmy)
