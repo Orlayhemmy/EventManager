@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/Orlayhemmy/EventManager.svg?branch=develop)](https://travis-ci.org/Orlayhemmy/EventManager)
-[![Coverage Status](https://coveralls.io/repos/github/Orlayhemmy/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Orlayhemmy/EventManager?branch=develop)[![Maintainability](https://api.codeclimate.com/v1/badges/f106ed897dd8b4e5607c/maintainability)](https://codeclimate.com/github/Orlayhemmy/EventManager/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/Orlayhemmy/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Orlayhemmy/EventManager?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f106ed897dd8b4e5607c/maintainability)](https://codeclimate.com/github/Orlayhemmy/EventManager/maintainability)
 
 
 # EventManager
