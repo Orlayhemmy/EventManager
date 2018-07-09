@@ -124,9 +124,9 @@ export function getCenterSelected(centerInfo) {
         });
       })
       .catch(err => {
-        const { data, status } = err.response;
+        const { data: { message }, status } = err.response;
         const res = {
-          data,
+          message,
           status
         };
         dispatch({
@@ -139,7 +139,6 @@ export function getCenterSelected(centerInfo) {
 
 /**
  * @param {object} centerInfo
- * @param {object} image
  * @returns {object} new center information
  */
 export function addCenter(centerInfo) {

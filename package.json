@@ -9,6 +9,7 @@
     "test": "npm run unmigrate && npm run migrate && npm run test:run",
     "test:run": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "client-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
     "migrate": "NODE_ENV=test sequelize db:migrate && npm run seed",
     "seed": "NODE_ENV=test sequelize db:seed:all",
@@ -57,6 +58,7 @@
     "bcryptjs": "^2.4.3",
     "chai": "^4.1.2",
     "classnames": "^2.2.5",
+    "codecov": "^3.0.3",
     "cross-env": "^5.1.4",
     "dotenv": "^4.0.0",
     "enzyme": "^3.3.0",
@@ -104,6 +106,7 @@
     "setupFiles": [
       "<rootDir>/testSetup.js"
     ],
+    "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "setupTestFrameworkScriptFile": "./client/utils/mockStorage"
   }

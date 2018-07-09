@@ -16,7 +16,7 @@ Events Manager is a web app that helps to manage event centers.
 * How to Contribute
 * Contact the Author
 
-##  Relevant Stacks and Technologies
+## [](#stacks)Relevant Stacks and Technologies
 Node.js
 PostgreSQL
 Sequelize

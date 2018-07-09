@@ -104,10 +104,13 @@ export function getCenterEvents() {
 
 /**
  * @param {object} eventId
- * @param {object} centerId
+ * @returns {void}
  */
 export function setCurrentEvent(eventId) {
-  localStorage.setItem('event', eventId);
+  return (dispatch) => {
+    dispatch({ type: actionTypes.SET_CURRENT_EVENT });
+    localStorage.setItem('event', eventId);
+  };
 }
 
 /**
@@ -212,7 +215,7 @@ export function modifyEvent(id, eventData) {
  * @returns {object} success or failure
  */
 export function deleteCenterEvent(info) {
-  const { id, centerId } = info;
+  const { id } = info;
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_CENTER_EVENT });
     return axios
@@ -228,7 +231,6 @@ export function deleteCenterEvent(info) {
           type: actionTypes.DELETE_CENTER_EVENT_SUCCESS,
           payload: res
         });
-        dispatch(getCenterEvents(centerId));
       })
       .catch((err) => {
         const { data } = err.response;

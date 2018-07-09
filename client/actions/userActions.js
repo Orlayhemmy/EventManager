@@ -1,4 +1,4 @@
-/* eslint disable */
+/* eslint-disable */
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthToken from '../utils/setAuthorizationToken';
@@ -13,44 +13,6 @@ export function clearStatus() {
   };
 }
 
-/**
-//  * @param {object} data
-//  * @param {object} image
-//  * @returns {object} success or failure
-//  */
-// export function uploadImage(data, image) {
-//   return (dispatch) => {
-//     dispatch({ type: actionTypes.UPLOAD_IMAGE });
-//     delete axios.defaults.headers.common['x-access-token'];
-//     return axios
-//       .post('https://api.cloudinary.com/v1_1/kalel/image/upload', image)
-//       .then((response) => {
-//         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-//         data.imageUrl = response.data.secure_url;
-//         return axios
-//           .put('/api/v1/users', data)
-//           .then((res) => {
-//             dispatch({
-//               type: actionTypes.UPDATE_USER_SUCCESS,
-//               payload: res.data
-//             });
-//           })
-//           .catch((err) => {
-//             dispatch({
-//               type: actionTypes.UPDATE_USER_FAILS,
-//               payload: err.response.data
-//             });
-//           });
-//       })
-//       .catch((err) => {
-//         axios.defaults.headers.common['x-access-token'] = localStorage.jwtToken;
-//         dispatch({
-//           type: actionTypes.UPLOAD_IMAGE_FAILS,
-//           payload: err.response.data
-//         });
-//       });
-//   };
-// }
 /**
  * @param {object} newUser
  * @param {object} token
@@ -185,40 +147,41 @@ export function confirmEmail(info) {
   };
 }
 
-/**
- * @returns {object} generated code
- */
-export function sendMail(email) {
-  const data = {
-    email
-  };
-  return (dispatch) => {
-    dispatch({ type: actionTypes.SEND_MAIL });
-    return axios
-      .post('/api/v1/sendmail', data)
-      .then((response) => {
-        const {
-          status,
-          data: { shortCode }
-        } = response;
-        const res = {
-          status,
-          shortCode
-        };
-        dispatch({
-          type: actionTypes.SEND_MAIL_SUCCESS,
-          payload: res
-        });
-      })
-      .catch((err) => {
-        const { data } = err.response;
-        dispatch({
-          type: actionTypes.SEND_MAIL_FAILS,
-          payload: data
-        });
-      });
-  };
-}
+// /**
+//  * @returns {void}
+//  * @param {string} email
+//  */
+// export function sendMail(email) {
+//   const data = {
+//     email
+//   };
+//   return (dispatch) => {
+//     dispatch({ type: actionTypes.SEND_MAIL });
+//     return axios
+//       .post('/api/v1/sendmail', data)
+//       .then((response) => {
+//         const {
+//           status,
+//           data: { shortCode }
+//         } = response;
+//         const res = {
+//           status,
+//           shortCode
+//         };
+//         dispatch({
+//           type: actionTypes.SEND_MAIL_SUCCESS,
+//           payload: res
+//         });
+//       })
+//       .catch((err) => {
+//         const { data } = err.response;
+//         dispatch({
+//           type: actionTypes.SEND_MAIL_FAILS,
+//           payload: data
+//         });
+//       });
+//   };
+// }
 
 /**
  * @returns {object} user's details
