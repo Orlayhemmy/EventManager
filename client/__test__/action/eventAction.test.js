@@ -10,16 +10,15 @@ const mockStore = configureMockStore(middlewares);
 
 const mockEvents = [
   {
-    eventTitle: 'Birthday',
+    eventTitle: 'Birthday'
   },
   {
-    eventTitle: 'Seminar',
+    eventTitle: 'Seminar'
   },
   {
-    eventTitle: 'Talk',
+    eventTitle: 'Talk'
   }
 ];
-
 
 describe('get events action', () => {
   beforeEach(() => {
@@ -30,11 +29,11 @@ describe('get events action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when events are received', (done) => {
+  it('returns success when events are received', done => {
     moxios.stubRequest('/api/v1/userEvents/1', {
       status: 200,
       response: {
-        events: mockEvents,
+        events: mockEvents
       }
     });
 
@@ -44,7 +43,7 @@ describe('get events action', () => {
         type: actionTypes.GET_EVENTS_SUCCESS,
         payload: {
           status: 200,
-          events: mockEvents,
+          events: mockEvents
         }
       }
     ];
@@ -56,7 +55,7 @@ describe('get events action', () => {
     });
   });
 
-  it('returns failure when events are not received', (done) => {
+  it('returns failure when events are not received', done => {
     moxios.stubRequest('/api/v1/userEvents/1', {
       status: 400,
       response: {
@@ -70,7 +69,7 @@ describe('get events action', () => {
         type: actionTypes.GET_EVENTS_FAIL,
         payload: {
           status: 400,
-          message: 'Events not found',
+          message: 'Events not found'
         }
       }
     ];
@@ -92,11 +91,11 @@ describe('get center events action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when center events are received', (done) => {
+  it('returns success when center events are received', done => {
     moxios.stubRequest('/api/v1/centerEvents/1', {
       status: 200,
       response: {
-        message: 'Events found',
+        message: 'Events found'
       }
     });
 
@@ -105,19 +104,20 @@ describe('get center events action', () => {
       {
         type: actionTypes.GET_CENTER_EVENTS_SUCCESS,
         payload: {
-          message: 'Events found',
+          message: 'Events found'
         }
       }
     ];
+    localStorage.setItem('centerId', 1);
     const store = mockStore({});
 
-    return store.dispatch(actions.getCenterEvents('1')).then(() => {
+    return store.dispatch(actions.getCenterEvents()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
-  it('returns failure when events are not received', (done) => {
+  it('returns failure when events are not received', done => {
     moxios.stubRequest('/api/v1/centerEvents/1', {
       status: 400,
       response: {
@@ -130,7 +130,7 @@ describe('get center events action', () => {
       {
         type: actionTypes.GET_CENTER_EVENTS_FAIL,
         payload: {
-          message: 'Events not found',
+          message: 'Events not found'
         }
       }
     ];
@@ -152,12 +152,12 @@ describe('get event selected action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when event is received', (done) => {
+  it('returns success when event is received', done => {
     localStorage.setItem('event', 1);
     moxios.stubRequest('/api/v1/events/1', {
       status: 200,
       response: {
-        event: mockEvents[0],
+        event: mockEvents[0]
       }
     });
 
@@ -179,7 +179,7 @@ describe('get event selected action', () => {
     });
   });
 
-  it('returns failure when event is not received', (done) => {
+  it('returns failure when event is not received', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 400,
       response: {
@@ -192,7 +192,7 @@ describe('get event selected action', () => {
       {
         type: actionTypes.GET_EVENT_FAILS,
         payload: {
-          message: 'Events not found',
+          message: 'Events not found'
         }
       }
     ];
@@ -215,13 +215,14 @@ describe('get center event selected action', () => {
   });
 
   const data = {
-    id: 1,
+    id: 1
   };
-  it('returns success when center event is modified successfully', (done) => {
+  it('returns success when center event is modified successfully', done => {
     moxios.stubRequest('/api/v1/approveEvent/1', {
       status: 202,
       response: {
         message: 'Event updated',
+        event: mockEvents[0]
       }
     });
 
@@ -232,9 +233,9 @@ describe('get center event selected action', () => {
         payload: {
           message: 'Event updated',
           status: 202,
+          event: mockEvents[0]
         }
-      },
-      { type: actionTypes.GET_CENTER_EVENTS }
+      }
     ];
     const store = mockStore({});
 
@@ -244,7 +245,7 @@ describe('get center event selected action', () => {
     });
   });
 
-  it('returns failure when events are not received', (done) => {
+  it('returns failure when events are not received', done => {
     moxios.stubRequest('/api/v1/approveEvent/1', {
       status: 400,
       response: {
@@ -257,7 +258,7 @@ describe('get center event selected action', () => {
       {
         type: actionTypes.MODIFY_CENTER_EVENT_FAILS,
         payload: {
-          message: 'Event not found',
+          message: 'Event not found'
         }
       }
     ];
@@ -279,11 +280,12 @@ describe('modify event action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when event is modified successfully', (done) => {
+  it('returns success when event is modified successfully', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 202,
       response: {
         message: 'Event updated',
+        event: mockEvents[0]
       }
     });
 
@@ -293,9 +295,11 @@ describe('modify event action', () => {
         type: actionTypes.MODIFY_EVENT_SUCCESS,
         payload: {
           message: 'Event updated',
-          status: 202
+          status: 202,
+          event: mockEvents[0]
         }
-      }
+      },
+      { type: actionTypes.CLEAR_EVENT_STATE }
     ];
     const store = mockStore({});
 
@@ -305,7 +309,7 @@ describe('modify event action', () => {
     });
   });
 
-  it('returns failure when events are not received', (done) => {
+  it('returns failure when events are not received', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 400,
       response: {
@@ -318,7 +322,7 @@ describe('modify event action', () => {
       {
         type: actionTypes.MODIFY_EVENT_FAILS,
         payload: {
-          message: 'Event update fails',
+          message: 'Event update fails'
         }
       }
     ];
@@ -343,11 +347,12 @@ describe('delete center event action', () => {
     id: 1,
     centerId: 2
   };
-  it('returns success when center event is deleted successfully', (done) => {
+  it('returns success when center event is deleted successfully', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 200,
       response: {
         message: 'Event deleted',
+        id: data.id
       }
     });
 
@@ -358,9 +363,9 @@ describe('delete center event action', () => {
         payload: {
           message: 'Event deleted',
           status: 200,
+          id: data.id
         }
-      },
-      { type: actionTypes.GET_CENTER_EVENTS }
+      }
     ];
     const store = mockStore({});
 
@@ -370,7 +375,7 @@ describe('delete center event action', () => {
     });
   });
 
-  it('returns failure when event is not deleted', (done) => {
+  it('returns failure when event is not deleted', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 400,
       response: {
@@ -383,7 +388,7 @@ describe('delete center event action', () => {
       {
         type: actionTypes.DELETE_CENTER_EVENT_FAILS,
         payload: {
-          message: 'Event not deleted',
+          message: 'Event not deleted'
         }
       }
     ];
@@ -405,11 +410,12 @@ describe('delete event action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when event is deleted successfully', (done) => {
+  it('returns success when event is deleted successfully', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 200,
       response: {
         message: 'Event deleted',
+        id: '1'
       }
     });
 
@@ -419,10 +425,10 @@ describe('delete event action', () => {
         type: actionTypes.DELETE_EVENT_SUCCESS,
         payload: {
           message: 'Event deleted',
-          status: 200
+          status: 200,
+          id: '1'
         }
-      },
-      { type: actionTypes.GET_EVENTS }
+      }
     ];
     const store = mockStore({});
 
@@ -432,7 +438,7 @@ describe('delete event action', () => {
     });
   });
 
-  it('returns failure when event is not deleted', (done) => {
+  it('returns failure when event is not deleted', done => {
     moxios.stubRequest('/api/v1/events/1', {
       status: 400,
       response: {
@@ -445,7 +451,7 @@ describe('delete event action', () => {
       {
         type: actionTypes.DELETE_EVENT_FAILS,
         payload: {
-          message: 'Event not deleted',
+          message: 'Event not deleted'
         }
       }
     ];
@@ -467,12 +473,12 @@ describe('event booked action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when events booked count is returned', (done) => {
+  it('returns success when events booked count is returned', done => {
     moxios.stubRequest('/api/v1/eventsbookedcount/1', {
       status: 200,
       response: {
         eventBookedCount: '3',
-        message: 'Events found',
+        message: 'Events found'
       }
     });
 
@@ -496,7 +502,7 @@ describe('event booked action', () => {
     });
   });
 
-  it('returns failure when event booked count is not received', (done) => {
+  it('returns failure when event booked count is not received', done => {
     moxios.stubRequest('/api/v1/eventsbookedcount/1', {
       status: 400,
       response: {
@@ -510,7 +516,7 @@ describe('event booked action', () => {
         type: actionTypes.GET_EVENTS_BOOKED_COUNT_FAIL,
         payload: {
           message: 'Events not found',
-          status: 400,
+          status: 400
         }
       }
     ];
@@ -532,11 +538,11 @@ describe('date joined action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when date joined is returned', (done) => {
+  it('returns success when date joined is returned', done => {
     moxios.stubRequest('/api/v1/datejoined/1', {
       status: 200,
       response: {
-        dateJoined: '12/12/2012',
+        dateJoined: '12/12/2012'
       }
     });
 
@@ -545,7 +551,7 @@ describe('date joined action', () => {
       {
         type: actionTypes.DATE_JOINED_SUCCESS,
         payload: {
-          dateJoined: '12/12/2012',
+          dateJoined: '12/12/2012'
         }
       }
     ];
@@ -557,7 +563,7 @@ describe('date joined action', () => {
     });
   });
 
-  it('returns failure when the date joined is not received', (done) => {
+  it('returns failure when the date joined is not received', done => {
     moxios.stubRequest('/api/v1/datejoined/1', {
       status: 400,
       response: {
@@ -570,7 +576,7 @@ describe('date joined action', () => {
       {
         type: actionTypes.DATE_JOINED_FAILS,
         payload: {
-          message: 'Error',
+          message: 'Error'
         }
       }
     ];
@@ -594,16 +600,14 @@ describe('other event actions', () => {
 
   it('should set current event', () => {
     const eventId = 1;
-    const centerId = 2;
     const expectedActions = [
       {
-        payload: eventId,
         type: actionTypes.SET_CURRENT_EVENT
       }
     ];
 
     const store = mockStore({});
-    store.dispatch(actions.setCurrentEvent(eventId, centerId));
+    store.dispatch(actions.setCurrentEvent(eventId));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
@@ -617,11 +621,11 @@ describe('create event action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when event is created', (done) => {
+  it('returns success when event is created', done => {
     moxios.stubRequest('/api/v1/events', {
       status: 200,
       response: {
-        message: 'Event Created',
+        message: 'Event Created'
       }
     });
 
@@ -644,11 +648,11 @@ describe('create event action', () => {
     });
   });
 
-  it('returns success when event is created', (done) => {
+  it('returns success when event is created', done => {
     moxios.stubRequest('/api/v1/events', {
       status: 500,
       response: {
-        message: 'Event cannot be created',
+        message: 'Event cannot be created'
       }
     });
 
@@ -657,7 +661,7 @@ describe('create event action', () => {
       {
         type: actionTypes.ADD_EVENT_FAILS,
         payload: {
-          message: 'Event cannot be created',
+          message: 'Event cannot be created'
         }
       }
     ];
@@ -668,5 +672,75 @@ describe('create event action', () => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
+  });
+});
+
+describe('create event action', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+
+  it('returns success when date is available', done => {
+    moxios.stubRequest('/api/v1/checkDate', {
+      status: 200,
+      response: {
+        message: 'available',
+        isAvailable: true
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.CHECK_DATE },
+      {
+        type: actionTypes.CHECK_DATE_SUCCESS,
+        payload: {
+          message: 'available',
+          isAvailable: true,
+          status: 200
+        }
+      }
+    ];
+
+    const store = mockStore({});
+
+    return store
+      .dispatch(actions.checkAvailableDate(mockEvents[0]))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
+  });
+
+  it('returns failure when date is not available', done => {
+    moxios.stubRequest('/api/v1/checkDate', {
+      status: 500,
+      response: {
+        message: 'date not available'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.CHECK_DATE },
+      {
+        type: actionTypes.CHECK_DATE_FAILS,
+        payload: {
+          message: 'date not available',
+          status: 500
+        }
+      }
+    ];
+
+    const store = mockStore({});
+
+    return store
+      .dispatch(actions.checkAvailableDate(mockEvents[0]))
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+        done();
+      });
   });
 });

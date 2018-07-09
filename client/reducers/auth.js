@@ -4,9 +4,8 @@ import * as actionTypes from '../actions/types';
 const initialState = {
   isAuth: false,
   user: {},
-  userDetails: {}
 };
-export default (state = initialState, action = {}) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_CURRENT_USER: {
       const { newUser } = action.payload;
@@ -131,7 +130,8 @@ export default (state = initialState, action = {}) => {
         message: '',
         code: '',
         loading: true,
-        loaded: false
+        loaded: false,
+        userDetails: {}
       };
     }
     case actionTypes.UPDATE_USER_SUCCESS: {
@@ -183,34 +183,34 @@ export default (state = initialState, action = {}) => {
         message
       };
     }
-    case actionTypes.SEND_MAIL: {
-      return {
-        ...state,
-        loading: true,
-        loaded: false,
-        status: '',
-        message: ''
-      };
-    }
-    case actionTypes.SEND_MAIL_SUCCESS: {
-      const { status, shortCode } = action.payload;
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        status,
-        shortCode
-      };
-    }
-    case actionTypes.SEND_MAIL_FAILS: {
-      const { message } = action.payload;
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        message
-      };
-    }
+    // case actionTypes.SEND_MAIL: {
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     loaded: false,
+    //     status: '',
+    //     message: ''
+    //   };
+    // }
+    // case actionTypes.SEND_MAIL_SUCCESS: {
+    //   const { status, shortCode } = action.payload;
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     loaded: true,
+    //     status,
+    //     shortCode
+    //   };
+    // }
+    // case actionTypes.SEND_MAIL_FAILS: {
+    //   const { message } = action.payload;
+    //   return {
+    //     ...state,
+    //     loading: false,
+    //     loaded: true,
+    //     message
+    //   };
+    // }
     case actionTypes.GET_USER: {
       return {
         ...state,
@@ -218,6 +218,7 @@ export default (state = initialState, action = {}) => {
         loading: true,
         status: '',
         message: '',
+        userDetails: {}
       };
     }
     case actionTypes.GET_USER_SUCCESS: {

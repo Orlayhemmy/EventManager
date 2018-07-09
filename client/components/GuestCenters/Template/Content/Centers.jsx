@@ -104,6 +104,7 @@ export class CenterPage extends React.Component {
           searchNav={this.searchNav}
           search={this.search}
           onChange={this.onChange}
+          getCenters={this.props.getCenters}
         />
         <Centers
           searchNav={this.searchNav}

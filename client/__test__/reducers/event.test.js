@@ -170,7 +170,8 @@ describe.only('center reducers', () => {
       type: actionTypes.MODIFY_EVENT_SUCCESS,
       payload: {
         message: 'Update successful',
-        status: 202
+        status: 202,
+        event: {}
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
@@ -178,7 +179,8 @@ describe.only('center reducers', () => {
       loading: false,
       loaded: true,
       message: action.payload.message,
-      status: 202
+      status: 202,
+      event: {}
     });
     done();
   });
@@ -313,15 +315,13 @@ describe.only('center reducers', () => {
       type: actionTypes.GET_EVENTS_BOOKED_COUNT_SUCCESS,
       payload: {
         message: 'Events count',
-        eventBookedCount: 7,
-        status: 200
+        eventBookedCount: 7
       }
     };
     expect(eventReducer(initialState, action)).toEqual({
       ...initialState,
       message: action.payload.message,
       eventBookedCount: action.payload.eventBookedCount,
-      status: 200
     });
     done();
   });

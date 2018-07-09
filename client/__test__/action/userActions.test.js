@@ -19,7 +19,7 @@ const mockSignin = {
   loginPassword: 'userPassword'
 };
 
-const mockCode = 'RRERW#$#@$@';
+const mockPassword = 'qwerty';
 
 describe('user signup action', () => {
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('user signup action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when user is successfully signed up', (done) => {
+  it('returns success when user is successfully signed up', done => {
     moxios.stubRequest('/api/v1/users', {
       status: 201,
       response: {
@@ -58,7 +58,7 @@ describe('user signup action', () => {
     });
   });
 
-  it('returns failure when user is not successfully signed up', (done) => {
+  it('returns failure when user is not successfully signed up', done => {
     moxios.stubRequest('/api/v1/users', {
       status: 400,
       response: {
@@ -91,7 +91,7 @@ describe('user signin action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when user is successfully signed in', (done) => {
+  it('returns success when user is successfully signed in', done => {
     moxios.stubRequest('/api/v1/users/login', {
       status: 200,
       response: {
@@ -119,7 +119,7 @@ describe('user signin action', () => {
     });
   });
 
-  it('returns failure when user is not successfully signed in', (done) => {
+  it('returns failure when user is not successfully signed in', done => {
     moxios.stubRequest('/api/v1/users/login', {
       status: 400,
       response: {
@@ -174,7 +174,7 @@ describe('confirm email action', () => {
     });
   });
 
-  it('returns failure when user is not successfully signed in', (done) => {
+  it('returns failure when user is not successfully signed in', done => {
     moxios.stubRequest('/api/v1/passrecovery', {
       status: 400,
       response: {
@@ -194,57 +194,6 @@ describe('confirm email action', () => {
     return store.dispatch(actions.confirmEmail()).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
-    });
-  });
-});
-
-describe('generate code action', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  it('returns success when code is received', () => {
-    moxios.stubRequest('/api/v1/shortcode', {
-      status: 200,
-      response: {
-        shortCode: mockCode
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.GET_CODE },
-      {
-        type: actionTypes.GET_CODE_SUCCESS,
-        payload: { shortCode: mockCode, status: 200 }
-      }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.generateCode()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-
-  it('returns failure when code is not received', () => {
-    moxios.stubRequest('/api/v1/shortcode', {
-      status: 400,
-      response: {
-        mockCode
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.GET_CODE },
-      { type: actionTypes.GET_CODE_FAILS, payload: { mockCode } }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.generateCode()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });
@@ -337,7 +286,6 @@ describe('check password action', () => {
     moxios.uninstall();
   });
 
-  const mockPassword = 'qwerty';
   const matchPassword = 'Password Match';
   const differentPassword = 'Password does not match';
 
@@ -395,67 +343,170 @@ describe('log user out', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 });
-// describe('update user details action', () => {
-//   beforeEach(() => {
-//     moxios.install();
-//   });
 
-//   afterEach(() => {
-//     moxios.uninstall();
-//   });
+describe('confirm code action', () => {
+  it('should return 400', () => {
+    const code = 'wrong code';
+    const data = {
+      message: code,
+      status: 400
+    };
+    const expectedActions = [
+      {
+        type: actionTypes.CHECK_CODE,
+        payload: data
+      }
+    ];
 
-//   const updateSuccess = 'Changes Applied Successfully';
-//   const updateFails = 'User not found';
+    const store = mockStore({});
+    store.dispatch(actions.confirmCode(code));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
 
-//   it('return true when user info updates', () => {
-//     moxios.stubRequest('/api/v1/users', {
-//       status: 200,
-//       response: {
-//         updateSuccess,
-//         token: '##EEDDDFDGFE',
-//       }
-//     });
+  it('should return 202', () => {
+    const code = 'correct';
+    const data = {
+      message: code,
+      status: 202
+    };
+    const expectedActions = [
+      {
+        type: actionTypes.CHECK_CODE,
+        payload: data
+      }
+    ];
 
-//     const expectedActions = [
-//       { type: actionTypes.UPLOAD_IMAGE },
-//       {
-//         type: actionTypes.UPDATE_USER_SUCCESS,
-//         payload: {
-//           updateSuccess,
-//           token: '##EEDDDFDGFE',
-//         }
-//       },
-//       {
-//         type: actionTypes.SET_CURRENT_USER,
-//         payload: {
-//           newUser: null,
-//           token: '##EEDDDFDGFE'
-//         }
-//       }
-//     ];
-//     const store = mockStore({});
+    const store = mockStore({});
+    store.dispatch(actions.confirmCode(code));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
 
-//     return store.dispatch(actions.uploadUserImage(mockSignup, 'image')).then(() => {
-//       expect(store.getActions()).toEqual(expectedActions);
-//     });
-//   });
+describe('clear user state', () => {
+  it('should clear user state', () => {
+    const expectedActions = [{ type: actionTypes.CLEAR_USER_STATE }];
 
-//   it('return failure when user info fails to update', () => {
-//     moxios.stubRequest('/api/v1/users', {
-//       status: 400,
-//       response: {
-//         updateFails,
-//       }
-//     });
+    const store = mockStore({});
+    store.dispatch(actions.clearUserState());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+});
 
-//     const expectedActions = [
-//       { type: actionTypes.UPLOAD_IMAGE },
-//       { type: actionTypes.UPDATE_USER_FAILS, payload: { updateFails } },
-//     ];
-//     const store = mockStore({});
+describe('update password actions', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
 
-//     return store.dispatch(actions.uploadUserImage(mockSignup, 'image')).then(() => {
-//       expect(store.getActions()).toEqual(expectedActions);
-//     });
-//   });
-// });
+  afterEach(() => {
+    moxios.uninstall();
+  });
+  it('returns success when update successful', () => {
+    moxios.stubRequest('/api/v1/newpassword', {
+      status: 202,
+      response: {
+        message: 'success'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.UPDATE_PASSWORD },
+      {
+        payload: {
+          status: 202,
+          message: 'success'
+        },
+        type: actionTypes.UPDATE_PASSWORD_SUCCESS
+      }
+    ];
+    const store = mockStore({});
+
+    return store.dispatch(actions.updatePassword(mockPassword)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('returns success when update fails', () => {
+    moxios.stubRequest('/api/v1/newpassword', {
+      status: 500,
+      response: {
+        message: 'fails'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.UPDATE_PASSWORD },
+      {
+        payload: {
+          message: 'fails'
+        },
+        type: actionTypes.UPDATE_PASSWORD_FAILS
+      }
+    ];
+    const store = mockStore({});
+
+    return store.dispatch(actions.updatePassword(mockPassword)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+describe('update user actions', () => {
+  beforeEach(() => {
+    moxios.install();
+  });
+
+  afterEach(() => {
+    moxios.uninstall();
+  });
+  it('returns success when update successful', () => {
+    moxios.stubRequest('/api/v1/users', {
+      status: 202,
+      response: {
+        user: mockSignup,
+        message: 'success'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.UPDATE_USER },
+      {
+        payload: {
+          message: 'success',
+          user: mockSignup,
+          status: 202
+        },
+        type: actionTypes.UPDATE_USER_SUCCESS
+      }
+    ];
+    const store = mockStore({});
+
+    return store.dispatch(actions.updateUserDetails(mockSignup)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  it('returns failure when update fails', () => {
+    moxios.stubRequest('/api/v1/users', {
+      status: 500,
+      response: {
+        message: 'fails'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.UPDATE_USER },
+      {
+        payload: {
+          message: 'fails'
+        },
+        type: actionTypes.UPDATE_USER_FAILS
+      }
+    ];
+    const store = mockStore({});
+
+    return store.dispatch(actions.updateUserDetails(mockSignup)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+

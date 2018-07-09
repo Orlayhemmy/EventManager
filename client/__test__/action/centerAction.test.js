@@ -9,7 +9,8 @@ const mockStore = configureMockStore([thunk]);
 const Center = {
   centerName: 'Balmoral',
   capacity: 700,
-  location: 'ET'
+  location: 'ET',
+  id: 1
 };
 
 describe('get center selected action', () => {
@@ -47,9 +48,34 @@ describe('get center selected action', () => {
     });
   });
 
+  it('returns success when center is received', (done) => {
+    moxios.stubRequest('/api/v1/centers/1', {
+      status: 200,
+      response: {
+        message: 'Center found'
+      }
+    });
+
+    const expectedActions = [
+      { type: actionTypes.GET_CENTER },
+      {
+        type: actionTypes.GET_CENTER_SUCCESS,
+        payload: {
+          message: 'Center found'
+        }
+      }
+    ];
+    const store = mockStore({});
+
+    return store.dispatch(actions.getCenterSelected(1)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+
   it('returns failure when center is not received', (done) => {
     moxios.stubRequest('/api/v1/centers/1', {
-      status: 400,
+      status: 500,
       response: {
         message: 'Center not found'
       }
@@ -60,7 +86,8 @@ describe('get center selected action', () => {
       {
         type: actionTypes.GET_CENTER_FAILS,
         payload: {
-          message: 'Center not found'
+          message: 'Center not found',
+          status: 500
         }
       }
     ];
@@ -85,9 +112,10 @@ describe('modify center selected action', () => {
 
   it('returns success when center is modified', (done) => {
     moxios.stubRequest('/api/v1/centers/1', {
+      status: 202,
       response: {
         message: 'Center updated successfully',
-        status: 202
+        center: Center
       }
     });
 
@@ -96,24 +124,25 @@ describe('modify center selected action', () => {
       {
         type: actionTypes.MODIFY_CENTER_SUCCESS,
         payload: {
-          message: 'Center updated successfully'
+          message: 'Center updated successfully',
+          status: 202,
+          center: Center
         }
-      },
-      { type: actionTypes.GET_CENTER }
+      }
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.modifyCenter(Center, '1')).then(() => {
+    return store.dispatch(actions.modifyCenter(Center)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
-  it('returns failure when center is not received', (done) => {
+  it('returns failure when center is not modified', (done) => {
     moxios.stubRequest('/api/v1/centers/1', {
-      status: 400,
+      status: 500,
       response: {
-        message: 'Center updated successfully'
+        message: 'Center update fails'
       }
     });
 
@@ -122,13 +151,14 @@ describe('modify center selected action', () => {
       {
         type: actionTypes.MODIFY_CENTER_FAILS,
         payload: {
-          message: 'Center updated successfully'
+          message: 'Center update fails'
         }
-      }
+      },
+      { type: actionTypes.CLEAR_CENTER_STATE },
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.modifyCenter(Center, '1')).then(() => {
+    return store.dispatch(actions.modifyCenter(Center)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -159,9 +189,10 @@ describe('delete center action', () => {
         payload: {
           message: 'Center deleted',
           status: 200
-        }
+        },
+        id: 1
       },
-      { type: actionTypes.GET_CENTERS }
+      { type: actionTypes.CLEAR_CENTER_STATE }
     ];
     const store = mockStore({});
 
@@ -171,9 +202,9 @@ describe('delete center action', () => {
     });
   });
 
-  it('returns failure when center is not received', (done) => {
+  it('returns failure when center is not de;eted', (done) => {
     moxios.stubRequest('/api/v1/centers/1', {
-      status: 400,
+      status: 500,
       response: {
         message: 'Center not deleted'
       }
@@ -316,6 +347,19 @@ describe('other center actions', () => {
     store.dispatch(actions.viewCenterSelected(data.center.id));
     expect(store.getActions()).toEqual(expectedActions);
   });
+
+  it('should get next center', () => {
+    const expectedActions = [
+      {
+        type: actionTypes.GET_NEXT_CENTERS,
+        payload: Center.id
+      }
+    ];
+
+    const store = mockStore({});
+    store.dispatch(actions.getNextCenters(Center.id));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
 });
 
 describe('get centers action', () => {
@@ -438,54 +482,3 @@ describe('add centers action', () => {
   });
 });
 
-describe('upload image centers action', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
-  });
-  it('returns success when image is uploaded', (done) => {
-    moxios.stubRequest('https://api.cloudinary.com/v1_1/kalel/image/upload', {
-      status: 200,
-      response: {
-        message: 'image uploaded successfully'
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.ADD_IMAGE },
-      { type: actionTypes.ADD_CENTER }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.uploadImage(Center, 'Image')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-
-  it('returns error when image is not uploaded', (done) => {
-    moxios.stubRequest('https://api.cloudinary.com/v1_1/kalel/image/upload', {
-      status: 500,
-      response: {
-        message: 'image cannot be uploaded'
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.ADD_IMAGE },
-      {
-        payload: { message: 'image cannot be uploaded' },
-        type: actionTypes.ADD_IMAGE_FAILS
-      }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.uploadImage(Center, 'Image')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-});
