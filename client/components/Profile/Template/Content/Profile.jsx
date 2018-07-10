@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Form from '../Form/profile';
+import Form from '../Form/Profile';
 import { checkPassword } from '../../../../actions/userActions';
 import { updateUserValidation } from '../../../../shared/userValidation';
 import uploadImage from '../../../../actions/imageAction';
