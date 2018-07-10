@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- server/app.js",
-    "client:test": "jest client/ --coverage",
+    "client:test": "jest client/ && codecov",
     "test": "npm run unmigrate && npm run migrate && npm run test:run",
     "test:run": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
