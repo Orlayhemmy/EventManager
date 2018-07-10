@@ -1,6 +1,6 @@
 import React from 'react';
 import SignUp from '../Form/SignUp';
-import CentersCarousel from '../../../Carousel/Container/carousel';
+import CentersCarousel from '../../../Carousel/Container/Carousel';
 
 /**
  * @description Signin form component
