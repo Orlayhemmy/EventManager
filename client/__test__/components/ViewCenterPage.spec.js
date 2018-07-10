@@ -1,5 +1,5 @@
 import React from 'react';
-import { ViewCenterDetails } from '../../components/CenterDetails/Container/viewCenterPage';
+import { ViewCenterDetails } from '../../components/CenterDetails/Container/ViewCenterPage';
 import { props, logout, location } from './defaultProps';
 
 describe('AddCenter Page component', () => {

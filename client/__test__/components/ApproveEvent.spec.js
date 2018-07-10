@@ -1,5 +1,5 @@
 import React from 'react';
-import ApproveEvent from '../../components/CenterDetails/Template/Content/approveEvent';
+import ApproveEvent from '../../components/CenterDetails/Template/Content/ApproveEvent';
 import { onChange } from './defaultProps';
 
 describe('Approve Event Component', () => {

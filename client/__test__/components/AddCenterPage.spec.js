@@ -1,6 +1,6 @@
 import React from 'react';
 import { AddCenterPage }
-  from '../../components/CenterDetails/Container/addCenterPage';
+  from '../../components/CenterDetails/Container/AddCenterPage';
   import { props } from './defaultProps';
 
 describe('AddCenter Page component', () => {

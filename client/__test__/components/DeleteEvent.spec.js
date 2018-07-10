@@ -1,5 +1,5 @@
 import React from 'react';
-import DeleteContent from '../../components/CenterDetails/Template/Content/deleteEvent';
+import DeleteContent from '../../components/CenterDetails/Template/Content/DeleteEvent';
 import { onChange } from './defaultProps';
 
 describe.only('Approve Event Component', () => {

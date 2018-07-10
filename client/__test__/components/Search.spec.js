@@ -1,5 +1,5 @@
 import React from 'react';
-import { SearchForm } from '../../components/Common/Search'
+import { SearchForm } from '../../components/Common/Search';
 
 describe('Approve Event Component', () => {
   const getCenters = jest.fn();

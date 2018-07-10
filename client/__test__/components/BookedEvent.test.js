@@ -1,5 +1,5 @@
 import React from 'react';
-import EventList from '../../components/CenterDetails/Template/Content/bookedEvents';
+import EventList from '../../components/CenterDetails/Template/Content/BookedEvents';
 import { bookedEvent } from './defaultProps';
 
 describe('Approve Event Component', () => {
