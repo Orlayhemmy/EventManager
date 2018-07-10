@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 import GuestCenter from '../Template/Content/Centers';
 
 /**
  * @description CenterPage component
  */
 export class CenterPage extends React.Component {
-
   render() {
     if (this.props.auth.isAuth) {
       return <Redirect to="/dashboard" />;

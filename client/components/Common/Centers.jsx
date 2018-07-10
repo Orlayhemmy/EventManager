@@ -5,7 +5,7 @@ import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import DeleteContent from './Delete';
-import DeleteModal from '../Modal/Container/deleteModal';
+import DeleteModal from '../Modal/Container/DeleteModal';
 import { getAdminActivity } from '../../actions/adminActivityActions';
 import {
   getCenters,

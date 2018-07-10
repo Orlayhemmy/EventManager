@@ -1,4 +1,5 @@
-import React from 'react'; // eslind-disable-line
+/* eslint-disable */
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -12,20 +13,17 @@ import store from './store';
 import HomePage from './components/HomePage/Container/HomePage';
 import CentersPage from './components/GuestCenters/Container/CentersPage';
 import AboutPage from './components/AboutPage/Container/AboutPage';
-import AdminDashboardPage from
-  './components/AdminDashboard/Container/AdminDashboardPage';
+import AdminDashboardPage from './components/AdminDashboard/Container/AdminDashboardPage';
 import AddCenterPage from './components/CenterDetails/Container/AddCenterPage';
 import AddEvent from './components/EventPage/Container/AddEventPage';
 import ModifyEvent from './components/EventPage/Container/ModifyEventPage';
 import ViewCenter from './components/CenterDetails/Container/ViewCenterPage';
 import UserPanel from './components/Dashboard/Container/UserPanelPage';
-import PasswordRecovery from
-  './components/PasswordRecovery/Container/PasswordRecoveryPage';
+import PasswordRecovery from './components/PasswordRecovery/Container/PasswordRecoveryPage';
 import Profile from './components/Profile/Container/Profile';
 import { setCurrentUser } from './actions/userActions';
 import SetAuthToken from './utils/setAuthorizationToken';
 import style from './sass/style.scss';
-
 
 if (localStorage.jwtToken) {
   SetAuthToken(localStorage.jwtToken);

@@ -13,14 +13,14 @@ import {
   getCenterEvents,
   clearEventState
 } from '../../../../actions/eventActions';
-import Modal from '../../../Modal/Container/deleteModal';
+import Modal from '../../../Modal/Container/DeleteModal';
 import EditCenterForm from '../Form/EditCenterForm';
 import CenterDetails from './viewCenterDetails';
 import { modifyCenterValidation } from '../../../../shared/centerValidations';
 import uploadImage from '../../../../actions/imageAction';
-import ApproveEvent from './approveEvent';
-import BookedEvents from './bookedEvents';
-import DeleteEvent from './deleteEvent';
+import ApproveEvent from './ApproveEvent';
+import BookedEvents from './BookedEvents';
+import DeleteEvent from './DeleteEvent';
 
 /**
  * @description CenterDetailsContent form component

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 import {
   checkPassword,
   getUser,

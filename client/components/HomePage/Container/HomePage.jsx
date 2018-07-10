@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import Navbar from '../../Navbar/Container/navbar';
+import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/Content/homeContent';
-import Footer from '../../Footer/footer';
+import Footer from '../../Footer/Footer';
 import {
   userSignInRequest,
   userSignupRequest

@@ -39,11 +39,14 @@ export class AdminPanelPage extends React.Component {
   nextCenters = (e, page) => {
     window.scroll(0, 0);
     if (page !== undefined) {
-      return this.setState({
-        counter: page - 1
-      }, () => {
-        this.props.getNextCenters(this.state.counter);
-      });
+      return this.setState(
+        {
+          counter: page - 1
+        },
+        () => {
+          this.props.getNextCenters(this.state.counter);
+        }
+      );
     }
     if (e.target.id === 'next') {
       this.setState({

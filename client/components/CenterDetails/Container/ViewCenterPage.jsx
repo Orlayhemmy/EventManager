@@ -3,9 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
-import Navbar from '../../Navbar/Container/navbar';
+import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/Content/centerDetailsContent';
-import Footer from '../../Footer/footer';
+import Footer from '../../Footer/Footer';
 import { logout } from '../../../actions/userActions';
 
 /**

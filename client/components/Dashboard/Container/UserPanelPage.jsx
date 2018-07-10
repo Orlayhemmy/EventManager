@@ -11,9 +11,9 @@ import {
   deleteEvent,
   eventBooked
 } from '../../../actions/eventActions';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
-import DeleteModal from '../../Modal/Container/deleteModal';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
+import DeleteModal from '../../Modal/Container/DeleteModal';
 import DeleteContent from '../../Common/Delete';
 import { clearCenterStorage } from '../../../actions/centerActions';
 import { logout } from '../../../actions/userActions';

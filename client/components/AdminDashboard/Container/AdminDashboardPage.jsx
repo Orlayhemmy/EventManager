@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminContent from '../Template/Content/AdminContent';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 /**
  * @memberof AdminDashboarPage
  * @method render
