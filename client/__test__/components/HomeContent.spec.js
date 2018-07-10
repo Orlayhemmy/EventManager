@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import expect from 'expect';
-import HomeContent from '../../components/HomePage/Template/Content/homeContent';
+import HomeContent from '../../components/HomePage/Template/Content/HomeContent';
 
 describe('Home Component', () => {
   const props = {

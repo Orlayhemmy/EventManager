@@ -1,5 +1,5 @@
 import React from 'react';
-import Details from '../../components/CenterDetails/Template/Content/viewCenterDetails';
+import Details from '../../components/CenterDetails/Template/Content/ViewCenterDetails';
 
 describe('Approve Event Component', () => {
   const onApprove = jest.fn();

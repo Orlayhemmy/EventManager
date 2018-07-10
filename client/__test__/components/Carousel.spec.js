@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import expect from 'expect';
-import Carousel from '../../components/Carousel/Container/carousel';
+import Carousel from '../../components/Carousel/Container/Carousel';
 
 describe('Carousel Component', () => {
   const props = {
