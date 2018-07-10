@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; // eslind-disable-line
 import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
@@ -9,36 +9,34 @@ import {
 import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
 import store from './store';
-import allReducers from './reducers/reducersIndex';
-import HomePage from './components/HomePage/Container/homePage';
-import CentersPage from './components/GuestCenters/Container/centersPage';
-import AboutPage from './components/AboutPage/Container/aboutPage';
-import AdminDashboardPage from './components/AdminDashboard/Container/AdminDashboardPage';
-import AddCenterPage from './components/CenterDetails/Container/addCenterPage';
-import AddEvent from './components/EventPage/Container/addEventPage';
-import ModifyEvent from './components/EventPage/Container/modifyEventPage';
-import ViewCenter from './components/CenterDetails/Container/viewCenterPage';
-import UserPanel from './components/Dashboard/Container/userPanelPage';
-import setAuthToken from './utils/setAuthorizationToken';
-import PasswordRecovery from './components/PasswordRecovery/Container/passwordRecoveryPage';
-import Profile from './components/Profile/Container/profile';
+import HomePage from './components/HomePage/Container/HomePage';
+import CentersPage from './components/GuestCenters/Container/CentersPage';
+import AboutPage from './components/AboutPage/Container/AboutPage';
+import AdminDashboardPage from
+  './components/AdminDashboard/Container/AdminDashboardPage';
+import AddCenterPage from './components/CenterDetails/Container/AddCenterPage';
+import AddEvent from './components/EventPage/Container/AddEventPage';
+import ModifyEvent from './components/EventPage/Container/ModifyEventPage';
+import ViewCenter from './components/CenterDetails/Container/ViewCenterPage';
+import UserPanel from './components/Dashboard/Container/UserPanelPage';
+import PasswordRecovery from
+  './components/PasswordRecovery/Container/PasswordRecoveryPage';
+import Profile from './components/Profile/Container/Profile';
 import { setCurrentUser } from './actions/userActions';
-import { setCurrentEvent } from './actions/eventActions';
-import { setCurrentCenter } from './actions/centerActions';
+import SetAuthToken from './utils/setAuthorizationToken';
 import style from './sass/style.scss';
-import Image from './components/ImageUpload/imageUpload';
+
 
 if (localStorage.jwtToken) {
-  setAuthToken(localStorage.jwtToken);
+  SetAuthToken(localStorage.jwtToken);
   store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 }
-//put component into html page
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/imageupload" component={Image} />
         <Route exact path="/view-centers" component={CentersPage} />
         <Route exact path="/add-center" component={AddCenterPage} />
         <Route exact path="/about" component={AboutPage} />
@@ -49,6 +47,7 @@ ReactDOM.render(
         <Route exact path="/view-center-event" component={ViewCenter} />
         <Route exact path="/recover-password" component={PasswordRecovery} />
         <Route exact path="/profile" component={Profile} />
+        <Route component={AboutPage} />
       </Switch>
     </Router>
   </Provider>,

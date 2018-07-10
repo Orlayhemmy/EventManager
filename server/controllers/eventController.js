@@ -124,7 +124,6 @@ export default class EventController {
       eventTitle, centerId, description, dateArray
     } = req.body;
     const { id } = req.decoded;
-
     return Events.create({
       eventTitle,
       description,
@@ -156,7 +155,6 @@ export default class EventController {
     const { id } = req.params;
     // find the requested event
     return Events.findById(id).then(event => {
-      console.log(req.body, '$$$$$$$$$$$$')
       if (event) {
         return event
           .update({

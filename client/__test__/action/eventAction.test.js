@@ -426,9 +426,10 @@ describe('delete event action', () => {
         payload: {
           message: 'Event deleted',
           status: 200,
-          id: '1'
+          id: 1
         }
-      }
+      },
+      { type: actionTypes.CLEAR_EVENT_STATE },
     ];
     const store = mockStore({});
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
-import $ from 'jquery';
+// import $ from 'jquery';
 import {
   getEvents,
   setCurrentEvent,
@@ -50,7 +50,11 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   componentDidMount() {
-    const { auth: { user: { id } } } = this.props;
+    const {
+      auth: {
+        user: { id }
+      }
+    } = this.props;
     this.props.clearCenterStorage();
     this.props.clearEventState();
     this.props.getEvents(0);
@@ -114,17 +118,23 @@ export class Dashboard extends React.Component {
   nextEvents = e => {
     const { counter } = this.state;
     if (e.target.id === 'next') {
-      this.setState({
-        counter: counter + 1
-      }, () => {
-        this.props.getEvents(counter);
-      });
+      this.setState(
+        {
+          counter: counter + 1
+        },
+        () => {
+          this.props.getEvents(counter);
+        }
+      );
     } else {
-      this.setState({
-        counter: counter - 1
-      }, () => {
-        this.props.getEvents(counter);
-      });
+      this.setState(
+        {
+          counter: counter - 1
+        },
+        () => {
+          this.props.getEvents(counter);
+        }
+      );
     }
   };
   /**
@@ -134,7 +144,9 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
-    const { userEvent: { status } } = this.props;
+    const {
+      userEvent: { status }
+    } = this.props;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }

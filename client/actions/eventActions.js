@@ -258,12 +258,13 @@ export function deleteEvent(id) {
         const res = {
           status,
           message,
-          id
+          id: Number(id)
         };
         dispatch({
           type: actionTypes.DELETE_EVENT_SUCCESS,
           payload: res
         });
+        dispatch(clearEventState());
       })
       .catch((err) => {
         const { data } = err.response;

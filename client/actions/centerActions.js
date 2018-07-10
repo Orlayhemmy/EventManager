@@ -7,10 +7,19 @@ import * as actionTypes from './types';
  */
 export function clearCenterStorage() {
   return dispatch => {
-    dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
+    dispatch({ type: actionTypes.CLEAR_CENTER_STORAGE });
     if (localStorage.getItem('center')) {
       localStorage.removeItem('center');
     }
+  };
+}
+
+/**
+ * @returns {object} clear state
+ */
+export function clearCenterState() {
+  return dispatch => {
+    dispatch({ type: actionTypes.CLEAR_CENTER_STATE });
   };
 }
 
@@ -124,7 +133,10 @@ export function getCenterSelected(centerInfo) {
         });
       })
       .catch(err => {
-        const { data: { message }, status } = err.response;
+        const {
+          data: { message },
+          status
+        } = err.response;
         const res = {
           message,
           status
@@ -194,6 +206,7 @@ export function modifyCenter(centerInfo) {
           type: actionTypes.MODIFY_CENTER_SUCCESS,
           payload: res
         });
+        dispatch(clearCenterState());
       })
       .catch(err => {
         const { data } = err.response;
@@ -201,7 +214,7 @@ export function modifyCenter(centerInfo) {
           type: actionTypes.MODIFY_CENTER_FAILS,
           payload: data
         });
-        dispatch(clearCenterStorage());
+        dispatch(clearCenterState());
       });
   };
 }
@@ -229,7 +242,7 @@ export function deleteCenter(id) {
           payload: res,
           id: Number(id)
         });
-        dispatch(clearCenterStorage());
+        dispatch(clearCenterState());
       })
       .catch(err => {
         const { data } = err.response;

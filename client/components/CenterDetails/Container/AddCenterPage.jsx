@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import CenterForm from '../Template/Form/addCenterForm';
+import CenterForm from '../Template/Form/AddCenterForm';
 import Navbar from '../../Navbar/Container/navbar';
 import Footer from '../../Footer/footer';
 
@@ -12,7 +12,10 @@ import Footer from '../../Footer/footer';
  */
 export class AddCenterPage extends React.Component {
   render() {
-    const { user: { isAdmin }, isAuth } = this.props.userState;
+    const {
+      user: { isAdmin },
+      isAuth
+    } = this.props.userState;
 
     if (!isAuth) {
       return <Redirect to="/" />;

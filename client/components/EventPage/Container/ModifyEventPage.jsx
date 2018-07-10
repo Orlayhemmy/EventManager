@@ -73,7 +73,7 @@ export class ModifyEventPage extends React.Component {
         description,
         eventTitle,
         bookedDate,
-        centerId
+        // centerId
         // Center: { centerName }
       } = nextProps.userEvent.event;
 
@@ -82,7 +82,7 @@ export class ModifyEventPage extends React.Component {
         dateArray: bookedDate || '',
         description: description || '',
         // centerName: centerName || '',
-        centerId: centerId || ''
+        // centerId: centerId || ''
       });
     }
     if (nextProps.centerSelected.center) {

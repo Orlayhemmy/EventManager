@@ -100,7 +100,7 @@ export default class ProfileForm extends React.Component {
         />
 
         <TextField
-          id="email"
+          id="profile-email"
           value={email}
           placeholder="Email Address"
           type="email"

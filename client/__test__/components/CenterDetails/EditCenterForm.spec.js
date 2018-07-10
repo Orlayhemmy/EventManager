@@ -2,7 +2,7 @@
 // import renderer from 'react-test-renderer';
 // import expect from 'expect';
 // import EditCenterForm
-//   from '../../../components/CenterDetails/Template/Form/editCenterForm';
+//   from '../../../components/CenterDetails/Template/Form/EditCenterForm';
 
 // describe('Home Component', () => {
 //   it('should render without throwing error', () => {

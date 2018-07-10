@@ -136,7 +136,7 @@ export class DisplayCenters extends React.Component {
         .replace('T', ' ')
         .slice(0, 16);
       return (
-        <div key={index} className="main-color-bg p-2 mb-1">
+        <div key={index} className="card p-2 mb-1">
           <Link to="/view-center-event">
             <p
               className="activity-font mb-0 p-1"
@@ -201,7 +201,7 @@ export class DisplayCenters extends React.Component {
       <div className="section">
         <div className="row wc">
           <div className="col-lg-8 mr-3">{adminCenter}</div>
-          <div className="col-lg-3 card p-2 ho">
+          <div className="col-lg-3 p-2 ho">
             <h2>Notifications</h2>
             {recentActivity}
           </div>
