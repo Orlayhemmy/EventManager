@@ -15,7 +15,7 @@ import {
 } from '../../../../actions/eventActions';
 import Modal from '../../../Modal/Container/DeleteModal';
 import EditCenterForm from '../Form/EditCenterForm';
-import CenterDetails from './viewCenterDetails';
+import CenterDetails from './ViewCenterDetails';
 import { modifyCenterValidation } from '../../../../shared/centerValidations';
 import uploadImage from '../../../../actions/imageAction';
 import ApproveEvent from './ApproveEvent';

@@ -11,8 +11,8 @@ import {
   getEventSelected,
   checkAvailableDate
 } from '../../../../actions/eventActions';
-import AddEventForm from '../Form/addEventForm';
-import EditEventForm from '../Form/editEventForm';
+import AddEventForm from '../Form/AddEventForm';
+import EditEventForm from '../Form/EditEventForm';
 import { searchValidation } from '../../../../shared/centerValidations';
 import CenterSearch from '../../../Common/Search';
 import Tour from '../../../Common/Tour';

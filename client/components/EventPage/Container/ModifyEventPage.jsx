@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import Content from '../Template/Content/eventContent';
+import Content from '../Template/Content/EventContent';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
 import { logout } from '../../../actions/userActions';

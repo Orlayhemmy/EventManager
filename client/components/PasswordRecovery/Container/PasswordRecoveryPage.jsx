@@ -17,7 +17,7 @@ import {
 } from '../../../shared/userValidation';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
-import Form from '../Template/Form/recoveryForm';
+import Form from '../Template/Form/RecoveryForm';
 
 /**
  * @description PasswordRecovery component

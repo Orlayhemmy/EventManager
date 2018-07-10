@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import uploadImage from '../../../../actions/imageAction';
 import { addCenterValidation } from '../../../../shared/centerValidations';
 import TextField from '../../../../common/textField2';
-import UploadImage from '../../../ImageUpload/imageUpload';
+import UploadImage from '../../../ImageUpload/ImageUpload';
 
 /**
  * @description CenterForm component

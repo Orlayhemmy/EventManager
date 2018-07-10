@@ -1,5 +1,5 @@
 import React from 'react';
-import UploadImage from '../../../ImageUpload/imageUpload';
+import UploadImage from '../../../ImageUpload/ImageUpload';
 
 /**
  * @description EditCentere component

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import Navbar from '../../Navbar/Container/Navbar';
-import Content from '../Template/Content/homeContent';
+import Content from '../Template/Content/HomeContent';
 import Footer from '../../Footer/Footer';
 import {
   userSignInRequest,
