@@ -1,8 +1,8 @@
 /* eslint disable */
 import React from 'react';
-import EmailVerify from './emailVerification';
-import CodeContainer from './codeContainer';
-import NewPassword from './newPassword';
+import EmailVerify from './EmailVerification';
+import CodeContainer from './CodeContainer';
+import NewPassword from './NewPassword';
 /**
  * @description PasswordRecoveryForm component
  */
