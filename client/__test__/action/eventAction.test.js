@@ -426,9 +426,10 @@ describe('delete event action', () => {
         payload: {
           message: 'Event deleted',
           status: 200,
-          id: '1'
+          id: 1
         }
-      }
+      },
+      { type: actionTypes.CLEAR_EVENT_STATE },
     ];
     const store = mockStore({});
 
@@ -600,6 +601,7 @@ describe('other event actions', () => {
 
   it('should set current event', () => {
     const eventId = 1;
+    const centerId = 2;
     const expectedActions = [
       {
         type: actionTypes.SET_CURRENT_EVENT
@@ -607,7 +609,7 @@ describe('other event actions', () => {
     ];
 
     const store = mockStore({});
-    store.dispatch(actions.setCurrentEvent(eventId));
+    store.dispatch(actions.setCurrentEvent(eventId, centerId));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

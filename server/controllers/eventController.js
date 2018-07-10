@@ -124,7 +124,6 @@ export default class EventController {
       eventTitle, centerId, description, dateArray
     } = req.body;
     const { id } = req.decoded;
-
     return Events.create({
       eventTitle,
       description,
@@ -256,11 +255,18 @@ export default class EventController {
         },
         centerId
       }
-    }).then(() =>
-      res.status(409).send({
-        isAvailable: false,
-        message:
-          'The date chosen is booked, Please select another day or center'
-      }));
+    }).then((event) => {
+      if (event) {
+        return res.status(409).send({
+          isAvailable: false,
+          message:
+            'The date chosen is booked, Please select another day or center'
+        });
+      }
+      return res.status(200).send({
+        isAvailable: true,
+        message: 'Date is available'
+      });
+    });
   }
 }

@@ -128,7 +128,8 @@ describe('modify center selected action', () => {
           status: 202,
           center: Center
         }
-      }
+      },
+      { type: actionTypes.CLEAR_CENTER_STATE }
     ];
     const store = mockStore({});
 
@@ -296,10 +297,18 @@ describe('other center actions', () => {
   };
   localStorage.setItem('center', 'Ara Hall');
   it('should clear center in localStorage', () => {
-    const expectedActions = [{ type: actionTypes.CLEAR_CENTER_STATE }];
+    const expectedActions = [{ type: actionTypes.CLEAR_CENTER_STORAGE }];
 
     const store = mockStore({});
     store.dispatch(actions.clearCenterStorage());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('should clear center state', () => {
+    const expectedActions = [{ type: actionTypes.CLEAR_CENTER_STATE }];
+
+    const store = mockStore({});
+    store.dispatch(actions.clearCenterState());
     expect(store.getActions()).toEqual(expectedActions);
   });
 

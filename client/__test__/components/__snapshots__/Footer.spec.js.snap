@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component should render without throwing error 1`] = `
+<div
+  id="footer"
+>
+  <footer>
+    <div
+      className="col-12 text-center footer"
+    >
+      <p>
+        eCenter 2017
+      </p>
+    </div>
+  </footer>
+</div>
+`;

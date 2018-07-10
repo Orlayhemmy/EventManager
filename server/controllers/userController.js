@@ -43,13 +43,13 @@ export default class UserController {
           password: userPassword
         })
           .then((user) => {
-            const payload = { userId: user.id, eventBookedCount: 0 };
+            const payload = { id: user.id, eventBookedCount: 0, isAdmin: user.isAdmin };
             const token = generateToken(payload);
             req.body.token = token;
             sendMail(req);
             return res.status(201).send({
               message: 'You are now Signed Up',
-              token
+              token,
             });
           });
       });

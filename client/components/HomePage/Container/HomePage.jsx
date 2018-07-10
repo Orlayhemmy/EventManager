@@ -2,9 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import Navbar from '../../Navbar/Container/navbar';
+import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/Content/homeContent';
-import Footer from '../../Footer/footer';
+import Footer from '../../Footer/Footer';
 import {
   userSignInRequest,
   userSignupRequest
@@ -170,6 +170,9 @@ const propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired
 };
+
+Homepage.PropTypes = propTypes;
+
 const mapStateToProps = state => ({
   auth: state.auth,
   centerState: state.center

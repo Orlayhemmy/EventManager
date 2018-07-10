@@ -15,8 +15,8 @@ import {
   recoverPassword,
   updateUserValidation
 } from '../../../shared/userValidation';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 import Form from '../Template/Form/recoveryForm';
 
 /**

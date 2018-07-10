@@ -1,12 +1,12 @@
 import React from 'react';
 import AdminContent from '../Template/Content/AdminContent';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 /**
  * @memberof AdminDashboarPage
  * @method render
  */
-const AdminDashboarPage = (props) => {
+const AdminDashboardPage = (props) => {
   const { location: { pathname } } = props;
   return (
     <div id="center-page">
@@ -16,4 +16,4 @@ const AdminDashboarPage = (props) => {
     </div>
   );
 };
-export default AdminDashboarPage;
+export default AdminDashboardPage;

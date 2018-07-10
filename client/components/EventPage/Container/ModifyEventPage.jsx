@@ -4,8 +4,8 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
 import Content from '../Template/Content/eventContent';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { modifyEventValidation } from '../../../shared/eventValidations';
@@ -14,6 +14,7 @@ import {
   getEventSelected,
   checkAvailableDate
 } from '../../../actions/eventActions';
+import { addEventIntro } from '../../Common/intro';
 
 /**
  * @description ModifyEventPage component
@@ -27,7 +28,10 @@ export class ModifyEventPage extends React.Component {
     isLoading: false,
     centerId: '',
     centerName: '',
-    dateArray: []
+    dateArray: [],
+    event: {
+      Center: {}
+    }
   };
   /**
    * @memberof AddEventForm
@@ -69,16 +73,22 @@ export class ModifyEventPage extends React.Component {
         description,
         eventTitle,
         bookedDate,
-        centerId,
-        Center: { centerName }
+        // centerId
+        // Center: { centerName }
       } = nextProps.userEvent.event;
 
       this.setState({
         eventTitle: eventTitle || '',
         dateArray: bookedDate || '',
         description: description || '',
-        centerName: centerName || '',
-        centerId: centerId || ''
+        // centerName: centerName || '',
+        // centerId: centerId || ''
+      });
+    }
+    if (nextProps.centerSelected.center) {
+      const { centerName } = nextProps.centerSelected.center;
+      this.setState({
+        centerName: centerName || ''
       });
     }
   }
@@ -140,10 +150,14 @@ export class ModifyEventPage extends React.Component {
    * @returns the HTML of ModifyEventPage
    */
   render() {
-    if (!this.props.auth.isAuth) {
+    const {
+      centerSelected: { status },
+      auth: { isAuth }
+    } = this.props;
+    if (!isAuth) {
       return <Redirect to="/" />;
     }
-    if (this.props.center.status === 401) {
+    if (status === 401) {
       this.props.logout();
     }
     if (this.props.userEvent.status === 202) {
@@ -161,6 +175,7 @@ export class ModifyEventPage extends React.Component {
           onFormSubmit={this.onSubmit}
           checkDate={this.checkDate}
           removeDate={this.removeDate}
+          tour={addEventIntro}
         />
         <Footer />
       </div>
@@ -170,7 +185,7 @@ export class ModifyEventPage extends React.Component {
 const propTypes = {
   logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  center: PropTypes.object.isRequired,
+  centerSelected: PropTypes.object.isRequired,
   getCenterSelected: PropTypes.func.isRequired,
   modifyEvent: PropTypes.func.isRequired,
   getEventSelected: PropTypes.func.isRequired,
@@ -178,7 +193,7 @@ const propTypes = {
 };
 const mapStateToProps = state => ({
   auth: state.auth,
-  center: state.center,
+  centerSelected: state.center,
   userEvent: state.event
 });
 ModifyEventPage.propTypes = propTypes;

@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from '../../Navbar/Container/navbar';
+import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/aboutPageContent';
-import Footer from '../../Footer/footer';
+import Footer from '../../Footer/Footer';
 
 const AboutPage = (location) => {
   const { pathname } = location;

@@ -1,6 +1,9 @@
 import React from 'react';
 import UploadImage from '../../../ImageUpload/imageUpload';
 
+/**
+ * @description EditCentere component
+ */
 export default class EditCenter extends React.Component {
   render() {
     const {
@@ -8,7 +11,6 @@ export default class EditCenter extends React.Component {
       location,
       facilities,
       description,
-      imageUrl,
       capacity,
       cost,
       errors
@@ -23,6 +25,7 @@ export default class EditCenter extends React.Component {
         <div className="media-body text-center mb-4">
           <form id="edit-center-form">
             <div>
+              <span className="help-block">{errors.centerName}</span>
               <input
                 type="text"
                 value={centerName}
@@ -34,6 +37,7 @@ export default class EditCenter extends React.Component {
             </div>
             <h3 className="mt-2">location</h3>
             <div>
+            <span className="help-block">{errors.location}</span>
               <input
                 type="text"
                 value={location}
@@ -45,6 +49,7 @@ export default class EditCenter extends React.Component {
             </div>
             <h3 className="mt-2">capacity</h3>
             <div>
+            <span className="help-block">{errors.capacity}</span>
               <input
                 type="text"
                 value={capacity}

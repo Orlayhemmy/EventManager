@@ -103,13 +103,15 @@ export function getCenterEvents() {
 }
 
 /**
- * @param {object} eventId
+ * @param {string} eventId
+ * @param {string} centerId
  * @returns {void}
  */
-export function setCurrentEvent(eventId) {
+export function setCurrentEvent(eventId, centerId) {
   return (dispatch) => {
     dispatch({ type: actionTypes.SET_CURRENT_EVENT });
     localStorage.setItem('event', eventId);
+    localStorage.setItem('centerId', centerId);
   };
 }
 
@@ -256,12 +258,13 @@ export function deleteEvent(id) {
         const res = {
           status,
           message,
-          id
+          id: Number(id)
         };
         dispatch({
           type: actionTypes.DELETE_EVENT_SUCCESS,
           payload: res
         });
+        dispatch(clearEventState());
       })
       .catch((err) => {
         const { data } = err.response;

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Approve Event Component should render component without error 1`] = `
+<div>
+  <span>
+    Are you sure you want to approve this event?
+  </span>
+  <div>
+    <i
+      className="fa fa-thumbs-up green"
+      id="approve"
+      onClick={[MockFunction]}
+    />
+    <i
+      className="fa fa-thumbs-down trash"
+      data-toggle-id="disapprove"
+      onClick={[MockFunction]}
+    />
+    <br />
+    <span>
+      <br />
+      Approve
+    </span>
+    <span>
+      <br />
+      Disapprove
+    </span>
+  </div>
+  <div
+    hidden={true}
+    id="disapprove"
+  >
+    <p>
+       
+      Disapproved event will be deleted. Are you sure you want to disapprove event?
+    </p>
+    <div
+      className="form-group"
+    >
+      <textarea
+        className="form-control"
+        id="comment"
+        onChange={[MockFunction]}
+        placeholder="Give reasons for disapproving this event"
+        value=""
+      />
+    </div>
+    <i
+      className="fa fa-trash trash"
+      id="disapprove"
+      onClick={[MockFunction]}
+    />
+    <i
+      className="fa fa-close"
+      data-toggle-id="disapprove"
+      onClick={[MockFunction]}
+    />
+    <br />
+    <span>
+      <br />
+      delete
+    </span>
+    <span>
+      <br />
+      cancel
+    </span>
+  </div>
+</div>
+`;

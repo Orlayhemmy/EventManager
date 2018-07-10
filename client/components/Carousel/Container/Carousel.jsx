@@ -5,7 +5,6 @@ export default class Carousel extends React.Component {
     let centerList;
     let carouselIndicator;
     const { centers } = this.props.centerState;
-    if (centers.length > 0) {
       centerList = centers.map((center, index) => {
         const { centerName, location, imageUrl } = center;
         return (
@@ -31,7 +30,6 @@ export default class Carousel extends React.Component {
           />
         );
       });
-    }
     return (
       <div className="col-lg-6 form">
         <h1>Our Centers</h1>

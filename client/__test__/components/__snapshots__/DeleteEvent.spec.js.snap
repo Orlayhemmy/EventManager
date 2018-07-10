@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Approve Event Component should render component without error 1`] = `
+<div
+  className="form-inner"
+>
+  <span
+    className="help-block"
+  >
+    Are sure you want to delete event?
+  </span>
+  <br />
+  <br />
+  <div
+    className="form-group"
+  >
+    <textarea
+      className="form-control"
+      id="reason"
+      onChange={[MockFunction]}
+      placeholder="Give reasons for disapproving this event"
+      value=""
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <textarea
+      className="form-control"
+      id="suggestion"
+      onChange={[MockFunction]}
+      placeholder="Suggestions"
+      value={undefined}
+    />
+  </div>
+  <i
+    className="fa fa-trash red"
+    id="disapprove"
+    onClick={[MockFunction]}
+  />
+  <i
+    className="fa fa-save green"
+  />
+  <br />
+  <span>
+    <br />
+    Yes
+  </span>
+  <span>
+    <br />
+    No
+  </span>
+</div>
+`;

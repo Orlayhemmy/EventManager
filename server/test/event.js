@@ -140,6 +140,22 @@ describe('test for post, update, get and delete event processes', () => {
           done();
         });
     });
+    it('should return error when event date is available', (done) => {
+      request
+        .post('/api/v1/checkDate')
+        .set('x-access-token', userToken)
+        .send({
+          bookedDate: ['2018-03-15']
+        })
+        .expect(200)
+        .end((err, res) => {
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.not.equal(null);
+          expect(res.body.message).to.deep.equal('Date is available');
+          
+          done();
+        });
+    });
   });
 
   describe('test for unsuccessful event creation', () => {

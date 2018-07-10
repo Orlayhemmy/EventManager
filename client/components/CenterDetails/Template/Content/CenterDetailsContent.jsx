@@ -13,14 +13,14 @@ import {
   getCenterEvents,
   clearEventState
 } from '../../../../actions/eventActions';
-import Modal from '../../../Modal/Container/deleteModal';
-import EditCenterForm from '../Form/editCenterForm';
+import Modal from '../../../Modal/Container/DeleteModal';
+import EditCenterForm from '../Form/EditCenterForm';
 import CenterDetails from './viewCenterDetails';
 import { modifyCenterValidation } from '../../../../shared/centerValidations';
 import uploadImage from '../../../../actions/imageAction';
-import ApproveEvent from './approveEvent';
-import BookedEvents from './bookedEvents';
-import DeleteEvent from './deleteEvent';
+import ApproveEvent from './ApproveEvent';
+import BookedEvents from './BookedEvents';
+import DeleteEvent from './DeleteEvent';
 
 /**
  * @description CenterDetailsContent form component
@@ -115,19 +115,19 @@ export class CenterDetailsContent extends React.Component {
     } = this.state;
     e.preventDefault();
     if (this.isValid()) {
-      const formData = new FormData();
-      formData.append('file', this.state.imageData);
-      formData.append('upload_preset', 'u8asaoka');
-      const data = {
-        centerName,
-        location,
-        description,
-        facilities,
-        capacity,
-        cost,
-        id
-      };
       if (this.initialState !== this.state) {
+        const formData = new FormData();
+        formData.append('file', this.state.imageData);
+        formData.append('upload_preset', 'u8asaoka');
+        const data = {
+          centerName,
+          location,
+          description,
+          facilities,
+          capacity,
+          cost,
+          id
+        };
         if (this.initialState.image === image) {
           this.props.modifyCenter(this.state);
         } else {

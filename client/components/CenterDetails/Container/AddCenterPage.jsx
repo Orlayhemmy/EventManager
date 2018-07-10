@@ -3,21 +3,26 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import swal from 'sweetalert2';
-import CenterForm from '../Template/Form/addCenterForm';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
+import CenterForm from '../Template/Form/AddCenterForm';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
 
 /**
  * @description AddCenterPage component
  */
 export class AddCenterPage extends React.Component {
   render() {
-    const { user: { isAdmin }, isAuth } = this.props.userState;
-    // Check if user is logged in and is also an Admin
+    const {
+      user: { isAdmin },
+      isAuth
+    } = this.props.userState;
+
     if (!isAuth) {
       return <Redirect to="/" />;
+      // this.props.history.push('/');
     } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
+      // this.props.history.push('/dashboard');
     }
     const { status, message } = this.props.center;
     const { pathname } = this.props.location;

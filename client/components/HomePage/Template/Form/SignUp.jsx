@@ -17,7 +17,7 @@ export default class Signup extends React.Component {
     } = this.props.homeProps;
     return (
       <form id="signup-form" onSubmit={signupSubmit}>
-        <span className="help-block">{errorName}</span>
+        <span className="help-block">{errorName || message}</span>
         <div className="form-group">
           <label for="fullname">Fullname</label>
           <input

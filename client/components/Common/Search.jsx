@@ -2,30 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-
 /**
  * @description SearchForm  component
  */
 export class SearchForm extends React.Component {
-  /**
-   * @memberof searchForm
-   * @method onChange
-   * @description it calls a search action
-   * @param {object} e
-   * @returns {void}
-   */
-  onChange = e => {
-    const { onChange } = this.props;
-    onChange(e);
-    const div = document.getElementById('btwValue');
-    if (e.target.id === 'capacityType') {
-      if (e.target.value === 'between' || e.target.id === 'btwValue') {
-        div.hidden = false;
-      } else {
-        div.hidden = true;
-      }
-    }
-  };
 
   resetSearch = () => {
     const { getCenters } = this.props;
@@ -45,9 +25,15 @@ export class SearchForm extends React.Component {
     const between = 'between <>';
     const {
       criteria: {
-        location, facilities, capacity, btwValue, errors
+        location,
+        facilities,
+        capacity,
+        btwValue,
+        errors,
+        capacityType
       },
-      search
+      search,
+      onChange
     } = this.props;
     return (
       <div id="search-nav" className="search-nav">
@@ -68,7 +54,7 @@ export class SearchForm extends React.Component {
               value={location}
               placeholder="location"
               type="text"
-              onChange={this.onChange}
+              onChange={onChange}
               className="form-control"
             />
           </div>
@@ -84,14 +70,14 @@ export class SearchForm extends React.Component {
               value={facilities}
               placeholder="facilities"
               type="text"
-              onChange={this.onChange}
+              onChange={onChange}
               className="form-control"
             />
           </div>
 
           <div className="input-group pb-2">
             <select
-              onChange={this.onChange}
+              onChange={onChange}
               id="capacityType"
               className="form-control"
             >
@@ -115,11 +101,11 @@ export class SearchForm extends React.Component {
               value={capacity}
               placeholder="capacity"
               type="number"
-              onChange={this.onChange}
+              onChange={onChange}
               className="form-control"
             />
           </div>
-          <div className="pb-2" id="btwValue" hidden>
+          <div className="pb-2" id="btwValue" hidden={capacityType === 'between' ? '' : true}>
             <div className="input-group">
               <div className="help-block">{errors.facilities}</div>
               <div className="input-group-prepend">
@@ -132,7 +118,7 @@ export class SearchForm extends React.Component {
                 value={btwValue}
                 placeholder="Capacity"
                 type="number"
-                onChange={this.onChange}
+                onChange={onChange}
                 className="form-control"
               />
             </div>
@@ -148,6 +134,7 @@ export class SearchForm extends React.Component {
             </button>
             <button
               type="button"
+              id="reset"
               className="btn btn-danger fr"
               onClick={this.resetSearch}
             >

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
+// import $ from 'jquery';
 import {
   getEvents,
   setCurrentEvent,
@@ -10,9 +11,9 @@ import {
   deleteEvent,
   eventBooked
 } from '../../../actions/eventActions';
-import Navbar from '../../Navbar/Container/navbar';
-import Footer from '../../Footer/footer';
-import DeleteModal from '../../Modal/Container/deleteModal';
+import Navbar from '../../Navbar/Container/Navbar';
+import Footer from '../../Footer/Footer';
+import DeleteModal from '../../Modal/Container/DeleteModal';
 import DeleteContent from '../../Common/Delete';
 import { clearCenterStorage } from '../../../actions/centerActions';
 import { logout } from '../../../actions/userActions';
@@ -49,7 +50,11 @@ export class Dashboard extends React.Component {
    * @returns {void}
    */
   componentDidMount() {
-    const { auth: { user: { id } } } = this.props;
+    const {
+      auth: {
+        user: { id }
+      }
+    } = this.props;
     this.props.clearCenterStorage();
     this.props.clearEventState();
     this.props.getEvents(0);
@@ -102,15 +107,7 @@ export class Dashboard extends React.Component {
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
   };
-  /**
-   * @memberof Dashboard
-   * @method logout
-   * @description it calls a logout action
-   * @returns {void}
-   */
-  logout = () => {
-    this.props.logout();
-  };
+
   /**
    * @memberof Dashboard
    * @method nextEvents
@@ -121,17 +118,23 @@ export class Dashboard extends React.Component {
   nextEvents = e => {
     const { counter } = this.state;
     if (e.target.id === 'next') {
-      this.setState({
-        counter: counter + 1
-      }, () => {
-        this.props.getEvents(counter);
-      });
+      this.setState(
+        {
+          counter: counter + 1
+        },
+        () => {
+          this.props.getEvents(counter);
+        }
+      );
     } else {
-      this.setState({
-        counter: counter - 1
-      }, () => {
-        this.props.getEvents(counter);
-      });
+      this.setState(
+        {
+          counter: counter - 1
+        },
+        () => {
+          this.props.getEvents(counter);
+        }
+      );
     }
   };
   /**
@@ -141,12 +144,14 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
-    const { status } = this.props.userEvent;
+    const {
+      userEvent: { status }
+    } = this.props;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
     if (status === 498 || status === 403) {
-      this.logout();
+      this.props.logout();
     }
     const { pathname } = this.props.location;
     const { activities } = this.props.activity;
