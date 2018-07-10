@@ -20,6 +20,7 @@ ShallowWrapper {
       Object {
         "isAuth": true,
         "user": Object {
+          "id": 1,
           "isAdmin": true,
         },
       }

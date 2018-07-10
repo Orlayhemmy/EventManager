@@ -1,23 +1,27 @@
-// import React from 'react';
-// import Details from '../../components/CenterDetails/Template/Content/viewCenterDetails';
+import React from 'react';
+import Details from '../../components/CenterDetails/Template/Content/viewCenterDetails';
 
-// describe('Approve Event Component', () => {
-//   const onApprove = jest.fn();
-//   const showHiddenDiv = jest.fn();
+describe('Approve Event Component', () => {
+  const onApprove = jest.fn();
+  const showHiddenDiv = jest.fn();
 
-//   const centerState = {
-//     centerName: '',
-//         location: '',
-//         facilities: '',
-//         description: '',
-//         imageUrl: '',
-//         capacity: '',
-//         cost: ''
-//   };
-//   it('should render component without error', () => {
-//     const wrapper = renderer
-//       .create(<Details showHiddenDiv={showHiddenDiv} onApprove={onApprove} centerState={centerState} />)
-//       .toJSON();
-//     expect(wrapper).toMatchSnapshot();
-//   });
-// });
+  const centerState = {
+    centerName: '',
+    location: '',
+    facilities: '',
+    description: '',
+    imageUrl: '',
+    capacity: '',
+    cost: ''
+  };
+  it('should render component without error', () => {
+    const wrapper = renderer
+      .create(<Details
+          showHiddenDiv={showHiddenDiv}
+          onApprove={onApprove}
+          centerState={centerState}
+        />)
+      .toJSON();
+    expect(wrapper).toMatchSnapshot();
+  });
+});

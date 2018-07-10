@@ -49,13 +49,20 @@ exports[`Approve Event Component should render component without error 1`] = `
                 </span>
               </td>
               <td>
-                
+                22/08/2018
               </td>
               <td>
-                <i
-                  className="fa fa-thumbs-up green"
-                  id={1}
-                />
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="approve"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-spinner main-color"
+                    id={1}
+                  />
+                </span>
               </td>
               <td>
                 <span
@@ -81,11 +88,11 @@ exports[`Approve Event Component should render component without error 1`] = `
                   id={2}
                   onClick={[MockFunction]}
                 >
-                  Wedding Ceremony
+                  Seminar
                 </span>
               </td>
               <td>
-                
+                22/08/2018
               </td>
               <td>
                 <i
@@ -117,11 +124,11 @@ exports[`Approve Event Component should render component without error 1`] = `
                   id={3}
                   onClick={[MockFunction]}
                 >
-                  Seminar
+                  Pizza Party
                 </span>
               </td>
               <td>
-                
+                22/08/2018
               </td>
               <td>
                 <span
@@ -146,6 +153,279 @@ exports[`Approve Event Component should render component without error 1`] = `
                   <i
                     className="fa fa-trash trash"
                     id={3}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={4}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={4}
+                  onClick={[MockFunction]}
+                >
+                  Seminar
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={4}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={4}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={5}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={5}
+                  onClick={[MockFunction]}
+                >
+                  Pizza Party
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="approve"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-spinner main-color"
+                    id={5}
+                  />
+                </span>
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={5}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={6}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={6}
+                  onClick={[MockFunction]}
+                >
+                  Seminar
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={6}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={6}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={7}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={7}
+                  onClick={[MockFunction]}
+                >
+                  Pizza Party
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="approve"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-spinner main-color"
+                    id={7}
+                  />
+                </span>
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={7}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={8}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={8}
+                  onClick={[MockFunction]}
+                >
+                  Seminar
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={8}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={8}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={9}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={9}
+                  onClick={[MockFunction]}
+                >
+                  Pizza Party
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="approve"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-spinner main-color"
+                    id={9}
+                  />
+                </span>
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={9}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={10}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={10}
+                  onClick={[MockFunction]}
+                >
+                  Seminar
+                </span>
+              </td>
+              <td>
+                22/08/2018
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={10}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={10}
                   />
                 </span>
               </td>

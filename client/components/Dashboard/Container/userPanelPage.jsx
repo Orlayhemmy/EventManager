@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import swal from 'sweetalert2';
+import $ from 'jquery';
 import {
   getEvents,
   setCurrentEvent,
@@ -102,15 +103,7 @@ export class Dashboard extends React.Component {
     const div = document.getElementById(targetDiv);
     div.hidden = !div.hidden;
   };
-  /**
-   * @memberof Dashboard
-   * @method logout
-   * @description it calls a logout action
-   * @returns {void}
-   */
-  logout = () => {
-    this.props.logout();
-  };
+
   /**
    * @memberof Dashboard
    * @method nextEvents
@@ -141,12 +134,12 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
-    const { status } = this.props.userEvent;
+    const { userEvent: { status } } = this.props;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
     }
     if (status === 498 || status === 403) {
-      this.logout();
+      this.props.logout();
     }
     const { pathname } = this.props.location;
     const { activities } = this.props.activity;

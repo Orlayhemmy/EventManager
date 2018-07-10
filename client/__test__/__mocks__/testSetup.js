@@ -5,7 +5,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import renderer from 'react-test-renderer';
 import expect from 'expect';
-
+import sinon from 'sinon';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -20,4 +20,5 @@ global.Provider = Provider;
 global.mockStore = mockStore;
 global.renderer = renderer;
 global.expect = expect;
+global.sinon = sinon;
 

@@ -40,7 +40,7 @@ exports[`Approve Event Component should render component without error 1`] = `
       <textarea
         className="form-control"
         id="comment"
-        onChange={undefined}
+        onChange={[MockFunction]}
         placeholder="Give reasons for disapproving this event"
         value=""
       />

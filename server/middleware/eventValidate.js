@@ -138,7 +138,7 @@ export default class Validation {
         }
       }
       if (entry[0] === 'centerId') {
-        if (!validator.isInt(centerId)) {
+        if (!/^[0-9]+$/.test(centerId)) {
           errors.centerId = 'centerId must be a number';
         }
       }
