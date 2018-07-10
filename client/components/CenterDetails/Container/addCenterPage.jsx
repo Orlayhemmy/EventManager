@@ -13,11 +13,13 @@ import Footer from '../../Footer/footer';
 export class AddCenterPage extends React.Component {
   render() {
     const { user: { isAdmin }, isAuth } = this.props.userState;
-    // Check if user is logged in and is also an Admin
+
     if (!isAuth) {
       return <Redirect to="/" />;
+      // this.props.history.push('/');
     } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
+      // this.props.history.push('/dashboard');
     }
     const { status, message } = this.props.center;
     const { pathname } = this.props.location;

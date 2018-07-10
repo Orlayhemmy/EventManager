@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Approve Event Component should render component without error 1`] = `
+<div>
+  <p>
+    Are you sure you want to delete 
+    
+    ?
+  </p>
+  <i
+    className="fa fa-trash red"
+    onClick={[MockFunction]}
+  />
+  <i
+    className="fa fa-save green"
+    onClick={[MockFunction]}
+  />
+  <br />
+  <span>
+    <br />
+    Yes
+  </span>
+  <span>
+    <br />
+    No
+  </span>
+</div>
+`;

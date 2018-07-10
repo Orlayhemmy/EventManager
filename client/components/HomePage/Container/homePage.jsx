@@ -170,6 +170,9 @@ const propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired
 };
+
+Homepage.PropTypes = propTypes;
+
 const mapStateToProps = state => ({
   auth: state.auth,
   centerState: state.center

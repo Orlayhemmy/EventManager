@@ -1,0 +1,599 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddCenter Page component should render without throwing error 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <AddCenterPage
+    center={
+      Object {
+        "message": "",
+        "status": "",
+      }
+    }
+    location={
+      Object {
+        "pathname": "/",
+      }
+    }
+    userState={
+      Object {
+        "isAuth": true,
+        "user": Object {
+          "isAdmin": true,
+        },
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Connect(NavBar)
+          path="/"
+        />,
+        <div
+          className="container"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+            >
+              <div
+                className="form-outer text-center"
+              >
+                <div
+                  className="form-inner"
+                >
+                  <span
+                    className="logo"
+                  >
+                    <strong
+                      className="text-primary"
+                    >
+                      add a new center
+                    </strong>
+                  </span>
+                  <hr />
+                  <Connect(CenterForm)
+                    path="/"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>,
+        <Footer />,
+      ],
+      "id": "add-center",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "path": "/",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="row"
+          >
+            <div
+              className="col-lg-6"
+            >
+              <div
+                className="form-outer text-center"
+              >
+                <div
+                  className="form-inner"
+                >
+                  <span
+                    className="logo"
+                  >
+                    <strong
+                      className="text-primary"
+                    >
+                      add a new center
+                    </strong>
+                  </span>
+                  <hr />
+                  <Connect(CenterForm)
+                    path="/"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>,
+          "className": "container",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="col-lg-6"
+            >
+              <div
+                className="form-outer text-center"
+              >
+                <div
+                  className="form-inner"
+                >
+                  <span
+                    className="logo"
+                  >
+                    <strong
+                      className="text-primary"
+                    >
+                      add a new center
+                    </strong>
+                  </span>
+                  <hr />
+                  <Connect(CenterForm)
+                    path="/"
+                  />
+                </div>
+              </div>
+            </div>,
+            "className": "row",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="form-outer text-center"
+              >
+                <div
+                  className="form-inner"
+                >
+                  <span
+                    className="logo"
+                  >
+                    <strong
+                      className="text-primary"
+                    >
+                      add a new center
+                    </strong>
+                  </span>
+                  <hr />
+                  <Connect(CenterForm)
+                    path="/"
+                  />
+                </div>
+              </div>,
+              "className": "col-lg-6",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="form-inner"
+                >
+                  <span
+                    className="logo"
+                  >
+                    <strong
+                      className="text-primary"
+                    >
+                      add a new center
+                    </strong>
+                  </span>
+                  <hr />
+                  <Connect(CenterForm)
+                    path="/"
+                  />
+                </div>,
+                "className": "form-outer text-center",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>,
+                    <hr />,
+                    <Connect(CenterForm)
+                      path="/"
+                    />,
+                  ],
+                  "className": "form-inner",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>,
+                      "className": "logo",
+                    },
+                    "ref": null,
+                    "rendered": Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": "add a new center",
+                        "className": "text-primary",
+                      },
+                      "ref": null,
+                      "rendered": "add a new center",
+                      "type": "strong",
+                    },
+                    "type": "span",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {},
+                    "ref": null,
+                    "rendered": null,
+                    "type": "hr",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "path": "/",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {},
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Connect(NavBar)
+            path="/"
+          />,
+          <div
+            className="container"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col-lg-6"
+              >
+                <div
+                  className="form-outer text-center"
+                >
+                  <div
+                    className="form-inner"
+                  >
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>
+                    <hr />
+                    <Connect(CenterForm)
+                      path="/"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>,
+          <Footer />,
+        ],
+        "id": "add-center",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "path": "/",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="row"
+            >
+              <div
+                className="col-lg-6"
+              >
+                <div
+                  className="form-outer text-center"
+                >
+                  <div
+                    className="form-inner"
+                  >
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>
+                    <hr />
+                    <Connect(CenterForm)
+                      path="/"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>,
+            "className": "container",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <div
+                className="col-lg-6"
+              >
+                <div
+                  className="form-outer text-center"
+                >
+                  <div
+                    className="form-inner"
+                  >
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>
+                    <hr />
+                    <Connect(CenterForm)
+                      path="/"
+                    />
+                  </div>
+                </div>
+              </div>,
+              "className": "row",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <div
+                  className="form-outer text-center"
+                >
+                  <div
+                    className="form-inner"
+                  >
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>
+                    <hr />
+                    <Connect(CenterForm)
+                      path="/"
+                    />
+                  </div>
+                </div>,
+                "className": "col-lg-6",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <div
+                    className="form-inner"
+                  >
+                    <span
+                      className="logo"
+                    >
+                      <strong
+                        className="text-primary"
+                      >
+                        add a new center
+                      </strong>
+                    </span>
+                    <hr />
+                    <Connect(CenterForm)
+                      path="/"
+                    />
+                  </div>,
+                  "className": "form-outer text-center",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": Array [
+                      <span
+                        className="logo"
+                      >
+                        <strong
+                          className="text-primary"
+                        >
+                          add a new center
+                        </strong>
+                      </span>,
+                      <hr />,
+                      <Connect(CenterForm)
+                        path="/"
+                      />,
+                    ],
+                    "className": "form-inner",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {
+                        "children": <strong
+                          className="text-primary"
+                        >
+                          add a new center
+                        </strong>,
+                        "className": "logo",
+                      },
+                      "ref": null,
+                      "rendered": Object {
+                        "instance": null,
+                        "key": undefined,
+                        "nodeType": "host",
+                        "props": Object {
+                          "children": "add a new center",
+                          "className": "text-primary",
+                        },
+                        "ref": null,
+                        "rendered": "add a new center",
+                        "type": "strong",
+                      },
+                      "type": "span",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "host",
+                      "props": Object {},
+                      "ref": null,
+                      "rendered": null,
+                      "type": "hr",
+                    },
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "path": "/",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": "div",
+                },
+                "type": "div",
+              },
+              "type": "div",
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {},
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Approve Event Component should render component without error 1`] = `
+<div
+  className="col-lg-5"
+>
+  <div
+    className="form-outer text-center d-flex align-items-center"
+  >
+    <div
+      className="form-inner"
+    >
+      <strong
+        className="logo text-primary"
+      >
+        events scheduled
+      </strong>
+      <div>
+        <table
+          cellPadding="0"
+          className="table table-responsive table-hover text-center"
+        >
+          <thead>
+            <tr>
+              <th>
+                title
+              </th>
+              <th>
+                date
+              </th>
+              <th>
+                status
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              id={1}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={1}
+                  onClick={[MockFunction]}
+                >
+                  Pizza Party
+                </span>
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={1}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={1}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={2}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={2}
+                  onClick={[MockFunction]}
+                >
+                  Wedding Ceremony
+                </span>
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                  id={2}
+                />
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={2}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr
+              id={3}
+            >
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id={3}
+                  onClick={[MockFunction]}
+                >
+                  Seminar
+                </span>
+              </td>
+              <td>
+                
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="approve"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-spinner main-color"
+                    id={3}
+                  />
+                </span>
+              </td>
+              <td>
+                <span
+                  data-target="#deleteModal"
+                  data-toggle="modal"
+                  id="trash"
+                  onClick={[MockFunction]}
+                >
+                  <i
+                    className="fa fa-trash trash"
+                    id={3}
+                  />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <i
+                  className="fa fa-spinner main-color"
+                />
+                <br />
+                <span>
+                  Pending
+                </span>
+              </td>
+              <td />
+              <td />
+              <td>
+                <i
+                  className="fa fa-thumbs-up green"
+                />
+                <br />
+                <span>
+                  Approved
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+`;

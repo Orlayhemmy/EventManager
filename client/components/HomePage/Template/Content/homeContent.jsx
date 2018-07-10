@@ -13,6 +13,7 @@ export default class HomeContent extends React.Component {
    * @returns the HTML of homecontent component
    */
   render() {
+    const { isAuth, centerState } = this.props;
     return (
       <div id="homepage">
         <div className="row main-content-bg">
@@ -41,8 +42,8 @@ export default class HomeContent extends React.Component {
                   technological tools
                 </p>
               </div>
-              {this.props.isAuth ? (
-                <CentersCarousel centerState={this.props.centerState} />
+              {isAuth ? (
+                <CentersCarousel centerState={centerState} />
               ) : (
                 <div className="col-lg-6 form">
                   <h1>Get started</h1>

@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search Component should render component without error 1`] = `
+<div
+  className="search-nav"
+  id="search-nav"
+>
+  <div
+    className="search-field"
+  >
+    <p
+      className="subtitle"
+    >
+      <i
+        className="fa fa-filter green"
+      />
+       filter centers by
+    </p>
+    <div
+      className="input-group pb-2 pt-3"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-map-marker"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="location"
+        onChange={undefined}
+        placeholder="location"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="input-group pb-2"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-cog"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="facilities"
+        onChange={undefined}
+        placeholder="facilities"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="input-group pb-2"
+    >
+      <select
+        className="form-control"
+        id="capacityType"
+        onChange={undefined}
+      >
+        <option>
+          capacity conditions
+        </option>
+        <option
+          value="greater"
+        >
+          greater &gt;
+        </option>
+        <option
+          value="lesser"
+        >
+          lesser &lt;
+        </option>
+        <option
+          value="equal"
+        >
+          equal =
+        </option>
+        <option
+          value="between"
+        >
+          between &lt;&gt;
+        </option>
+      </select>
+    </div>
+    <div
+      className="input-group pb-2"
+      id="otherConditions"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-users"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="capacity"
+        onChange={undefined}
+        placeholder="capacity"
+        type="number"
+        value=""
+      />
+    </div>
+    <div
+      className="pb-2"
+      hidden={true}
+      id="btwValue"
+    >
+      <div
+        className="input-group"
+      >
+        <div
+          className="help-block"
+        />
+        <div
+          className="input-group-prepend"
+        >
+          <span
+            className="input-group-text"
+          >
+            <i
+              className="fa fa-users"
+            />
+          </span>
+        </div>
+        <input
+          className="form-control"
+          id="btwValue"
+          onChange={undefined}
+          placeholder="Capacity"
+          type="number"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="input-group pt-2"
+      id="submit"
+    >
+      <button
+        className="btn btn-success"
+        id="submit"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <i
+          className="fa fa-search"
+        >
+           Search
+        </i>
+      </button>
+      <button
+        className="btn btn-danger fr"
+        id="reset"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fa fa-sync-alt"
+        >
+           Reset
+        </i>
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Search Component should render component without error 2`] = `
+<div
+  className="search-nav"
+  id="search-nav"
+>
+  <div
+    className="search-field"
+  >
+    <p
+      className="subtitle"
+    >
+      <i
+        className="fa fa-filter green"
+      />
+       filter centers by
+    </p>
+    <div
+      className="input-group pb-2 pt-3"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-map-marker"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="location"
+        onChange={undefined}
+        placeholder="location"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="input-group pb-2"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-cog"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="facilities"
+        onChange={undefined}
+        placeholder="facilities"
+        type="text"
+        value=""
+      />
+    </div>
+    <div
+      className="input-group pb-2"
+    >
+      <select
+        className="form-control"
+        id="capacityType"
+        onChange={undefined}
+      >
+        <option>
+          capacity conditions
+        </option>
+        <option
+          value="greater"
+        >
+          greater &gt;
+        </option>
+        <option
+          value="lesser"
+        >
+          lesser &lt;
+        </option>
+        <option
+          value="equal"
+        >
+          equal =
+        </option>
+        <option
+          value="between"
+        >
+          between &lt;&gt;
+        </option>
+      </select>
+    </div>
+    <div
+      className="input-group pb-2"
+      id="otherConditions"
+    >
+      <div
+        className="help-block"
+      />
+      <div
+        className="input-group-prepend"
+      >
+        <span
+          className="input-group-text"
+        >
+          <i
+            className="fa fa-users"
+          />
+        </span>
+      </div>
+      <input
+        className="form-control"
+        id="capacity"
+        onChange={undefined}
+        placeholder="capacity"
+        type="number"
+        value=""
+      />
+    </div>
+    <div
+      className="pb-2"
+      hidden={true}
+      id="btwValue"
+    >
+      <div
+        className="input-group"
+      >
+        <div
+          className="help-block"
+        />
+        <div
+          className="input-group-prepend"
+        >
+          <span
+            className="input-group-text"
+          >
+            <i
+              className="fa fa-users"
+            />
+          </span>
+        </div>
+        <input
+          className="form-control"
+          id="btwValue"
+          onChange={undefined}
+          placeholder="Capacity"
+          type="number"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      className="input-group pt-2"
+      id="submit"
+    >
+      <button
+        className="btn btn-success"
+        id="submit"
+        onClick={[MockFunction]}
+        type="button"
+      >
+        <i
+          className="fa fa-search"
+        >
+           Search
+        </i>
+      </button>
+      <button
+        className="btn btn-danger fr"
+        id="reset"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="fa fa-sync-alt"
+        >
+           Reset
+        </i>
+      </button>
+    </div>
+  </div>
+</div>
+`;

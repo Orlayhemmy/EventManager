@@ -26,6 +26,9 @@ export class ViewCenterDetails extends React.Component {
         user: {
           isAdmin
         }
+      },
+      location: {
+        pathname
       }
     } = this.props;
 
@@ -34,14 +37,13 @@ export class ViewCenterDetails extends React.Component {
     } else if (!isAdmin) {
       return <Redirect to="/dashboard" />;
     }
-    if (status === (401 || 498)) {
+    if (status === 401 || status === 498) {
       this.props.logout();
     } else if (status === 202) {
       swal('Center updated successfully');
     }
-    const { pathname } = this.props.location;
     return (
-      <div className="page-wrapper">
+      <div className="page-wrapper" id="view-center-wrapper">
         <Navbar path={pathname} />
         <Content path={pathname} />
         <Footer />
