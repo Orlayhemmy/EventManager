@@ -827,3 +827,18 @@ body {
 .pl-4 span {
   color: #f97404;
 }
+
+.not-found {
+  text-shadow: 1px 1px 1px #000;
+  font-size: 200px;
+  color: #f97e04;
+}
+.black {
+  color: black;
+}
+.page-not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

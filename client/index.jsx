@@ -21,6 +21,7 @@ import ViewCenter from './components/CenterDetails/Container/ViewCenterPage';
 import UserPanel from './components/Dashboard/Container/UserPanelPage';
 import PasswordRecovery from './components/PasswordRecovery/Container/PasswordRecoveryPage';
 import Profile from './components/Profile/Container/Profile';
+import PageNotFound from './components/pageNotFound';
 import { setCurrentUser } from './actions/userActions';
 import SetAuthToken from './utils/setAuthorizationToken';
 import style from './sass/style.scss';
@@ -45,7 +46,7 @@ ReactDOM.render(
         <Route exact path="/view-center-event" component={ViewCenter} />
         <Route exact path="/recover-password" component={PasswordRecovery} />
         <Route exact path="/profile" component={Profile} />
-        <Route component={AboutPage} />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   </Provider>,
