@@ -240,7 +240,6 @@ export class DisplayCenters extends React.Component {
         <div
           className="search-icon"
           id="search-centers"
-          onClick={this.props.searchNav}
         >
           <i className="fa fa-search" />
           <p class="tooltiptext">Filter Centers</p>

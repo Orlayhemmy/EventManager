@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../../Navbar/Container/Navbar';
-import Content from '../Template/aboutPageContent';
+import Content from '../Template/AboutPageContent';
 import Footer from '../../Footer/Footer';
 
 const AboutPage = (location) => {

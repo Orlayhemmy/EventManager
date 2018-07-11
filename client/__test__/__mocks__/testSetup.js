@@ -21,4 +21,6 @@ global.mockStore = mockStore;
 global.renderer = renderer;
 global.expect = expect;
 global.sinon = sinon;
-
+global.FileReader = () => ({
+  readAsDataURL: () => {}
+});

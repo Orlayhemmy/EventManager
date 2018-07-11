@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/Orlayhemmy/EventManager.svg?branch=develop)](https://travis-ci.org/Orlayhemmy/EventManager)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f106ed897dd8b4e5607c/maintainability)](https://codeclimate.com/github/Orlayhemmy/EventManager/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/Orlayhemmy/EventManager/badge.svg?branch=develop)](https://coveralls.io/github/Orlayhemmy/EventManager?branch=develop)
+[![codecov](https://codecov.io/gh/Orlayhemmy/EventManager/branch/develop/graph/badge.svg)](https://codecov.io/gh/Orlayhemmy/EventManager)
 
 # EventManager
 Events Manager is a web app that helps to manage event centers. 

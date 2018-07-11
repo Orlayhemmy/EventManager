@@ -31,7 +31,7 @@ export function modifyCenterValidation(data) {
   }
 
   // validations for capacity
-  if (!validator.isEmpty(capacity)) {
+  if (capacity) {
     if (!/^[0-9]+$/.test(capacity)) {
       errors.capacity = 'Center capacity can only contain numbers';
     }
@@ -49,7 +49,7 @@ export function modifyCenterValidation(data) {
   }
 
   // validations for facilities
-  if (!validator.isEmpty(facilities)) {
+  if (facilities.length > 0) {
     if (!validator.isLength(facilities, { min: 5, max: 1000 })) {
       errors.facilities =
         'facilities must be greater than 5 but less than 1000 words';
@@ -82,7 +82,7 @@ export function modifyCenterValidation(data) {
       errors.location = 'location can not include symbols except comma';
     }
   }
-
+  
   return { errors, isValid: isEmpty(errors) };
 }
 
@@ -177,8 +177,8 @@ export function addCenterValidation(data) {
   } else {
     errors.location = 'Center should have an Address';
   }
-
-  return { errors, isValid: isEmpty(errors) };
+  const isValid = Object.keys(errors).length === 0;
+  return { errors, isValid };
 }
 
 /**

@@ -10,6 +10,7 @@ import { updateUserDetails } from './userActions';
  * @returns {object} url of image uploaded
  */
 export default function uploadImage(info, image, type) {
+  console.log(info, image, type, '@@@@@@@@@@@@@@@@@@')
   return (dispatch) => {
     dispatch({ type: actionTypes.ADD_IMAGE });
     delete axios.defaults.headers.common['x-access-token'];

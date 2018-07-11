@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image upload should render the component without errors 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <ImageUpload
+    path="/add-center"
+    showImage={[MockFunction]}
+    uploadedImage="www.webimage.com/images"
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="imageUpload"
+      >
+        <label
+          htmlFor="imageInput"
+        >
+          <img
+            className="img-fluid dropzone"
+            src="www.webimage.com/images"
+          />
+        </label>
+        <input
+          id="imageInput"
+          onChange={[MockFunction]}
+          type="file"
+        />
+      </div>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <label
+            htmlFor="imageInput"
+          >
+            <img
+              className="img-fluid dropzone"
+              src="www.webimage.com/images"
+            />
+          </label>,
+          <input
+            id="imageInput"
+            onChange={[MockFunction]}
+            type="file"
+          />,
+        ],
+        "className": "imageUpload",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <img
+              className="img-fluid dropzone"
+              src="www.webimage.com/images"
+            />,
+            "htmlFor": "imageInput",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": "img-fluid dropzone",
+              "src": "www.webimage.com/images",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "img",
+          },
+          "type": "label",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "id": "imageInput",
+            "onChange": [MockFunction],
+            "type": "file",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "input",
+        },
+      ],
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="imageUpload"
+        >
+          <label
+            htmlFor="imageInput"
+          >
+            <img
+              className="img-fluid dropzone"
+              src="www.webimage.com/images"
+            />
+          </label>
+          <input
+            id="imageInput"
+            onChange={[MockFunction]}
+            type="file"
+          />
+        </div>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <label
+              htmlFor="imageInput"
+            >
+              <img
+                className="img-fluid dropzone"
+                src="www.webimage.com/images"
+              />
+            </label>,
+            <input
+              id="imageInput"
+              onChange={[MockFunction]}
+              type="file"
+            />,
+          ],
+          "className": "imageUpload",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <img
+                className="img-fluid dropzone"
+                src="www.webimage.com/images"
+              />,
+              "htmlFor": "imageInput",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "className": "img-fluid dropzone",
+                "src": "www.webimage.com/images",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "img",
+            },
+            "type": "label",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "id": "imageInput",
+              "onChange": [MockFunction],
+              "type": "file",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "input",
+          },
+        ],
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

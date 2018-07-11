@@ -17,7 +17,7 @@ ShallowWrapper {
     center={
       Object {
         "message": "",
-        "status": 202,
+        "status": "",
       }
     }
     location={

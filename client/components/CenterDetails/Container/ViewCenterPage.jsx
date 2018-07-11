@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
 import Navbar from '../../Navbar/Container/Navbar';
-import Content from '../Template/Content/centerDetailsContent';
+import Content from '../Template/Content/CenterDetailsContent';
 import Footer from '../../Footer/Footer';
 import { logout } from '../../../actions/userActions';
 
@@ -31,15 +31,16 @@ export class ViewCenterDetails extends React.Component {
         pathname
       }
     } = this.props;
-
     if (!isAuth) {
       return <Redirect to="/" />;
-    } else if (!isAdmin) {
+    }
+    if (isAuth && !isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     if (status === 401 || status === 498) {
       this.props.logout();
-    } else if (status === 202) {
+    }
+    if (status === 202) {
       swal('Center updated successfully');
     }
     return (

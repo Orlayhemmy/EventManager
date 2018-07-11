@@ -12,7 +12,7 @@ import {
 } from '../../../actions/userActions';
 import { eventBooked } from '../../../actions/eventActions';
 import { logout } from '../../../actions/userActions';
-import Content from '../Template/Content/profile';
+import Content from '../Template/Content/Profile';
 
 /**
  * @description Profile component

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import uploadImage from '../../../../actions/imageAction';
 import { addCenterValidation } from '../../../../shared/centerValidations';
 import TextField from '../../../../common/textField2';
-import UploadImage from '../../../ImageUpload/imageUpload';
+import UploadImage from '../../../ImageUpload/ImageUpload';
 
 /**
  * @description CenterForm component
@@ -26,7 +26,7 @@ export class CenterForm extends React.Component {
    * @description it sets user input to state
    * @param {object} event
    */
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -38,38 +38,14 @@ export class CenterForm extends React.Component {
    * @param {object} event
    */
   showImage = event => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      this.state.imageData = event.target.files[0];
-      reader.onload = (e) => {
-        this.setState({ image: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
-  /**
-   * @memberof CenterForm
-   * @method onSubmit
-   * @description it calls an action
-   * @param {object} event
-   * @returns {void}
-   */
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (this.isValid()) {
-      const formData = new FormData();
-      formData.append('file', this.state.imageData);
-      formData.append('upload_preset', 'u8asaoka');
-      const data = {
-        centerName: this.state.centerName,
-        location: this.state.location,
-        description: this.state.description,
-        facilities: this.state.facilities,
-        capacity: this.state.capacity,
-        cost: this.state.cost
-      };
-      this.props.uploadImage(data, formData, 'center');
-    }
+    event.preventDefault();
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    this.state.imageData = event.target.files[0];
+    reader.onloadend = () => {
+      this.setState({ image: reader.result });
+    };
+    reader.readAsDataURL(file);
   };
   /**
    * @memberof CenterForm
@@ -78,14 +54,36 @@ export class CenterForm extends React.Component {
    * @param {void}
    * @returns true or false
    */
-  isValid = () => {
-    if (this.props.path === '/add-center') {
-      const { errors, isValid } = addCenterValidation(this.state);
-      if (!isValid) {
-        this.setState({ errors });
-      }
-      return isValid;
+  isValid = e => {
+    e.preventDefault();
+    const { errors, isValid } = addCenterValidation(this.state);
+    if (!isValid) {
+      this.setState({ errors });
+      return;
     }
+    this.onSubmit(e);
+  };
+  /**
+   * @memberof CenterForm
+   * @method onSubmit
+   * @description it calls an action
+   * @param {object} event
+   * @returns {void}
+   */
+  onSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('file', this.state.imageData);
+    formData.append('upload_preset', 'u8asaoka');
+    const data = {
+      centerName: this.state.centerName,
+      location: this.state.location,
+      description: this.state.description,
+      facilities: this.state.facilities,
+      capacity: this.state.capacity,
+      cost: this.state.cost
+    };
+    this.props.uploadImage(data, formData, 'center');
   };
 
   /**
@@ -112,19 +110,13 @@ export class CenterForm extends React.Component {
       locationHolder,
       capacityHolder;
 
-    if (this.props.path === '/add-center') {
-      buttonValue = 'Add Center';
-    } else {
-      buttonValue = 'Save';
-    }
-
     nameHolder = 'Center name';
     facHolder = 'Facilities in center';
     descHolder = 'Describe center in few words';
     locationHolder = 'Center location';
     capacityHolder = 'Capacity';
     return (
-      <form id="add-center-form" onSubmit={this.onSubmit}>
+      <form id="add-center-form" onSubmit={this.isValid}>
         <UploadImage
           uploadedImage={image}
           showImage={this.showImage}
@@ -197,7 +189,7 @@ export class CenterForm extends React.Component {
         <input
           id="add-event"
           type="submit"
-          value={buttonValue}
+          value="Add Center"
           class="btn btn-primary basic"
         />
       </form>
@@ -218,6 +210,6 @@ CenterForm.propTypes = propTypes;
 export default connect(
   mapStateToProps,
   {
-    uploadImage,
+    uploadImage
   }
 )(CenterForm);

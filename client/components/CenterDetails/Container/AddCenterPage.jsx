@@ -20,7 +20,8 @@ export class AddCenterPage extends React.Component {
     if (!isAuth) {
       return <Redirect to="/" />;
       // this.props.history.push('/');
-    } else if (!isAdmin) {
+    }
+    if (isAuth && !isAdmin) {
       return <Redirect to="/dashboard" />;
       // this.props.history.push('/dashboard');
     }

@@ -13,9 +13,9 @@ export default class DefaultNavbar extends React.Component {
       navbarProps
     } = this.props;
     return isAdmin ? (
-      <AuthNavbar navbarProps={navbarProps} />
+      <AuthNavbar id="authnavbar" navbarProps={navbarProps} />
     ) : (
-      <UserNavbar navbarProps={navbarProps} />
+      <UserNavbar id="usernavbar" navbarProps={navbarProps} />
     );
   }
 }
