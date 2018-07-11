@@ -7,6 +7,5 @@ node_modules
 /dist
 dist
 .vscode
-
-
+/lib
 

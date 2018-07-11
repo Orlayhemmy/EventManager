@@ -13,17 +13,22 @@ import userRoute from './route/apiRoute';
 const app = express();
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocument));
 
-const compiler = webpack(webpackConfig);
+console.log('***********', process.env.NODE_ENV);
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(webpackConfig);
+  
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicpath: webpackConfig.output.publicPath,
+    stats: { colors: true },
+    noInfo: true
+  }));
+  
+  app.use(webpackHotMiddleware(compiler));
+}
 
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicpath: webpackConfig.output.publicPath,
-  stats: { colors: true },
-  noInfo: true
-}));
 
-app.use(express.static(path.join(__dirname, '../template/Public')));
-app.use(webpackHotMiddleware(compiler));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
