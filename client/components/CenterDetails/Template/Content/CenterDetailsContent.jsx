@@ -21,7 +21,7 @@ import uploadImage from '../../../../actions/imageAction';
 import ApproveEvent from './ApproveEvent';
 import BookedEvents from './BookedEvents';
 import DeleteEvent from './DeleteEvent';
-
+import showDiv from '../../../../shared/methods';
 /**
  * @description CenterDetailsContent form component
  */
@@ -80,28 +80,30 @@ export class CenterDetailsContent extends React.Component {
    * @param {object} event
    */
   showImage = event => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      this.state.imageData = event.target.files[0]; // eslint-disable-line
-      reader.onload = e => {
-        this.setState({ image: e.target.result });
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
+    event.preventDefault();
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    this.state.imageData = event.target.files[0]; //eslint-disable-line
+    reader.onloadend = () => {
+      this.setState({ image: reader.result });
+    };
+    reader.readAsDataURL(file);
   };
   /**
-   * @memberof Profile
+   * @memberof CenterDetailsContent
    * @method isValid
+   * @param {object} e
    * @description it calls validation action on user data
-   * @returns true or false
    */
-  isValid() {
+  isValid = e => {
+    e.preventDefault();
     const { errors, isValid } = modifyCenterValidation(this.state);
     if (!isValid) {
       this.setState({ errors });
+      return;
     }
-    return isValid;
-  }
+    this.onSubmit(e);
+  };
   /**
    * @memberof CenterDetailsContent
    * @method onSubmit
@@ -111,30 +113,36 @@ export class CenterDetailsContent extends React.Component {
    */
   onSubmit = e => {
     const {
-      location, centerName, facilities, capacity, cost, id, image, description
+      location,
+      centerName,
+      facilities,
+      capacity,
+      cost,
+      id,
+      image,
+      description
     } = this.state;
     e.preventDefault();
-    if (this.isValid()) {
-      if (this.initialState !== this.state) {
-        const formData = new FormData();
-        formData.append('file', this.state.imageData);
-        formData.append('upload_preset', 'u8asaoka');
-        const data = {
-          centerName,
-          location,
-          description,
-          facilities,
-          capacity,
-          cost,
-          id
-        };
-        if (this.initialState.image === image) {
-          this.props.modifyCenter(this.state);
-        } else {
-          this.props.uploadImage(data, formData, 'modify-center');
-        }
-        this.showHiddenDiv(e);
+    if (this.initialState !== this.state) {
+      const formData = new FormData();
+      formData.append('file', this.state.imageData);
+      formData.append('upload_preset', 'u8asaoka');
+      const data = {
+        centerName,
+        location,
+        description,
+        facilities,
+        capacity,
+        cost,
+        id
+      };
+
+      if (this.initialState.image === image) {
+        this.props.modifyCenter(this.state);
+      } else {
+        this.props.uploadImage(data, formData, 'modify-center');
       }
+      this.showHiddenDiv(e);
     }
   };
   /**
@@ -145,7 +153,7 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.centerData !== this.props.center) {
+    if (nextProps.centerData !== this.props.centerData.center) {
       const {
         centerName,
         location,
@@ -154,18 +162,20 @@ export class CenterDetailsContent extends React.Component {
         capacity,
         imageUrl,
         id,
-        cost
+        cost,
+        image
       } = nextProps.centerData.center;
       this.setState(
         {
           centerName: centerName || '',
           location: location || '',
-          facilities: facilities.join() || '',
+          facilities: facilities.toString() || '',
           description: description || '',
           imageUrl: imageUrl || nextProps.centerData.url,
           capacity: capacity || '',
           id: id || '',
-          cost: cost || ''
+          cost: cost || '',
+          image: image || ''
         },
         () => {
           this.initialState = this.state;
@@ -242,18 +252,7 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   showHiddenDiv = e => {
-    const id = e.target.dataset.toggleId;
-    if (!id) return;
-    const div = document.getElementById(id);
-    div.hidden = !div.hidden;
-    if (id === 'editCenterDetails') {
-      const div2 = document.getElementById('centerDetails');
-      if (!div.hidden) {
-        div2.style.display = 'none';
-        return;
-      }
-      div2.style.display = '';
-    }
+    this.props.showDiv(e);
   };
 
   /**
@@ -299,7 +298,7 @@ export class CenterDetailsContent extends React.Component {
                 imageUrl={image || imageUrl}
                 centerState={this.state}
                 showImage={this.showImage}
-                onSubmit={this.onSubmit}
+                isValid={this.isValid}
                 showHiddenDiv={this.showHiddenDiv}
                 onChange={this.onChange}
               />
@@ -322,7 +321,8 @@ const propTypes = {
   getCenterSelected: PropTypes.func.isRequired,
   modifyCenter: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
-  clearEventState: PropTypes.func.isRequired
+  clearEventState: PropTypes.func.isRequired,
+  showDiv: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -342,6 +342,7 @@ export default connect(
     getCenterSelected,
     modifyCenter,
     uploadImage,
-    clearEventState
+    clearEventState,
+    showDiv
   }
 )(CenterDetailsContent);

@@ -6,20 +6,59 @@ import { AddCenterPage }
 describe('AddCenter Page component', () => {
   const center = {
     message: '',
-    status: 201
+    status: ''
   };
+  const wrapper = shallow(<AddCenterPage {...props}/>);
   it('should render without throwing error', () => {
-    const wrapper = shallow(<AddCenterPage {...props}/>);
     expect(wrapper).toMatchSnapshot();
   });
   it('should get the length of div', () => {
-    const wrapper = shallow(<AddCenterPage {...props} />);
-    const centerdiv = wrapper.find('[id="add-center"]');
+    const centerdiv = wrapper.find('#add-center');
     expect(centerdiv.length).toEqual(1);
   });
-  it('should return on status update', () => {
-    const wrapper = shallow(<AddCenterPage userState={props.userState} center={center} location={props.location}/>);
-    const centerdiv = wrapper.find('[id="add-center"]');
+  it('should redirect user to landing page', () => {
+    wrapper.setProps({
+      userState: {
+        user: {
+          isAdmin: false,
+          id: 1
+        },
+        isAuth: true
+      },
+      center,
+      location: props.location
+    });
+    const centerdiv = wrapper.find('#add-center');
+    expect(centerdiv.length).toEqual(0);
+  });
+  it('should redirect the user to dashboard', () => {
+    wrapper.setProps({
+      userState: {
+        user: {
+          isAdmin: false,
+          id: 1
+        },
+        isAuth: false
+      }
+    });
+    const centerdiv = wrapper.find('#add-center');
+    expect(centerdiv.length).toEqual(0);
+  });
+  it('should redirect to admin dashboard when status is 201', () => {
+    wrapper.setProps({
+      ...wrapper.props,
+      center: {
+        status: 201
+      },
+      userState: {
+        user: {
+          isAdmin: true,
+          id: 1
+        },
+        isAuth: true
+      }
+    });
+    const centerdiv = wrapper.find('#add-center');
     expect(centerdiv.length).toEqual(0);
   });
 });

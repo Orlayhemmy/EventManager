@@ -375,7 +375,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return a success when event count is gotten', (done) => {
       request
-        .get('/api/v1/eventsbookedcount/1')
+        .get('/api/v1/eventsbookedcount')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {

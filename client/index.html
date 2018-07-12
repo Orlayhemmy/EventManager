@@ -39,8 +39,12 @@
       if (!$(event.target).closest(".inner-item-div").length) {
         document.getElementById('inner-item-div').style.width = '0px';
       }
+      if(event.target.id === "search-centers") {
+        document.getElementById('search-nav').style.width = '280px';
+      }
     });
     $("#profile-email").attr('disabled', 'disabled');
+
     </script>
   </body>
 </html>  

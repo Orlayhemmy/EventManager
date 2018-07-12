@@ -25,9 +25,6 @@ export class AdminPanelPage extends React.Component {
     errors: {},
     btwValue: ''
   };
-  searchNav = () => {
-    document.getElementById('search-nav').style.width = '280px';
-  };
   /**
    * @memberof AdminDashMethod
    * @method nextCenters
@@ -113,15 +110,15 @@ export class AdminPanelPage extends React.Component {
     return isValid;
   };
   render() {
-    if (!this.props.user.isAuth) {
+    if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
-    } else if (!this.props.user.user.isAdmin) {
+    } else if (!this.props.auth.user.isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     return (
-      <div className="container">
+      <div id="admin-content" className="container">
         <Search
-          searchNav={this.searchNav}
+          id="search-nav"
           search={this.search}
           criteria={this.state}
           onChange={this.onChange}
@@ -141,7 +138,7 @@ export class AdminPanelPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth
+  auth: state.auth
 });
 
 const propTypes = {

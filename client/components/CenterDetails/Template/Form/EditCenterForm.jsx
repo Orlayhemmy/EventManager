@@ -97,7 +97,7 @@ export default class EditCenter extends React.Component {
               type="button"
               data-toggle-id="editCenterDetails"
               className="btn btn-sm btn-success p-1 mr-1"
-              onClick={this.props.onSubmit}
+              onClick={this.props.isValid}
               value="save"
             />
             <input

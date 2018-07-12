@@ -2,18 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default class UserNavbar extends React.Component {
-  /**
-   * @memberof NavBar
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout(e) {
-    this.props.navbarProps.logout();
-  }
   render() {
-    const { path } = this.props.navbarProps;
+    const { navbarProps: { path, logout } } = this.props;
     const navbarSecondary = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
@@ -41,7 +31,7 @@ export default class UserNavbar extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+          <Link to="/" onClick={logout} className="nav-link">
             <span className="nav-link-text">logout</span>
           </Link>
         </li>
@@ -85,13 +75,13 @@ export default class UserNavbar extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+          <Link to="/" onClick={logout} className="nav-link">
             <span className="nav-link-text">logout</span>
           </Link>
         </li>
       </ul>
     );
-    return this.props.path === '/' || this.props.path === '/about'
+    return path === '/' || path === '/about'
       ? navbarMain
       : navbarSecondary;
   }

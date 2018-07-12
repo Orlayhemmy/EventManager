@@ -14,6 +14,10 @@ export const props = {
     message: ''
   }
 };
+export const navbarProps = {
+  path: '/',
+  logout: jest.fn()
+};
 export const bookedEvent = [
   {
     id: 1,
@@ -96,7 +100,16 @@ export const activity = {
     { description: 'come and eat pizza', createdAt: '2018-07-07 17:03:36.922+01', eventId: 1 }
   ]
 };
-
+export const centerState = {
+  centerName: '',
+  location: '',
+  description: '',
+  facilities: '',
+  capacity: '',
+  errors: {},
+  image: '',
+  cost: ''
+};
 export const logout = jest.fn();
 export const onChange = jest.fn();
 export const onClick = jest.fn();

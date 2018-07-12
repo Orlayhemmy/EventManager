@@ -12,7 +12,7 @@ import {
   deleteCenter,
   getNextCenters
 } from '../../actions/centerActions';
-import { centerIntro } from './intro';
+import { centerIntro } from '../../shared/intro';
 import Tour from './Tour';
 import { checkPaginationValue } from '../../shared/centerValidations';
 
@@ -240,7 +240,6 @@ export class DisplayCenters extends React.Component {
         <div
           className="search-icon"
           id="search-centers"
-          onClick={this.props.searchNav}
         >
           <i className="fa fa-search" />
           <p class="tooltiptext">Filter Centers</p>
@@ -335,7 +334,7 @@ const propTypes = {
   getAdminActivity: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
   deleteCenter: PropTypes.func.isRequired,
-  getNextCenters: PropTypes.func.isRequired
+  getNextCenters: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -353,6 +352,6 @@ export default connect(
     getAdminActivity,
     getCenters,
     deleteCenter,
-    getNextCenters
+    getNextCenters,
   }
 )(DisplayCenters);

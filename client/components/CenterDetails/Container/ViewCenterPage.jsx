@@ -31,15 +31,16 @@ export class ViewCenterDetails extends React.Component {
         pathname
       }
     } = this.props;
-
     if (!isAuth) {
       return <Redirect to="/" />;
-    } else if (!isAdmin) {
+    }
+    if (isAuth && !isAdmin) {
       return <Redirect to="/dashboard" />;
     }
     if (status === 401 || status === 498) {
       this.props.logout();
-    } else if (status === 202) {
+    }
+    if (status === 202) {
       swal('Center updated successfully');
     }
     return (

@@ -280,11 +280,11 @@ export function deleteEvent(id) {
  * @param {object} id
  * @returns {object} number of event booked
  */
-export function eventBooked(id) {
+export function eventBooked() {
   return (dispatch) => {
     dispatch({ type: actionTypes.GET_EVENTS_BOOKED_COUNT });
     return axios
-      .get(`/api/v1/eventsbookedcount/${id}`)
+      .get('/api/v1/eventsbookedcount')
       .then((response) => {
         const { status, data: { message, eventBookedCount } } = response;
         const res = {
