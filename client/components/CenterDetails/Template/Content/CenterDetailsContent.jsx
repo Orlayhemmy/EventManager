@@ -83,7 +83,7 @@ export class CenterDetailsContent extends React.Component {
     event.preventDefault();
     const reader = new FileReader();
     const file = event.target.files[0];
-    this.state.imageData = event.target.files[0];
+    this.state.imageData = event.target.files[0]; //eslint-disable-line
     reader.onloadend = () => {
       this.setState({ image: reader.result });
     };

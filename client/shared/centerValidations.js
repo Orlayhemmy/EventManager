@@ -82,7 +82,7 @@ export function modifyCenterValidation(data) {
       errors.location = 'location can not include symbols except comma';
     }
   }
-  
+
   return { errors, isValid: isEmpty(errors) };
 }
 
