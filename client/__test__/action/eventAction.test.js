@@ -475,7 +475,7 @@ describe('event booked action', () => {
   });
 
   it('returns success when events booked count is returned', done => {
-    moxios.stubRequest('/api/v1/eventsbookedcount/1', {
+    moxios.stubRequest('/api/v1/eventsbookedcount', {
       status: 200,
       response: {
         eventBookedCount: '3',
@@ -504,7 +504,7 @@ describe('event booked action', () => {
   });
 
   it('returns failure when event booked count is not received', done => {
-    moxios.stubRequest('/api/v1/eventsbookedcount/1', {
+    moxios.stubRequest('/api/v1/eventsbookedcount', {
       status: 400,
       response: {
         message: 'Events not found'

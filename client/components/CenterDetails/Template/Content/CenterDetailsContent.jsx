@@ -21,7 +21,7 @@ import uploadImage from '../../../../actions/imageAction';
 import ApproveEvent from './ApproveEvent';
 import BookedEvents from './BookedEvents';
 import DeleteEvent from './DeleteEvent';
-import showDiv from '../../../../methods';
+import showDiv from '../../../../shared/methods';
 /**
  * @description CenterDetailsContent form component
  */
@@ -136,7 +136,6 @@ export class CenterDetailsContent extends React.Component {
         cost,
         id
       };
-      console.log(this.initialState, this.state)
 
       if (this.initialState.image === image) {
         this.props.modifyCenter(this.state);

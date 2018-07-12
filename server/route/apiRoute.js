@@ -71,21 +71,11 @@ router.route('/centerStatus/:id').put(centerController.centerStatus);
 
 router
   .route('/activity')
-  .post(authToken, activityController.setEventActivity)
   .get(authToken, activityController.getActivity);
 
 router
   .route('/adminactivity')
-  .post(authToken, activityController.setCenterActivity)
   .get(authToken, activityController.getAdminActivity);
-
-router
-  .route('/notifyadmin')
-  .post(authToken, activityController.notifyAdmin);
-
-router
-  .route('/notifyuser')
-  .post(authToken, activityController.notifyUser);
 
 router
   .route('/activity/:id')
@@ -95,7 +85,7 @@ router.route('/passwordcheck')
   .post(authToken, userController.PasswordCheck);
 
 router
-  .route('/eventsbookedcount/:id')
+  .route('/eventsbookedcount')
   .get(authToken, eventController.getEventBookedCount);
 
 router.route('/sendmail').post(sendMail);

@@ -14,7 +14,7 @@ import {
   getEventSelected,
   checkAvailableDate
 } from '../../../actions/eventActions';
-import { addEventIntro } from '../../Common/intro';
+import { addEventIntro } from '../../../shared/intro';
 
 /**
  * @description ModifyEventPage component
@@ -189,7 +189,7 @@ const propTypes = {
   getCenterSelected: PropTypes.func.isRequired,
   modifyEvent: PropTypes.func.isRequired,
   getEventSelected: PropTypes.func.isRequired,
-  checkAvailableDate: PropTypes.func.isRequired
+  checkAvailableDate: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -205,6 +205,6 @@ export default connect(
     getCenterSelected,
     modifyEvent,
     getEventSelected,
-    checkAvailableDate
+    checkAvailableDate,
   }
 )(ModifyEventPage);

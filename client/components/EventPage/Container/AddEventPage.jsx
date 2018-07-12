@@ -10,7 +10,7 @@ import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { addEventValidation } from '../../../shared/eventValidations';
 import { createEvent, checkAvailableDate } from '../../../actions/eventActions';
-import { addEventIntro } from '../../Common/intro';
+import { addEventIntro } from '../../../shared/intro';
 /**
  * @description AddEventPage component
  */
@@ -179,6 +179,6 @@ export default connect(
     logout,
     getCenterSelected,
     createEvent,
-    checkAvailableDate
+    checkAvailableDate,
   }
 )(AddEventPage);
