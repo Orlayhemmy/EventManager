@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import CenterForm from '../Template/Form/AddCenterForm';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
@@ -25,11 +25,11 @@ export class AddCenterPage extends React.Component {
       return <Redirect to="/dashboard" />;
       // this.props.history.push('/dashboard');
     }
-    const { status, message } = this.props.center;
+    const { status } = this.props.center;
     const { pathname } = this.props.location;
 
     if (status === 201) {
-      swal(message);
+      toastr.success('success');
       return <Redirect to="/admin-centers" />;
     }
     return (

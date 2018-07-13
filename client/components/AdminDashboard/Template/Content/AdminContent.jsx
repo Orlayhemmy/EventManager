@@ -34,7 +34,6 @@ export class AdminPanelPage extends React.Component {
    * @param {string} page
    */
   nextCenters = (e, page) => {
-    window.scroll(0, 0);
     if (page !== undefined) {
       return this.setState(
         {

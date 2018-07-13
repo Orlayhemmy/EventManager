@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/Content/HomeContent';
 import Footer from '../../Footer/Footer';
@@ -39,9 +39,9 @@ export class Homepage extends React.Component {
    * @memberof SignUpForm
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
-  onChange = (e) => {
+  onChange = e => {
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -51,7 +51,6 @@ export class Homepage extends React.Component {
    * @memberof SignUpForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   isValid = () => {
@@ -66,7 +65,6 @@ export class Homepage extends React.Component {
    * @memberof SignInForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
    * @returns true or false
    */
   signinValid = () => {
@@ -80,10 +78,10 @@ export class Homepage extends React.Component {
    * @memberof SignInForm
    * @method onSubmit
    * @description it calls the user signin action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  signinSubmit = (e) => {
+  signinSubmit = e => {
     e.preventDefault();
     if (this.signinValid()) {
       this.props.userSignInRequest(this.state);
@@ -93,10 +91,10 @@ export class Homepage extends React.Component {
    * @memberof SignUpForm
    * @method onSubmit
    * @description it calls the user signup action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
-  signupSubmit = (e) => {
+  signupSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
       const formData = new FormData();
@@ -104,19 +102,22 @@ export class Homepage extends React.Component {
       formData.append('upload_preset', 'u8asaoka');
 
       this.state.title = 'Welcome to Ecenter';
-      this.state.message = `Thank you for choosing Ecenter, We hope to make your events
-        memorable.<br/> Click on this <a href="#">link</a> to see our event centers and get started`;
+      this.state.message =
+      `Thank you for choosing Ecenter, We hope to make your events
+        memorable.<br/> Click on this <a href="#">link</a>
+        to see our event centers and get started`;
       this.props.userSignupRequest(this.state, formData);
     }
   };
   /**
    * @memberof Homepage
    * @description it creates an instance of Homepage
+   * @returns the HTML
    */
   render() {
     const { isAuth, message } = this.props.auth;
     if (message === 201) {
-      swal('Successfully signed up', 'success');
+      toastr.success('Successfully signed up', 'success');
     }
     const {
       fullname,
@@ -124,11 +125,8 @@ export class Homepage extends React.Component {
       password,
       retypePass,
       errors,
-      serverError,
-      image,
       loginEmail,
       loginPassword,
-      imageInput
     } = this.state;
     const { pathname } = this.props.location;
     return (

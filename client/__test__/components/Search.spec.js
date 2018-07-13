@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchForm } from '../../components/Common/Search';
 
-describe('Approve Event Component', () => {
+describe('Search Form Component', () => {
   const getCenters = jest.fn();
   const criteria = {
     location: '',

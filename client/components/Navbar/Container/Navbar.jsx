@@ -18,7 +18,7 @@ export class NavBar extends React.Component {
    */
   render() {
     const {
-      auth: { isAuth }
+      auth: { isAuth },
     } = this.props;
     return (
       <nav

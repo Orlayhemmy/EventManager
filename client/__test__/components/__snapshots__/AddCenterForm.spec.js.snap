@@ -1,801 +1,112 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`display centers should render the component based 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <CenterForm
-    center={
-      Object {
-        "error": "",
-      }
-    }
+<form
+  id="add-center-form"
+  onSubmit={[Function]}
+>
+  <ImageUpload
     path="/"
-    uploadImage={[MockFunction]}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <ImageUpload
-          path="/"
-          showImage={[Function]}
-          uploadedImage=""
-        />,
-        <span
-          className="help-block"
-        >
-          
-        </span>,
-        <span
-          className="main-color"
-        >
-          Title
-        </span>,
-        <TextField
-          error={undefined}
-          id="centerName"
-          onChange={[Function]}
-          placeholder="Center name"
-          type="text"
-          value=""
-        />,
-        <span
-          className="main-color"
-        >
-           Location
-        </span>,
-        <TextField
-          error={undefined}
-          id="location"
-          onChange={[Function]}
-          placeholder="Center location"
-          type="text"
-          value=""
-        />,
-        <span
-          className="main-color"
-        >
-           Facilities
-        </span>,
-        <p
-          className="subtitle"
-        >
-          separate facilities with commas. Do not include spaces
-        </p>,
-        <TextField
-          error={undefined}
-          id="facilities"
-          onChange={[Function]}
-          placeholder="Facilities in center"
-          type="text"
-          value=""
-        />,
-        <span
-          className="main-color"
-        >
-          Capacity
-        </span>,
-        <TextField
-          error={undefined}
-          id="capacity"
-          onChange={[Function]}
-          placeholder="Capacity"
-          type="text"
-          value=""
-        />,
-        <span
-          className="main-color"
-        >
-          Price
-        </span>,
-        <TextField
-          error={undefined}
-          id="cost"
-          onChange={[Function]}
-          placeholder="NGN"
-          type="text"
-          value=""
-        />,
-        <span
-          className="main-color"
-        >
-           Description
-        </span>,
-        <span
-          className="help-block"
-        />,
-        <p
-          className="subtitle"
-        >
-          describe the center in few words
-        </p>,
-        <div
-          className="form-group"
-        >
-          <textarea
-            className="form-control"
-            id="description"
-            onChange={[Function]}
-            placeholder="Describe center in few words"
-            value=""
-          />
-        </div>,
-        <input
-          className="btn btn-primary basic"
-          id="add-event"
-          type="submit"
-          value="Add Center"
-        />,
-      ],
-      "id": "add-center-form",
-      "onSubmit": [Function],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "path": "/",
-          "showImage": [Function],
-          "uploadedImage": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "",
-          "className": "help-block",
-        },
-        "ref": null,
-        "rendered": "",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Title",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": "Title",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "error": undefined,
-          "id": "centerName",
-          "onChange": [Function],
-          "placeholder": "Center name",
-          "type": "text",
-          "value": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": " Location",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": " Location",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "error": undefined,
-          "id": "location",
-          "onChange": [Function],
-          "placeholder": "Center location",
-          "type": "text",
-          "value": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": " Facilities",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": " Facilities",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "separate facilities with commas. Do not include spaces",
-          "className": "subtitle",
-        },
-        "ref": null,
-        "rendered": "separate facilities with commas. Do not include spaces",
-        "type": "p",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "error": undefined,
-          "id": "facilities",
-          "onChange": [Function],
-          "placeholder": "Facilities in center",
-          "type": "text",
-          "value": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Capacity",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": "Capacity",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "error": undefined,
-          "id": "capacity",
-          "onChange": [Function],
-          "placeholder": "Capacity",
-          "type": "text",
-          "value": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Price",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": "Price",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "function",
-        "props": Object {
-          "error": undefined,
-          "id": "cost",
-          "onChange": [Function],
-          "placeholder": "NGN",
-          "type": "text",
-          "value": "",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": " Description",
-          "className": "main-color",
-        },
-        "ref": null,
-        "rendered": " Description",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": undefined,
-          "className": "help-block",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "describe the center in few words",
-          "className": "subtitle",
-        },
-        "ref": null,
-        "rendered": "describe the center in few words",
-        "type": "p",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <textarea
-            className="form-control"
-            id="description"
-            onChange={[Function]}
-            placeholder="Describe center in few words"
-            value=""
-          />,
-          "className": "form-group",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "form-control",
-            "id": "description",
-            "onChange": [Function],
-            "placeholder": "Describe center in few words",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "textarea",
-        },
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "className": "btn btn-primary basic",
-          "id": "add-event",
-          "type": "submit",
-          "value": "Add Center",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": "input",
-      },
-    ],
-    "type": "form",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <ImageUpload
-            path="/"
-            showImage={[Function]}
-            uploadedImage=""
-          />,
-          <span
-            className="help-block"
-          >
-            
-          </span>,
-          <span
-            className="main-color"
-          >
-            Title
-          </span>,
-          <TextField
-            error={undefined}
-            id="centerName"
-            onChange={[Function]}
-            placeholder="Center name"
-            type="text"
-            value=""
-          />,
-          <span
-            className="main-color"
-          >
-             Location
-          </span>,
-          <TextField
-            error={undefined}
-            id="location"
-            onChange={[Function]}
-            placeholder="Center location"
-            type="text"
-            value=""
-          />,
-          <span
-            className="main-color"
-          >
-             Facilities
-          </span>,
-          <p
-            className="subtitle"
-          >
-            separate facilities with commas. Do not include spaces
-          </p>,
-          <TextField
-            error={undefined}
-            id="facilities"
-            onChange={[Function]}
-            placeholder="Facilities in center"
-            type="text"
-            value=""
-          />,
-          <span
-            className="main-color"
-          >
-            Capacity
-          </span>,
-          <TextField
-            error={undefined}
-            id="capacity"
-            onChange={[Function]}
-            placeholder="Capacity"
-            type="text"
-            value=""
-          />,
-          <span
-            className="main-color"
-          >
-            Price
-          </span>,
-          <TextField
-            error={undefined}
-            id="cost"
-            onChange={[Function]}
-            placeholder="NGN"
-            type="text"
-            value=""
-          />,
-          <span
-            className="main-color"
-          >
-             Description
-          </span>,
-          <span
-            className="help-block"
-          />,
-          <p
-            className="subtitle"
-          >
-            describe the center in few words
-          </p>,
-          <div
-            className="form-group"
-          >
-            <textarea
-              className="form-control"
-              id="description"
-              onChange={[Function]}
-              placeholder="Describe center in few words"
-              value=""
-            />
-          </div>,
-          <input
-            className="btn btn-primary basic"
-            id="add-event"
-            type="submit"
-            value="Add Center"
-          />,
-        ],
-        "id": "add-center-form",
-        "onSubmit": [Function],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "path": "/",
-            "showImage": [Function],
-            "uploadedImage": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "",
-            "className": "help-block",
-          },
-          "ref": null,
-          "rendered": "",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Title",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": "Title",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "error": undefined,
-            "id": "centerName",
-            "onChange": [Function],
-            "placeholder": "Center name",
-            "type": "text",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": " Location",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": " Location",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "error": undefined,
-            "id": "location",
-            "onChange": [Function],
-            "placeholder": "Center location",
-            "type": "text",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": " Facilities",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": " Facilities",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "separate facilities with commas. Do not include spaces",
-            "className": "subtitle",
-          },
-          "ref": null,
-          "rendered": "separate facilities with commas. Do not include spaces",
-          "type": "p",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "error": undefined,
-            "id": "facilities",
-            "onChange": [Function],
-            "placeholder": "Facilities in center",
-            "type": "text",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Capacity",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": "Capacity",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "error": undefined,
-            "id": "capacity",
-            "onChange": [Function],
-            "placeholder": "Capacity",
-            "type": "text",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Price",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": "Price",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "error": undefined,
-            "id": "cost",
-            "onChange": [Function],
-            "placeholder": "NGN",
-            "type": "text",
-            "value": "",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": " Description",
-            "className": "main-color",
-          },
-          "ref": null,
-          "rendered": " Description",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": undefined,
-            "className": "help-block",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "describe the center in few words",
-            "className": "subtitle",
-          },
-          "ref": null,
-          "rendered": "describe the center in few words",
-          "type": "p",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <textarea
-              className="form-control"
-              id="description"
-              onChange={[Function]}
-              placeholder="Describe center in few words"
-              value=""
-            />,
-            "className": "form-group",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "className": "form-control",
-              "id": "description",
-              "onChange": [Function],
-              "placeholder": "Describe center in few words",
-              "value": "",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "textarea",
-          },
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "className": "btn btn-primary basic",
-            "id": "add-event",
-            "type": "submit",
-            "value": "Add Center",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": "input",
-        },
-      ],
-      "type": "form",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+    showImage={[Function]}
+    uploadedImage=""
+  />
+  <span
+    className="help-block"
+  />
+  <span
+    className="main-color"
+  >
+    Title
+  </span>
+  <TextField
+    id="centerName"
+    onChange={[Function]}
+    placeholder="Center name"
+    type="text"
+    value=""
+  />
+  <span
+    className="main-color"
+  >
+     Location
+  </span>
+  <TextField
+    id="location"
+    onChange={[Function]}
+    placeholder="Center location"
+    type="text"
+    value=""
+  />
+  <span
+    className="main-color"
+  >
+     Facilities
+  </span>
+  <p
+    className="subtitle"
+  >
+    separate facilities with commas. Do not include spaces
+  </p>
+  <TextField
+    id="facilities"
+    onChange={[Function]}
+    placeholder="Facilities in center"
+    type="text"
+    value=""
+  />
+  <span
+    className="main-color"
+  >
+    Capacity
+  </span>
+  <TextField
+    id="capacity"
+    onChange={[Function]}
+    placeholder="Capacity"
+    type="text"
+    value=""
+  />
+  <span
+    className="main-color"
+  >
+    Price
+  </span>
+  <TextField
+    id="cost"
+    onChange={[Function]}
+    placeholder="NGN"
+    type="text"
+    value=""
+  />
+  <span
+    className="main-color"
+  >
+     Description
+  </span>
+  <span
+    className="help-block"
+  />
+  <p
+    className="subtitle"
+  >
+    describe the center in few words
+  </p>
+  <div
+    className="form-group"
+  >
+    <textarea
+      className="form-control"
+      id="description"
+      onChange={[Function]}
+      placeholder="Describe center in few words"
+      value=""
+    />
+  </div>
+  <input
+    className="btn btn-primary basic"
+    id="add-event"
+    type="submit"
+    value="Add Center"
+  />
+</form>
 `;

@@ -4,15 +4,11 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { Link } from 'react-router-dom';
 /**
-* @description AdminPanelPage  component
-*/
+ * @description AdminPanelPage  component
+ */
 export default class Content extends React.Component {
-  static propTypes = {
-    counter: PropTypes.string.isRequired,
-    nextEvents: PropTypes.func.isRequired,
-  };
-
   render() {
+    console.log(this.props.userEvent, '######')
     const { events } = this.props.userEvent;
     let eventId, content, legend;
     if (isEmpty(events)) {
@@ -50,38 +46,38 @@ export default class Content extends React.Component {
         eventId = `eventDetails${index}`;
         const eventDate = `Date: ${bookedDate}`;
         return (
-          <div>
-          <div className="tooltips center" key={index} id="booked-events">
-            <div key={eventId} className="text-center">
-              <div className="card p-1 mb-3 mw">
-                <div id={index} className="grid-view">
-                  <img className="img m-auto" src={imageUrl} />
-                  <h2>
-                    <span className="media-heading" id={bookedEvent.centerId}>
-                      <Link
-                        to="/modify-event"
-                        id={bookedEvent.id}
-                        onClick={this.props.onClick}
-                      >
-                        {bookedEvent.eventTitle}
-                      </Link>
-                    </span>
-                  </h2>
+          <div key={index}>
+            <div className="tooltips center" key={index} id="booked-events">
+              <div key={eventId} className="text-center">
+                <div className="card p-1 mb-3 mw">
+                  <div id={index} className="grid-view">
+                    <img className="img m-auto" src={imageUrl} />
+                    <h2>
+                      <span className="media-heading" id={bookedEvent.centerId}>
+                        <Link
+                          to="/modify-event"
+                          id={bookedEvent.id}
+                          onClick={this.props.onClick}
+                        >
+                          {bookedEvent.eventTitle}
+                        </Link>
+                      </span>
+                    </h2>
+                  </div>
+                  <span id={bookedEvent.eventTitle}>
+                    {eStatus}
+                    <i
+                      id={bookedEvent.id}
+                      className="fa fa-trash trash float-right"
+                      onClick={this.props.onSelect}
+                      data-toggle="modal"
+                      data-target="#deleteModal"
+                    />
+                  </span>
                 </div>
-                <span id={bookedEvent.eventTitle}>
-                  {eStatus}
-                  <i
-                    id={bookedEvent.id}
-                    className="fa fa-trash trash float-right"
-                    onClick={this.props.onSelect}
-                    data-toggle="modal"
-                    data-target="#deleteModal"
-                  />
-                </span>
               </div>
+              <p class="tooltiptext">{eventDate}</p>
             </div>
-            <p class="tooltiptext">{eventDate}</p>
-          </div>
           </div>
         );
       });
@@ -101,7 +97,7 @@ export default class Content extends React.Component {
           ''
         )}
         <div className="row">{content}</div>
-        {events.length > 8 ? (
+        {events !== undefined && events.length > 8 ? (
           <div className="page-icon bounce">
             <i
               className="fa fa-chevron-down icon"
@@ -116,4 +112,8 @@ export default class Content extends React.Component {
     );
   }
 }
-Content.propTypes = PropTypes;
+const propTypes = {
+  counter: PropTypes.number.isRequired,
+  nextEvents: PropTypes.func.isRequired,
+};
+Content.propTypes = propTypes;

@@ -83,7 +83,7 @@ export default class ActivityController {
         id: req.decoded.id
       }
     }).then(user => {
-      Activities.create({
+      return Activities.create({
         description: `${user.fullname} booked a center`,
         centerId
       }).then(() => 'success');
