@@ -252,7 +252,7 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   showHiddenDiv = e => {
-    this.props.showDiv(e);
+    showDiv(e);
   };
 
   /**
