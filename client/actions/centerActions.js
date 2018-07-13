@@ -224,7 +224,6 @@ export function modifyCenter(centerInfo) {
  * @returns {object} delete center
  */
 export function deleteCenter(id) {
-  console.log(id)
   return dispatch => {
     dispatch({ type: actionTypes.DELETE_CENTER });
     return axios
