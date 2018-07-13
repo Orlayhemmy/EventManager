@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
  */
 export default class Content extends React.Component {
   render() {
-    console.log(this.props.userEvent, '######')
     const { events } = this.props.userEvent;
     let eventId, content, legend;
     if (isEmpty(events)) {

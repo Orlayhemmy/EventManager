@@ -30,7 +30,7 @@ describe('get events action', () => {
   });
 
   it('returns success when events are received', done => {
-    moxios.stubRequest('/api/v1/userEvents/1', {
+    moxios.stubRequest('/api/v1/userEvents', {
       status: 200,
       response: {
         events: mockEvents
@@ -56,7 +56,7 @@ describe('get events action', () => {
   });
 
   it('returns failure when events are not received', done => {
-    moxios.stubRequest('/api/v1/userEvents/1', {
+    moxios.stubRequest('/api/v1/userEvents', {
       status: 400,
       response: {
         message: 'Events not found'

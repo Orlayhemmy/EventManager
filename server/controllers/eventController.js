@@ -10,29 +10,6 @@ const { Events, Centers } = models;
  */
 export default class EventController {
   /**
-   * All booked event details are fetched
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} Failure message or Success message with the database data
-   * @memberof EventController
-   */
-  static getAllEvents(req, res) {
-    // get events
-    return Events.all({
-      include: [
-        {
-          model: Centers
-        }
-      ]
-    }).then(events =>
-      res.status(200).send({
-        events,
-        message: 'Event found'
-      }));
-  }
-
-  /**
    * Get center events details
    * @static
    * @param {object} req
@@ -125,7 +102,7 @@ export default class EventController {
     } = req.body;
     const { id } = req.decoded;
     let dateBooked;
-    if (bookedDate !== '') {
+    if (bookedDate !== undefined && bookedDate !== '') {
       dateBooked = bookedDate.split(',');
     }
     return Events.create({
@@ -135,6 +112,8 @@ export default class EventController {
       centerId,
       userId: id
     }).then(bookedEvent => {
+      setEventActivity(req);
+      notifyAdmin(req);
       res.status(201).send({
         message: 'Event booked Successfully',
         bookedEvent
@@ -160,7 +139,7 @@ export default class EventController {
     } = req.body;
     const { id } = req.params;
     let dateBooked;
-    if (bookedDate !== '') {
+    if (bookedDate !== undefined && bookedDate !== '') {
       dateBooked = bookedDate.split(',');
     }
     return Events.findById(id).then(event => {

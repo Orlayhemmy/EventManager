@@ -47,7 +47,7 @@ describe('test for post, update, get and delete event processes', () => {
           });
       });
 
-      it('should return an error when fields are enpty', (done) => {
+      it('should return an error when fields are empty', (done) => {
         request
           .post('/api/v1/events')
           .set('x-access-token', userToken)
@@ -55,14 +55,14 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: '',
             centerId: '',
             description: '',
-            dateArray: []
+            bookedDate: ''
           })
           .expect(400)
           .end((err, res) => {
             expect(res.body.eventTitle)
             .to.deep.equal('Event Name cannot be blank');
           expect(res.body.centerId).equal('Please select a Center');
-          expect(res.body.dateArray).equal('Date cannot be empty');
+          expect(res.body.bookedDate).equal('Date cannot be empty');
           expect(res.body.description).equal('Event should have a description');
             
                 done();
@@ -79,7 +79,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Fun',
               centerId: 'A',
               description: 'Come',
-              dateArray: ['12-2012']
+              bookedDate: '12-2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -87,7 +87,7 @@ describe('test for post, update, get and delete event processes', () => {
               expect(res.body.eventTitle)
                 .to.deep.equal('The event Name must be more than 5 characters but less than 20');
               expect(res.body.centerId).equal('centerId must be a number');
-              expect(res.body.dateArray).equal('Invalid Date');
+              expect(res.body.bookedDate).equal('Invalid Date');
               expect(res.body.description).equal('description must be greater than 5 but less than 1000 words');
                 
                 done();
@@ -105,7 +105,7 @@ describe('test for post, update, get and delete event processes', () => {
               eventTitle: 'Fun$%dfg',
               centerId: '1',
               description: 'Come have fun***',
-              dateArray: ['12/12/2012']
+              bookedDate: '12/12/2012'
             })
             .expect(400)
             .end((err, res) => {
@@ -129,7 +129,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Funny Day',
           centerId: '1',
           description: 'Come and have fun',
-          dateArray: ['2018-04-15']
+          bookedDate: '2018-04-15'
         })
         .expect(201)
         .end((err, res) => {
@@ -145,7 +145,7 @@ describe('test for post, update, get and delete event processes', () => {
         .post('/api/v1/checkDate')
         .set('x-access-token', userToken)
         .send({
-          bookedDate: ['2018-03-15']
+          bookedDate: '2018-03-15'
         })
         .expect(200)
         .end((err, res) => {
@@ -167,7 +167,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Seminar',
           centerId: '1',
           description: 'Come and be exposed',
-          bookedDate: ['2018-04-15']
+          bookedDate: '2018-04-15'
         })
         .expect(409)
         .end((err, res) => {
@@ -190,7 +190,7 @@ describe('test for post, update, get and delete event processes', () => {
           .send({
             eventTitle: 'Fun',
             description: 'Come',
-            bookedDate: ['12-2012'],
+            bookedDate: '12-2012',
             centerId: 'a'
           })
           .expect(400)
@@ -217,7 +217,7 @@ describe('test for post, update, get and delete event processes', () => {
             eventTitle: 'Fun$%dfg',
             centerId: '1',
             description: 'Come have fun***',
-            bookedDate: ['12/12/2012']
+            bookedDate: '12/12/2012'
           })
           .expect(400)
           .end((err, res) => {
@@ -259,7 +259,7 @@ describe('test for post, update, get and delete event processes', () => {
           eventTitle: 'Birthday',
           centerId: '1',
           description: 'Come and have fun',
-          dateArray: ['2018-04-15']
+          bookedDate: '2018-04-15'
         })
         .expect(404)
         .end((err, res) => {
@@ -287,20 +287,8 @@ describe('test for post, update, get and delete event processes', () => {
     });
   });
 
+
   describe('test for getting events', () => {
-    it('should return all events booked by all users', (done) => {
-      request
-        .get('/api/v1/events')
-        .set('x-access-token', userToken)
-        .expect(200)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).equal('Event found');
-          
-          done();
-        });
-    });
 
     it('should return all events booked in a center', (done) => {
       request
@@ -318,7 +306,7 @@ describe('test for post, update, get and delete event processes', () => {
 
     it('should return all events booked by the user', (done) => {
       request
-        .get('/api/v1/userEvents/0')
+        .get('/api/v1/userEvents')
         .set('x-access-token', userToken)
         .expect(200)
         .end((err, res) => {

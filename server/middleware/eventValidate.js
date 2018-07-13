@@ -54,7 +54,7 @@ export default class Validation {
           errors.bookedDate = 'Invalid Date';
         }
       } else {
-        errors.bookedDate = 'Date must be selected';
+        errors.bookedDate = 'Date cannot be empty';
       }
     }
     // validations for description
@@ -78,7 +78,6 @@ export default class Validation {
     } else {
       errors.centerId = 'Please select a Center';
     }
-
     if (Object.keys(errors).length !== 0) {
       return res.status(400).send(errors);
     }

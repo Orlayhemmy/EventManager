@@ -1241,19 +1241,6 @@ describe('tests for post, update, delete and get center processes ', () => {
         });
     });
 
-    it('should update center status', (done) => {
-      request
-        .put('/api/v1/centerStatus/1')
-        .set('x-access-token', userToken)
-        .expect(202)
-        .end((err, res) => {
-          expect(res.body).to.not.equal(null);
-          expect(res.body.message).deep.equal('ok');
-          
-          done();
-        });
-    });
-
     it('should return success when all centers are found', (done) => {
       request
         .get('/api/v1/centers')
