@@ -136,7 +136,6 @@ export class CenterDetailsContent extends React.Component {
         cost,
         id
       };
-      console.log(this.initialState, this.state)
 
       if (this.initialState.image === image) {
         this.props.modifyCenter(this.state);

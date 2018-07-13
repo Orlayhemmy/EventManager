@@ -13,7 +13,6 @@ import userRoute from './route/apiRoute';
 const app = express();
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocument));
 
-console.log('***********', process.env.NODE_ENV);
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(webpackConfig);
   
