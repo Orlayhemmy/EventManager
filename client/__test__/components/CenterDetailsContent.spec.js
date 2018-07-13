@@ -39,6 +39,9 @@ describe('center details component', () => {
       result: '',
       parentNode: {
         id: 'approve'
+      },
+      dataset: {
+        toggleId: ''
       }
     }
   };
