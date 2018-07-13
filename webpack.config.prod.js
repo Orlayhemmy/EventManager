@@ -1,15 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
-  devtool: 'cheap-eval-source-map',
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-hot-middleware/client?reload=true',
-    path.join(__dirname, '/client/index.jsx')
-  ],
+  entry: ['babel-polyfill', path.join(__dirname, '/client/index.jsx')],
   output: {
-    path: '/',
+    path: path.resolve(__dirname, 'client/build'),
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -41,10 +38,14 @@ module.exports = {
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(), // enable HMR globally
     new webpack.NamedModulesPlugin(), // prints readable module names console
     new webpack.DefinePlugin({
-      UPLOAD_PRESET: process.env.UPLOAD_PRESET
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new UglifyJSPlugin({
+      sourceMap: true
     })
   ],
   node: {
