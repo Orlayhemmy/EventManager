@@ -25,34 +25,36 @@ export default class UserController {
       where: {
         email
       }
-    })
-      .then((foundUser) => {
-        let error;
-        if (foundUser) {
-          error = foundUser.email;
-          return res.status(409).send({
-            message: `${error} already exist`
-          });
-        }
-        const userPassword = passwordHash(password);
-        const fname = fullname.toLowerCase();
-        const mail = email.toLowerCase();
-        Users.create({
-          fullname: fname,
-          email: mail,
-          password: userPassword
-        })
-          .then((user) => {
-            const payload = { id: user.id, eventBookedCount: 0, isAdmin: user.isAdmin };
-            const token = generateToken(payload);
-            req.body.token = token;
-            sendMail(req);
-            return res.status(201).send({
-              message: 'You are now Signed Up',
-              token,
-            });
-          });
+    }).then(foundUser => {
+      let error;
+      if (foundUser) {
+        error = foundUser.email;
+        return res.status(409).send({
+          message: `${error} already exist`
+        });
+      }
+      const userPassword = passwordHash(password);
+      const fname = fullname.toLowerCase();
+      const mail = email.toLowerCase();
+      Users.create({
+        fullname: fname,
+        email: mail,
+        password: userPassword
+      }).then(user => {
+        const payload = {
+          id: user.id,
+          eventBookedCount: 0,
+          isAdmin: user.isAdmin
+        };
+        const token = generateToken(payload);
+        req.body.token = token;
+        sendMail(req);
+        return res.status(201).send({
+          message: 'You are now Signed Up',
+          token
+        });
       });
+    });
   }
   /**
    * User details are captured and authenticated against database data
@@ -69,29 +71,28 @@ export default class UserController {
       where: {
         email: userEmail
       }
-    })
-      .then((user) => {
-        if (user) {
-          const check = bcrypt.compareSync(loginPassword, user.password);
-          if (check) {
-            const payload = { id: user.id, isAdmin: user.isAdmin };
-            const token = generateToken(payload);
-            req.body.token = token;
-            return res.status(200).send({
-              message: 'You are now logged In',
-              token
-            });
-          }
-          return res.status(400).send({
-            err: 'Error',
-            message: 'Invalid email or password'
+    }).then(user => {
+      if (user) {
+        const check = bcrypt.compareSync(loginPassword, user.password);
+        if (check) {
+          const payload = { id: user.id, isAdmin: user.isAdmin };
+          const token = generateToken(payload);
+          req.body.token = token;
+          return res.status(200).send({
+            message: 'You are now logged In',
+            token
           });
         }
-        return res.status(404).send({
+        return res.status(400).send({
           err: 'Error',
-          message: 'User not found, Please sign up if you are a new user'
+          message: 'Invalid email or password'
         });
+      }
+      return res.status(404).send({
+        err: 'Error',
+        message: 'User not found, Please sign up if you are a new user'
       });
+    });
   }
   /**
    * Check user email for validity
@@ -108,18 +109,17 @@ export default class UserController {
       where: {
         email
       }
-    })
-      .then((user) => {
-        if (user) {
-          return res.status(200).send({
-            message: 'User found!'
-          });
-        }
-        return res.status(404).send({
-          err: 'Error',
-          message: 'Email is incorrect or not registered'
+    }).then(user => {
+      if (user) {
+        return res.status(200).send({
+          message: 'User found!'
         });
+      }
+      return res.status(404).send({
+        err: 'Error',
+        message: 'Email is incorrect or not registered'
       });
+    });
   }
 
   /**
@@ -136,21 +136,20 @@ export default class UserController {
       where: {
         id: req.decoded.id
       }
-    })
-      .then((user) => {
-        if (user) {
-          const check = bcrypt.compareSync(oldPassword, user.password);
-          if (check) {
-            return res.status(200).send({
-              message: 'Password Match'
-            });
-          }
-          return res.status(400).send({
-            err: 'Error',
-            message: 'Wrong Password'
+    }).then(user => {
+      if (user) {
+        const check = bcrypt.compareSync(oldPassword, user.password);
+        if (check) {
+          return res.status(200).send({
+            message: 'Password Match'
           });
         }
-      });
+        return res.status(400).send({
+          err: 'Error',
+          message: 'Wrong Password'
+        });
+      }
+    });
   }
 
   /**
@@ -169,32 +168,31 @@ export default class UserController {
       where: {
         email
       }
-    })
-      .then((user) => {
-        if (user) {
-          let hash;
-          if (newPassword) {
-            hash = passwordHash(newPassword);
-          }
-          user
-            .update({
-              fullname: fullname || user.fullname,
-              password: hash || user.password,
-              email: email || user.email,
-              imageUrl: imageUrl || user.imageUrl
-            })
-            .then(updatedUser =>
-              res.status(202).send({
-                user: updatedUser,
-                message: 'Changes Applied Successfully'
-              }));
-        } else {
-          return res.status(400).send({
-            err: 'Error',
-            message: 'User not found'
-          });
+    }).then(user => {
+      if (user) {
+        let hash;
+        if (newPassword) {
+          hash = passwordHash(newPassword);
         }
-      });
+        user
+          .update({
+            fullname: fullname || user.fullname,
+            password: hash || user.password,
+            email: email || user.email,
+            imageUrl: imageUrl || user.imageUrl
+          })
+          .then(updatedUser =>
+            res.status(202).send({
+              user: updatedUser,
+              message: 'Changes Applied Successfully'
+            }));
+      } else {
+        return res.status(400).send({
+          err: 'Error',
+          message: 'User not found'
+        });
+      }
+    });
   }
 
   /**
@@ -210,19 +208,18 @@ export default class UserController {
       where: {
         id: req.params.id
       }
-    })
-      .then((user) => {
-        if (user) {
-          return res.status(200).send({
-            message: 'Email Found',
-            email: user.email
-          });
-        }
-        return res.status(400).send({
-          err: 'Error',
-          message: 'No user Found'
+    }).then(user => {
+      if (user) {
+        return res.status(200).send({
+          message: 'Email Found',
+          email: user.email
         });
+      }
+      return res.status(400).send({
+        err: 'Error',
+        message: 'No user Found'
       });
+    });
   }
 
   /**
@@ -238,14 +235,13 @@ export default class UserController {
       where: {
         id: req.decoded.id
       }
-    })
-      .then((userDetails) => {
-        if (userDetails) {
-          return res.status(200).send({
-            message: 'User Details Found',
-            userDetails
-          });
-        }
-      });
+    }).then(userDetails => {
+      if (userDetails) {
+        return res.status(200).send({
+          message: 'User Details Found',
+          userDetails
+        });
+      }
+    });
   }
 }

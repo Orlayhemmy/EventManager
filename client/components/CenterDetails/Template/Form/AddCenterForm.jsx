@@ -191,8 +191,8 @@ export class CenterForm extends React.Component {
 }
 const propTypes = {
   uploadImage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  center: PropTypes.object.isRequired
+  user: PropTypes.object,
+  center: PropTypes.object
 };
 const mapStateToProps = state => ({
   user: state.auth.user,

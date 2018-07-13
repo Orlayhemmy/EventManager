@@ -10,29 +10,6 @@ const { Events, Centers } = models;
  */
 export default class EventController {
   /**
-   * All booked event details are fetched
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} Failure message or Success message with the database data
-   * @memberof EventController
-   */
-  static getAllEvents(req, res) {
-    // get events
-    return Events.all({
-      include: [
-        {
-          model: Centers
-        }
-      ]
-    }).then(events =>
-      res.status(200).send({
-        events,
-        message: 'Event found'
-      }));
-  }
-
-  /**
    * Get center events details
    * @static
    * @param {object} req
@@ -64,9 +41,8 @@ export default class EventController {
    */
   static getUserEvents(req, res) {
     const { id } = req.decoded;
-    const skip = req.params.id * 9;
     // get events
-    return Events.all({
+    return Events.findAll({
       where: {
         userId: id
       },
@@ -75,11 +51,8 @@ export default class EventController {
           model: Centers
         }
       ],
-      offset: `${skip}`,
-      limit: 9,
       order: [['createdAt', 'DESC']]
     }).then(events =>
-      // show events
       res.status(200).send({
         events,
         message: 'User events found'
@@ -121,13 +94,21 @@ export default class EventController {
    */
   static postEvent(req, res) {
     const {
-      eventTitle, centerId, description, dateArray
+      eventTitle,
+      centerId,
+      description,
+      dateArray,
+      bookedDate
     } = req.body;
     const { id } = req.decoded;
+    let dateBooked;
+    if (bookedDate !== undefined && bookedDate !== '') {
+      dateBooked = bookedDate.split(',');
+    }
     return Events.create({
       eventTitle,
       description,
-      bookedDate: dateArray,
+      bookedDate: dateArray || dateBooked,
       centerId,
       userId: id
     }).then(bookedEvent => {
@@ -150,23 +131,30 @@ export default class EventController {
    */
   static updateEvent(req, res) {
     const {
-      eventTitle, description, dateArray, centerId
+      eventTitle,
+      description,
+      dateArray,
+      centerId,
+      bookedDate
     } = req.body;
     const { id } = req.params;
-    // find the requested event
+    let dateBooked;
+    if (bookedDate !== undefined && bookedDate !== '') {
+      dateBooked = bookedDate.split(',');
+    }
     return Events.findById(id).then(event => {
       if (event) {
         return event
           .update({
             eventTitle: eventTitle || event.eventTitle,
-            bookedDate: dateArray || event.bookedDate,
+            bookedDate: dateArray || dateBooked || event.bookedDate,
             description: description || event.description,
             centerId: centerId || event.centerId
           })
-          .then(() =>
+          .then(newEvent =>
             res.status(202).send({
               message: 'Changes Applied',
-              event
+              newEvent
             }));
       }
       return res.status(404).send({
@@ -211,10 +199,11 @@ export default class EventController {
    */
   static deleteEvent(req, res) {
     const eventId = req.params.id;
-    return Events.findById(eventId).then(event => event.destroy().then(() =>
-      res.status(200).send({
-        message: 'Event Deleted'
-      })));
+    return Events.findById(eventId).then(event =>
+      event.destroy().then(() =>
+        res.status(200).send({
+          message: 'Event Deleted'
+        })));
   }
 
   /**
@@ -255,7 +244,7 @@ export default class EventController {
         },
         centerId
       }
-    }).then((event) => {
+    }).then(event => {
       if (event) {
         return res.status(409).send({
           isAvailable: false,

@@ -4,7 +4,6 @@ import generateShortCode from './generateCode';
 /**
  * @param  {object} req
  * @param {object} res
- * @returns {object} success or failure message
  */
 export default function sendMail(req, res) {
   const { email, message, title } = req.body;

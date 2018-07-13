@@ -25,8 +25,8 @@ describe('Dashboard Component', () => {
     },
     counter: 0,
     activity: {},
-    nextEvents: jest.fn(() => {}),
-    onSelect: jest.fn(() => {})
+    nextEvents: jest.fn(),
+    onSelect: jest.fn()
   };
   const wrapper = shallow(<Content {...props} />);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import Content from '../Template/Content/EventContent';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
@@ -125,6 +125,7 @@ export class ModifyEventPage extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
+      this.state.centerId = this.props.centerSelected.center.id;
       this.props.modifyEvent(this.props.userEvent.event.id, this.state);
     }
   };
@@ -161,7 +162,7 @@ export class ModifyEventPage extends React.Component {
       this.props.logout();
     }
     if (this.props.userEvent.status === 202) {
-      swal(this.props.userEvent.message);
+      toastr.success(this.props.userEvent.message);
       return <Redirect to="/dashboard" />;
     }
     const { pathname } = this.props.location;

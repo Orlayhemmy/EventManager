@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -36,7 +36,7 @@ export class PasswordRecovery extends React.Component {
    * @memberof PasswordRecoveryForm
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
   onChange = (e) => {
     this.setState({
@@ -47,7 +47,7 @@ export class PasswordRecovery extends React.Component {
    * @memberof PasswordRecoveryForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
+   * @param {string} id
    * @returns true or false
    */
   isValid = id => {
@@ -69,7 +69,7 @@ export class PasswordRecovery extends React.Component {
    * @memberof PasswordRecoveryForm
    * @method onSubmit
    * @description it calls an action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
   onSubmit = (e) => {
@@ -129,7 +129,7 @@ export class PasswordRecovery extends React.Component {
    */
   countDown = () => {
     this.state.timeout = setTimeout(() => {
-      let div = document.getElementById('verifyCode');
+      const div = document.getElementById('verifyCode');
       if (!div.hidden) {
         this.showDiv('verifyCode', 'verifyEmail');
         document.getElementById('code').disabled = true;
@@ -160,7 +160,7 @@ export class PasswordRecovery extends React.Component {
       this.props.logout();
     }
     if (message === 'Changes Applied Successfully') {
-      swal({
+      toastr.success({
         title: '<h1>Password Changed</h1>',
         html: '<i class="fa fa-check-circle largeIcon" />'
       });

@@ -12,7 +12,8 @@ describe.only('Admin content', () => {
     getNextCenters: jest.fn(),
     viewCenterSelected: jest.fn(),
     getCenters: jest.fn(),
-    searchValidation: jest.fn()
+    searchValidation: jest.fn(),
+    centerSelected: jest.fn()
   };
   const event = {
     preventDefault: jest.fn(),

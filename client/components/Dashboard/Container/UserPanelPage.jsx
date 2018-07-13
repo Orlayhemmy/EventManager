@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 // import $ from 'jquery';
 import {
   getEvents,
@@ -57,7 +57,7 @@ export class Dashboard extends React.Component {
     } = this.props;
     this.props.clearCenterStorage();
     this.props.clearEventState();
-    this.props.getEvents(0);
+    this.props.getEvents();
     this.props.getActivity(id);
     this.props.eventBooked(id);
   }
@@ -80,7 +80,7 @@ export class Dashboard extends React.Component {
   componentDidUpdate() {
     if (this.props.userEvent.status === 200) {
       $('#deleteModal').modal('hide');
-      swal(this.props.userEvent.message);
+      toastr.success(this.props.userEvent.message);
     }
   }
   /**
@@ -201,17 +201,17 @@ export class Dashboard extends React.Component {
   }
 }
 const propTypes = {
-  auth: PropTypes.object.isRequired,
-  userEvent: PropTypes.object.isRequired,
-  activity: PropTypes.object.isRequired,
-  getEvents: PropTypes.func.isRequired,
-  clearCenterStorage: PropTypes.func.isRequired,
-  setCurrentEvent: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
-  getActivity: PropTypes.func.isRequired,
-  clearEventState: PropTypes.func.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
-  eventBooked: PropTypes.func.isRequired
+  auth: PropTypes.object,
+  userEvent: PropTypes.object,
+  activity: PropTypes.object,
+  getEvents: PropTypes.func,
+  clearCenterStorage: PropTypes.func,
+  setCurrentEvent: PropTypes.func,
+  logout: PropTypes.func,
+  getActivity: PropTypes.func,
+  clearEventState: PropTypes.func,
+  deleteEvent: PropTypes.func,
+  eventBooked: PropTypes.func
 };
 const mapStateToProps = state => ({
   auth: state.auth,

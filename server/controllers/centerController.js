@@ -27,17 +27,13 @@ export default class CenterController {
     const btwValue = req.body.btwValue || req.query.btwValue;
     const capacityType = req.body.capacityType || req.query.capacityType;
 
-    // const skip = page ? page * 5 : 0;
-    // const centerLimit = !page ? null : 6;
-    // get centers
     return Centers.findAll({
       where: {
         location: searchLocation(location),
         capacity: searchCapacity(capacityType, btwValue, capacity),
         facilities: searchFacilities(facilities)
       },
-      // offset: `${skip}`,
-      // limit: centerLimit,
+
       order: [['centerName', 'ASC']]
     }).then(centers =>
       res.status(200).send({

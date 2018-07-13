@@ -46,8 +46,7 @@ router
 
 router
   .route('/events')
-  .post(authToken, eventValidate.postEvent, eventController.postEvent)
-  .get(authToken, eventController.getAllEvents);
+  .post(authToken, eventValidate.postEvent, eventController.postEvent);
 
 router
   .route('/centerEvents/:id')
@@ -57,7 +56,7 @@ router
   .route('/approveEvent/:id')
   .put(authAdminToken, eventController.approveEvent);
 
-router.route('/userEvents/:id').get(authToken, eventController.getUserEvents);
+router.route('/userEvents').get(authToken, eventController.getUserEvents);
 
 router
   .route('/events/:id')
@@ -67,29 +66,19 @@ router
 
 router.route('/userEmail/:id').get(authToken, userController.getUserEmail);
 
-router.route('/centerStatus/:id').put(centerController.centerStatus);
-
-router
-  .route('/activity')
-  .get(authToken, activityController.getActivity);
+router.route('/activity').get(authToken, activityController.getActivity);
 
 router
   .route('/adminactivity')
   .get(authToken, activityController.getAdminActivity);
 
-router
-  .route('/activity/:id')
-  .delete(authToken, activityController.deleteActivity);
-
-router.route('/passwordcheck')
-  .post(authToken, userController.PasswordCheck);
+router.route('/passwordcheck').post(authToken, userController.PasswordCheck);
 
 router
   .route('/eventsbookedcount')
   .get(authToken, eventController.getEventBookedCount);
 
 router.route('/sendmail').post(sendMail);
-router.route('/checkDate')
-  .post(authToken, eventController.checkEventDate);
+router.route('/checkDate').post(authToken, eventController.checkEventDate);
 // Return router
 export default router;

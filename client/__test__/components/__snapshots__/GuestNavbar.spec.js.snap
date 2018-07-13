@@ -1,760 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`guest navbar should render the component based 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Navbar
-    navbarProps={
-      Object {
-        "logout": [MockFunction],
-        "path": "/",
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <li
-          className="nav-item"
-        >
-          <Link
-            className="nav-link active"
-            replace={false}
-            to="/"
-          >
-            <span
-              className="nav-link-text"
-            >
-              Home
-            </span>
-          </Link>
-        </li>,
-        <li
-          className="nav-item"
-        >
-          <Link
-            className="nav-link"
-            replace={false}
-            to="/view-centers"
-          >
-            <span
-              className="nav-link-text"
-            >
-              centers
-            </span>
-          </Link>
-        </li>,
-        <li
-          className="nav-item"
-        >
-          <Link
-            className="nav-link"
-            replace={false}
-            to="/about"
-          >
-            <span
-              className="nav-link-text"
-            >
-              about us
-            </span>
-          </Link>
-        </li>,
-        <li
-          className="nav-item"
-        >
-          <div
-            className="dropdown"
-          >
-            <button
-              aria-expanded="false"
-              aria-haspopup="true"
-              className="btn btn-success dropdown-toggle main-color-bg"
-              data-toggle="dropdown"
-              id="signIn"
-              type="button"
-            >
-              Sign In
-            </button>
-            <div
-              aria-labelledby="signIn"
-              className="dropdown-menu dropdown-menu-right mt-3"
-            >
-              <SignIn
-                navbarProps={
-                  Object {
-                    "logout": [MockFunction],
-                    "path": "/",
-                  }
-                }
-              />
-            </div>
-          </div>
-        </li>,
-      ],
-      "className": "navbar-nav ml-auto",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <Link
-            className="nav-link active"
-            replace={false}
-            to="/"
-          >
-            <span
-              className="nav-link-text"
-            >
-              Home
-            </span>
-          </Link>,
-          "className": "nav-item",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": <span
-              className="nav-link-text"
-            >
-              Home
-            </span>,
-            "className": "nav-link active",
-            "replace": false,
-            "to": "/",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Home",
-              "className": "nav-link-text",
-            },
-            "ref": null,
-            "rendered": "Home",
-            "type": "span",
-          },
-          "type": [Function],
-        },
-        "type": "li",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <Link
-            className="nav-link"
-            replace={false}
-            to="/view-centers"
-          >
-            <span
-              className="nav-link-text"
-            >
-              centers
-            </span>
-          </Link>,
-          "className": "nav-item",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": <span
-              className="nav-link-text"
-            >
-              centers
-            </span>,
-            "className": "nav-link",
-            "replace": false,
-            "to": "/view-centers",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "centers",
-              "className": "nav-link-text",
-            },
-            "ref": null,
-            "rendered": "centers",
-            "type": "span",
-          },
-          "type": [Function],
-        },
-        "type": "li",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <Link
-            className="nav-link"
-            replace={false}
-            to="/about"
-          >
-            <span
-              className="nav-link-text"
-            >
-              about us
-            </span>
-          </Link>,
-          "className": "nav-item",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": <span
-              className="nav-link-text"
-            >
-              about us
-            </span>,
-            "className": "nav-link",
-            "replace": false,
-            "to": "/about",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "about us",
-              "className": "nav-link-text",
-            },
-            "ref": null,
-            "rendered": "about us",
-            "type": "span",
-          },
-          "type": [Function],
-        },
-        "type": "li",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <div
-            className="dropdown"
-          >
-            <button
-              aria-expanded="false"
-              aria-haspopup="true"
-              className="btn btn-success dropdown-toggle main-color-bg"
-              data-toggle="dropdown"
-              id="signIn"
-              type="button"
-            >
-              Sign In
-            </button>
-            <div
-              aria-labelledby="signIn"
-              className="dropdown-menu dropdown-menu-right mt-3"
-            >
-              <SignIn
-                navbarProps={
-                  Object {
-                    "logout": [MockFunction],
-                    "path": "/",
-                  }
-                }
-              />
-            </div>
-          </div>,
-          "className": "nav-item",
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <button
-                aria-expanded="false"
-                aria-haspopup="true"
-                className="btn btn-success dropdown-toggle main-color-bg"
-                data-toggle="dropdown"
-                id="signIn"
-                type="button"
-              >
-                Sign In
-              </button>,
-              <div
-                aria-labelledby="signIn"
-                className="dropdown-menu dropdown-menu-right mt-3"
-              >
-                <SignIn
-                  navbarProps={
-                    Object {
-                      "logout": [MockFunction],
-                      "path": "/",
-                    }
-                  }
-                />
-              </div>,
-            ],
-            "className": "dropdown",
-          },
-          "ref": null,
-          "rendered": Array [
+<ul
+  className="navbar-nav ml-auto"
+>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link active"
+      replace={false}
+      to="/"
+    >
+      <span
+        className="nav-link-text"
+      >
+        Home
+      </span>
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link"
+      replace={false}
+      to="/view-centers"
+    >
+      <span
+        className="nav-link-text"
+      >
+        centers
+      </span>
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <Link
+      className="nav-link"
+      replace={false}
+      to="/about"
+    >
+      <span
+        className="nav-link-text"
+      >
+        about us
+      </span>
+    </Link>
+  </li>
+  <li
+    className="nav-item"
+  >
+    <div
+      className="dropdown"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        className="btn btn-success dropdown-toggle main-color-bg"
+        data-toggle="dropdown"
+        id="signIn"
+        type="button"
+      >
+        Sign In
+      </button>
+      <div
+        aria-labelledby="signIn"
+        className="dropdown-menu dropdown-menu-right mt-3"
+      >
+        <SignIn
+          navbarProps={
             Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "aria-expanded": "false",
-                "aria-haspopup": "true",
-                "children": "Sign In",
-                "className": "btn btn-success dropdown-toggle main-color-bg",
-                "data-toggle": "dropdown",
-                "id": "signIn",
-                "type": "button",
-              },
-              "ref": null,
-              "rendered": "Sign In",
-              "type": "button",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "aria-labelledby": "signIn",
-                "children": <SignIn
-                  navbarProps={
-                    Object {
-                      "logout": [MockFunction],
-                      "path": "/",
-                    }
-                  }
-                />,
-                "className": "dropdown-menu dropdown-menu-right mt-3",
-              },
-              "ref": null,
-              "rendered": Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "class",
-                "props": Object {
-                  "navbarProps": Object {
-                    "logout": [MockFunction],
-                    "path": "/",
-                  },
-                },
-                "ref": null,
-                "rendered": null,
-                "type": [Function],
-              },
-              "type": "div",
-            },
-          ],
-          "type": "div",
-        },
-        "type": "li",
-      },
-    ],
-    "type": "ul",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <li
-            className="nav-item"
-          >
-            <Link
-              className="nav-link active"
-              replace={false}
-              to="/"
-            >
-              <span
-                className="nav-link-text"
-              >
-                Home
-              </span>
-            </Link>
-          </li>,
-          <li
-            className="nav-item"
-          >
-            <Link
-              className="nav-link"
-              replace={false}
-              to="/view-centers"
-            >
-              <span
-                className="nav-link-text"
-              >
-                centers
-              </span>
-            </Link>
-          </li>,
-          <li
-            className="nav-item"
-          >
-            <Link
-              className="nav-link"
-              replace={false}
-              to="/about"
-            >
-              <span
-                className="nav-link-text"
-              >
-                about us
-              </span>
-            </Link>
-          </li>,
-          <li
-            className="nav-item"
-          >
-            <div
-              className="dropdown"
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="true"
-                className="btn btn-success dropdown-toggle main-color-bg"
-                data-toggle="dropdown"
-                id="signIn"
-                type="button"
-              >
-                Sign In
-              </button>
-              <div
-                aria-labelledby="signIn"
-                className="dropdown-menu dropdown-menu-right mt-3"
-              >
-                <SignIn
-                  navbarProps={
-                    Object {
-                      "logout": [MockFunction],
-                      "path": "/",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </li>,
-        ],
-        "className": "navbar-nav ml-auto",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Link
-              className="nav-link active"
-              replace={false}
-              to="/"
-            >
-              <span
-                className="nav-link-text"
-              >
-                Home
-              </span>
-            </Link>,
-            "className": "nav-item",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <span
-                className="nav-link-text"
-              >
-                Home
-              </span>,
-              "className": "nav-link active",
-              "replace": false,
-              "to": "/",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Home",
-                "className": "nav-link-text",
-              },
-              "ref": null,
-              "rendered": "Home",
-              "type": "span",
-            },
-            "type": [Function],
-          },
-          "type": "li",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Link
-              className="nav-link"
-              replace={false}
-              to="/view-centers"
-            >
-              <span
-                className="nav-link-text"
-              >
-                centers
-              </span>
-            </Link>,
-            "className": "nav-item",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <span
-                className="nav-link-text"
-              >
-                centers
-              </span>,
-              "className": "nav-link",
-              "replace": false,
-              "to": "/view-centers",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "centers",
-                "className": "nav-link-text",
-              },
-              "ref": null,
-              "rendered": "centers",
-              "type": "span",
-            },
-            "type": [Function],
-          },
-          "type": "li",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Link
-              className="nav-link"
-              replace={false}
-              to="/about"
-            >
-              <span
-                className="nav-link-text"
-              >
-                about us
-              </span>
-            </Link>,
-            "className": "nav-item",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": <span
-                className="nav-link-text"
-              >
-                about us
-              </span>,
-              "className": "nav-link",
-              "replace": false,
-              "to": "/about",
-            },
-            "ref": null,
-            "rendered": Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "about us",
-                "className": "nav-link-text",
-              },
-              "ref": null,
-              "rendered": "about us",
-              "type": "span",
-            },
-            "type": [Function],
-          },
-          "type": "li",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <div
-              className="dropdown"
-            >
-              <button
-                aria-expanded="false"
-                aria-haspopup="true"
-                className="btn btn-success dropdown-toggle main-color-bg"
-                data-toggle="dropdown"
-                id="signIn"
-                type="button"
-              >
-                Sign In
-              </button>
-              <div
-                aria-labelledby="signIn"
-                className="dropdown-menu dropdown-menu-right mt-3"
-              >
-                <SignIn
-                  navbarProps={
-                    Object {
-                      "logout": [MockFunction],
-                      "path": "/",
-                    }
-                  }
-                />
-              </div>
-            </div>,
-            "className": "nav-item",
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <button
-                  aria-expanded="false"
-                  aria-haspopup="true"
-                  className="btn btn-success dropdown-toggle main-color-bg"
-                  data-toggle="dropdown"
-                  id="signIn"
-                  type="button"
-                >
-                  Sign In
-                </button>,
-                <div
-                  aria-labelledby="signIn"
-                  className="dropdown-menu dropdown-menu-right mt-3"
-                >
-                  <SignIn
-                    navbarProps={
-                      Object {
-                        "logout": [MockFunction],
-                        "path": "/",
-                      }
-                    }
-                  />
-                </div>,
-              ],
-              "className": "dropdown",
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "aria-expanded": "false",
-                  "aria-haspopup": "true",
-                  "children": "Sign In",
-                  "className": "btn btn-success dropdown-toggle main-color-bg",
-                  "data-toggle": "dropdown",
-                  "id": "signIn",
-                  "type": "button",
-                },
-                "ref": null,
-                "rendered": "Sign In",
-                "type": "button",
-              },
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "aria-labelledby": "signIn",
-                  "children": <SignIn
-                    navbarProps={
-                      Object {
-                        "logout": [MockFunction],
-                        "path": "/",
-                      }
-                    }
-                  />,
-                  "className": "dropdown-menu dropdown-menu-right mt-3",
-                },
-                "ref": null,
-                "rendered": Object {
-                  "instance": null,
-                  "key": undefined,
-                  "nodeType": "class",
-                  "props": Object {
-                    "navbarProps": Object {
-                      "logout": [MockFunction],
-                      "path": "/",
-                    },
-                  },
-                  "ref": null,
-                  "rendered": null,
-                  "type": [Function],
-                },
-                "type": "div",
-              },
-            ],
-            "type": "div",
-          },
-          "type": "li",
-        },
-      ],
-      "type": "ul",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+              "logout": [MockFunction],
+              "path": "/",
+            }
+          }
+        />
+      </div>
+    </div>
+  </li>
+</ul>
 `;

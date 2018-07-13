@@ -76,22 +76,7 @@ describe('tests for activities', () => {
           
           done();
         });
-    });
-    it('delete event activities', done => {
-      request
-        .delete('/api/v1/activity/1')
-        .set('x-access-token', userToken)
-        .expect(200)
-        .end((err, res) => {
-          expect(res.body).to.have.property('message');
-          expect(res.body.message).to.not.equal(null);
-          expect(res.body.message).deep.equal('Activity Deleted');
-          
-          done();
-        });
-    });
-
-    
+    });  
 
   doAfterTest();
 });

@@ -1,591 +1,68 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Image upload should render the component without errors 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <SignIn
-    navbarProps={
-      Object {
-        "auth": Object {
-          "signinError": "",
-        },
-        "errorEmail": "",
-        "errorPass": "",
-        "loginEmail": "",
-        "loginPassword": "",
-        "onChange": [Function],
-        "password": "",
-        "signinError": "",
-        "signinSubmit": [Function],
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <span
-          className="help-block"
-        >
-          
-        </span>,
-        <div
-          className="form-group"
-        >
-          <label
-            htmlFor="email"
-          >
-            Email Address
-          </label>
-          <input
-            className="form-control"
-            error=""
-            id="loginEmail"
-            onChange={[Function]}
-            placeholder="Email Address"
-            required={true}
-            type="email"
-            value=""
-          />
-        </div>,
-        <div
-          className="form-group"
-        >
-          <span
-            className="help-block"
-          >
-            
-          </span>
-          <label
-            htmlFor="email"
-          >
-            Password
-          </label>
-          <input
-            className="form-control"
-            error=""
-            id="loginPassword"
-            onChange={[Function]}
-            placeholder="123456789"
-            required={true}
-            type="password"
-            value=""
-          />
-        </div>,
-        <button
-          className="btn btn-primary mb-3"
-          type="submit"
-        >
-          Sign in
-        </button>,
-        <br />,
-        <span>
-          <Link
-            replace={false}
-            to="/recover-password"
-          >
-            Forgot Password? Click Here
-          </Link>
-        </span>,
-      ],
-      "className": "px-4 py-3",
-      "onSubmit": [Function],
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "",
-          "className": "help-block",
-        },
-        "ref": null,
-        "rendered": "",
-        "type": "span",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <label
-              htmlFor="email"
-            >
-              Email Address
-            </label>,
-            <input
-              className="form-control"
-              error=""
-              id="loginEmail"
-              onChange={[Function]}
-              placeholder="Email Address"
-              required={true}
-              type="email"
-              value=""
-            />,
-          ],
-          "className": "form-group",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Email Address",
-              "htmlFor": "email",
-            },
-            "ref": null,
-            "rendered": "Email Address",
-            "type": "label",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "className": "form-control",
-              "error": "",
-              "id": "loginEmail",
-              "onChange": [Function],
-              "placeholder": "Email Address",
-              "required": true,
-              "type": "email",
-              "value": "",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "input",
-          },
-        ],
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": Array [
-            <span
-              className="help-block"
-            >
-              
-            </span>,
-            <label
-              htmlFor="email"
-            >
-              Password
-            </label>,
-            <input
-              className="form-control"
-              error=""
-              id="loginPassword"
-              onChange={[Function]}
-              placeholder="123456789"
-              required={true}
-              type="password"
-              value=""
-            />,
-          ],
-          "className": "form-group",
-        },
-        "ref": null,
-        "rendered": Array [
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "",
-              "className": "help-block",
-            },
-            "ref": null,
-            "rendered": "",
-            "type": "span",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": "Password",
-              "htmlFor": "email",
-            },
-            "ref": null,
-            "rendered": "Password",
-            "type": "label",
-          },
-          Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "className": "form-control",
-              "error": "",
-              "id": "loginPassword",
-              "onChange": [Function],
-              "placeholder": "123456789",
-              "required": true,
-              "type": "password",
-              "value": "",
-            },
-            "ref": null,
-            "rendered": null,
-            "type": "input",
-          },
-        ],
-        "type": "div",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": "Sign in",
-          "className": "btn btn-primary mb-3",
-          "type": "submit",
-        },
-        "ref": null,
-        "rendered": "Sign in",
-        "type": "button",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {},
-        "ref": null,
-        "rendered": null,
-        "type": "br",
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "host",
-        "props": Object {
-          "children": <Link
-            replace={false}
-            to="/recover-password"
-          >
-            Forgot Password? Click Here
-          </Link>,
-        },
-        "ref": null,
-        "rendered": Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "children": "Forgot Password? Click Here",
-            "replace": false,
-            "to": "/recover-password",
-          },
-          "ref": null,
-          "rendered": "Forgot Password? Click Here",
-          "type": [Function],
-        },
-        "type": "span",
-      },
-    ],
-    "type": "form",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <span
-            className="help-block"
-          >
-            
-          </span>,
-          <div
-            className="form-group"
-          >
-            <label
-              htmlFor="email"
-            >
-              Email Address
-            </label>
-            <input
-              className="form-control"
-              error=""
-              id="loginEmail"
-              onChange={[Function]}
-              placeholder="Email Address"
-              required={true}
-              type="email"
-              value=""
-            />
-          </div>,
-          <div
-            className="form-group"
-          >
-            <span
-              className="help-block"
-            >
-              
-            </span>
-            <label
-              htmlFor="email"
-            >
-              Password
-            </label>
-            <input
-              className="form-control"
-              error=""
-              id="loginPassword"
-              onChange={[Function]}
-              placeholder="123456789"
-              required={true}
-              type="password"
-              value=""
-            />
-          </div>,
-          <button
-            className="btn btn-primary mb-3"
-            type="submit"
-          >
-            Sign in
-          </button>,
-          <br />,
-          <span>
-            <Link
-              replace={false}
-              to="/recover-password"
-            >
-              Forgot Password? Click Here
-            </Link>
-          </span>,
-        ],
-        "className": "px-4 py-3",
-        "onSubmit": [Function],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "",
-            "className": "help-block",
-          },
-          "ref": null,
-          "rendered": "",
-          "type": "span",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <label
-                htmlFor="email"
-              >
-                Email Address
-              </label>,
-              <input
-                className="form-control"
-                error=""
-                id="loginEmail"
-                onChange={[Function]}
-                placeholder="Email Address"
-                required={true}
-                type="email"
-                value=""
-              />,
-            ],
-            "className": "form-group",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Email Address",
-                "htmlFor": "email",
-              },
-              "ref": null,
-              "rendered": "Email Address",
-              "type": "label",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "className": "form-control",
-                "error": "",
-                "id": "loginEmail",
-                "onChange": [Function],
-                "placeholder": "Email Address",
-                "required": true,
-                "type": "email",
-                "value": "",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "input",
-            },
-          ],
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <span
-                className="help-block"
-              >
-                
-              </span>,
-              <label
-                htmlFor="email"
-              >
-                Password
-              </label>,
-              <input
-                className="form-control"
-                error=""
-                id="loginPassword"
-                onChange={[Function]}
-                placeholder="123456789"
-                required={true}
-                type="password"
-                value=""
-              />,
-            ],
-            "className": "form-group",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "",
-                "className": "help-block",
-              },
-              "ref": null,
-              "rendered": "",
-              "type": "span",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "Password",
-                "htmlFor": "email",
-              },
-              "ref": null,
-              "rendered": "Password",
-              "type": "label",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "className": "form-control",
-                "error": "",
-                "id": "loginPassword",
-                "onChange": [Function],
-                "placeholder": "123456789",
-                "required": true,
-                "type": "password",
-                "value": "",
-              },
-              "ref": null,
-              "rendered": null,
-              "type": "input",
-            },
-          ],
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": "Sign in",
-            "className": "btn btn-primary mb-3",
-            "type": "submit",
-          },
-          "ref": null,
-          "rendered": "Sign in",
-          "type": "button",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {},
-          "ref": null,
-          "rendered": null,
-          "type": "br",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <Link
-              replace={false}
-              to="/recover-password"
-            >
-              Forgot Password? Click Here
-            </Link>,
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "class",
-            "props": Object {
-              "children": "Forgot Password? Click Here",
-              "replace": false,
-              "to": "/recover-password",
-            },
-            "ref": null,
-            "rendered": "Forgot Password? Click Here",
-            "type": [Function],
-          },
-          "type": "span",
-        },
-      ],
-      "type": "form",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+<form
+  className="px-4 py-3"
+  onSubmit={[Function]}
+>
+  <span
+    className="help-block"
+  />
+  <div
+    className="form-group"
+  >
+    <label
+      htmlFor="email"
+    >
+      Email Address
+    </label>
+    <input
+      className="form-control"
+      error=""
+      id="loginEmail"
+      onChange={[Function]}
+      placeholder="Email Address"
+      required={true}
+      type="email"
+      value=""
+    />
+  </div>
+  <div
+    className="form-group"
+  >
+    <span
+      className="help-block"
+    />
+    <label
+      htmlFor="email"
+    >
+      Password
+    </label>
+    <input
+      className="form-control"
+      error=""
+      id="loginPassword"
+      onChange={[Function]}
+      placeholder="123456789"
+      required={true}
+      type="password"
+      value=""
+    />
+  </div>
+  <button
+    className="btn btn-primary mb-3"
+    type="submit"
+  >
+    Sign in
+  </button>
+  <br />
+  <span>
+    <Link
+      replace={false}
+      to="/recover-password"
+    >
+      Forgot Password? Click Here
+    </Link>
+  </span>
+</form>
 `;
