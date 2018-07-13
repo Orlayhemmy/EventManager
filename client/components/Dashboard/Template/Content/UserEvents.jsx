@@ -45,7 +45,7 @@ export default class Content extends React.Component {
         eventId = `eventDetails${index}`;
         const eventDate = `Date: ${bookedDate}`;
         return (
-          <div key={index}>
+          <div key={index} className="center">
             <div className="tooltips center" key={index} id="booked-events">
               <div key={eventId} className="text-center">
                 <div className="card p-1 mb-3 mw">
