@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Approve Event Component should render component without error 1`] = `
+exports[`Delete Event Component should render component without error 1`] = `
 <div>
   <p>
     Are you sure you want to delete 

@@ -2,7 +2,7 @@ import React from 'react';
 import { ViewCenterDetails } from '../../components/CenterDetails/Container/ViewCenterPage';
 import { props, logout, location } from './defaultProps';
 
-describe('AddCenter Page component', () => {
+describe('View center Page component', () => {
   const center = {
     message: '',
     status: ''
@@ -55,7 +55,7 @@ describe('AddCenter Page component', () => {
     const centerdiv = wrapper.find('div');
     expect(centerdiv.length).toEqual(1);
   });
-  it('should get the length of div', () => {
+  it('should redirect user from page', () => {
     wrapper.setProps({
       auth: {
         isAuth: false,

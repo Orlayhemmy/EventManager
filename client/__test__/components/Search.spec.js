@@ -34,7 +34,7 @@ describe('Search Form Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render component without error', () => {
+  it('should reset state ', () => {
     const wrapper = shallow(<SearchForm criteria={criteria2} search={search} onChange={onChange} getCenters={getCenters}/>);
     const button = (wrapper).find('#reset');
     button.simulate('click', {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AboutPage Component should render admin dashboard page 1`] = `
+exports[`AboutPage Component should render without error 1`] = `
 <div
   id="about-page"
 >

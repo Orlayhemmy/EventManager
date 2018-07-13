@@ -8,7 +8,7 @@ describe('AboutPage Component', () => {
       pathname: '/about'
     }
   };
-  it('should render admin dashboard page', () => {
+  it('should render without error', () => {
     const wrapper = shallow(<AboutPage {...props} />);
     expect(wrapper).toMatchSnapshot();
   });

@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteContent from '../../components/Common/Delete';
 
-describe('Approve Event Component', () => {
+describe('Delete Event Component', () => {
   const onDelete = jest.fn();
   const title = '';
   const onCancel = jest.fn();

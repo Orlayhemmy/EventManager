@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddCenter Page component should render without throwing error 1`] = `
+exports[`View center Page component should render without throwing error 1`] = `
 <div
   className="page-wrapper"
   id="view-center-wrapper"

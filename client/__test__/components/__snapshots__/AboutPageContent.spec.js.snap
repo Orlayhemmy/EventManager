@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Home Component should render without throwing error 1`] = `
+exports[`AboutPage Component should render without throwing error 1`] = `
 <div
   className="container"
   id="about"

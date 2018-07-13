@@ -27,7 +27,7 @@ describe.only('Admin content', () => {
   it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  it('should render the component without error', () => {
+  it('should redirect user from the page when unauthenticated', () => {
     wrapper.setProps({
       auth: {
         user: {
@@ -38,7 +38,7 @@ describe.only('Admin content', () => {
     });
     expect(wrapper.find('#admin-content').length).toEqual(0);
   });
-  it('should render the component without error', () => {
+  it('should redirect user from the page when not admin', () => {
     wrapper.setProps({
       auth: {
         user: {
@@ -50,12 +50,12 @@ describe.only('Admin content', () => {
     expect(wrapper.find('#admin-content').length).toEqual(0);
   });
 
-  it('should render the component without error', () => {
+  it('should call the nextCenter function', () => {
     wrapper.instance().nextCenters('', 1);
     expect(props.getNextCenters).toHaveBeenCalledTimes(1);
   });
 
-  it('set state when id is next and prevous', () => {
+  it('set state when the target event id is next and previous', () => {
     const spy = sinon.spy(wrapper.instance(), 'nextCenters');
     wrapper.instance().nextCenters({ target: { id: 'next' } });
     expect(spy.calledOnce).toBeTruthy();

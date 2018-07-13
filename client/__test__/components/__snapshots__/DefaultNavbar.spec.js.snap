@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Default navbar should render the component based 1`] = `
+exports[`Default navbar should render the component without error 1`] = `
 <AuthNavbar
   id="authnavbar"
   navbarProps={

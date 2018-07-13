@@ -34,7 +34,7 @@ describe('Dashboard Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render component with events', () => {
+  it('should add events to props', () => {
     wrapper.setProps({
       ...wrapper.props,
       userEvent: {

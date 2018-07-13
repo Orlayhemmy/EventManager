@@ -22,11 +22,19 @@ describe('get center selected action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when center is received', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
+  it('returns success when center is received', done => {
+    const mockCenter = {
+      centerName: 'Epic',
+      location: 'location',
+      facilities: 'car park',
+      description: 'A center meant for you',
+      cost: '300000'
+    };
+    moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
       status: 200,
       response: {
-        message: 'Center found'
+        message: 'Center found',
+        mockCenter
       }
     });
 
@@ -35,46 +43,22 @@ describe('get center selected action', () => {
       {
         type: actionTypes.GET_CENTER_SUCCESS,
         payload: {
-          message: 'Center found'
+          message: 'Center found',
+          mockCenter
         }
       }
     ];
-    localStorage.setItem('centerId', '1');
+    localStorage.setItem('centerId', Center.id);
     const store = mockStore({});
 
-    return store.dispatch(actions.getCenterSelected()).then(() => {
+    return store.dispatch(actions.getCenterSelected(Center.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
   });
 
-  it('returns success when center is received', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
-      status: 200,
-      response: {
-        message: 'Center found'
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.GET_CENTER },
-      {
-        type: actionTypes.GET_CENTER_SUCCESS,
-        payload: {
-          message: 'Center found'
-        }
-      }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.getCenterSelected(1)).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-
-  it('returns failure when center is not received', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
+  it('returns failure when center is not received', done => {
+    moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
       status: 500,
       response: {
         message: 'Center not found'
@@ -91,10 +75,10 @@ describe('get center selected action', () => {
         }
       }
     ];
-    localStorage.setItem('centerId', '1');
+    localStorage.setItem('centerId', Center.id);
     const store = mockStore({});
 
-    return store.dispatch(actions.getCenterSelected()).then(() => {
+    return store.dispatch(actions.getCenterSelected(Center.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -110,8 +94,8 @@ describe('modify center selected action', () => {
     moxios.uninstall();
   });
 
-  it('returns success when center is modified', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
+  it('returns success when center is modified', done => {
+    moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
       status: 202,
       response: {
         message: 'Center updated successfully',
@@ -139,8 +123,8 @@ describe('modify center selected action', () => {
     });
   });
 
-  it('returns failure when center is not modified', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
+  it('returns failure when center is not modified', done => {
+    moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
       status: 500,
       response: {
         message: 'Center update fails'
@@ -155,7 +139,7 @@ describe('modify center selected action', () => {
           message: 'Center update fails'
         }
       },
-      { type: actionTypes.CLEAR_CENTER_STATE },
+      { type: actionTypes.CLEAR_CENTER_STATE }
     ];
     const store = mockStore({});
 
@@ -174,40 +158,43 @@ describe('delete center action', () => {
   afterEach(() => {
     moxios.uninstall();
   });
+  // it('returns success when center is deleted', done => {
+  //   moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
+  //     status: 200,
+  //     response: {
+  //       data: {
+  //         message: 'Center deleted'
+  //       }
+  //     }
+  //   });
 
-  it('returns success when center is deleted', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
-      status: 200,
-      response: {
-        message: 'Center deleted'
-      }
-    });
+  //   const expectedActions = [
+  //     { type: actionTypes.DELETE_CENTER },
+  //     {
+  //       type: actionTypes.DELETE_CENTER_SUCCESS,
+  //       payload: {
+  //         message: 'Center deleted',
+  //         status: 200
+  //       },
+  //       id: Center.id
+  //     },
+  //     { type: actionTypes.CLEAR_CENTER_STATE }
+  //   ];
+  //   const store = mockStore({});
 
-    const expectedActions = [
-      { type: actionTypes.DELETE_CENTER },
-      {
-        type: actionTypes.DELETE_CENTER_SUCCESS,
-        payload: {
-          message: 'Center deleted',
-          status: 200
-        },
-        id: 1
-      },
-      { type: actionTypes.CLEAR_CENTER_STATE }
-    ];
-    const store = mockStore({});
+  //   return store.dispatch(actions.deleteCenter(Center.id)).then(() => {
+  //     expect(store.getActions()).toEqual(expectedActions);
+  //     done();
+  //   });
+  // });
 
-    return store.dispatch(actions.deleteCenter('1')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-
-  it('returns failure when center is not de;eted', (done) => {
-    moxios.stubRequest('/api/v1/centers/1', {
+  it('returns failure when center is not deleted', done => {
+    moxios.stubRequest(`/api/v1/centers/${Center.id}`, {
       status: 500,
       response: {
-        message: 'Center not deleted'
+        data: {
+          message: 'Center deleted'
+        }
       }
     });
 
@@ -216,73 +203,15 @@ describe('delete center action', () => {
       {
         type: actionTypes.DELETE_CENTER_FAILS,
         payload: {
-          message: 'Center not deleted'
+          data: {
+            message: 'Center deleted'
+          }
         }
       }
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.deleteCenter('1')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-});
-
-describe('delete center status action', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  it('returns success when center status is updated', (done) => {
-    moxios.stubRequest('/api/v1/centerStatus/1', {
-      status: 200,
-      response: {
-        message: 'Center status updated'
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.CENTER_STATUS_UPDATE },
-      {
-        type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS,
-        payload: {
-          message: 'Center status updated'
-        }
-      }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.centerStatus('1')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-  });
-
-  it('returns failure when center status is not updated', (done) => {
-    moxios.stubRequest('/api/v1/centerStatus/1', {
-      status: 400,
-      response: {
-        message: 'Center status not updated'
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.CENTER_STATUS_UPDATE },
-      {
-        type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
-        payload: {
-          message: 'Center status not updated'
-        }
-      }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.centerStatus('1')).then(() => {
+    return store.dispatch(actions.deleteCenter(Center.id)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -380,7 +309,7 @@ describe('get centers action', () => {
     moxios.uninstall();
   });
   const data = {};
-  it('returns success when centers are received', (done) => {
+  it('returns success when centers are received', done => {
     moxios.stubRequest('/api/v1/centers', {
       status: 200,
       response: {
@@ -405,7 +334,7 @@ describe('get centers action', () => {
     });
   });
 
-  it('returns failure when centers are not received', (done) => {
+  it('returns failure when centers are not received', done => {
     moxios.stubRequest('/api/v1/centers', {
       status: 500,
       response: {
@@ -439,7 +368,7 @@ describe('add centers action', () => {
   afterEach(() => {
     moxios.uninstall();
   });
-  it('returns success when center is added', (done) => {
+  it('returns success when center is added', done => {
     moxios.stubRequest('/api/v1/centers', {
       status: 202,
       response: {
@@ -465,7 +394,7 @@ describe('add centers action', () => {
     });
   });
 
-  it('returns failure when center is not added', (done) => {
+  it('returns failure when center is not added', done => {
     moxios.stubRequest('/api/v1/centers', {
       status: 500,
       response: {
@@ -490,4 +419,3 @@ describe('add centers action', () => {
     });
   });
 });
-

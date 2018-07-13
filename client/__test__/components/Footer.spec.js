@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import expect from 'expect';
 import Footer from '../../components/Footer/Footer';
 
-describe('Home Component', () => {
+describe('Footer Component', () => {
   it('should render without throwing error', () => {
     const wrapper = renderer.create(<Footer />).toJSON();
     expect(wrapper).toMatchSnapshot();

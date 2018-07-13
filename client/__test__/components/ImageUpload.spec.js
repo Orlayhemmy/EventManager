@@ -13,7 +13,7 @@ describe('Image upload', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render the component without errors', () => {
+  it('change the image placeholder with the default want', () => {
     wrapper.setProps({
       ...wrapper.props,
       uploadedImage: '',

@@ -1,6 +1,5 @@
 import React from 'react';
 import Connected, { CenterDetailsContent } from '../../components/CenterDetails/Template/Content/CenterDetailsContent';
-// import { center, userState } from './defaultProps';
 
 describe('center details component', () => {
   const props = {
@@ -62,10 +61,10 @@ describe('center details component', () => {
       }
     }
   });
-  it('should render the component based', () => {
+  it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  it('return true when there is no error on isValid call', () => {
+  it('should call isValid function', () => {
     const spy = sinon.spy(wrapper.instance(), 'isValid');
 
     wrapper.instance().isValid(event);
