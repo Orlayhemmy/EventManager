@@ -1,7 +1,7 @@
 import React from 'react';
 import SignIn from '../../components/Navbar/Template/Form/SignIn';
 
-describe('Image upload', () => {
+describe('Signin', () => {
   const navbarProps = {
     signinError: '',
     signinSubmit: () => {},

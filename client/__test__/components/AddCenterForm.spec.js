@@ -5,10 +5,6 @@ import { center, userState } from './defaultProps';
 describe('display centers', () => {
 
   const props = {
-    // addCenterValidation: jest.fn(() => {
-    //   const isValid = true;
-    //   return isValid;
-    // }),
     path: '/',
     center: {
       error: ''
@@ -26,7 +22,7 @@ describe('display centers', () => {
   };
 
   const wrapper = shallow(<CenterForm {...props} />);
-  it('should render the component based', () => {
+  it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -36,7 +32,7 @@ describe('display centers', () => {
     expect(spy.calledOnce).toBeTruthy();
     expect(wrapper.state().centerName).toEqual('Balmoral');
   });
-  it('return true when there is no error on isValid call', () => {
+  it('call the isValid function', () => {
     wrapper.setState({
       location: 'Lekki',
       description: 'A center with emotions',

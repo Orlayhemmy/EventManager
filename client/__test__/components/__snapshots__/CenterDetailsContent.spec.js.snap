@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`center details component should render the component based 1`] = `
+exports[`center details component should render the component without error 1`] = `
 <div
   id="center-event"
 >

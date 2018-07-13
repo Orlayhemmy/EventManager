@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Image upload should render the component without errors 1`] = `
+exports[`Delete modal should render the component without errors 1`] = `
 <div
   className="modal hide"
   id="deleteModal"

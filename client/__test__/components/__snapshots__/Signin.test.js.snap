@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Image upload should render the component without errors 1`] = `
+exports[`Signin should render the component without errors 1`] = `
 <form
   className="px-4 py-3"
   onSubmit={[Function]}

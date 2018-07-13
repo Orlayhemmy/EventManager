@@ -2,7 +2,7 @@ import React from 'react';
 import EventList from '../../components/CenterDetails/Template/Content/BookedEvents';
 import { bookedEvent } from './defaultProps';
 
-describe('Approve Event Component', () => {
+describe('Booked Event Component', () => {
   const onClick = jest.fn();
   const eventState = bookedEvent;
   it('should render component without error', () => {

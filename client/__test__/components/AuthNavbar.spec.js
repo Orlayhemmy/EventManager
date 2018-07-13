@@ -6,7 +6,5 @@ describe('Auth navbar', () => {
   const wrapper = shallow(<AuthNavbar navbarProps={navbarProps} logout={logout}/>);
   it('should render the component without errors', () => {
     expect(wrapper).toMatchSnapshot();
-    // wrapper.instance().logout();
-    // expect(wrapper.instance().logout.calledOnce).toEqual(true);
   });
 });

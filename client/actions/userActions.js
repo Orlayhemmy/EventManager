@@ -147,41 +147,41 @@ export function confirmEmail(info) {
   };
 }
 
-// /**
-//  * @returns {void}
-//  * @param {string} email
-//  */
-// export function sendMail(email) {
-//   const data = {
-//     email
-//   };
-//   return (dispatch) => {
-//     dispatch({ type: actionTypes.SEND_MAIL });
-//     return axios
-//       .post('/api/v1/sendmail', data)
-//       .then((response) => {
-//         const {
-//           status,
-//           data: { shortCode }
-//         } = response;
-//         const res = {
-//           status,
-//           shortCode
-//         };
-//         dispatch({
-//           type: actionTypes.SEND_MAIL_SUCCESS,
-//           payload: res
-//         });
-//       })
-//       .catch((err) => {
-//         const { data } = err.response;
-//         dispatch({
-//           type: actionTypes.SEND_MAIL_FAILS,
-//           payload: data
-//         });
-//       });
-//   };
-// }
+/**
+ * @returns {void}
+ * @param {string} email
+ */
+export function sendMail(email) {
+  const data = {
+    email
+  };
+  return (dispatch) => {
+    dispatch({ type: actionTypes.SEND_MAIL });
+    return axios
+      .post('/api/v1/sendmail', data)
+      .then((response) => {
+        const {
+          status,
+          data: { shortCode }
+        } = response;
+        const res = {
+          status,
+          shortCode
+        };
+        dispatch({
+          type: actionTypes.SEND_MAIL_SUCCESS,
+          payload: res
+        });
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        dispatch({
+          type: actionTypes.SEND_MAIL_FAILS,
+          payload: data
+        });
+      });
+  };
+}
 
 /**
  * @returns {object} user's details
@@ -277,17 +277,6 @@ export function updatePassword(info) {
         });
       });
   };
-}
-
-/**
- * @param {object} id
- * @returns {object} user email
- */
-export function getUserEmail(id) {
-  return dispatch =>
-    axios.get(`/api/v1/userEmail/${id}`).then((response) => {
-      dispatch({ type: actionTypes.GET_USER_EMAIL, payload: response.data });
-    });
 }
 
 /**

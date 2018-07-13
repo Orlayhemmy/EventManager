@@ -224,6 +224,7 @@ export function modifyCenter(centerInfo) {
  * @returns {object} delete center
  */
 export function deleteCenter(id) {
+  console.log(id)
   return dispatch => {
     dispatch({ type: actionTypes.DELETE_CENTER });
     return axios
@@ -248,32 +249,6 @@ export function deleteCenter(id) {
         const { data } = err.response;
         dispatch({
           type: actionTypes.DELETE_CENTER_FAILS,
-          payload: data
-        });
-      });
-  };
-}
-
-/**
- * @param {object} id
- * @returns {object} center status
- */
-export function centerStatus(id) {
-  return dispatch => {
-    dispatch({ type: actionTypes.CENTER_STATUS_UPDATE });
-    return axios
-      .put(`/api/v1/centerStatus/${id}`)
-      .then(response => {
-        const { data } = response;
-        dispatch({
-          type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS,
-          payload: data
-        });
-      })
-      .catch(err => {
-        const { data } = err.response;
-        dispatch({
-          type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
           payload: data
         });
       });
