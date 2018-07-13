@@ -1,12 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import swal from 'sweetalert2';
 import PropTypes from 'prop-types';
+import toastr from 'toastr';
 import Navbar from '../../Navbar/Container/Navbar';
 import Content from '../Template/Content/CenterDetailsContent';
 import Footer from '../../Footer/Footer';
 import { logout } from '../../../actions/userActions';
+
 
 /**
  * @description ViewCenterDetails component
@@ -41,7 +42,7 @@ export class ViewCenterDetails extends React.Component {
       this.props.logout();
     }
     if (status === 202) {
-      swal('Center updated successfully');
+      toastr.success('Center updated successfully');
     }
     return (
       <div className="page-wrapper" id="view-center-wrapper">

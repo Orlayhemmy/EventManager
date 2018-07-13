@@ -2,16 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
 import {
   checkPassword,
   getUser,
-  updateUserDetails
+  updateUserDetails,
+  logout
 } from '../../../actions/userActions';
 import { eventBooked } from '../../../actions/eventActions';
-import { logout } from '../../../actions/userActions';
 import Content from '../Template/Content/Profile';
 
 /**
@@ -22,7 +22,6 @@ export class Profile extends React.Component {
    * @memberof Profile
    * @method componentDidMount
    * @description it calls an action
-   * @param {void}
    * @returns {void}
    */
   componentDidMount() {
@@ -47,7 +46,7 @@ export class Profile extends React.Component {
       div3.hidden = false;
     }
     if (this.props.auth.status === 202) {
-      swal('Update Successful');
+      toastr.success('Update Successful');
       document.getElementById('newPasswordDiv').hidden = true;
       document.getElementById('editDetails').hidden = true;
       document.getElementById('showDetails').hidden = false;
@@ -58,12 +57,12 @@ export class Profile extends React.Component {
    * @memberof Profile
    * @method showDiv
    * @description it toggles div display
-   * @param {object} event
+   * @param {object} e
    */
   showDiv = (e) => {
     e.preventDefault();
-    const div = document.getElementById('editDetails');
-    const div2 = document.getElementById('showDetails');
+    let div = document.getElementById('editDetails');
+    let div2 = document.getElementById('showDetails');
     if (e.target.id === 'show-form') {
       div.hidden = false;
       div2.hidden = true;
@@ -71,8 +70,8 @@ export class Profile extends React.Component {
       div.hidden = true;
       div2.hidden = false;
     } else {
-      const div = document.getElementById('passwordUpdate');
-      const div2 = document.getElementById('submitButton');
+      div = document.getElementById('passwordUpdate');
+      div2 = document.getElementById('submitButton');
       const span = document.getElementById('changePassword');
       div.hidden = !div.hidden;
       div2.hidden = !div2.hidden;
@@ -84,10 +83,9 @@ export class Profile extends React.Component {
    * @memberof Profile
    * @method logout
    * @description it calls a logout action
-   * @param {object} event
    * @returns {void}
    */
-  logout = (e) => {
+  logout = () => {
     this.props.logout();
   };
   /**

@@ -48,10 +48,9 @@ export function modifyEventValidation(data) {
  */
 export function addEventValidation(data) {
   const {
-    eventTitle, dateArray, description, centerId, bookedDate
+    eventTitle, dateArray, description, centerId
   } = data;
   const errors = {};
-
   // validations for eventTitle
 
   if (!validator.isEmpty(eventTitle)) {
@@ -65,9 +64,9 @@ export function addEventValidation(data) {
   } else {
     errors.eventTitle = 'event Name cannot be blank';
   }
-  // validations for bookedDate
+
   if (dateArray.length > 0) {
-    dateArray.map((date) => {
+    dateArray.map(date => {
       if (!validator.toDate(date)) {
         errors.dateArray = 'Invalid Date';
       }

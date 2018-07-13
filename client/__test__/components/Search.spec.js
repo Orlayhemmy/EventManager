@@ -1,7 +1,7 @@
 import React from 'react';
 import { SearchForm } from '../../components/Common/Search';
 
-describe('Approve Event Component', () => {
+describe('Search Form Component', () => {
   const getCenters = jest.fn();
   const criteria = {
     location: '',
@@ -34,7 +34,7 @@ describe('Approve Event Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render component without error', () => {
+  it('should reset state ', () => {
     const wrapper = shallow(<SearchForm criteria={criteria2} search={search} onChange={onChange} getCenters={getCenters}/>);
     const button = (wrapper).find('#reset');
     button.simulate('click', {

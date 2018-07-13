@@ -152,7 +152,6 @@ const mapStateToProps = state => ({
 });
 
 const propTypes = {
-  onChange: PropTypes.func.isRequired,
   search: PropTypes.func.isRequired,
   criteria: PropTypes.object.isRequired
 };

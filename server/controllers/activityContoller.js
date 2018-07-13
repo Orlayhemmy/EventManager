@@ -82,12 +82,11 @@ export default class ActivityController {
       where: {
         id: req.decoded.id
       }
-    }).then(user => {
+    }).then(user =>
       Activities.create({
         description: `${user.fullname} booked a center`,
         centerId
-      }).then(() => 'success');
-    });
+      }).then(() => 'success'));
   }
 
   /**
@@ -124,24 +123,5 @@ export default class ActivityController {
       description: info,
       userId
     }).then(() => 'success');
-  }
-
-  /**
-   * delete user activity
-   * @static
-   * @param {object} req
-   * @param {object} res
-   * @returns {object} Failure message or Success message
-   * @memberof ActivityController
-   */
-  static deleteActivity(req, res) {
-    return Activities.destroy({
-      where: {
-        eventId: req.params.id
-      }
-    }).then(() =>
-      res.status(200).send({
-        message: 'Activity Deleted'
-      }));
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import DeleteModal from '../../components/Modal/Container/DeleteModal';
 
-describe('Image upload', () => {
+describe('Delete modal', () => {
   const content = 'This is a delete modal';
   const wrapper = shallow(<DeleteModal content={content} />);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import { Redirect } from 'react-router-dom';
 import Content from '../Template/Content/EventContent';
 import Navbar from '../../Navbar/Container/Navbar';
@@ -10,14 +10,14 @@ import { logout } from '../../../actions/userActions';
 import { getCenterSelected } from '../../../actions/centerActions';
 import { addEventValidation } from '../../../shared/eventValidations';
 import { createEvent, checkAvailableDate } from '../../../actions/eventActions';
-import { addEventIntro } from '../../Common/intro';
+import '../../../../node_modules/toastr/build/toastr.min.css';
+import { addEventIntro } from '../../../shared/intro';
 /**
  * @description AddEventPage component
  */
 export class AddEventPage extends React.Component {
   state = {
     eventTitle: '',
-    bookedDate: '',
     description: '',
     errors: {},
     isLoading: false,
@@ -84,6 +84,7 @@ export class AddEventPage extends React.Component {
       suggestion: '',
       text: ''
     };
+    console.log(this.state)
     const id = document.getElementById('bookedDate');
     this.state.bookedDate = id.value;
     if (this.isValid()) {
@@ -137,7 +138,7 @@ export class AddEventPage extends React.Component {
       this.props.logout();
     }
     if (this.props.userEvent.status === 201) {
-      swal(message);
+      toastr.success(message);
       return <Redirect to="/dashboard" />;
     }
 
@@ -179,6 +180,6 @@ export default connect(
     logout,
     getCenterSelected,
     createEvent,
-    checkAvailableDate
+    checkAvailableDate,
   }
 )(AddEventPage);

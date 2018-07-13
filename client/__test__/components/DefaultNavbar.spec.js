@@ -8,11 +8,11 @@ describe('Default navbar', () => {
     }
   };
   const wrapper = shallow(<DefaultNavbar navbarProps={props} />);
-  it('should render the component based', () => {
+  it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render the component based', () => {
+  it('should switch the default navbar when user is authenticated', () => {
     wrapper.setProps({
       navbarProps: {
         auth: {

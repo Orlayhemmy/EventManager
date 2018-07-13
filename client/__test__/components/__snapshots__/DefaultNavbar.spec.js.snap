@@ -1,71 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Default navbar should render the component based 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <DefaultNavbar
-    navbarProps={
-      Object {
-        "auth": Object {
-          "user": Object {
-            "isAdmin": true,
-          },
-        },
-      }
-    }
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "class",
-    "props": Object {
-      "id": "authnavbar",
-      "navbarProps": Object {
-        "auth": Object {
-          "user": Object {
-            "isAdmin": true,
-          },
-        },
-      },
-    },
-    "ref": null,
-    "rendered": null,
-    "type": [Function],
-  },
-  Symbol(enzyme.__nodes__): Array [
+exports[`Default navbar should render the component without error 1`] = `
+<AuthNavbar
+  id="authnavbar"
+  navbarProps={
     Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "id": "authnavbar",
-        "navbarProps": Object {
-          "auth": Object {
-            "user": Object {
-              "isAdmin": true,
-            },
-          },
+      "auth": Object {
+        "user": Object {
+          "isAdmin": true,
         },
       },
-      "ref": null,
-      "rendered": null,
-      "type": [Function],
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+    }
+  }
+/>
 `;

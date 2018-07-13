@@ -2,7 +2,7 @@ import React from 'react';
 import DeleteContent from '../../components/CenterDetails/Template/Content/DeleteEvent';
 import { onChange } from './defaultProps';
 
-describe.only('Approve Event Component', () => {
+describe.only('Delete Event Component', () => {
   const onApprove = jest.fn();
   const state = {
     reason: '',

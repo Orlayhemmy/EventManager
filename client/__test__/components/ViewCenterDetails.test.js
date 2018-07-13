@@ -1,7 +1,7 @@
 import React from 'react';
 import Details from '../../components/CenterDetails/Template/Content/ViewCenterDetails';
 
-describe('Approve Event Component', () => {
+describe('View center details Component', () => {
   const onApprove = jest.fn();
   const showHiddenDiv = jest.fn();
 

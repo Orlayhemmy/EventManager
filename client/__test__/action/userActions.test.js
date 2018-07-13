@@ -174,7 +174,7 @@ describe('confirm email action', () => {
     });
   });
 
-  it('returns failure when user is not successfully signed in', done => {
+  it('returns success when user email is confirmed', done => {
     moxios.stubRequest('/api/v1/passrecovery', {
       status: 400,
       response: {
@@ -249,33 +249,6 @@ describe('get user action', () => {
   });
 });
 
-describe('get user email action', () => {
-  beforeEach(() => {
-    moxios.install();
-  });
-
-  afterEach(() => {
-    moxios.uninstall();
-  });
-
-  it('returns user email', () => {
-    moxios.stubRequest('/api/v1/userEmail/1', {
-      status: 200,
-      response: {
-        Email: mockSignup.email
-      }
-    });
-
-    const expectedActions = [
-      { type: actionTypes.GET_USER_EMAIL, payload: { Email: mockSignup.email } }
-    ];
-    const store = mockStore({});
-
-    return store.dispatch(actions.getUserEmail('1')).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-  });
-});
 
 describe('check password action', () => {
   beforeEach(() => {

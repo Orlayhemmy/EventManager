@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import {
   getCenterSelected,
   modifyCenter
@@ -21,7 +21,7 @@ import uploadImage from '../../../../actions/imageAction';
 import ApproveEvent from './ApproveEvent';
 import BookedEvents from './BookedEvents';
 import DeleteEvent from './DeleteEvent';
-import showDiv from '../../../../methods';
+import showDiv from '../../../../shared/methods';
 /**
  * @description CenterDetailsContent form component
  */
@@ -83,7 +83,7 @@ export class CenterDetailsContent extends React.Component {
     event.preventDefault();
     const reader = new FileReader();
     const file = event.target.files[0];
-    this.state.imageData = event.target.files[0];
+    this.state.imageData = event.target.files[0]; //eslint-disable-line
     reader.onloadend = () => {
       this.setState({ image: reader.result });
     };
@@ -192,13 +192,13 @@ export class CenterDetailsContent extends React.Component {
   componentDidUpdate() {
     const { status } = this.props.eventState;
     if (status === 201 || status === 202 || status === 200) {
-      swal('Changes Applied');
+      toastr.success('Changes Applied');
       $('#eventStatus').modal('hide');
       $('#deleteModal').modal('hide');
       this.props.clearEventState();
     }
     if (this.props.centerData.status === 202) {
-      swal('Changes Applied');
+      toastr.success('Changes Applied');
     }
   }
   /**
@@ -252,7 +252,7 @@ export class CenterDetailsContent extends React.Component {
    * @returns {void}
    */
   showHiddenDiv = e => {
-    this.props.showDiv(e);
+    showDiv(e);
   };
 
   /**
@@ -312,8 +312,8 @@ export class CenterDetailsContent extends React.Component {
   }
 }
 const propTypes = {
-  centerData: PropTypes.object.isRequired,
-  eventState: PropTypes.object.isRequired,
+  centerData: PropTypes.object,
+  eventState: PropTypes.object,
   getEventSelected: PropTypes.func.isRequired,
   modifyCenterEvent: PropTypes.func.isRequired,
   deleteCenterEvent: PropTypes.func.isRequired,

@@ -1,153 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddCenter Page component should render without throwing error 1`] = `
-ShallowWrapper {
-  "length": 1,
-  Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <ViewCenterDetails
-    auth={
-      Object {
-        "isAuth": true,
-        "user": Object {
-          "id": 1,
-          "isAdmin": true,
-        },
-      }
-    }
-    center={
-      Object {
-        "message": "",
-        "status": "",
-      }
-    }
-    location={
-      Object {
-        "pathname": "/",
-      }
-    }
-    logout={[MockFunction]}
-  />,
-  Symbol(enzyme.__renderer__): Object {
-    "batchedUpdates": [Function],
-    "getNode": [Function],
-    "render": [Function],
-    "simulateEvent": [Function],
-    "unmount": [Function],
-  },
-  Symbol(enzyme.__node__): Object {
-    "instance": null,
-    "key": undefined,
-    "nodeType": "host",
-    "props": Object {
-      "children": Array [
-        <Connect(NavBar)
-          path="/"
-        />,
-        <Connect(CenterDetailsContent)
-          path="/"
-        />,
-        <Footer />,
-      ],
-      "className": "page-wrapper",
-      "id": "view-center-wrapper",
-    },
-    "ref": null,
-    "rendered": Array [
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "path": "/",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {
-          "path": "/",
-        },
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-      Object {
-        "instance": null,
-        "key": undefined,
-        "nodeType": "class",
-        "props": Object {},
-        "ref": null,
-        "rendered": null,
-        "type": [Function],
-      },
-    ],
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": Array [
-          <Connect(NavBar)
-            path="/"
-          />,
-          <Connect(CenterDetailsContent)
-            path="/"
-          />,
-          <Footer />,
-        ],
-        "className": "page-wrapper",
-        "id": "view-center-wrapper",
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "path": "/",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {
-            "path": "/",
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "class",
-          "props": Object {},
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-      ],
-      "type": "div",
-    },
-  ],
-  Symbol(enzyme.__options__): Object {
-    "adapter": ReactSixteenAdapter {
-      "options": Object {
-        "enableComponentDidUpdateOnSetState": true,
-      },
-    },
-  },
-}
+exports[`View center Page component should render without throwing error 1`] = `
+<div
+  className="page-wrapper"
+  id="view-center-wrapper"
+>
+  <Connect(NavBar)
+    path="/"
+  />
+  <Connect(CenterDetailsContent)
+    path="/"
+  />
+  <Footer />
+</div>
 `;

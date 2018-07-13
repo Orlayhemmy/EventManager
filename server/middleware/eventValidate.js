@@ -1,6 +1,5 @@
 import validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
-import _ from 'lodash';
 
 /**
  * Validates all requests for events route
@@ -18,12 +17,16 @@ export default class Validation {
    */
   static postEvent(req, res, next) {
     const {
-      eventTitle, dateArray, description, centerId
+      eventTitle,
+      bookedDate,
+      description,
+      centerId,
+      dateArray
     } = req.body;
     const errors = {};
     if (
       eventTitle === undefined ||
-      dateArray === undefined ||
+      bookedDate === undefined ||
       description === undefined ||
       centerId === undefined
     ) {
@@ -44,17 +47,15 @@ export default class Validation {
     } else {
       errors.eventTitle = 'Event Name cannot be blank';
     }
-
     // validations for bookedDate
-    if (dateArray.length > 0) {
-      _.map(dateArray, date => {
-        if (!validator.toDate(date)) {
-          errors.dateArray = 'Invalid Date';
+    if (dateArray === undefined) {
+      if (!validator.isEmpty(bookedDate)) {
+        if (!validator.toDate(bookedDate)) {
+          errors.bookedDate = 'Invalid Date';
         }
-        return errors.dateArray;
-      });
-    } else {
-      errors.dateArray = 'Date cannot be empty';
+      } else {
+        errors.bookedDate = 'Date cannot be empty';
+      }
     }
     // validations for description
     if (!validator.isEmpty(description)) {
@@ -77,7 +78,6 @@ export default class Validation {
     } else {
       errors.centerId = 'Please select a Center';
     }
-
     if (Object.keys(errors).length !== 0) {
       return res.status(400).send(errors);
     }
@@ -95,7 +95,11 @@ export default class Validation {
    */
   static updateEvent(req, res, next) {
     const {
-      eventTitle, bookedDate, description, centerId
+      eventTitle,
+      bookedDate,
+      description,
+      centerId,
+      dateArray
     } = req.body;
     const errors = {};
     Object.entries(req.body).forEach(entry => {
@@ -116,15 +120,13 @@ export default class Validation {
           }
         }
       }
-
       // validations for bookedDate
-      if (entry[0] === 'bookedDate') {
-        _.map(bookedDate, date => {
-          if (!validator.toDate(date)) {
+      if (dateArray === undefined) {
+        if (entry[0] === 'bookedDate') {
+          if (!validator.toDate(bookedDate)) {
             errors.bookedDate = 'Invalid Date';
           }
-          return errors.bookedDate;
-        });
+        }
       }
       // validations for description
       if (entry[0] === 'description') {

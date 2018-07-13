@@ -24,7 +24,7 @@ export class CenterForm extends React.Component {
    * @memberof CenterForm
    * @method onChange
    * @description it sets user input to state
-   * @param {object} event
+   * @param {object} e
    */
   onChange = e => {
     this.setState({
@@ -41,7 +41,7 @@ export class CenterForm extends React.Component {
     event.preventDefault();
     const reader = new FileReader();
     const file = event.target.files[0];
-    this.state.imageData = event.target.files[0];
+    this.state.imageData = event.target.files[0]; //eslint-disable-line
     reader.onloadend = () => {
       this.setState({ image: reader.result });
     };
@@ -51,8 +51,7 @@ export class CenterForm extends React.Component {
    * @memberof CenterForm
    * @method isValid
    * @description it calls validation action on user data
-   * @param {void}
-   * @returns true or false
+   * @param {object} e
    */
   isValid = e => {
     e.preventDefault();
@@ -67,7 +66,7 @@ export class CenterForm extends React.Component {
    * @memberof CenterForm
    * @method onSubmit
    * @description it calls an action
-   * @param {object} event
+   * @param {object} e
    * @returns {void}
    */
   onSubmit = e => {
@@ -103,18 +102,12 @@ export class CenterForm extends React.Component {
       image,
       cost
     } = this.state;
-    let buttonValue,
-      nameHolder,
-      facHolder,
-      descHolder,
-      locationHolder,
-      capacityHolder;
 
-    nameHolder = 'Center name';
-    facHolder = 'Facilities in center';
-    descHolder = 'Describe center in few words';
-    locationHolder = 'Center location';
-    capacityHolder = 'Capacity';
+    const nameHolder = 'Center name';
+    const facHolder = 'Facilities in center';
+    const descHolder = 'Describe center in few words';
+    const locationHolder = 'Center location';
+    const capacityHolder = 'Capacity';
     return (
       <form id="add-center-form" onSubmit={this.isValid}>
         <UploadImage
@@ -198,8 +191,8 @@ export class CenterForm extends React.Component {
 }
 const propTypes = {
   uploadImage: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  center: PropTypes.object.isRequired
+  user: PropTypes.object,
+  center: PropTypes.object
 };
 const mapStateToProps = state => ({
   user: state.auth.user,

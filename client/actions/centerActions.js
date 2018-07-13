@@ -253,29 +253,3 @@ export function deleteCenter(id) {
       });
   };
 }
-
-/**
- * @param {object} id
- * @returns {object} center status
- */
-export function centerStatus(id) {
-  return dispatch => {
-    dispatch({ type: actionTypes.CENTER_STATUS_UPDATE });
-    return axios
-      .put(`/api/v1/centerStatus/${id}`)
-      .then(response => {
-        const { data } = response;
-        dispatch({
-          type: actionTypes.CENTER_STATUS_UPDATE_SUCCESS,
-          payload: data
-        });
-      })
-      .catch(err => {
-        const { data } = err.response;
-        dispatch({
-          type: actionTypes.CENTER_STATUS_UPDATE_FAILS,
-          payload: data
-        });
-      });
-  };
-}

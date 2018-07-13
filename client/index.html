@@ -42,6 +42,9 @@
       if(event.target.id === "search-centers") {
         document.getElementById('search-nav').style.width = '280px';
       }
+      if (event.target.id === "next" || event.target.id === 'previous') {
+        window.scroll(0, 0);
+      }
     });
     $("#profile-email").attr('disabled', 'disabled');
 

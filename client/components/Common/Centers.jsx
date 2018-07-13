@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import DeleteContent from './Delete';
@@ -12,7 +12,7 @@ import {
   deleteCenter,
   getNextCenters
 } from '../../actions/centerActions';
-import { centerIntro } from './intro';
+import { centerIntro } from '../../shared/intro';
 import Tour from './Tour';
 import { checkPaginationValue } from '../../shared/centerValidations';
 
@@ -57,7 +57,7 @@ export class DisplayCenters extends React.Component {
       this.state,
       this.props.eventCenter.pages
     );
-    if (error) swal(error.goto);
+    if (error) toastr.error(error.goto);
     if (!isValid) {
       this.setState({ error });
     }
@@ -104,7 +104,7 @@ export class DisplayCenters extends React.Component {
    */
   componentDidUpdate() {
     if (this.props.eventCenter.status === 200) {
-      swal('Center deleted successfully');
+      toastr.success('Center deleted successfully');
       $('#deleteModal').modal('hide');
     }
   }
@@ -334,7 +334,7 @@ const propTypes = {
   getAdminActivity: PropTypes.func.isRequired,
   getCenters: PropTypes.func.isRequired,
   deleteCenter: PropTypes.func.isRequired,
-  getNextCenters: PropTypes.func.isRequired
+  getNextCenters: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -352,6 +352,6 @@ export default connect(
     getAdminActivity,
     getCenters,
     deleteCenter,
-    getNextCenters
+    getNextCenters,
   }
 )(DisplayCenters);

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import swal from 'sweetalert2';
+import toastr from 'toastr';
 import Content from '../Template/Content/EventContent';
 import Navbar from '../../Navbar/Container/Navbar';
 import Footer from '../../Footer/Footer';
@@ -14,7 +14,7 @@ import {
   getEventSelected,
   checkAvailableDate
 } from '../../../actions/eventActions';
-import { addEventIntro } from '../../Common/intro';
+import { addEventIntro } from '../../../shared/intro';
 
 /**
  * @description ModifyEventPage component
@@ -125,6 +125,7 @@ export class ModifyEventPage extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     if (this.isValid()) {
+      this.state.centerId = this.props.centerSelected.center.id;
       this.props.modifyEvent(this.props.userEvent.event.id, this.state);
     }
   };
@@ -161,7 +162,7 @@ export class ModifyEventPage extends React.Component {
       this.props.logout();
     }
     if (this.props.userEvent.status === 202) {
-      swal(this.props.userEvent.message);
+      toastr.success(this.props.userEvent.message);
       return <Redirect to="/dashboard" />;
     }
     const { pathname } = this.props.location;
@@ -189,7 +190,7 @@ const propTypes = {
   getCenterSelected: PropTypes.func.isRequired,
   modifyEvent: PropTypes.func.isRequired,
   getEventSelected: PropTypes.func.isRequired,
-  checkAvailableDate: PropTypes.func.isRequired
+  checkAvailableDate: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
   auth: state.auth,
@@ -205,6 +206,6 @@ export default connect(
     getCenterSelected,
     modifyEvent,
     getEventSelected,
-    checkAvailableDate
+    checkAvailableDate,
   }
 )(ModifyEventPage);

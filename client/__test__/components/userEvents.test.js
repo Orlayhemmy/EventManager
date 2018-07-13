@@ -25,8 +25,8 @@ describe('Dashboard Component', () => {
     },
     counter: 0,
     activity: {},
-    nextEvents: jest.fn(() => {}),
-    onSelect: jest.fn(() => {})
+    nextEvents: jest.fn(),
+    onSelect: jest.fn()
   };
   const wrapper = shallow(<Content {...props} />);
 
@@ -34,7 +34,7 @@ describe('Dashboard Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render component with events', () => {
+  it('should add events to props', () => {
     wrapper.setProps({
       ...wrapper.props,
       userEvent: {
