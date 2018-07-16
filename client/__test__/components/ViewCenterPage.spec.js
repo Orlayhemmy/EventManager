@@ -1,6 +1,6 @@
 import React from 'react';
 import { ViewCenterDetails } from '../../components/CenterDetails/Container/ViewCenterPage';
-import { props, logout, location } from './defaultProps';
+import { props, logout, location } from './MockData';
 
 describe('View center Page component', () => {
   const center = {
@@ -48,14 +48,14 @@ describe('View center Page component', () => {
     const centerdiv = wrapper.find('#view-center-wrapper');
     expect(centerdiv.length).toEqual(1);
   });
-  it('should get the length of div', () => {
+  it('should get the length of div when use', () => {
     wrapper.setProps({
       center: center3
     });
     const centerdiv = wrapper.find('div');
     expect(centerdiv.length).toEqual(1);
   });
-  it('should redirect user from page', () => {
+  it('should redirect user from page when user is not authenticated', () => {
     wrapper.setProps({
       auth: {
         isAuth: false,
@@ -68,7 +68,7 @@ describe('View center Page component', () => {
     const centerdiv = wrapper.find('#view-center-wrapper');
     expect(centerdiv.length).toEqual(0);
   });
-  it('should get the length of div', () => {
+  it('should get the length of div when user is not an admin', () => {
     wrapper.setProps({
       auth: {
         isAuth: true,
@@ -80,7 +80,7 @@ describe('View center Page component', () => {
     const centerdiv = wrapper.find('div');
     expect(centerdiv.length).toEqual(0);
   });
-  it('should get the length of div', () => {
+  it('should get the length of div when the user is an admin', () => {
     wrapper.setProps({
       center: center4,
       auth: {

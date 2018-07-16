@@ -9,8 +9,11 @@ describe('Carousel Component', () => {
       centers: ['balmoral', 'andela']
     }
   };
+  const wrapper = shallow(<Carousel {...props} />);
   it('should render without throwing error', () => {
-    const wrapper = renderer.create(<Carousel {...props}/>).toJSON();
     expect(wrapper).toMatchSnapshot();
+  });
+  it('check the length of the containing div in the component', () => {
+    expect(wrapper.find('#carousel').length).toEqual(1);
   });
 });

@@ -1,8 +1,6 @@
 /* eslint disable */
 #center-page, #profile-page, #dashboard, #event-form, #add-center {
-  background: #f5f2ef;
-  margin-top: -5px;
-  padding-bottom: 30px;
+
 }
 #about-page {
   .media-body {
@@ -385,16 +383,6 @@
   }
 }
 
-#footer {
-  .footer {
-    position: fixed;
-    bottom: 0;
-    background: #222;
-    color: #ffffff;
-    padding-top: 20px;
-  }
-}
-
 .col9-bg {
   background: #f5f5f5d1;
   padding: 10px 30px 10px 30px;
@@ -430,7 +418,13 @@
 .justify-text {
   text-align: justify;
 }
-
+.footer {
+  padding: 0;
+  background: #000000;
+  color: #ccc;
+  position: absolute;
+  bottom: 0;
+}
 #center-page {
   .media-heading span {
     font-size: 2rem

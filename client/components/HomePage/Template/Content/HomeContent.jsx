@@ -24,7 +24,7 @@ export default class HomeContent extends React.Component {
                 <p>
                   Hotel icons, booking and reservation ready and thirteen HTML
                   pages, that is roughly said what Colina delivers. Of course,
-                  there is more. Due to the popularity of mobile users, Colina
+                   there is more. Due to the popularity of mobile users, Colina
                   has a mobile-first approach to its web design. But in general,
                   all users will experience top-notch and highly adaptable
                   website that you are yet to make.
@@ -45,7 +45,7 @@ export default class HomeContent extends React.Component {
               {isAuth ? (
                 <CentersCarousel centerState={centerState} />
               ) : (
-                <div className="col-lg-6 form">
+                <div className="col-lg-6 form" id="signup-form">
                   <h1>Get started</h1>
                   <SignUp homeProps={this.props} />
                 </div>

@@ -14,7 +14,7 @@ describe('Home Component', () => {
     const wrapper = renderer.create(<HomeContent />).toJSON();
     expect(wrapper).toMatchSnapshot();
   });
-  it('should carousel when value is true', () => {
+  it('show carousel when isAuth value is true', () => {
     const wrapper = renderer.create(<HomeContent isAuth={props.isAuth} centerState={props.centerState}/>).toJSON();
     expect(wrapper).toMatchSnapshot();
   });

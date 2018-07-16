@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * @description SignIn component
+ */
 export default class SignIn extends React.Component {
   render() {
     const {
-      signinError,
       signinSubmit,
       loginEmail,
       loginPassword,
@@ -44,7 +46,7 @@ export default class SignIn extends React.Component {
             required
           />
         </div>
-        <button type="submit" class="btn btn-primary mb-3">
+        <button id="signin-submit" type="submit" class="btn btn-primary mb-3">
           Sign in
         </button>
         <br />

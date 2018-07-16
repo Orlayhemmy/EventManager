@@ -144,14 +144,8 @@ export class Dashboard extends React.Component {
    * @returns the HTML of Dashboard
    */
   render() {
-    const {
-      userEvent: { status }
-    } = this.props;
     if (!this.props.auth.isAuth) {
       return <Redirect to="/" />;
-    }
-    if (status === 498 || status === 403) {
-      this.props.logout();
     }
     const { pathname } = this.props.location;
     const { activities } = this.props.activity;

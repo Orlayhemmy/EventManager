@@ -245,10 +245,11 @@ export function deleteCenterEvent(info) {
 }
 
 /**
- * @param {object} id
+ * @param {object} data
  * @returns {object} success or failure
  */
-export function deleteEvent(id) {
+export function deleteEvent(data) {
+  const id = data.slice(7);
   return (dispatch) => {
     dispatch({ type: actionTypes.DELETE_EVENT });
     return axios

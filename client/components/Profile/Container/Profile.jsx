@@ -102,6 +102,7 @@ export class Profile extends React.Component {
     if (status === 403 || status === 498) {
       return <Redirect to="/" />;
     }
+
     return (
       <div id="profile-page">
         <Navbar path={pathname} />

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -6,6 +7,9 @@ import { checkPassword } from '../../../../actions/userActions';
 import { updateUserValidation } from '../../../../shared/userValidation';
 import uploadImage from '../../../../actions/imageAction';
 
+/**
+ * @description Content component
+ */
 export class Content extends React.Component {
   state = {
     fullname: '',
@@ -191,13 +195,13 @@ export class Content extends React.Component {
             />
           </div>
           <div className="card col-lg-3 m-auto text-center pt-4 bb mh">
-            <div className="text-primary">Activities</div>
+            <div className="text-primary" id="additional-info">Activities</div>
             <hr />
-            <div className="mb-4">
+            <div className="mb-4" id="date-joined">
               <h4 className="mt-4">Date Joined</h4>
-              <h3 className="mt-4">{dateRegistered}</h3>
+              <h3 className="mt-4" >{dateRegistered}</h3>
             </div>
-            <div className="mb-4">
+            <div className="mb-4" id="events-booked">
               <h4 className="mt-4">Events Booked</h4>
               <span className="display-3">
                 {this.props.userEvent.eventBookedCount}

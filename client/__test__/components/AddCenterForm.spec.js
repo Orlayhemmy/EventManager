@@ -1,8 +1,8 @@
 import React from 'react';
 import Connected, { CenterForm } from '../../components/CenterDetails/Template/Form/AddCenterForm';
-import { center, userState } from './defaultProps';
+import { center, userState } from './MockData';
 
-describe('display centers', () => {
+describe('CenterForm component', () => {
 
   const props = {
     path: '/',
@@ -26,13 +26,13 @@ describe('display centers', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('call the onchange function and set state', () => {
+  it('set component state on change', () => {
     const spy = sinon.spy(wrapper.instance(), 'onChange');
     wrapper.instance().onChange(event);
     expect(spy.calledOnce).toBeTruthy();
     expect(wrapper.state().centerName).toEqual('Balmoral');
   });
-  it('call the isValid function', () => {
+  it('thorw error if the input contains invalid characters', () => {
     wrapper.setState({
       location: 'Lekki',
       description: 'A center with emotions',
@@ -58,7 +58,7 @@ describe('display centers', () => {
     expect(spy.calledTwice).toBeTruthy();
     expect(wrapper.state().errors.location).toEqual('location can not include symbols except comma');
   });
-  it('call the submit function', () => {
+  it('confirm the state contains the inputted data when submit is clicked', () => {
     const spy = sinon.spy(wrapper.instance(), 'onSubmit');
     wrapper.find('#add-event').simulate('click');
     wrapper.setState({
@@ -74,7 +74,7 @@ describe('display centers', () => {
     expect(wrapper.state().location).toEqual('Lekki');
     expect(wrapper.state().capacity).toEqual('500');
   });
-  it('call showImage function', () => {
+  it('set image state to the file chosen by the user', () => {
     const spy = sinon.spy(wrapper.instance(), 'showImage');
     wrapper.instance().showImage(event);
     expect(spy.calledOnce).toBeTruthy();

@@ -25,11 +25,11 @@ describe('Search Form Component', () => {
   it('should render component without error', () => {
     const wrapper = renderer
       .create(<SearchForm criteria={criteria} search={search} />)
-      .toJSON();
+      ;
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render component without error', () => {
+  it('should render component without error when props is passed', () => {
     const wrapper = shallow(<SearchForm criteria={criteria2} search={search} onChange={onChange} />);
     expect(wrapper).toMatchSnapshot();
   });

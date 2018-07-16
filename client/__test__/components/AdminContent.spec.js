@@ -50,7 +50,7 @@ describe.only('Admin content', () => {
     expect(wrapper.find('#admin-content').length).toEqual(0);
   });
 
-  it('should call the nextCenter function', () => {
+  it('nextCenters function', () => {
     wrapper.instance().nextCenters('', 1);
     expect(props.getNextCenters).toHaveBeenCalledTimes(1);
   });
@@ -66,26 +66,26 @@ describe.only('Admin content', () => {
     expect(wrapper.state().counter).toEqual(0);
   });
 
-  it('call the showcenter function with the target value', () => {
+  it('set the counter for calling the next centers', () => {
     const spy = sinon.spy(wrapper.instance(), 'showCenter');
     wrapper.instance().showCenter({ target: { id: 1 } });
     expect(spy.calledOnce).toBeTruthy();
   });
 
-  it('call the search function with the target value', () => {
+  it('search function', () => {
     const spy = sinon.spy(wrapper.instance(), 'search');
     wrapper.instance().search(event);
     expect(spy.calledOnce).toBeTruthy();
   });
 
-  it('call the onchange function and set state', () => {
+  it('set component state on change', () => {
     const spy = sinon.spy(wrapper.instance(), 'onChange');
     wrapper.instance().onChange(event);
     expect(spy.calledOnce).toBeTruthy();
     expect(wrapper.state().next).toEqual(2);
   });
 
-  it('call the isValid function and set state', () => {
+  it('thorw error if the input contains invalid characters', () => {
     const spy = sinon.spy(wrapper.instance(), 'isValid');
     wrapper.instance().setState({
       errors: "String is expected"

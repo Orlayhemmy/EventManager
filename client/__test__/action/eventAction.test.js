@@ -420,7 +420,7 @@ describe('delete event action', () => {
   afterEach(() => {
     moxios.uninstall();
   });
-
+  const event = `delete-${Event.id}`;
   it('returns success when event is deleted successfully', done => {
     moxios.stubRequest(`/api/v1/events/${Event.id}`, {
       status: 200,
@@ -444,7 +444,7 @@ describe('delete event action', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.deleteEvent(Event.id)).then(() => {
+    return store.dispatch(actions.deleteEvent(event)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -469,7 +469,7 @@ describe('delete event action', () => {
     ];
     const store = mockStore({});
 
-    return store.dispatch(actions.deleteEvent(Event.id)).then(() => {
+    return store.dispatch(actions.deleteEvent(event)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });

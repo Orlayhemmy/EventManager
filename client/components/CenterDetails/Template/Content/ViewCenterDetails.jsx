@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ *  @description CenterDetailsContent form component
+ */
 export default class Details extends React.Component {
   render() {
     const {
@@ -34,6 +37,7 @@ export default class Details extends React.Component {
         </div>
         ...{' '}
         <i
+        id="edit-centerDetails"
           data-toggle-id="editCenterDetails"
           className="fa fa-pencil-alt main-color"
           onClick={showHiddenDiv}

@@ -57,8 +57,8 @@ export class AddEventForm extends React.Component {
       eventTitle, bookedDate, errors, centerId, dateArray
     } = eventState;
 
-    const showCenters = centers.map(center => (
-        <option key={center.id} value={center.id}>
+    const showCenters = centers.map((center, index) => (
+        <option key={center.id} value={center.id} id={index}>
           {center.centerName}
         </option>
     ));
@@ -104,7 +104,7 @@ export class AddEventForm extends React.Component {
             </div>
             <div className="col-2">
               <input
-                id="add-event"
+                id="add-date"
                 type="button"
                 value="Select"
                 onClick={checkDate}

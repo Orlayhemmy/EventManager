@@ -185,7 +185,7 @@ export class DisplayCenters extends React.Component {
             <p>{center.description}</p>
           </div>
           <span
-            className="trash p-2"
+            className="trash"
             data-toggle="modal"
             data-target="#deleteModal"
             id={center.centerName}
@@ -202,7 +202,7 @@ export class DisplayCenters extends React.Component {
         <div className="row wc">
           <div className="col-lg-8 mr-3">{adminCenter}</div>
           <div className="col-lg-3 p-2 ho">
-            <h2>Notifications</h2>
+            <h2 id="notifications">Notifications</h2>
             {recentActivity}
           </div>
         </div>

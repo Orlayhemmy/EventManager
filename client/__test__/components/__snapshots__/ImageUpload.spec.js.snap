@@ -4,6 +4,7 @@ exports[`Image upload should render the component without errors 1`] = `
 <div>
   <div
     className="imageUpload"
+    id="choose-image"
   >
     <label
       htmlFor="imageInput"

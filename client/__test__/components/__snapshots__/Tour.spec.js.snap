@@ -4,7 +4,6 @@ exports[`Tour Component should render component without error 1`] = `
 <div
   className="tour pagination-icon w-auto"
   id="tour"
-  onClick={undefined}
 >
   <i
     className="fa fa-bus-alt"

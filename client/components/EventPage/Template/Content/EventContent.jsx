@@ -97,6 +97,7 @@ export class Event extends React.Component {
    * @param {object} e
    */
   checkDate = e => {
+    console.log('###########################')
     e.preventDefault();
     this.props.checkAvailableDate(this.state);
   };
@@ -166,7 +167,7 @@ export class Event extends React.Component {
           criteria={this.state}
           onFormChange={this.props.onFormChange}
           onFormSubmit={this.props.onFormSubmit}
-          checkDate={this.props.checkDate}
+          checkDate={this.checkDate}
           removeDate={this.props.removeDate}
         />
       );

@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SignIn from '../Form/SignIn';
 
+/**
+ * @description NavBar component
+ */
 export default class Navbar extends React.Component {
   /**
    * @memberof NavBar
@@ -17,6 +20,7 @@ export default class Navbar extends React.Component {
         <li className="nav-item">
           <Link
             to="/"
+            id="home"
             className={path === '/' ? 'nav-link active' : 'nav-link'}
           >
             <span className="nav-link-text">Home</span>
@@ -24,6 +28,7 @@ export default class Navbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="view-centers"
             to="/view-centers"
             className={
               path === '/view-centers' ? 'nav-link active' : 'nav-link'
@@ -34,6 +39,7 @@ export default class Navbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="about"
             to="/about"
             className={path === '/about' ? 'nav-link active' : 'nav-link'}
           >

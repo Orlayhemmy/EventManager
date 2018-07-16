@@ -51,6 +51,7 @@ exports[`Signin should render the component without errors 1`] = `
   </div>
   <button
     className="btn btn-primary mb-3"
+    id="signin-submit"
     type="submit"
   >
     Sign in

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import UploadImage from '../../../ImageUpload/ImageUpload';
 import TextField from '../../../../common/textField3';
@@ -36,6 +38,7 @@ export default class ProfileForm extends React.Component {
         <br />
         <br />
         <input
+        id="check-password"
           type="button"
           className="btn btn-sm btn-success mt-4"
           value="check"

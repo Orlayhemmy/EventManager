@@ -2,6 +2,9 @@ import React from 'react';
 import AuthNavbar from './UserContent/AuthNavbar';
 import UserNavbar from './UserContent/UserNavbar';
 
+/**
+ * @description NavBar component
+ */
 export default class DefaultNavbar extends React.Component {
   render() {
     const {

@@ -11,8 +11,11 @@ describe('Admin Component', () => {
       isAuth: true
     }
   };
+  const wrapper = shallow(<AdminDashboardPage {...props} />);
   it('should render admin dashboard page', () => {
-    const wrapper = shallow(<AdminDashboardPage {...props} />);
     expect(wrapper).toMatchSnapshot();
+  });
+  it('should render without error', () => {
+    expect(wrapper.find('#center-page').length).toEqual(1);
   });
 });

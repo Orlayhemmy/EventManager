@@ -110,10 +110,10 @@ The limitation of this application is that it does not include a payment system 
 See documentation here https://ecenter-eventmanager.herokuapp.com/api-docs
 
 ## [](#contribute)How to contribute
-NB: contributions are very much welcome, please see the contibuting.md file on how to contribute
+NB: contributions are very much welcome, please see the [`Contribute.md`](/Contribute.md) file on how to contribute
 
 ## [](#licensce)Licensce
-This project is licensed under the MIT License - see the [`LICENSE.md`](https://github.com/Orlayhemmy/EventManager/blob/develop/LICENSCE.md) file for details
+This project is licensed under the MIT License - see the [`LICENSE.md`](/LICENSCE.md) file for details
 
 ## [](#author)Contact the Author
 [`Olayemi Lawal`](https://github.com/Orlayhemmy)

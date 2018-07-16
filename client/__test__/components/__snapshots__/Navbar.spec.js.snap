@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`guest navbar should render the component based 1`] = `
+exports[`guest navbar should render the component without error 1`] = `
 <nav
   className="navbar navbar-expand-lg navbar-dark fixed-top"
   id="mainNav"

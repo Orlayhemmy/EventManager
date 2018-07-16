@@ -14,14 +14,16 @@ describe('View center details Component', () => {
     capacity: '',
     cost: ''
   };
+  const wrapper = shallow(<Details
+        showHiddenDiv={showHiddenDiv}
+        onApprove={onApprove}
+        centerState={centerState}
+      />)
+    ;
   it('should render component without error', () => {
-    const wrapper = renderer
-      .create(<Details
-          showHiddenDiv={showHiddenDiv}
-          onApprove={onApprove}
-          centerState={centerState}
-        />)
-      .toJSON();
     expect(wrapper).toMatchSnapshot();
+  });
+  it('check the length of the containing div in the component', () => {
+    expect(wrapper.find('#centerDetails').length).toEqual(1);
   });
 });

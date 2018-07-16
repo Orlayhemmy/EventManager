@@ -11,13 +11,14 @@
     "test:run": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --require babel-register --require babel-polyfill --recursive server/test/index.js --timeout 30000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "client-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "unmigrate": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "migrate": "NODE_ENV=test sequelize db:migrate && npm run seed",
-    "seed": "NODE_ENV=test sequelize db:seed:all",
+    "unmigrate": "sequelize db:migrate:undo:all",
+    "migrate": "sequelize db:migrate && npm run seed",
+    "seed": "sequelize db:seed:all",
     "unseed": "NODE_ENV=test sequelize db:seed:undo:all",
     "build": "babel server -d lib --source-maps inline --copy-files",
     "clean": "rm -rf ./client/dist/bundle.js",
-    "compile": "NODE_ENV=production webpack --config ./webpack.config.prod.js"
+    "compile": "NODE_ENV=production webpack --config ./webpack.config.prod.js",
+    "e2e": "npm run unmigrate && npm run migrate && nightwatch"
   },
   "author": "Olayemi Lawal",
   "license": "ISC",

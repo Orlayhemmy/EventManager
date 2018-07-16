@@ -1,6 +1,6 @@
 import React from 'react';
 import Content from '../../components/Dashboard/Template/Content/UserEvents';
-import { bookedEvent } from './defaultProps';
+import { bookedEvent } from './MockData';
 
 describe('Dashboard Component', () => {
   const props = {
@@ -34,7 +34,7 @@ describe('Dashboard Component', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should add events to props', () => {
+  it('check the length of the user events in the component', () => {
     wrapper.setProps({
       ...wrapper.props,
       userEvent: {

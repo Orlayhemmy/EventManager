@@ -1,6 +1,6 @@
 import React from 'react';
 import UserNavbar from '../../components/Navbar/Template/Content/UserContent/UserNavbar';
-import { navbarProps } from './defaultProps';
+import { navbarProps } from './MockData';
 
 describe('User navbar', () => {
   const wrapper = shallow(<UserNavbar navbarProps={navbarProps} />);

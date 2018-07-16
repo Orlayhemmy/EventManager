@@ -17,49 +17,37 @@ exports[`View center details Component should render component without error 1`]
   >
     <strong
       className="logo text-primary mb-2"
-    >
-      
-    </strong>
+    />
     <h3
       className="mt-2"
     >
       location
     </h3>
-    <p>
-      
-    </p>
+    <p />
     <h3
       className="mt-2"
     >
       capacity
     </h3>
-    <p>
-      
-    </p>
+    <p />
     <h3
       className="mt-2"
     >
       facilities
     </h3>
-    <p>
-      
-    </p>
+    <p />
     <h3
       className="mt-2"
     >
       price
     </h3>
-    <p>
-      
-    </p>
+    <p />
     <h3
       className="mt-2"
     >
       description
     </h3>
-    <p>
-      
-    </p>
+    <p />
   </div>
   ...
    

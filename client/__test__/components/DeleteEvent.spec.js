@@ -1,6 +1,6 @@
 import React from 'react';
 import DeleteContent from '../../components/CenterDetails/Template/Content/DeleteEvent';
-import { onChange } from './defaultProps';
+import { onChange } from './MockData';
 
 describe.only('Delete Event Component', () => {
   const onApprove = jest.fn();
@@ -8,10 +8,11 @@ describe.only('Delete Event Component', () => {
     reason: '',
     suggestions: ''
   };
+  const wrapper = shallow(<DeleteContent onChange={onChange} onApprove={onApprove} state={state} />);
   it('should render component without error', () => {
-    const wrapper = renderer
-      .create(<DeleteContent onChange={onChange} onApprove={onApprove} state={state} />)
-      .toJSON();
     expect(wrapper).toMatchSnapshot();
+  });
+  it('check the length of the containing div in the component', () => {
+    expect(wrapper.find('#delete-content').length).toEqual(1);
   });
 });

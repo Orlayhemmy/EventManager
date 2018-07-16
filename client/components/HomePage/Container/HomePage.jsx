@@ -169,7 +169,7 @@ const propTypes = {
   getCenters: PropTypes.func.isRequired
 };
 
-Homepage.PropTypes = propTypes;
+Homepage.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   auth: state.auth,

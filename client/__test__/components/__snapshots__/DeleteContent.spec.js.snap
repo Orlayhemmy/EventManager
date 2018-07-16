@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Delete Event Component should render component without error 1`] = `
-<div>
+<div
+  id="delete-content"
+>
   <p>
     Are you sure you want to delete 
-    
     ?
   </p>
   <i
@@ -16,11 +17,15 @@ exports[`Delete Event Component should render component without error 1`] = `
     onClick={[MockFunction]}
   />
   <br />
-  <span>
+  <span
+    id="yes"
+  >
     <br />
     Yes
   </span>
-  <span>
+  <span
+    id="no"
+  >
     <br />
     No
   </span>
