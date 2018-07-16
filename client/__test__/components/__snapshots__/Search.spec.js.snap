@@ -193,7 +193,7 @@ exports[`Search Form Component should render component without error 1`] = `
 </div>
 `;
 
-exports[`Search Form Component should render component without error 2`] = `
+exports[`Search Form Component should render component without error when props is passed 1`] = `
 <div
   className="search-nav"
   id="search-nav"

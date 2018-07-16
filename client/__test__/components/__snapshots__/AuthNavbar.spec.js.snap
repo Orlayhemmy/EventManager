@@ -51,10 +51,11 @@ exports[`Auth navbar should render the component without errors 1`] = `
   </li>
   <li
     className="nav-item"
+    id="logout"
+    onClick={[MockFunction]}
   >
     <Link
       className="nav-link"
-      onClick={[Function]}
       replace={false}
       to="/"
     >

@@ -1,17 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * @description SignIn component
+ */
 export default class AuthNavbar extends React.Component {
-  /**
-   * @memberof NavBar
-   * @method logout
-   * @description it calls a logout action
-   * @param {object} event
-   * @returns {void}
-   */
-  logout(e) {
-    this.props.navbarProps.logout();
-  }
   /**
    * @memberof AuthNavbar
    * @method render
@@ -64,8 +57,11 @@ export default class AuthNavbar extends React.Component {
             <span className="nav-link-text">profile</span>
           </Link>
         </li>
-        <li className="nav-item">
-          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+        <li className="nav-item" id="logout" onClick={this.props.navbarProps.logout}>
+          <Link
+            to="/"
+            className="nav-link"
+          >
             <span className="nav-link-text">logout</span>
           </Link>
         </li>
@@ -98,8 +94,11 @@ export default class AuthNavbar extends React.Component {
             <span className="nav-link-text">Dashboard</span>
           </Link>
         </li>
-        <li className="nav-item">
-          <Link to="/" onClick={this.logout.bind(this)} className="nav-link">
+        <li className="nav-item" id="logout" onClick={this.props.navbarProps.logout}>
+          <Link
+            to="/"
+            className="nav-link"
+          >
             <span className="nav-link-text">logout</span>
           </Link>
         </li>

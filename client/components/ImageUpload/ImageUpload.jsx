@@ -16,7 +16,7 @@ export default class ImageUpload extends React.Component {
         {this.props.uploadedImage === '' || !this.props.uploadedImage ? (
           <div className="imageUpload">
             <label for="imageInput">
-              <div className="imageUpload">
+              <div className="imageUpload" id="choose-image">
                 <img
                   src={
                     this.props.path === '/add-center'
@@ -34,7 +34,7 @@ export default class ImageUpload extends React.Component {
             />
           </div>
         ) : (
-          <div className="imageUpload">
+          <div className="imageUpload" id="choose-image">
             <label for="imageInput">
               <img
                 src={this.props.uploadedImage}

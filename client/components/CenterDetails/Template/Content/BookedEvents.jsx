@@ -53,7 +53,7 @@ export default class EventsList extends React.Component {
       );
     });
     return (
-      <div className="col-lg-5">
+      <div id="event-list" className="col-lg-5">
         <div className="form-outer text-center d-flex align-items-center">
           <div className="form-inner">
             <strong className="logo text-primary">events scheduled</strong>

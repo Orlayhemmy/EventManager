@@ -3,6 +3,7 @@
 exports[`Delete Event Component should render component without error 1`] = `
 <div
   className="form-inner"
+  id="delete-content"
 >
   <span
     className="help-block"
@@ -30,7 +31,6 @@ exports[`Delete Event Component should render component without error 1`] = `
       id="suggestion"
       onChange={[MockFunction]}
       placeholder="Suggestions"
-      value={undefined}
     />
   </div>
   <i

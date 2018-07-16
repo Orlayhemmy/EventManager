@@ -64,7 +64,7 @@ describe('center details component', () => {
   it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
-  it('should call isValid function', () => {
+  it('thorw error if the input contains invalid characters', () => {
     const spy = sinon.spy(wrapper.instance(), 'isValid');
 
     wrapper.instance().isValid(event);
@@ -88,13 +88,13 @@ describe('center details component', () => {
     wrapper.instance().isValid(event);
     expect(wrapper.state().location).toEqual('Lekki');
   });
-  it('call the onchange function and set state', () => {
+  it('set component state on change', () => {
     const spy = sinon.spy(wrapper.instance(), 'onChange');
     wrapper.instance().onChange(event);
     expect(spy.calledOnce).toBeTruthy();
     expect(wrapper.state().centerName).toEqual('Epic Center');
   });
-  it('call the submit function', () => {
+  it('confirm the state contains the inputted data when submit is clicked', () => {
     const spy = sinon.spy(wrapper.instance(), 'onSubmit');
     wrapper.setState({
       ...wrapper.props,
@@ -110,10 +110,8 @@ describe('center details component', () => {
       centerName: 'Andela',
       image: 'picture.jpg'
     });
-
-    // expect(props.modifyCenter).toHaveBeenCalledTimes(1);
   });
-  it('call showImage function', () => {
+  it('set image state to the file chosen by the user', () => {
     const spy = sinon.spy(wrapper.instance(), 'showImage');
     wrapper.instance().showImage(event);
     expect(spy.calledOnce).toBeTruthy();

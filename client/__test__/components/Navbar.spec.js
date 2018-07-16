@@ -8,7 +8,7 @@ const logout = jest.fn();
 
 describe('guest navbar', () => {
   const wrapper = shallow(<NavBar auth={auth} logout={logout} />);
-  it('should render the component based', () => {
+  it('should render the component without error', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });

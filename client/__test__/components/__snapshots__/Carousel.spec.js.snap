@@ -3,6 +3,7 @@
 exports[`Carousel Component should render without throwing error 1`] = `
 <div
   className="col-lg-6 form"
+  id="carousel"
 >
   <h1>
     Our Centers
@@ -19,11 +20,13 @@ exports[`Carousel Component should render without throwing error 1`] = `
         className="active"
         data-slide-to={0}
         data-target="#carouselExampleIndicators"
+        key="0"
       />
       <li
         className=""
         data-slide-to={1}
         data-target="#carouselExampleIndicators"
+        key="1"
       />
     </ol>
     <div
@@ -31,11 +34,10 @@ exports[`Carousel Component should render without throwing error 1`] = `
     >
       <div
         className="carousel-item active"
+        key="0"
       >
         <img
-          alt={undefined}
           className="d-block w-100 h-350"
-          src={undefined}
         />
         <div
           className="carousel-caption d-none d-md-block"
@@ -46,11 +48,10 @@ exports[`Carousel Component should render without throwing error 1`] = `
       </div>
       <div
         className="carousel-item"
+        key="1"
       >
         <img
-          alt={undefined}
           className="d-block w-100 h-350"
-          src={undefined}
         />
         <div
           className="carousel-caption d-none d-md-block"

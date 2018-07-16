@@ -8,4 +8,7 @@ describe('Delete modal', () => {
   it('should render the component without errors', () => {
     expect(wrapper).toMatchSnapshot();
   });
+  it('check the length of the containing div in the component', () => {
+    expect(wrapper.find('#deleteModal').length).toEqual(1);
+  });
 });

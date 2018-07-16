@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * @description NavBar component
+ */
 export default class UserNavbar extends React.Component {
   render() {
-    const { navbarProps: { path, logout } } = this.props;
+    const {
+      navbarProps: { path, logout }
+    } = this.props;
     const navbarSecondary = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <Link
+            id="dashboard"
             to="/dashboard"
             className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
           >
@@ -16,6 +22,7 @@ export default class UserNavbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="add-event"
             to="/add-event"
             className={path === '/add-event' ? 'nav-link active' : 'nav-link'}
           >
@@ -24,6 +31,7 @@ export default class UserNavbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="profile"
             to="/profile"
             className={path === '/profile' ? 'nav-link active' : 'nav-link'}
           >
@@ -31,7 +39,7 @@ export default class UserNavbar extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" onClick={logout} className="nav-link">
+          <Link to="/" id="logout" onClick={logout} className="nav-link">
             <span className="nav-link-text">logout</span>
           </Link>
         </li>
@@ -45,11 +53,14 @@ export default class UserNavbar extends React.Component {
             to="/"
             className={path === '/' ? 'nav-link active' : 'nav-link'}
           >
-            <span className="nav-link-text">Home</span>
+            <span id="home" className="nav-link-text">
+              Home
+            </span>
           </Link>
         </li>
         <li className="nav-item">
           <Link
+            id="view-centers"
             to="/view-centers"
             className={
               path === '/view-centers' ? 'nav-link active' : 'nav-link'
@@ -60,6 +71,7 @@ export default class UserNavbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="about"
             to="/about"
             className={path === '/about' ? 'nav-link active' : 'nav-link'}
           >
@@ -68,6 +80,7 @@ export default class UserNavbar extends React.Component {
         </li>
         <li className="nav-item">
           <Link
+            id="dashboard"
             to="/dashboard"
             className={path === '/dashboard' ? 'nav-link active' : 'nav-link'}
           >
@@ -75,14 +88,12 @@ export default class UserNavbar extends React.Component {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/" onClick={logout} className="nav-link">
+          <Link to="/" id="logout" onClick={logout} className="nav-link">
             <span className="nav-link-text">logout</span>
           </Link>
         </li>
       </ul>
     );
-    return path === '/' || path === '/about'
-      ? navbarMain
-      : navbarSecondary;
+    return path === '/' || path === '/about' ? navbarMain : navbarSecondary;
   }
 }

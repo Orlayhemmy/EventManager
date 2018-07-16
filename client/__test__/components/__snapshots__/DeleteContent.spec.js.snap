@@ -1,18 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Delete Event Component should render component without error 1`] = `
-<div>
+<div
+  id="delete-content"
+>
   <p>
     Are you sure you want to delete 
-    
     ?
   </p>
   <i
     className="fa fa-trash red"
+    id="yes"
     onClick={[MockFunction]}
   />
   <i
     className="fa fa-save green"
+    id="no"
     onClick={[MockFunction]}
   />
   <br />

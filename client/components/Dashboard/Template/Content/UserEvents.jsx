@@ -66,7 +66,7 @@ export default class Content extends React.Component {
                   <span id={bookedEvent.eventTitle}>
                     {eStatus}
                     <i
-                      id={bookedEvent.id}
+                      id={`delete-${bookedEvent.id}`}
                       className="fa fa-trash trash float-right"
                       onClick={this.props.onSelect}
                       data-toggle="modal"
@@ -84,29 +84,7 @@ export default class Content extends React.Component {
     return (
       <div className="wc">
         {legend}
-        {this.props.counter > 0 ? (
-          <div className="page-icon bounce">
-            <i
-              className="fa fa-chevron-up icon"
-              id="previous"
-              onClick={this.props.nextEvents}
-            />
-          </div>
-        ) : (
-          ''
-        )}
         <div className="row">{content}</div>
-        {events !== undefined && events.length > 8 ? (
-          <div className="page-icon bounce">
-            <i
-              className="fa fa-chevron-down icon"
-              id="next"
-              onClick={this.props.nextEvents}
-            />
-          </div>
-        ) : (
-          ''
-        )}
       </div>
     );
   }

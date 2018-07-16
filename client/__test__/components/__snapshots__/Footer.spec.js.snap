@@ -2,16 +2,13 @@
 
 exports[`Footer Component should render without throwing error 1`] = `
 <div
-  id="footer"
+  className="col-lg-12 text-center footer pt-3"
 >
-  <footer>
-    <div
-      className="col-12 text-center footer"
-    >
-      <p>
-        eCenter 2017
-      </p>
-    </div>
-  </footer>
+  <p
+    className="footer-text"
+    id="footer"
+  >
+    eCenter 2017
+  </p>
 </div>
 `;

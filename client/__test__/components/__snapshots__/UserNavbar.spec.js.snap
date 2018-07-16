@@ -14,6 +14,7 @@ exports[`User navbar should render the component without errors 1`] = `
     >
       <span
         className="nav-link-text"
+        id="home"
       >
         Home
       </span>
@@ -24,6 +25,7 @@ exports[`User navbar should render the component without errors 1`] = `
   >
     <Link
       className="nav-link"
+      id="view-centers"
       replace={false}
       to="/view-centers"
     >
@@ -39,6 +41,7 @@ exports[`User navbar should render the component without errors 1`] = `
   >
     <Link
       className="nav-link"
+      id="about"
       replace={false}
       to="/about"
     >
@@ -54,6 +57,7 @@ exports[`User navbar should render the component without errors 1`] = `
   >
     <Link
       className="nav-link"
+      id="dashboard"
       replace={false}
       to="/dashboard"
     >
@@ -69,6 +73,7 @@ exports[`User navbar should render the component without errors 1`] = `
   >
     <Link
       className="nav-link"
+      id="logout"
       onClick={[MockFunction]}
       replace={false}
       to="/"

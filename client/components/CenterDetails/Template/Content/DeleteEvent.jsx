@@ -11,7 +11,7 @@ export default class DeleteContent extends React.Component {
       state: { reason, suggestion }
     } = this.props;
     return (
-      <div className="form-inner">
+      <div className="form-inner" id="delete-content">
         <span className="help-block">Are sure you want to delete event?</span>
         <br />
         <br />

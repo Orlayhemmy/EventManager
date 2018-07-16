@@ -180,7 +180,7 @@ export class CenterForm extends React.Component {
           />
         </div>
         <input
-          id="add-event"
+          id="submit-center"
           type="submit"
           value="Add Center"
           class="btn btn-primary basic"

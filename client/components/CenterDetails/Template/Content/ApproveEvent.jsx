@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; //eslint-disable-line
 import PropTypes from 'prop-types';
 
 const ApproveEvent = (props) => {
@@ -9,7 +9,7 @@ const ApproveEvent = (props) => {
     state: { comment }
   } = props;
   return (
-    <div>
+    <div id="approve-event">
       <span>
         Are you sure you want to approve this event?
       </span>

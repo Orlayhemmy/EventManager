@@ -112,7 +112,7 @@ export class EditEventForm extends React.Component {
           </div>
           <div className="col-2">
             <input
-              id="add-event"
+              id="modify-date"
               type="button"
               value="Select"
               onClick={checkDate}
@@ -152,7 +152,7 @@ export class EditEventForm extends React.Component {
           />
         </div>
         <input
-          id="add-event"
+          id="edit-event"
           type="submit"
           value="Add Event"
           className="btn btn-primary"

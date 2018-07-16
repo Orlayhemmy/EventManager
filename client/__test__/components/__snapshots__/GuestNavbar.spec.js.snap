@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`guest navbar should render the component based 1`] = `
+exports[`guest navbar should render the component without error 1`] = `
 <ul
   className="navbar-nav ml-auto"
 >
@@ -9,6 +9,7 @@ exports[`guest navbar should render the component based 1`] = `
   >
     <Link
       className="nav-link active"
+      id="home"
       replace={false}
       to="/"
     >
@@ -24,6 +25,7 @@ exports[`guest navbar should render the component based 1`] = `
   >
     <Link
       className="nav-link"
+      id="view-centers"
       replace={false}
       to="/view-centers"
     >
@@ -39,6 +41,7 @@ exports[`guest navbar should render the component based 1`] = `
   >
     <Link
       className="nav-link"
+      id="about"
       replace={false}
       to="/about"
     >

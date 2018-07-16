@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * @description Signup component
+ */
 export default class Signup extends React.Component {
   render() {
     const {

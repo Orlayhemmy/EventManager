@@ -3,6 +3,7 @@
 exports[`Booked Event Component should render component without error 1`] = `
 <div
   className="col-lg-5"
+  id="event-list"
 >
   <div
     className="form-outer text-center d-flex align-items-center"
@@ -37,6 +38,7 @@ exports[`Booked Event Component should render component without error 1`] = `
           <tbody>
             <tr
               id={1}
+              key="1"
             >
               <td>
                 <span
@@ -80,6 +82,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={2}
+              key="2"
             >
               <td>
                 <span
@@ -116,6 +119,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={3}
+              key="3"
             >
               <td>
                 <span
@@ -159,6 +163,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={4}
+              key="4"
             >
               <td>
                 <span
@@ -195,6 +200,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={5}
+              key="5"
             >
               <td>
                 <span
@@ -238,6 +244,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={6}
+              key="6"
             >
               <td>
                 <span
@@ -274,6 +281,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={7}
+              key="7"
             >
               <td>
                 <span
@@ -317,6 +325,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={8}
+              key="8"
             >
               <td>
                 <span
@@ -353,6 +362,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={9}
+              key="9"
             >
               <td>
                 <span
@@ -396,6 +406,7 @@ exports[`Booked Event Component should render component without error 1`] = `
             </tr>
             <tr
               id={10}
+              key="10"
             >
               <td>
                 <span
