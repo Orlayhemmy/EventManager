@@ -10,22 +10,20 @@ exports[`Delete Event Component should render component without error 1`] = `
   </p>
   <i
     className="fa fa-trash red"
+    id="yes"
     onClick={[MockFunction]}
   />
   <i
     className="fa fa-save green"
+    id="no"
     onClick={[MockFunction]}
   />
   <br />
-  <span
-    id="yes"
-  >
+  <span>
     <br />
     Yes
   </span>
-  <span
-    id="no"
-  >
+  <span>
     <br />
     No
   </span>

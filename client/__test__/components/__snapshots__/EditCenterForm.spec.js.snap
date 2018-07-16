@@ -118,6 +118,7 @@ exports[`Edit center should render component without errors 1`] = `
       <input
         className="btn btn-sm btn-success p-1 mr-1"
         data-toggle-id="editCenterDetails"
+        id="edit-submit"
         type="button"
         value="save"
       />

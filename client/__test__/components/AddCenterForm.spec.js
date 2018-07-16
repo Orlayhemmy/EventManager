@@ -60,7 +60,7 @@ describe('CenterForm component', () => {
   });
   it('confirm the state contains the inputted data when submit is clicked', () => {
     const spy = sinon.spy(wrapper.instance(), 'onSubmit');
-    wrapper.find('#add-event').simulate('click');
+    wrapper.find('#submit-center').simulate('click');
     wrapper.setState({
       location: 'Lekki',
       description: 'A center with emotions',

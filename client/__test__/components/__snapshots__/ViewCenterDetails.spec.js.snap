@@ -54,6 +54,7 @@ exports[`View center details Component should render component without error 1`]
   <i
     className="fa fa-pencil-alt main-color"
     data-toggle-id="editCenterDetails"
+    id="edit-centerDetails"
     onClick={[MockFunction]}
   >
     edit

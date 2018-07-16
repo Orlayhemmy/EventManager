@@ -104,7 +104,7 @@ exports[`CenterForm component should render the component without error 1`] = `
   </div>
   <input
     className="btn btn-primary basic"
-    id="add-event"
+    id="submit-center"
     type="submit"
     value="Add Center"
   />

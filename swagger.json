@@ -18,7 +18,7 @@
     "/users": {
       "post": {
         "tags": ["User"],
-        "summary": "User registration",
+        "summary": "creates new users",
         "description":
           "Creates a new user and stores the information to the database.",
         "parameters": [
@@ -71,7 +71,7 @@
         "tags": ["User"],
         "summary": "Logs in a user",
         "description":
-          "Authenticates a user by checking if they exists in the database",
+          "Allows a user to log in to the application",
         "parameters": [
           {
             "in": "formData",
@@ -106,7 +106,7 @@
     },
     "/sendmail": {
       "post": {
-        "tags": ["User"],
+        "tags": ["Utils"],
         "summary": "Send mail",
         "description":
           "Send mail when a user has signed up",
