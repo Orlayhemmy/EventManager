@@ -53,12 +53,6 @@ app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-// app.all('*', (req, res) => {
-//   res.status(404).send({
-//     message: 'Route does not exist'
-//   });
-// });
-
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), () => {

@@ -15,523 +15,10 @@
     }
   },
   "paths": {
-    "/users": {
-      "post": {
-        "tags": ["User"],
-        "summary": "creates new users",
-        "description":
-          "Creates a new user and stores the information to the database.",
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "fullname",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "email",
-            "type": "string",
-            "format": "email",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "password",
-            "type": "string",
-            "format": "password",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "retypePass",
-            "type": "string",
-            "format": "password",
-            "required": true
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "409": {
-            "description": "Username or email taken"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/users/login": {
-      "post": {
-        "tags": ["User"],
-        "summary": "Logs in a user",
-        "description":
-          "Allows a user to log in to the application",
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "loginEmail",
-            "type": "string",
-            "format": "email",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "loginPassword",
-            "type": "string",
-            "format": "password",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Incorrect username or email"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/sendmail": {
-      "post": {
-        "tags": ["Utils"],
-        "summary": "Send mail",
-        "description":
-          "Send mail when a user has signed up",
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "email",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "message",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "title",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/passwordcheck": {
-      "post": {
-        "tags": ["User"],
-        "summary": "Check user password",
-        "description":
-          "Check users password in the database to confirm its validity",
-          "security": [
-            {
-              "UserToken": []
-            }
-          ],
-          "parameters": [
-          {
-            "in": "formData",
-            "name": "oldPassword",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/newpassword": {
-      "post": {
-        "tags": ["User"],
-        "summary": "Replace user password",
-        "description":
-          "Replace the old password with a new one",
-          "security": [
-            {
-              "UserToken": []
-            }
-          ],
-          "parameters": [
-          {
-            "in": "formData",
-            "name": "newPassword",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/checkDate": {
-      "post": {
-        "tags": ["Event"],
-        "summary": "Check date",
-        "description":
-          "Check users password in the database to confirm its validity",
-          "security": [
-            {
-              "UserToken": []
-            }
-          ],
-          "parameters": [
-          {
-            "in": "formData",
-            "name": "bookedDate",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Ok"
-          },
-          "404": {
-            "description": "Not found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/eventsbookedcount": {
-      "get": {
-        "tags": ["Event"],
-        "summary": "Gets user events count",
-        "description": "Gets all events count booked by this user",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/events": {
-      "post": {
-        "tags": ["Event"],
-        "summary": "Creates a new event",
-        "description": "Creates a new events and stores it to the database.",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "formData",
-            "name": "eventTitle",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "centerId",
-            "type": "string",
-            "format": "number",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "bookedDate",
-            "type": "string",
-            "format": "date",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "description",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "403": {
-            "description": "Access denied. You are not logged in"
-          },
-          "409": {
-            "description":
-              "Conflict, center is already booked for the date selected"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/events/{id}": {
-      "get": {
-        "tags": ["Event"],
-        "summary": "Gets single event",
-        "description": "Gets the specified event by the user",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Event"],
-        "summary": "delete an event",
-        "description": "delete the event with the id",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      },
-      "put": {
-        "tags": ["Event"],
-        "summary": "Modify event",
-        "description": "Modify the details of the specified event",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "eventTitle",
-            "type": "string",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "centerId",
-            "type": "string",
-            "format": "number",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "bookedDate",
-            "type": "string",
-            "format": "date",
-            "required": true
-          },
-          {
-            "in": "formData",
-            "name": "description",
-            "type": "string",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/centerEvents/{id}": {
-      "get": {
-        "tags": ["Event"],
-        "summary": "Gets all events",
-        "description": "Gets all events booked to a center",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/approveEvent/{id}": {
-      "put": {
-        "tags": ["Event"],
-        "summary": "Gets all events",
-        "description": "Gets all events booked to a center",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
-    "/userEvents": {
-      "get": {
-        "tags": ["Event"],
-        "summary": "Gets all events",
-        "description": "Gets all events booked to a center",
-        "security": [
-          {
-            "UserToken": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "No event found"
-          },
-          "500": {
-            "description": "Server Error"
-          }
-        }
-      }
-    },
     "/centers": {
       "post": {
-        "tags": ["Center"],
-        "summary": "Creates a new center",
+        "tags": ["Admin"],
+        "summary": "Creates a new center and stores it to the database.r",
         "description": "Creates a new center and stores it to the database.",
         "security": [
           {
@@ -601,8 +88,8 @@
         }
       },
       "get": {
-        "tags": ["Center"],
-        "summary": "Fetchs all centers",
+        "tags": ["User"],
+        "summary": "Get all the centers in the database",
         "description": "Get all the centers in the database",
         "security": [
           {
@@ -624,8 +111,8 @@
     },
     "/centers/{id}": {
       "put": {
-        "tags": ["Center"],
-        "summary": "Updates a center",
+        "tags": ["Admin"],
+        "summary": "Updates the details of a center in the database",
         "description": "Updates the details of a center in the database",
         "security": [
           {
@@ -698,8 +185,8 @@
         }
       },
       "get": {
-        "tags": ["Center"],
-        "summary": "Fetchs all centers",
+        "tags": ["Admin"],
+        "summary": "Get all the centers in the database",
         "description": "Get all the centers in the database",
         "security": [
           {
@@ -727,8 +214,8 @@
         }
       },
       "delete": {
-        "tags": ["Center"],
-        "summary": "delete a center",
+        "tags": ["Admin"],
+        "summary": "delete the center with the id from the database",
         "description": "delete the center with the id from the database",
         "security": [
           {
@@ -756,10 +243,523 @@
         }
       }
     },
+    "/centerEvents/{id}": {
+      "get": {
+        "tags": ["Admin"],
+        "summary": "Gets all events booked to a center",
+        "description": "Gets all events booked to a center",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/approveEvent/{id}": {
+      "put": {
+        "tags": ["Admin"],
+        "summary": "An admin Approves an event which a user registers on a center",
+        "description": "An admin Approves an event which a user registers on a center",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Creates a new user and stores the information to the database.",
+        "description":
+          "Creates a new user and stores the information to the database.",
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "fullname",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "format": "email",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "format": "password",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "retypePass",
+            "type": "string",
+            "format": "password",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "409": {
+            "description": "Username or email taken"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Allows a user to log in to the application",
+        "description":
+          "Allows a user to log in to the application",
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "loginEmail",
+            "type": "string",
+            "format": "email",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "loginPassword",
+            "type": "string",
+            "format": "password",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Incorrect username or email"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/sendmail": {
+      "post": {
+        "tags": ["Utils"],
+        "summary": "Send mail when a user has signed up",
+        "description":
+          "Send mail when a user has signed up",
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "message",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "title",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/passwordcheck": {
+      "post": {
+        "tags": ["Utils"],
+        "summary": "Check users password in the database to confirm its validity when the user wants to change his password",
+        "description":
+          "Check users password in the database to confirm its validity when the user wants to change his password",
+          "security": [
+            {
+              "UserToken": []
+            }
+          ],
+          "parameters": [
+          {
+            "in": "formData",
+            "name": "oldPassword",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/newpassword": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Change the user's the old password with a new one",
+        "description":
+          "Change the user's the old password with a new one",
+          "security": [
+            {
+              "UserToken": []
+            }
+          ],
+          "parameters": [
+          {
+            "in": "formData",
+            "name": "newPassword",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/checkDate": {
+      "post": {
+        "tags": ["Utils"],
+        "summary": "Check the date a user picked when booking a center to confirm if it is available",
+        "description":
+          "Check the date a user picked when booking a center to confirm if it is available",
+          "security": [
+            {
+              "UserToken": []
+            }
+          ],
+          "parameters": [
+          {
+            "in": "formData",
+            "name": "bookedDate",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ok"
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/eventsbookedcount": {
+      "get": {
+        "tags": ["Utils"],
+        "summary": "Gets the users events booked count",
+        "description": "Gets the users events booked count",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/events": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Creates a new events and stores it to the database.",
+        "description": "Creates a new events and stores it to the database.",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "eventTitle",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "centerId",
+            "type": "string",
+            "format": "number",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "bookedDate",
+            "type": "string",
+            "format": "date",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Access denied. You are not logged in"
+          },
+          "409": {
+            "description":
+              "Conflict, center is already booked for the date selected"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Gets the specified event by the user",
+        "description": "Gets the specified event by the user",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "delete the event with the id",
+        "description": "delete the event with the id",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["User"],
+        "summary": "Modify the details of the specified event",
+        "description": "Modify the details of the specified event",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "eventTitle",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "centerId",
+            "type": "string",
+            "format": "number",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "bookedDate",
+            "type": "string",
+            "format": "date",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/userEvents": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Gets all events booked to a center",
+        "description": "Gets all events booked to a center",
+        "security": [
+          {
+            "UserToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "No event found"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
     "/activity": {
       "get": {
-        "tags": ["Activities"],
-        "summary": "Gets activities",
+        "tags": ["Utils"],
+        "summary": "Gets all the activities the user have performed",
         "description": "Gets all the activities the user have performed",
         "security": [
           {
@@ -781,8 +781,8 @@
     },
     "/adminactivity": {
       "get": {
-        "tags": ["Activities"],
-        "summary": "Gets activities",
+        "tags": ["Utils"],
+        "summary": "Gets all the activities the admin have performed",
         "description": "Gets all the activities the admin have performed",
         "security": [
           {
