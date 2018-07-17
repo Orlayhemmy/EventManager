@@ -2,8 +2,6 @@ import expect from 'expect';
 import userReducer from '../../reducers/auth';
 import * as actionTypes from '../../actions/types';
 
-// import mockData from '../__mocks__/data/userData';
-
 describe('Authentication Reducer', () => {
   const initialState = {
     isAuth: false,

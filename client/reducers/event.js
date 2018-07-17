@@ -75,14 +75,7 @@ export default (state = initialState, action) => {
         disableDates
       };
     }
-    // case actionTypes.EVENT_SELECTED: {
-    //   const { eventId, eventTitle } = action.payload;
-    //   return {
-    //     ...state,
-    //     eventId,
-    //     eventTitle
-    //   };
-    // }
+    
     case actionTypes.GET_EVENT: {
       return {
         ...state,

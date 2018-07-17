@@ -12,22 +12,6 @@ describe.only('center reducers', () => {
     isAvailable: ''
   };
 
-  // it('should return the initial state', () => {
-  //   expect((undefined, {})).toEqual(initialState);
-  // });
-
-  // it('should return inital state on clear state', (done) => {
-  //   const action = { type: actionTypes.CLEAR_CENTER_STATE };
-  //   expect(eventReducer(initialState, action)).toEqual({
-  //     ...initialState,
-  //     loading: '',
-  //     loaded: '',
-  //     message: '',
-  //     status: ''
-  //   });
-  //   done();
-  // });
-
   it('should return inital state on get events', (done) => {
     const action = { type: actionTypes.GET_EVENTS };
     expect(eventReducer(initialState, action)).toEqual({

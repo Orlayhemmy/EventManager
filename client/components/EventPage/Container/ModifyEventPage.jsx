@@ -72,17 +72,13 @@ export class ModifyEventPage extends React.Component {
       const {
         description,
         eventTitle,
-        bookedDate,
-        // centerId
-        // Center: { centerName }
+        bookedDate
       } = nextProps.userEvent.event;
 
       this.setState({
         eventTitle: eventTitle || '',
         dateArray: bookedDate || '',
         description: description || '',
-        // centerName: centerName || '',
-        // centerId: centerId || ''
       });
     }
     if (nextProps.centerSelected.center) {
